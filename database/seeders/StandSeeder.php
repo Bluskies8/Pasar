@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\stand;
 use Illuminate\Database\Seeder;
-use App\Models\pasar;
 
-class PasarSeeder extends Seeder
+class StandSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,10 @@ class PasarSeeder extends Seeder
      */
     public function run()
     {
-        pasar::create([
-            'nama'=> "pasar 47",
-            'alamat'=>"JL. tanjungsari 47"
+        stand::create([
+            'seller_name' => 'Mario',
+            'Phone' => '123456789',
+            'jenis_jualan' => "salak"
         ]);
     }
 }
