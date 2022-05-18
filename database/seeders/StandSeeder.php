@@ -16,9 +16,22 @@ class StandSeeder extends Seeder
     public function run()
     {
         stand::create([
+            'no_stand' => '01',
             'seller_name' => 'Mario',
             'Phone' => '123456789',
             'jenis_jualan' => "salak"
+        ]);
+        stand::create([
+            'no_stand' => '02',
+            'seller_name' => 'toni',
+            'Phone' => '123456789',
+            'jenis_jualan' => "apel"
+        ]);
+        stand::create([
+            'no_stand' => '03',
+            'seller_name' => 'michael',
+            'Phone' => '123456789',
+            'jenis_jualan' => "jeruk"
         ]);
     }
 }

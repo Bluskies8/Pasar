@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('dtrans', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('role_id')->reference();
-            $table->string('email')->unique();
-            $table->string('pasar_id')->reference();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('htrans_id')->reference();
+            $table->string('nama_barang');
+            $table->string('tipe_berat');
+            $table->integer('jumlah');
+            $table->integer('harga');
+            $table->bigInteger('subtotal');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('dtrans');
     }
 };

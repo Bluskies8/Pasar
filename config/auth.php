@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'checkLogin' =>[
+            'driver' => 'session',
+            'provider' => 'users',
+            'hash' => true,
+        ]
     ],
 
     /*
