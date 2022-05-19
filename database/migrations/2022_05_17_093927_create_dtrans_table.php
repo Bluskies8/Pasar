@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->string('tipe_berat');
             $table->integer('jumlah');
-            $table->integer('harga');
-            $table->bigInteger('subtotal');
+            $table->bigInteger('harga')->nullable();
+            $table->bigInteger('subtotal')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

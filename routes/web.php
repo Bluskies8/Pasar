@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HtransController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('dashboard');
+});
+Route::get('tologin', function () {
     return view('login');
 });
+Route::get('totrans', function () {
+    return view('transaction');
+});
 Route::post('login',[DashboardController::class,'login']);
-Route::middleware(['login'])->group(function () {
-    
+Route::middleware(['checkLogin'])->group(function () {
+    Route::prefix('transaction')->group(function () {
+        Route::post('create',[HtransController::class,'store']);
+    });
 });

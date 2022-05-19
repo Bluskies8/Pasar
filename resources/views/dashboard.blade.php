@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    <button><a href="totrans">trans</a></button>
     <header class="w-100 d-flex" style="height: 50px;background: #dfe7f1;">
         <div class="h-100 p-1 d-flex align-items-center justify-content-center" style="min-width: 200px;max-width: 200px;border-right: 1px solid lightgrey;">
             <p style="color: rgb(24, 144, 255);font-size: 30px;font-weight: bold;">LOGO</p>

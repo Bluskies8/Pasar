@@ -37,27 +37,37 @@ class HtransController extends Controller
      */
     public function store(Request $request)
     {
-        $total = 0;
+        $total_jumlah = 0;
+        $total_harga = 0;
         $temp = htrans::create([
-            'pasar_id' => Auth::user()->pasar_id,
-            'user_id' => Auth::user()->id,
+            // 'pasar_id' => 1,
+            // 'user_id' => 1,
+            'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
+            'user_id' => Auth::guard('checkLogin')->user()->id,
             'stand_id' => $request->stand_id,
-            'total' => $request->total,
+            'Total_jumlah' => 0,
+            'Total_harga' => 0
         ]);
-        foreach ($request->items as $key ) {
+        foreach ($request->items as $key => $value) {
+            // dd($value);
             dtrans::create([
                 'htrans_id' => $temp->id,
-                'nama_barang' => $key->nama_barang,
-                'tipe_berat' => $key->tipe_berat,
-                'jumlah' => $key->jumlah,
-                'harga' => $key->harga,
-                'subtotal' => $key->subtotal
+                'nama_barang' => $value['nama_barang'],
+                'tipe_berat' => $value['tipe_berat'],
+                'jumlah' => $value['jumlah'],
+                'harga' => $value['harga'],
+                'subtotal' => $value['subtotal']
                 // 'subtotal' => $key->jumlah * $key->harga
             ]);
+            $total_jumlah+=$value['jumlah'];
             // $subtotal = $key->jumlah * $key->harga;
             // $total += $subtotal;
         }
-        return redirect()->back();
+        $data = htrans::where('id',$temp->id)->first();
+        $data->total_harga = $total_harga;
+        $data->total_jumlah = $total_jumlah;
+        $data->save();
+        return $temp;
     }
 
     /**
