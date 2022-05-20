@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('htrans', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->string('pasar_id')->reference();
             $table->string('user_id')->reference();
             $table->string('stand_id')->reference();

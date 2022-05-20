@@ -31,7 +31,8 @@ class RoleSeeder extends Seeder
             'role_id' => '1',
             'email' => 'michaelwibisono17@gmail.com',
             'pasar_id' => '1',
-            'password' => '$2y$10$20dNKaah/p.N3GelNUmm6e3t37AcbFpBbZ4V.hmlIL/016W3oL4FS'
+            'password' => '$2y$10$20dNKaah/p.N3GelNUmm6e3t37AcbFpBbZ4V.hmlIL/016W3oL4FS',
+            'shif' => 1
         ]);
     }
 }

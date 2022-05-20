@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('pasar_id')->reference();
             $table->string('password');
+            $table->integer('shif')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

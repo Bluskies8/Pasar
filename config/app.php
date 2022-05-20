@@ -16,7 +16,9 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
+    'timezone' => 'Asia/Jakarta',
+    'locale' => 'id',
+    'faker_locale' => 'id_ID',
     /*
     |--------------------------------------------------------------------------
     | Application Environment

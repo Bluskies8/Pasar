@@ -112,6 +112,7 @@ class HtransController extends Controller
      */
     public function destroy(htrans $htrans)
     {
+        dtrans::where('htrans_id',$htrans->id)->delete();
         $htrans->delete();
         return 'success';
     }
