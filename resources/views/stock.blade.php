@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-
 <body>
     <header class="w-100 d-flex" style="height: 50px;background: #dfe7f1;">
         <div class="h-100 p-1 d-flex align-items-center justify-content-center" style="min-width: 200px;max-width: 200px;border-right: 1px solid lightgrey;">
@@ -71,6 +70,14 @@
             </div><button class="btn position-absolute d-flex align-items-center justify-content-center p-1" id="minimize-nav" type="button" style="bottom: 0px;color: white;background-color: rgb(34,43,47);border-radius: 0px;box-shadow: none;width: 200px;"><i class="fas fa-chevron-left" id="minimize-icon"></i></button>
         </div>
         <div id="content" class="position-relative" style="width: calc(100% - 200px);">
+            @if (session('pesan'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="fa fa-times"></i>
+                </button>
+                {{session('pesan')}}
+            </div>
+            @endif
             <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
                 <div class="dropdown h-100"><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button">All Item</button>
                     <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
@@ -114,6 +121,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" role="dialog" tabindex="-1" id="modal-barang">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -122,49 +130,84 @@
                 </div>
                 <div class="modal-body" style="overflow-y: auto;max-height: 702px;">
                     <div id="modal-row" class="row">
-                        <div id="form-template" class="col-12 col-lg-6 col-xl-4 mb-3" style="display: none;">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                        <form name = "input_form" id = "input_form">
+                            {{-- @csrf --}}
+                            <div id="form-template" class="col-12 col-lg-6 col-xl-4 mb-3" style="display: none;">
+                                <div class="card" id="form-template1">
+                                    <div class="card-body">
+                                        <div class="position-relative mb-3"><input class="form-control" name = "kode" type="text" style="height: 32px;">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Kode</p>
+                                        </div>
+                                        <div class="position-relative mb-3"><input class="form-control" name = "nama" type="text" style="height: 32px;">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Barang</p>
                                         </div>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
-                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Satuan</p>
+                                        <div class="position-relative mb-3"><input class="form-control" name = "netto" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Netto</p>
                                         </div>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                        <div class="position-relative mb-3"><input class="form-control" name = "parkir" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Parkir</p>
+                                        </div>
+                                        <div class="position-relative mb-3"><input class="form-control" name = "jumlah" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Jumlah</p>
                                         </div>
-                                        <div class="position-relative"><input class="form-control" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                        {{-- <div class="position-relative"><input class="form-control" name = "harga" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Harga Satuan</p>
-                                        </div>
-                                    </form>
+                                        </div> --}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-lg-6 col-xl-4 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                        </form>
+                        <form id = "input-form" name = "input_form" action = "transaction/create" method = "POST">
+                            <div class="col-12 col-lg-6 col-xl-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        @csrf
+                                        <div class="position-relative mb-3"><input class="form-control" name = "kode[]" type="text" style="height: 32px;">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Kode</p>
+                                        </div>
+                                        <div class="position-relative mb-3"><input class="form-control" name = "nama[]" type="text" style="height: 32px;">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Barang</p>
                                         </div>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
-                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Satuan</p>
+                                        <div class="position-relative mb-3"><input class="form-control" name = "netto[]" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Netto</p>
                                         </div>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                        <div class="position-relative mb-3"><input class="form-control" name = "parkir[]" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Parkir</p>
+                                        </div>
+                                        <div class="position-relative mb-3"><input class="form-control" name = "jumlah[]" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Jumlah</p>
                                         </div>
-                                        <div class="position-relative"><input class="form-control" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
-                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Harga Satuan</p>
-                                        </div>
-                                    </form>
+                                        <button type="submit">submit</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-12 col-lg-6 col-xl-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        {{-- @csrf --}}
+                                        <div class="position-relative mb-3"><input class="form-control" name = "kode[]" type="text" style="height: 32px;">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Kode</p>
+                                        </div>
+                                        <div class="position-relative mb-3"><input class="form-control" name = "nama[]" type="text" style="height: 32px;">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Barang</p>
+                                        </div>
+                                        <div class="position-relative mb-3"><input class="form-control" name = "netto[]" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Netto</p>
+                                        </div>
+                                        <div class="position-relative mb-3"><input class="form-control" name = "parkir[]" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Parkir</p>
+                                        </div>
+                                        <div class="position-relative mb-3"><input class="form-control" name = "jumlah[]" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                            <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Jumlah</p>
+                                        </div>
+                                        <button type="submit">submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Batal</button><button class="btn" id="new-form" type="button" style="background: var(--bs-teal);color: white;">Tambah Form Baru</button><button class="btn" id="save-barang" type="submit" style="background: rgb(24, 144, 255);color: white;">Simpan</button></div>
+                        </form>
                     </div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Batal</button><button class="btn" id="new-form" type="button" style="background: var(--bs-teal);color: white;">Tambah Form Baru</button><button class="btn" id="save-barang" type="button" style="background: rgb(24, 144, 255);color: white;">Simpan</button></div>
             </div>
         </div>
     </div>
@@ -173,8 +216,8 @@
     <script src="assets/js/bs-init.js"></script>
     <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
-    <script src="assets/js/side-nav.js"></script>
-    <script src="assets/js/table-item.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/side-nav.js') }} "></script>
+    <script type="text/javascript" src="{{ asset('assets/js/table-item.js') }} "></script>
 </body>
 
 </html>
