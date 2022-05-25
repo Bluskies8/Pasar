@@ -18,10 +18,11 @@ class role
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check())
-            return redirect('login');
+        // dd(Auth::guard('checkLogin')->check());
+        if (!Auth::guard('checkLogin')->check())
+            return redirect('tologin');
 
-        $user = Auth::user();
+        $user = Auth::guard('checkLogin')->user();
         $roles = ModelsRole::get();
         if($user->role_id == 1)
             return $next($request);
@@ -32,6 +33,6 @@ class role
                 return $next($request);
         }
 
-        return redirect('login');
+        return redirect('tologin');
     }
 }

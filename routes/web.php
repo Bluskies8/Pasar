@@ -24,9 +24,12 @@ Route::get('tologin', function () {
 Route::get('totrans', function () {
     return view('transaction');
 });
+Route::get('stock', function () {
+    return view('stock');
+});
 Route::post('login',[DashboardController::class,'login']);
-Route::middleware(['checkLogin'])->group(function () {
+Route::middleware(['checkLogin','checkshif'])->group(function () {
     Route::prefix('transaction')->group(function () {
-        Route::post('create',[HtransController::class,'store']);
+        Route::post('create',[HtransController::class,'store'])->middleware('role:3');
     });
 });

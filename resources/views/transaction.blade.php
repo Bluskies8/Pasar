@@ -1,4 +1,4 @@
-<form action="transaction/create" method="post">
+{{-- <form action="transaction/create" method="post">
     @csrf
     <input type="text" name="stand_id" id="stand_id" placeholder = "Stand"><br>
 
@@ -9,8 +9,7 @@
     <input type="text" name="subtotal" id="subtotal" placeholder = "subtotal"><br>
     <button type="submit">submit</button>
 </form>
-<button onclick="add()">add Barang</button>
-
+<button onclick="add()">add Barang</button> --}}
 {{-- bisa kirim data json kek seng bawah iki gk?? --}}
 {{-- {
     "stand_id" : "1",

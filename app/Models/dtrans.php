@@ -10,11 +10,15 @@ class dtrans extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
+        'id',
         'htrans_id',
         'nama_barang',
-        'tipe_berat',
+        'kode',
         'jumlah',
-        'harga',
+        'netto',
+        'bruto',
+        'round',
+        'parkir',
         'subtotal',
     ];
 }

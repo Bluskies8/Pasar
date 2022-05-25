@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <button><a href="totrans">trans</a></button>
+    <button><a href="stock">trans</a></button>
     <header class="w-100 d-flex" style="height: 50px;background: #dfe7f1;">
         <div class="h-100 p-1 d-flex align-items-center justify-content-center" style="min-width: 200px;max-width: 200px;border-right: 1px solid lightgrey;">
             <p style="color: rgb(24, 144, 255);font-size: 30px;font-weight: bold;">LOGO</p>
@@ -39,10 +39,10 @@
         <div id="side-nav" class="position-relative" style="width: 200px;height: calc(100vh - 50px);background: rgb(45,55,60);color: white;">
             <div id="nav-group-1" class="nav-group py-2">
                 <div id="nav-item-dashboard" class="d-flex align-items-center ps-3 nav-item active"><i class="fas fa-tachometer-alt me-3"></i>
-                    <p>Dashboard</p>
+                    <a href="/">Dashboard</a>
                 </div>
                 <div id="nav-item-items" class="d-flex align-items-center ps-3 nav-item"><i class="fas fa-shopping-basket me-3"></i>
-                    <p>Items</p>
+                    <a href="stock">Items</a>
                 </div>
             </div>
             <div id="nav-group-2" class="nav-group py-2">

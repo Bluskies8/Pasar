@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('pasar_id')->reference();
             $table->string('user_id')->reference();
             $table->string('stand_id')->reference();
+            $table->string('transportasi');
             $table->bigInteger('Total_jumlah');
             $table->bigInteger('Total_harga')->nullable();
             $table->timestamps();

@@ -15,6 +15,7 @@ class StandSeeder extends Seeder
      */
     public function run()
     {
+        //stand 35
         stand::create([
             'no_stand' => '01',
             'seller_name' => 'Mario',

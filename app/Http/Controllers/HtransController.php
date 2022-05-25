@@ -37,37 +37,79 @@ class HtransController extends Controller
      */
     public function store(Request $request)
     {
+        // return ['msg'=>"masuk"];
+        // return json_decode($request->nama,true);
+        // dd($request->all());
+
+        // return response()->json(['$data'=>$request->all()]);
+        $bruto = 0;
+        $netto = 0;
         $total_jumlah = 0;
         $total_harga = 0;
+        $count = htrans::where('pasar_id',1)->count()+1;
+        // $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0");
+
+        $id = "HT01".str_pad($count,2,'0',STR_PAD_LEFT);
+        // return $temp;
         $temp = htrans::create([
-            // 'pasar_id' => 1,
-            // 'user_id' => 1,
-            'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
-            'user_id' => Auth::guard('checkLogin')->user()->id,
+            'id'=> $id,
+            'pasar_id' => 1,
+            'user_id' => 1,
+            // 'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
+            // 'user_id' => Auth::guard('checkLogin')->user()->id,
             'stand_id' => $request->stand_id,
+            'transportasi' => $request->transportasi,
             'Total_jumlah' => 0,
             'Total_harga' => 0
         ]);
-        foreach ($request->items as $key => $value) {
-            // dd($value);
+        foreach ($request->items as $key) {
+            switch ($key['kode']) {
+                case 'k':
+                    $bruto = $key['jumlah']/5;
+                    break;
+                case 'b':
+                    $bruto = $key['jumlah']/3;
+                    break;
+                case 'td':
+                    $bruto = $key['jumlah']/1.5;
+                    break;
+                case 'dt':
+                    $bruto = $key['jumlah']*1.5;
+                    break;
+                case 'sd':
+                    $bruto = $key['jumlah']/2;
+                    break;
+                case 'p':
+                    $bruto = $key['jumlah']*1;
+                    break;
+                case 't':
+                    $bruto = $key['jumlah']/50;
+                    break;
+            }
+            $round = round($bruto);
+            // dd($key);
+            $subtotal = $key['netto']*$round;
+            // return $temp->nama_baran;
             dtrans::create([
                 'htrans_id' => $temp->id,
-                'nama_barang' => $value['nama_barang'],
-                'tipe_berat' => $value['tipe_berat'],
-                'jumlah' => $value['jumlah'],
-                'harga' => $value['harga'],
-                'subtotal' => $value['subtotal']
-                // 'subtotal' => $key->jumlah * $key->harga
+                'kode' => $key['kode'],
+                'nama_barang' => $key['nama'],
+                'jumlah' => $key['jumlah'],
+                'bruto' => $bruto,
+                'round' => $round,
+                'netto' => $key['netto'],
+                'parkir' => $key['parkir'],
+                'subtotal' => $subtotal
             ]);
-            $total_jumlah+=$value['jumlah'];
-            // $subtotal = $key->jumlah * $key->harga;
-            // $total += $subtotal;
+            $total_jumlah+=$round;
+            $total_harga+=$subtotal+$key['parkir'];
         }
         $data = htrans::where('id',$temp->id)->first();
         $data->total_harga = $total_harga;
         $data->total_jumlah = $total_jumlah;
         $data->save();
-        return $temp;
+        $data = htrans::where('id',$temp->id)->first();
+        return redirect()->back();
     }
 
     /**

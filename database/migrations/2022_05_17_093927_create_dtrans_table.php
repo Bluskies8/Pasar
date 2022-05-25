@@ -16,11 +16,14 @@ return new class extends Migration
         Schema::create('dtrans', function (Blueprint $table) {
             $table->id();
             $table->string('htrans_id')->reference();
+            $table->string('kode');
             $table->string('nama_barang');
-            $table->string('tipe_berat');
             $table->integer('jumlah');
-            $table->bigInteger('harga')->nullable();
-            $table->bigInteger('subtotal')->nullable();
+            $table->double('bruto');
+            $table->integer('round');
+            $table->integer('netto');
+            $table->integer('parkir');
+            $table->bigInteger('subtotal');
             $table->timestamps();
             $table->softDeletes();
         });
