@@ -16,16 +16,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('pages/dashboard');
 });
 Route::get('tologin', function () {
-    return view('login');
+    return view('pages/login');
 });
 Route::get('totrans', function () {
     return view('transaction');
 });
 Route::get('stock', function () {
-    return view('stock');
+    return view('pages/stock');
+});
+Route::get('details', function () {
+    return view('pages/stockDetail');
 });
 Route::post('login',[DashboardController::class,'login']);
 Route::middleware(['checkLogin','checkshif'])->group(function () {
