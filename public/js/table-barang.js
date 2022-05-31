@@ -36,10 +36,6 @@ $(document).ready(function(){
         temp.show();
     }
 
-    $('#modal-row .dropdown-item').on('click', function() {
-        $(this).parent().siblings(".btn").html($(this).text());
-    });
-
     //set thousand separator
     let separatorInterval = setInterval(function() {
         let length = $('.thousand-separator').length;

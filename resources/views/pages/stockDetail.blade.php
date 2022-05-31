@@ -89,9 +89,15 @@
                                     <form>
                                         <div class="d-flex align-items-center mb-3">
                                             <p class="me-2">Kode</p>
-                                            <div class="dropdown"><button class="btn dropdown-toggle px-2 py-1" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="border-style: solid;border-color: var(--bs-dark);">K</button>
-                                                <div class="dropdown-menu"><a class="dropdown-item">K</a><a class="dropdown-item">B</a><a class="dropdown-item">TD</a><a class="dropdown-item">DT</a><a class="dropdown-item">SD</a><a class="dropdown-item">P</a><a class="dropdown-item">T</a></div>
-                                            </div>
+                                            <select class="form-select form-select-sm">
+                                                <option value="K">Kecil</option>
+                                                <option value="B">Besar</option>
+                                                <option value="TD">Tiga per Dua</option>
+                                                <option value="DT">Dua per Tiga</option>
+                                                <option value="SD">Satu per Dua</option>
+                                                <option value="P">Peti</option>
+                                                <option value="T">Tonase</option>
+                                            </select>
                                         </div>
                                         <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Barang</p>
@@ -105,9 +111,14 @@
                                     </form>
                                     <div class="d-flex align-items-center mb-3">
                                         <p class="me-2">Parkir</p>
-                                        <div class="dropdown"><button class="btn dropdown-toggle px-2 py-1" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="border-style: solid;border-color: var(--bs-dark);">0</button>
-                                            <div class="dropdown-menu"><a class="dropdown-item">0</a><a class="dropdown-item">3.000</a><a class="dropdown-item">5.000</a><a class="dropdown-item">10.000</a><a class="dropdown-item">20.000</a><a class="dropdown-item">50.000</a></div>
-                                        </div>
+                                        <select class="form-select-sm form-select">
+                                            <option value="0" selected>0</option>
+                                            <option value="3000">3.000</option>
+                                            <option value="5000">5.000</option>
+                                            <option value="10000">10.000</option>
+                                            <option value="20000">20.000</option>
+                                            <option value="50000">50.000</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
