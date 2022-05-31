@@ -1,22 +1,32 @@
 @extends('layouts.default')
 
 @section('content')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 
     <header id="content-header" class="d-flex align-items-center justify-content-between px-2" style="height: 50px;">
-        <p>ID Transaksi :&nbsp;<span id="id-transaksi">ID0001</span></p>
+        @if ($data['id'])
+            <p>ID Transaksi :&nbsp;<span id="id-transaksi">{{$data->id}}</span></p>
+        @else
+            <p>ID Transaksi :&nbsp;<span id="id-transaksi"></span></p>
+        @endif
         <p class="d-flex align-items-center" style="white-space: nowrap; width: 200px;">Nama Lapak :&nbsp;
+            @if ($data['value'])
             <span id="nama-pelapak"></span>
-            <input list="list-pelapak" class="form-select-sm">
+            <input id = "pelapak" list="list-pelapak" class="form-select-sm">
             <datalist id="list-pelapak">
-                <option value="Adam">
-                <option value="Agus">
-                <option value="Ben">
-                <option value="Donny">
+                @foreach ($stand as $item)
+                <option id = "{{$item['id']}}" value="{{$item['seller_name']}}">
+                @endforeach
             </datalist>
+            @else
+            <span id="nama-pelapak">{{$stand['seller_name']}}</span>
+            @endif
         </p>
+        @if ($role == 3)
         <button class="btn btn-sm" id="tambah-barang" type="button" style="background: rgb(24, 144, 255);color: var(--bs-white);">Tambah Barang</button>
+        @endif
     </header>
     <hr class="my-0">
     <div class="table-responsive p-3 pb-0" style="max-height: 81.8vh;overflow-y: auto;">
@@ -26,62 +36,43 @@
                     <th>Kode</th>
                     <th>Nama Barang</th>
                     <th>Jumlah</th>
+                    <th>Bruto</th>
+                    <th>Round</th>
                     <th>Netto</th>
                     <th>Parkir</th>
+                    <th>Subtotal</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="text-center">K</td>
-                    <td>Pisang</td>
-                    <td class="text-center">113</td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator data-netto">3000</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator">3000</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">P</td>
-                    <td>Salak</td>
-                    <td class="text-center">5</td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator data-netto">3000</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator">3000</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">B</td>
-                    <td>Durian</td>
-                    <td class="text-center">10</td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator data-netto">30000</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator">3000</p>
-                        </div>
-                    </td>
-                </tr>
+                @isset($data->details)
+                @foreach ($data->details as $item)
+                    <tr>
+                        <td class="text-center">K</td>
+                        <td>{{$item->nama_barang}}</td>
+                        <td class="text-center">{{$item->jumlah}}</td>
+                        <td class="text-center">{{$item->bruto}}</td>
+                        <td class="text-center">{{$item->round}}</td>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <p>Rp</p>
+                                <p class="thousand-separator data-netto">{{$item->netto}}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <p>Rp</p>
+                                <p class="thousand-separator">{{$item->parkir}}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <p>Rp</p>
+                                <p class="thousand-separator">{{$item->subtotal}}</p>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+                @endisset
             </tbody>
         </table>
     </div>
@@ -99,29 +90,29 @@
                                     <form>
                                         <div class="d-flex align-items-center mb-3">
                                             <p class="me-2">Kode</p>
-                                            <select class="form-select form-select-sm">
-                                                <option value="K">Kecil</option>
-                                                <option value="B">Besar</option>
-                                                <option value="TD">Tiga per Dua</option>
-                                                <option value="DT">Dua per Tiga</option>
-                                                <option value="SD">Satu per Dua</option>
-                                                <option value="P">Peti</option>
-                                                <option value="T">Tonase</option>
+                                            <select name = "kode[]" class="form-select form-select-sm">
+                                                <option value="k">Kecil</option>
+                                                <option value="b">Besar</option>
+                                                <option value="td">Tiga per Dua</option>
+                                                <option value="dt">Dua per Tiga</option>
+                                                <option value="sd">Satu per Dua</option>
+                                                <option value="p">Peti</option>
+                                                <option value="t">Tonase</option>
                                             </select>
                                         </div>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                                        <div class="position-relative mb-3"><input class="form-control" name = "nama[]" type="text" style="height: 32px;">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Barang</p>
                                         </div>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                                        <div class="position-relative mb-3"><input class="form-control" name = "jumlah[]" type="text" style="height: 32px;">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Jumlah</p>
                                         </div>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                        <div class="position-relative mb-3"><input class="form-control" name = "netto[]" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Netto</p>
                                         </div>
                                     </form>
                                     <div class="d-flex align-items-center mb-3">
                                         <p class="me-2">Parkir</p>
-                                        <select class="form-select-sm form-select">
+                                        <select name = "parkir[]" class="form-select-sm form-select">
                                             <option value="0" selected>0</option>
                                             <option value="3000">3.000</option>
                                             <option value="5000">5.000</option>

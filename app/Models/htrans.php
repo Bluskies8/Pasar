@@ -19,4 +19,12 @@ class htrans extends Model
         'Total_harga',
         'transportasi'
     ];
+    public function details()
+    {
+        return $this->hasMany(dtrans::class,'htrans_id','id');
+    }
+    public function stand()
+    {
+        return $this->belongsTo(stand::class,'stand_id','id');
+    }
 }

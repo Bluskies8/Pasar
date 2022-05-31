@@ -21,4 +21,8 @@ class dtrans extends Model
         'parkir',
         'subtotal',
     ];
+    public function htrans()
+    {
+        return $this->belongsTo(htrans::class,'id','id');
+    }
 }

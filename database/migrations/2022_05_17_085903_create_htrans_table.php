@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('user_id')->reference();
             $table->string('stand_id')->reference();
             $table->string('transportasi');
-            $table->bigInteger('Total_jumlah');
-            $table->bigInteger('Total_harga')->nullable();
+            $table->bigInteger('total_jumlah');
+            $table->bigInteger('total_harga')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

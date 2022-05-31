@@ -22,11 +22,17 @@ class checkshif
         // $cekuser = User::where('email',$request->email)->first();
         $cekuser = Auth::guard('checkLogin')->user();
         $time = Carbon::now();
-        $cekshif = shif::where('id',$cekuser->shif)->first();
-        if($time->format('H:i:s') < $cekshif->end && $time->format('H:i:s') > $cekshif->start){
-            return $next($request);
+        $cekshif = shif::where('number',$cekuser->shif)->first();
+        if($cekuser->role_id == 3){
+            // return $next($request);
+            if($time < $cekshif->end && $time > $cekshif->start) {
+                return $next($request);
+            }else{
+                return redirect('tologin');
+            }
         }else{
-            return redirect()->back()->with('pesan','shif anda telah selesai');
+            return $next($request);
         }
+
     }
 }

@@ -16,16 +16,22 @@ class ShifSeeder extends Seeder
     public function run()
     {
         shif::create([
-            'start' => '08:00:00',
-            'end' => '15:00:00',
+            'pasar_id' => '1',
+            'number' => 1,
+            'start' => '2022-05-30 08:00:00',
+            'end' => '2022-05-30 15:00:00',
         ]);
         shif::create([
-            'start' => '15:00:00',
-            'end' => '22:00:00',
+            'pasar_id' => '1',
+            'number' => 2,
+            'start' => '2022-05-30 15:00:00',
+            'end' => '2022-05-30 22:00:00',
         ]);
         shif::create([
-            'start' => '22:00:00',
-            'end' => '08:00:00',
+            'pasar_id' => '1',
+            'number' => 3,
+            'start' => '2022-05-30 22:00:00',
+            'end' => '2022-05-31 08:00:00',
         ]);
     }
 }

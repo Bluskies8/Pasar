@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('stands', function (Blueprint $table) {
             $table->id();
-            $table->integer('no_stand');
+            $table->string('no_stand');
+            $table->string('pasar_id')->reference();
+            $table->string('badan_usaha');
             $table->string('seller_name');
             $table->string('Phone');
             $table->string('jenis_jualan');

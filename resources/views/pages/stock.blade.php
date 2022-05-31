@@ -8,9 +8,11 @@
         <div class="dropdown h-100"><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button">All Item</button>
             <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
         </div>
+        @if ($role==3)
         <a href="/details">
             <button class="btn btn-sm me-2" id="tambah-transaksi" type="button" style="">Transaksi Baru</button>
         </a>
+        @endif
     </header>
     <hr class="my-0">
     <div class="table-responsive p-3" style="max-height: 81.8vh;overflow-y: auto;">
@@ -25,42 +27,22 @@
                 </tr>
             </thead>
             <tbody>
+                @isset($data)
+                @foreach ($data as $item)
                 <tr>
-                    <td class="cell-id">ID0001</td>
-                    <td>Wawan</td>
-                    <td>24 Mei 2022</td>
+                    <td class="cell-id">{{$item['id_trans']}}</td>
+                    <td>{{$item['nama']}}</td>
+                    <td>{{$item['tanggal']}}</td>
                     <td>
                         <div class="d-flex justify-content-between">
                             <p>Rp</p>
-                            <p class="thousand-separator">73000</p>
+                            <p class="thousand-separator">{{$item['total']}}</p>
                         </div>
                     </td>
                     <td class="position-relative" style="padding: 5px 4px;"><button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button></td>
                 </tr>
-                <tr>
-                    <td class="cell-id">ID0002</td>
-                    <td>Bison</td>
-                    <td>24 Mei 2022</td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator">51000</p>
-                        </div>
-                    </td>
-                    <td class="position-relative" style="padding: 5px 4px;"><button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button></td>
-                </tr>
-                <tr>
-                    <td class="cell-id">ID0003</td>
-                    <td>Kevin</td>
-                    <td>24 Mei 2022</td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator">69000</p>
-                        </div>
-                    </td>
-                    <td class="position-relative" style="padding: 5px 4px;"><button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button></td>
-                </tr>
+                @endforeach
+                @endisset
             </tbody>
         </table>
     </div>

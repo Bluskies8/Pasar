@@ -98,14 +98,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Barang A</td>
-                            <td>Kg</td>
-                            <td>2</td>
-                            <td>50000</td>
-                            <td>100000</td>
-                        </tr>
+
                         <tr>
                             <td><input type="checkbox"></td>
                             <td>Barang B</td>

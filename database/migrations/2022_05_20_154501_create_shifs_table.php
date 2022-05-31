@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('shifs', function (Blueprint $table) {
             $table->id();
-            $table->time('start');
-            $table->time('end');
+            $table->string('pasar_id')->reference();
+            $table->integer('number')->reference();
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->timestamps();
         });
     }
