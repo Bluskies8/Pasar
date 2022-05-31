@@ -5,16 +5,8 @@ $(document).ready(function(){
     });
 
     if ($('#nama-pelapak').text() != '') {
-        $('#input-pelapak').hide();
+        $('#dropdown-pelapak').hide();
     }
-
-    $('#input-pelapak').keyup(function(e) {
-        if (e.keyCode == 13)
-        {
-            $('#nama-pelapak').text($(this).val());
-            $(this).hide();
-        }
-    });
 
     var formId = 0;
     $('#tambah-barang').on('click', function() {

@@ -6,7 +6,17 @@
 
     <header id="content-header" class="d-flex align-items-center justify-content-between px-2" style="height: 50px;">
         <p>ID Transaksi :&nbsp;<span id="id-transaksi">ID0001</span></p>
-        <p>Nama Lapak :&nbsp;<span id="nama-pelapak"></span><input type="text" id="input-pelapak" style="width: 150px;"></p><button class="btn btn-sm" id="tambah-barang" type="button" style="background: rgb(24, 144, 255);color: var(--bs-white);">Tambah Barang</button>
+        <p class="d-flex align-items-center" style="white-space: nowrap; width: 200px;">Nama Lapak :&nbsp;
+            <span id="nama-pelapak"></span>
+            <input list="list-pelapak" class="form-select-sm">
+            <datalist id="list-pelapak">
+                <option value="Adam">
+                <option value="Agus">
+                <option value="Ben">
+                <option value="Donny">
+            </datalist>
+        </p>
+        <button class="btn btn-sm" id="tambah-barang" type="button" style="background: rgb(24, 144, 255);color: var(--bs-white);">Tambah Barang</button>
     </header>
     <hr class="my-0">
     <div class="table-responsive p-3 pb-0" style="max-height: 81.8vh;overflow-y: auto;">
