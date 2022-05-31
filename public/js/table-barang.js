@@ -68,6 +68,7 @@ $(document).ready(function(){
             },
             success: function(data) {
                 console.log(data);
+                //pindah ke halaman stock dan data masuk ke tabel
                 if(data == "Berhasil Input data")
                 $('#modal-barang').modal('hide');
             },
