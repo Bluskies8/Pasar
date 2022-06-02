@@ -16,7 +16,7 @@
     </header>
     <hr class="my-0">
     <div class="table-responsive p-3" style="max-height: 81.8vh;overflow-y: auto;">
-        <table class="table table-striped" id="table-transaksi">
+        <table class="table table-hover" id="table-transaksi">
             <thead>
                 <tr class="text-center">
                     <th>ID Transaksi</th>

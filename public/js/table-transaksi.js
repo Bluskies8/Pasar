@@ -12,7 +12,7 @@ $(document).ready(function(){
     });
 
     $('#item-detail').on('click', function() {
-        $(location).prop('href', 'details/' /* + currentID*/); //remark nanti dibuang kalau id sudah benar
+        $(location).prop('href', 'details/'  + currentID); //remark nanti dibuang kalau id sudah benar
     });
 
     $(document).on('click', function() {

@@ -34,6 +34,7 @@ class HtransController extends Controller
             'role'=> Auth::guard('checkLogin')->user()->role_id
         ]);
     }
+
     public function detailspage()
     {
         $stand = stand::get();
@@ -46,6 +47,7 @@ class HtransController extends Controller
             'role' => Auth::guard('checkLogin')->user()->role_id
         ]);
     }
+
     public function details($htrans)
     {
         // $data = dtrans::where('htrans_id',$htrans)->get();

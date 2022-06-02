@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     $('#table-barang').DataTable({
         paging: false,
         info: false,
@@ -8,86 +9,30 @@ $(document).ready(function(){
         $('#dropdown-pelapak').hide();
     }
 
-    var formId = 0;
+    var formCount;
     $('#tambah-barang').on('click', function() {
-        if ($('#modal-row').children().length == 1) {
-            cloneTemplate();
-            $("#form-template").hide();
-        }
+        formCount = 0;
+        let save = $('#form-template').detach();
+        $('#modal-row').empty().append(save);
+        cloneForm();
         $('#modal-barang').modal('show');
         $('#new-form').show();
     });
 
     $('#new-form').on('click', function() {
-        cloneTemplate();
+        cloneForm();
     });
-    $('#save-barang').on('click', function(e) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                // 'contentType' : "application/json",
-            }
-        });
-        e.preventDefault();
-        var data = [];
-        var kode = document.getElementsByName('kode[]');
-        var nama = document.getElementsByName('nama[]');
-        var netto = document.getElementsByName('netto[]');
-        var parkir = document.getElementsByName('parkir[]');
-        var jumlah = document.getElementsByName('jumlah[]');
-        var lapak = document.getElementsByName('pelapak');
 
-        var temp=$("#pelapak").val();
-        var lapak =  $('#list-pelapak').find('option[value="' +temp + '"]').attr('id');;
-        var val = 0;
-        $("input[name = 'nama[]']").each(function(){
-            if(val > 0){
-                data.push({
-                    kode: kode[val].value,
-                    nama:nama[val].value,
-                    netto:netto[val].value,
-                    parkir:parkir[val].value,
-                    jumlah:jumlah[val].value
-                });
-            }
-            val++;
-        });
-            console.log(data);
-        $.ajax({
-            type: "POST",
-            url: "transaction/create",
-            // dataType: "json",
-            // data: $('form').serialize(),
-            data: {
-                stand_id: lapak,
-                transportasi:"pick up",
-                items:data
-            },
-            beforeSend: function(){
-                console.log( this.data );
-            },
-            success: function(data) {
-                console.log(data);
-                //pindah ke halaman stock dan data masuk ke tabel
-                if(data == "Berhasil Input data")
-                $('#modal-barang').modal('hide');
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                // JSON.parse(undefined);
-                console.log(xhr.status);
-                console.log(thrownError);
-                // console.log(ajaxOptions);
-            },
-        });
-    });
-    function cloneTemplate() {
-        formId++;
-        let temp = $("#form-template").clone().prop('id', 'form-' + formId).appendTo("#modal-row");
+    function cloneForm() {
+        formCount++;
+        let temp = $('#form-template').clone().prop('id', 'form-' + formCount).appendTo("#modal-row");
         temp.show();
     }
 
     //set thousand separator
-    let separatorInterval = setInterval(function() {
+    var separatorInterval = setInterval(setThousandSeparator, 10);
+
+    function setThousandSeparator () {
         let length = $('.thousand-separator').length;
         if (length != 0) {
             $('.thousand-separator').each(function(index, element) {
@@ -102,5 +47,94 @@ $(document).ready(function(){
             });
             clearInterval(separatorInterval);
         }
-    }, 10);
+    }
+
+    $('#save-barang').on('click', function() {
+        // add form barang ke table
+        let kode = $('select[name="kode"]');
+        let nama = $('input[name="nama"]');
+        let jumlah = $('input[name="jumlah"]');
+        let netto = $('input[name="netto"]');
+        let parkir = $('select[name="parkir"]');
+
+        for (let i = 1; i < formCount + 1; i++) {
+            let temp = $('#tr-template').clone().appendTo("#table-barang tbody");
+            temp.find('.data-kode').html(kode[i].value);
+            temp.find('.data-nama').html(nama[i].value);
+            temp.find('.data-jumlah').html(jumlah[i].value);
+            temp.find('.data-netto').text(netto[i].value);
+            temp.find('.data-parkir').text(parkir[i].value);
+            temp.show();
+        }
+        separatorInterval = setInterval(setThousandSeparator, 10);
+    });
+
+    $('#save-detail').on('click', function(e) {
+        // insert data table ke db
+        let save = $('#tr-template').detach();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                // 'contentType' : "application/json",
+            }
+        });
+        e.preventDefault();
+
+        let lapak =  $('#list-pelapak').find('option[value="' + $('#pelapak').val() + '"]').attr('id');
+        let data = [];
+        $('tbody tr').each(function() {
+            let netto = $(this).find('.data-netto').html();
+            while(netto.indexOf('.') != -1){
+                netto = netto.replace('.', '');
+            }
+
+            let parkir = $(this).find('.data-parkir').html();
+            while(parkir.indexOf('.') != -1){
+                parkir = parkir.replace('.', '');
+            }
+
+            data.push({
+                kode: $(this).find('.data-kode').html(),
+                nama: $(this).find('.data-nama').html(),
+                jumlah: $(this).find('.data-jumlah').html(),
+                netto: netto,
+                parkir: parkir
+            });
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "transaction/create",
+            // dataType: "json",
+            // data: $('form').serialize(),
+            data: {
+                stand_id: lapak,
+                transportasi:"pick up",
+                items:data
+            },
+            beforeSend: function(){
+                console.log(this.data);
+            },
+            success: function(data) {
+                console.log(data);
+                //pindah ke halaman stock dan data masuk ke tabel
+                if(data == "Berhasil Input data") {
+                    alert(data);
+                }
+                $('#tambah-barang').hide();
+                $('#save-detail').hide();
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // JSON.parse(undefined);
+                console.log(xhr.status);
+                console.log(thrownError);
+                // console.log(ajaxOptions);
+            }
+        });
+
+        // untuk mengembalikan template
+        $('tbody').prepend(save);
+    });
 });
