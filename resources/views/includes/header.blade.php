@@ -4,7 +4,7 @@
     </div>
     <div class="w-100 d-flex justify-content-between">
         <div class="d-flex align-items-center"><i class="fas fa-plus-circle fa-xl ms-3 me-2" data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom" id="quick-create" title="Quick Create"></i><i class="fas fa-clock fa-xl ms-2 me-3" data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom" id="recent-activity" title="Recent Activity"></i>
-            <div id="searchbar" class="d-flex">
+            <div id="searchbar" class="d-none d-lg-flex">
                 <div class="dropdown">
                     <button class="btn dropdown-toggle d-flex align-items-center" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="height: 34px;box-shadow: none;">
                         <i class="fas fa-search" style="font-size: 16px;"></i></button>

@@ -54,7 +54,6 @@ $(document).ready(function(){
         let kode = $('select[name="kode"]');
         let nama = $('input[name="nama"]');
         let jumlah = $('input[name="jumlah"]');
-        let netto = $('input[name="netto"]');
         let parkir = $('select[name="parkir"]');
 
         for (let i = 1; i < formCount + 1; i++) {
@@ -62,7 +61,6 @@ $(document).ready(function(){
             temp.find('.data-kode').html(kode[i].value);
             temp.find('.data-nama').html(nama[i].value);
             temp.find('.data-jumlah').html(jumlah[i].value);
-            temp.find('.data-netto').text(netto[i].value);
             temp.find('.data-parkir').text(parkir[i].value);
             temp.show();
         }
@@ -84,10 +82,6 @@ $(document).ready(function(){
         let lapak =  $('#list-pelapak').find('option[value="' + $('#pelapak').val() + '"]').attr('id');
         let data = [];
         $('tbody tr').each(function() {
-            let netto = $(this).find('.data-netto').html();
-            while(netto.indexOf('.') != -1){
-                netto = netto.replace('.', '');
-            }
 
             let parkir = $(this).find('.data-parkir').html();
             while(parkir.indexOf('.') != -1){
@@ -98,7 +92,6 @@ $(document).ready(function(){
                 kode: $(this).find('.data-kode').html(),
                 nama: $(this).find('.data-nama').html(),
                 jumlah: $(this).find('.data-jumlah').html(),
-                netto: netto,
                 parkir: parkir
             });
         });
