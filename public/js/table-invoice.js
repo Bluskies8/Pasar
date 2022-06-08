@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    $('#table-transaksi').DataTable({
+$(document).ready(function() {
+    $('#table-invoice').DataTable({
         columns: [
             null,
             null,
@@ -17,22 +17,5 @@ $(document).ready(function(){
         $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
         currentID = $(this).parent().parent().children('.cell-id').text();
         flag = true;
-    });
-    
-    $('#item-detail').on('click', function() {
-        alert(currentID);
-        currentID = '';
-    });
-    
-    $(document).on('click', function() {
-        setTimeout(function (){
-            if (flag) {
-                flag = !flag;
-            } else {
-                if ($('#list-aksi').css('display') == 'block') {
-                    $('#list-aksi').hide();
-                }
-            }
-        }, 10);
     });
 });
