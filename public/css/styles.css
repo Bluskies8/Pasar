@@ -48,7 +48,7 @@ p {
   color: var(--bs-cyan)!important;
 }
 
-.fa-l {
+.fa-lg {
   font-size: 20px;
 }
 
@@ -96,7 +96,7 @@ p {
 }
 
 a, a:hover {
-  color: initial!important;
+  color: inherit!important;
 }
 
 .nav-link {

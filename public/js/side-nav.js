@@ -26,7 +26,6 @@ $(document).ready(function(){
     });
 
     $('.nav-item').on('click', function() {
-        console.log($(this).text());
         $('.nav-item.active').removeClass('active');
         $(this).addClass('active');
         setCookie("nav_active", $('.nav-item.active p').text().toLowerCase(), 1);

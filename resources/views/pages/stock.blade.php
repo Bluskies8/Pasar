@@ -18,7 +18,7 @@
     <div class="table-responsive p-3" style="max-height: 81.8vh;overflow-y: auto;">
         <table class="table table-hover" id="table-transaksi">
             <thead>
-                <tr class="text-center">
+                <tr>
                     <th>ID Transaksi</th>
                     <th>Lapak</th>
                     <th>Checker</th>
@@ -41,7 +41,9 @@
                             <p class="thousand-separator">{{$item['total']}}</p>
                         </div>
                     </td>
-                    <td class="position-relative" style="padding: 5px 4px;"><button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button></td>
+                    <td class="position-relative" style="padding: 5px 4px;">
+                        <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
+                    </td>
                 </tr>
                 @endforeach
                 @endisset

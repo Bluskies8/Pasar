@@ -8,7 +8,7 @@
             <i class="fas fa-shopping-basket me-3"></i>
             <p>Items</p>
         </a>
-        <a href="/invoice" id="nav-item-items" class="d-flex align-items-center ps-3 nav-item">
+        <a href="/invoice" id="nav-item-invoice" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-file-invoice me-3"></i>
             <p>Invoice</p>
         </a>
