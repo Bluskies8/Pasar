@@ -38,3 +38,8 @@ Route::middleware(['checkLogin','checkshif'])->group(function () {
         Route::post('delete/{htrans:id}',[HtransController::class,'destroy'])->middleware('role:2');
     });
 });
+
+// view vendor
+Route::get('vendor', function () {
+    return view('pages/vendor');
+});
