@@ -23,7 +23,7 @@ class checkshif
         $cekuser = Auth::guard('checkLogin')->user();
         $time = Carbon::now();
         $cekshif = shif::where('number',$cekuser->shif)->first();
-        if($cekuser->role_id == 3){
+        if($cekuser->role_id == 4){
             // return $next($request);
             if($time < $cekshif->end && $time > $cekshif->start) {
                 return $next($request);

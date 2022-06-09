@@ -15,7 +15,7 @@
 </style>
 
 <section class="login-clean container">
-    <form method="post" action='/login'>
+    <form method="post" action='/clogin'>
         @csrf
         <h2 class="visually-hidden">Login Form</h2>
         <div class="illustration"><img class="w-100" src="{{asset('img/logo.svg')}}"></div>

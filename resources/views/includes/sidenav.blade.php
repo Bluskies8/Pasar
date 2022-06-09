@@ -8,6 +8,10 @@
             <i class="fas fa-shopping-basket me-3"></i>
             <p>Items</p>
         </a>
+        <a href="/invoice" id="nav-item-items" class="d-flex align-items-center ps-3 nav-item">
+            <i class="fas fa-file-invoice me-3"></i>
+            <p>Invoice</p>
+        </a>
     </div>
     <div id="nav-group-2" class="nav-group py-2">
         <div id="nav-item-customer" class="d-flex align-items-center ps-3 nav-item"><i class="fas fa-user me-3"></i>
@@ -22,9 +26,9 @@
         <div id="nav-item-packages" class="d-flex align-items-center ps-3 nav-item"><i class="fas fa-box me-3"></i>
             <p>Packages</p>
         </div>
-        <div id="nav-item-invoices" class="d-flex align-items-center ps-3 nav-item"><i class="fas fa-file-invoice me-3"></i>
+        {{-- <div id="nav-item-invoices" class="d-flex align-items-center ps-3 nav-item"><i class="fas fa-file-invoice me-3"></i>
             <p>Invoices</p>
-        </div>
+        </div> --}}
         <div id="nav-item-payment_received" class="d-flex align-items-center ps-3 nav-item"><i class="fas fa-dollar-sign me-3"></i>
             <p>Payment Received</p>
         </div>

@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class pasar extends Model
+class invoice extends Model
 {
     use HasFactory;
-    public $incrementing = false;
     protected $fillable = [
         'id',
-        'nama',
-        'alamat'
+        'pasar_id',
+        'stand_id',
+        'total',
+        'listrik',
     ];
 }

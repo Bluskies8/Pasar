@@ -12,32 +12,32 @@ class DashboardController extends Controller
 {
     public function login(Request $request)
     {
-        $this->updateDate();
+        // $this->updateDate();
         $data = [
             'email' => $request->email,
             'password' => $request->password
         ];
         $cekuser = User::where('email',$request->email)->first();
-        $time = Carbon::now();
         if(!$cekuser) return redirect()->back()->with('pesan','email/password salah');
+        // $time = Carbon::now();
         // $time = Carbon::createFromFormat('Y-m-d H:i:s','2022-05-30 22:15:00',7);
-        $cekshif = shif::where('number',$cekuser->shif)->first();
-        if($cekuser->role_id<3){
+        // $cekshif = shif::where('number',$cekuser->shif)->first();
+        // if($cekuser->role_id<4){
             if(Auth::guard('checkLogin')->attempt($data)){
                 return redirect('/');
             }else{
                 return redirect()->back()->with('pesan','email/password salah');
             }
-        }
-        if($time < $cekshif->end && $time > $cekshif->start) {
-            if(Auth::guard('checkLogin')->attempt($data)){
-                return redirect('/');
-            }else{
-                return redirect()->back()->with('pesan','email/password salah');
-            }
-        }else{
-            return redirect()->back()->with('pesan','bukan shif anda');
-        }
+        // }
+        // if($time < $cekshif->end && $time > $cekshif->start) {
+        //     if(Auth::guard('checkLogin')->attempt($data)){
+        //         return redirect('/');
+        //     }else{
+        //         return redirect()->back()->with('pesan','email/password salah');
+        //     }
+        // }else{
+        //     return redirect()->back()->with('pesan','bukan shif anda');
+        // }
     }
     function updateDate()
     {
@@ -55,5 +55,10 @@ class DashboardController extends Controller
             }
             $key->save();
         }
+    }
+    public function logout()
+    {
+        Auth::guard('checkLogin')->logout();
+        return redirect('tologin');
     }
 }

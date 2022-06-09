@@ -8,7 +8,7 @@ $(document).ready(function(){
             { orderable: false }
         ]
     });
-    
+
     var flag = false;
     var currentID = '';
     $('.show-aksi').on('click', function() {
@@ -18,12 +18,13 @@ $(document).ready(function(){
         currentID = $(this).parent().parent().children('.cell-id').text();
         flag = true;
     });
-    
+
     $('#item-detail').on('click', function() {
         alert(currentID);
+        location.href = '/dinvoice';
         currentID = '';
     });
-    
+
     $(document).on('click', function() {
         setTimeout(function (){
             if (flag) {

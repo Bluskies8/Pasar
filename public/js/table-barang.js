@@ -113,11 +113,10 @@ $(document).ready(function(){
                 console.log(data);
                 //pindah ke halaman stock dan data masuk ke tabel
                 if(data == "Berhasil Input data") {
-                    alert(data);
+                    // alert(data);
                 }
                 $('#tambah-barang').hide();
                 $('#save-detail').hide();
-
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);

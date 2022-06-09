@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ShifSeeder::class,
             RoleSeeder::class,
             StandSeeder::class,
+            NettoSeeder::class,
         ]);
     }
 }

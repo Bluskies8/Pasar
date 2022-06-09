@@ -21,6 +21,7 @@
                 <tr class="text-center">
                     <th>ID Transaksi</th>
                     <th>Lapak</th>
+                    <th>Checker</th>
                     <th>Tanggal</th>
                     <th>Total Transaksi</th>
                     <th style="width: 45px;"></th>
@@ -32,6 +33,7 @@
                 <tr>
                     <td class="cell-id">{{$item['id_trans']}}</td>
                     <td>{{$item['nama']}}</td>
+                    <td>{{$item['checker']}}</td>
                     <td>{{$item['tanggal']}}</td>
                     <td>
                         <div class="d-flex justify-content-between">

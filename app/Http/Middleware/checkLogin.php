@@ -21,7 +21,7 @@ class checkLogin
         if(Auth::guard('checkLogin')->user()){
             return $next($request);
         }else{
-            return redirect('tologin');
+            return redirect('login');
         }
     }
 }

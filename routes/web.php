@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HtransController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('tologin', function () {
+Route::get('login', function () {
     return view('pages/login');
 });
 // Route::get('stock', function () {
@@ -25,17 +26,25 @@ Route::get('tologin', function () {
 // Route::get('details', function () {
 //     return view('pages/stockDetail');
 // });
-Route::post('login',[DashboardController::class,'login']);
-Route::middleware(['checkLogin','checkshif'])->group(function () {
+Route::post('clogin',[DashboardController::class,'login']);
+// Route::middleware(['checkLogin','checkshif'])->group(function () {
+Route::prefix('invoice')->group(function () {
+    Route::get('/{id}',[HtransController::class,'invoice']);
+});
+Route::middleware(['checkLogin'])->group(function () {
     Route::get('/', function () {
-        return view('pages/dashboard');
+        return view('pages.dashboard');
     });
+    Route::get('/invoice',function (){
+        return view('pages.invoice');
+    });
+    Route::get('invoice/{id}', [InvoiceController::class,'invoicedetails']);
     Route::get('stock', [HtransController::class,'index']);
     Route::get('details', [HtransController::class,'detailspage']);
     Route::get('details/{htrans}', [HtransController::class,'details']);
     Route::prefix('transaction')->group(function () {
-        Route::post('create',[HtransController::class,'store'])->middleware('role:3');
-        Route::post('delete/{htrans:id}',[HtransController::class,'destroy'])->middleware('role:2');
+        Route::post('create',[HtransController::class,'store'])->middleware('role:4');
+        Route::post('delete/{htrans:id}',[HtransController::class,'destroy'])->middleware('role:3');
     });
 });
 

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\models\shif;
+use Carbon\Carbon;
 
 class ShifSeeder extends Seeder
 {
@@ -15,6 +16,8 @@ class ShifSeeder extends Seeder
      */
     public function run()
     {
+        // $time = Carbon::now();
+        // $date = Carbon::now()->format('Y-m-d');
         shif::create([
             'pasar_id' => '1',
             'number' => 1,

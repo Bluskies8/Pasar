@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\dtrans;
 use App\Models\htrans;
 use App\Models\stand;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +26,7 @@ class HtransController extends Controller
             $stand = stand::where('id',$value->stand_id)->first();
             $data[$id]['id_trans'] = $value->id;
             $data[$id]['nama'] = $stand->seller_name;
+            $data[$id]['checker'] = User::where('id',$value->user_id)->first()->name;
             $data[$id]['tanggal'] = date('d-M-Y',strtotime($value->created_at));
             $data[$id]['total'] = $value->total_harga;
         }
@@ -37,10 +39,14 @@ class HtransController extends Controller
 
     public function detailspage()
     {
-        $stand = stand::get();
-        // foreach ($stand as $key ) {
-        //     dd($key->id);
-        // }
+        $tmep = stand::select('seller_name')->groupBy('seller_name')->get();
+        foreach ($tmep as $key => $value) {
+            $no_stand = stand::where('seller_name',$value->seller_name)->first();
+            $stand[$key]['seller_name'] = $no_stand->seller_name;
+            $stand[$key]['no_stand'] = $no_stand->no_stand;
+            $stand[$key]['id'] = $no_stand->id;
+        }
+        // dd($stand);
         return view('pages/stockDetail',[
             'stand'=>$stand,
             'data'=>['id'=>'','value'=>'1'],
@@ -139,21 +145,13 @@ class HtransController extends Controller
                     'bruto' => $bruto,
                     'round' => $round,
                     'netto' => $key['netto'],
-                    'parkir' => $key['parkir'],
-                    'subtotal' => $subtotal
                 ]);
-                $total_jumlah+=$round;
-                $total_harga+=$subtotal+$key['parkir'];
-            }
-            $data = htrans::where('id',$temp->id)->first();
-            $data->total_harga = $total_harga;
-            $data->total_jumlah = $total_jumlah;
-            $data->save();
-        } catch (\Throwable $th) {
-            return $th;
         }
         $data = htrans::where('id',$temp->id)->first();
         return redirect()->back();
+        }catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
