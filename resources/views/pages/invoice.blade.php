@@ -29,13 +29,15 @@
                     <td class="text-center">{{$item->created_at->format('d-M-Y')}}</td>
                     <td class="text-center">{{$item->stand->seller_name}}</td>
                     <td>
-                        <div class="d-flex justify-content-around">
-                            <p>Rp</p>
-                            <p class="thousand-separator">{{$item->total}}</p>
+                        <div class="d-flex justify-content-between px-5">
+                            <p class="ms-5">Rp</p>
+                            <p class="thousand-separator me-5">{{$item->total}}</p>
                         </div>
                     </td>
                     <td class="position-relative" style="padding: 5px 4px;">
-                        <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
+                        <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;">
+                            <i class="fas fa-bars fa-lg"></i>
+                        </button>
                     </td>
                 </tr>
                 @endforeach
@@ -104,18 +106,18 @@
                                 <tr>
                                     <td>k</td>
                                     <td>Import</td>
-                                    <td class="text-end">113</td>
-                                    <td class="text-end">23</td>
-                                    <td class="text-end">23</td>
+                                    <td>113</td>
+                                    <td>23</td>
+                                    <td>23</td>
                                     <td>Rp 3000</td>
                                     <td>Rp 69000</td>
                                 </tr>
                                 <tr>
                                     <td>p</td>
                                     <td>Import</td>
-                                    <td class="text-end">10</td>
-                                    <td class="text-end">10</td>
-                                    <td class="text-end">10</td>
+                                    <td>10</td>
+                                    <td>10</td>
+                                    <td>10</td>
                                     <td>Rp 3000</td>
                                     <td>Rp 3000</td>
                                 </tr>
@@ -135,6 +137,7 @@
                 </div>
             </div>
         </div>
+
     <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
     <script src="{{asset('js/table-invoice.js')}}"></script>

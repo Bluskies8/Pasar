@@ -29,7 +29,7 @@
             <p class="thousand-separator data-netto">3000</p>
         </div>
         @if ($role == 4 && $data['id'] == null)
-            <button class="btn btn-sm" id="tambah-barang" type="button" style="background: rgb(24, 144, 255);color: var(--bs-white);">Tambah Barang</button>
+            <button class="btn btn-sm" id="tambah-barang" type="button" style="background-color: rgb(24, 144, 255);color: var(--bs-white);">Tambah Barang</button>
         @endif
     </header>
     <hr class="my-0">
@@ -108,7 +108,7 @@
         </table>
     </div>
     @if ($data['id'] == null)
-    <button class="btn btn-primary position-fixed m-2" id="save-detail" type="button" style="bottom: 0px;right: 0px;background: rgb(24, 144, 255);color: white;">Simpan Transaksi</button>
+        <button class="btn btn-primary position-fixed m-2" id="save-detail" type="button" style="bottom: 0px;right: 0px;background: rgb(24, 144, 255);color: white;">Simpan Transaksi</button>
     @endif
     <div class="modal fade" role="dialog" tabindex="-1" id="modal-barang">
         <div class="modal-dialog modal-xl modal-fullscreen-lg-down" role="document">

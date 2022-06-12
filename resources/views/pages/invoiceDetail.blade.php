@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+
+    <style>
+        tfoot tr td {
+            border-style:none;
+            padding: 0px 8px!important;
+        }
+
+        tbody td {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,36 +26,26 @@
         <div class="col-12 col-lg-6 col-xxl-4 mb-3">
             <div class="card">
                 <div class="card-body">
-                    {{-- <div>
-                        <p>{ID Nota}</p>
-                        <div class="row">
-                            <div class="col">
-                                <p>Nama PT</p>
-                                <p>Alamat</p>
-                            </div>
-                            <div class="col">
-                                <p class="text-end">Tanggal</p>
-                                <p class="text-end">Nama Lapak</p>
-                            </div>
+                    <p>{{$invoice->id}}</p>
+                    <div class="row">
+                        <div class="col">
+                            @if($stand->badan_usaha)
+                                <p>{{$stand->badan_usaha}}</p>
+                            @else
+                                <br>
+                            @endif
+                            <p>{{$pasar->alamat}}</p>
                         </div>
-                    </div> --}}
-                    <div>
-                        <p>{{$invoice->id}}</p>
-                        <div class="row">
-                            <div class="col">
-                                <p>Nama PT</p>
-                                <p>{{$pasar->alamat}} </p>
-                            </div>
-                            <div class="col">
-                                <p class="text-end">{{$invoice->created_at->format('d-M-Y')}}</p>
-                                <p class="text-end">{{$invoice->stand->seller_name}}</p>
-                            </div>
+                        <div class="col">
+                            <p class="text-end">{{$invoice->created_at->format('d-M-Y')}}</p>
+                            <p class="text-end">{{$invoice->stand->seller_name}}</p>
                         </div>
                     </div>
-                    <div class="mt-2 p-2" style="background: var(--bs-light);border: 1px solid var(--bs-gray) ;">
+
+                    <div class="mt-2 p-2" style="background: var(--bs-light);border: 1px solid var(--bs-gray);">
                         <p class="text-center">Netto: Rp&nbsp;<span class="thousand-separator">{{$invoice->netto}}</span>,-</p>
                         <div class="table-responsive">
-                            <table class="table mb-0">
+                            <table class="table mb-0" id="table-detail-invoice">
                                 <thead>
                                     <tr>
                                         <th>Kode</th>
@@ -62,37 +63,34 @@
                                         <tr>
                                             <td>{{$detail->kode}}</td>
                                             <td>{{$detail->nama_barang}}</td>
-                                            <td class="text-end">{{$detail->jumlah}}</td>
-                                            <td class="text-end">{{$detail->bruto}}</td>
-                                            <td class="text-end">{{$detail->round}}</td>
-                                            <td>Rp {{$detail->parkir}}</td>
-                                            <td>Rp {{$detail->subtotal}}</td>
+                                            <td>{{$detail->jumlah}}</td>
+                                            <td>{{$detail->bruto}}</td>
+                                            <td>{{$detail->round}}</td>
+                                            <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->parkir}}</span></div></td>
+                                            <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->subtotal}}</span></div></td>
                                         </tr>
                                         @endforeach
                                     @endforeach
-                                    {{-- <tr>
-                                        <td>k</td>
-                                        <td>Import</td>
-                                        <td class="text-end">113</td>
-                                        <td class="text-end">23</td>
-                                        <td class="text-end">23</td>
-                                        <td>Rp 3000</td>
-                                        <td>Rp 69000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>p</td>
-                                        <td>Import</td>
-                                        <td class="text-end">10</td>
-                                        <td class="text-end">10</td>
-                                        <td class="text-end">10</td>
-                                        <td>Rp 3000</td>
-                                        <td>Rp 3000</td>
-                                    </tr> --}}
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td class="text-end" colspan="6">Total<br>Parkir<br>Listrik<br>Dibayarkan</td>
-                                        <td>Rp {{$total-$parkir}}<br>Rp {{$parkir}}<br>RP {{$invoice->listrik}}<br>RP {{$total}}</td>
+                                        <td class="text-end" colspan="6">Total</td>
+                                        <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$total-$parkir}}</span></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-end" colspan="6">Parkir</td>
+                                        <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$parkir}}</span></div></td>
+                                    </tr>
+
+                                    <!-- loop tambahan -->
+                                    <tr>
+                                        <td class="text-end" colspan="6">Listrik</td>
+                                        <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$invoice->listrik}}</span></div></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text-end" colspan="6">Dibayarkan</td>
+                                        <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$total}}</span></div></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -106,7 +104,7 @@
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/bs-init.js')}}"></script>
-    <script src="{{asset('js/side-nav.js')}}"></script>
+    <script src="{{asset('js/invoice.js')}}"></script>
 </body>
 
 </html>

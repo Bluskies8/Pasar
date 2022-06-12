@@ -21,8 +21,7 @@ $(document).ready(function(){
     });
 
     $('#item-detail').on('click', function() {
-        // alert(currentID);
-        location.href = '/details/'+currentID;
+        location.href = '/details/' + currentID;
         currentID = '';
     });
 

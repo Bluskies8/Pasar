@@ -45,7 +45,7 @@ class InvoiceController extends Controller
         }
         // dd($stand);
         return view('pages/invoice',[
-            'invoice'=>$data,
+            'invoice'=> $data,
             'stand' => $stand,
             'data' => [
                 'value' => 1
@@ -108,12 +108,14 @@ class InvoiceController extends Controller
             $parkir+=$dtrans;
         }
         $pasar = pasar::where('id',Auth::guard('checkLogin')->user()->pasar_id)->first();
+        $stand = stand::where('id', $invoice->stand_id)->first();
         return view('pages.invoiceDetail',[
             'invoice' => $invoice,
             'trans' => $trans,
             'total' =>$total,
             'parkir' => $parkir,
-            'pasar' => $pasar
+            'pasar' => $pasar,
+            'stand' => $stand
         ]);
     }
     /**

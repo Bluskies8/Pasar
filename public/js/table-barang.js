@@ -6,7 +6,7 @@ $(document).ready(function(){
     });
 
     if ($('#nama-pelapak').text() != '') {
-        $('#dropdown-pelapak').hide();
+        $('#pelapak').hide();
     }
 
     var formCount;
@@ -47,7 +47,7 @@ $(document).ready(function(){
             });
             clearInterval(separatorInterval);
         }
-    }
+    };
 
     $('#save-barang').on('click', function() {
         // add form barang ke table
@@ -79,7 +79,12 @@ $(document).ready(function(){
         });
         e.preventDefault();
 
-        let lapak =  $('#list-pelapak').find('option[value="' + $('#pelapak').val() + '"]').attr('id');
+        let lapak = $('#list-pelapak').find('option[value="' + $('#pelapak').val() + '"]').attr('id');
+        if (typeof lapak === "undefined") {
+            alert("pilih nama lapak terlebih dahulu !");
+            return;
+        }
+
         let data = [];
         $('tbody tr').each(function() {
 
@@ -117,6 +122,8 @@ $(document).ready(function(){
                 }
                 $('#tambah-barang').hide();
                 $('#save-detail').hide();
+                $('#pelapak').hide();
+                $('#nama-pelapak').text($('#pelapak').val());
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);

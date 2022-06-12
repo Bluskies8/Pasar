@@ -16,9 +16,9 @@
             <i class="fas fa-file-invoice me-3"></i>
             <p>Invoice</p>
         </a>
-        <a href="/vendor" id="nav-item-invoice" class="d-flex align-items-center ps-3 nav-item">
-            <i class="fas fa-file-invoice me-3"></i>
-            <p>Denah Lapak</p>
+        <a href="/vendor" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
+            <i class="fas fa-user me-3"></i>
+            <p>Denah</p>
         </a>
         @endif
     </div>

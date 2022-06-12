@@ -122,11 +122,16 @@ a, a:hover {
     padding: 4px;
     border: 1px solid black;
     height: inherit;
-    white-space: nowrap;
+    min-width: 100px;
+    max-width: 100px;
     text-align: center;
     cursor: pointer;
 }
 
 .td-2 {
     vertical-align: middle;
+}
+
+th {
+    text-align: center!important;
 }

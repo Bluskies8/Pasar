@@ -31,14 +31,14 @@
                 @isset($data)
                 @foreach ($data as $item)
                 <tr>
-                    <td class="cell-id">{{$item['id_trans']}}</td>
-                    <td>{{$item['nama']}}</td>
-                    <td>{{$item['checker']}}</td>
-                    <td>{{$item['tanggal']}}</td>
+                    <td class="cell-id text-center">{{$item['id_trans']}}</td>
+                    <td class="text-center">{{$item['nama']}}</td>
+                    <td class="text-center">{{$item['checker']}}</td>
+                    <td class="text-center">{{$item['tanggal']}}</td>
                     <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator">{{$item['total']}}</p>
+                        <div class="d-flex justify-content-between px-5">
+                            <p class="ms-5">Rp</p>
+                            <p class="thousand-separator me-5">{{$item['total']}}</p>
                         </div>
                     </td>
                     <td class="position-relative" style="padding: 5px 4px;">
