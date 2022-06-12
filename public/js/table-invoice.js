@@ -26,7 +26,10 @@ $(document).ready(function() {
         }
         $('#modal-invoice').modal('show');
     });
+    $('.btn-save').on('click', function() {
 
+        location.href = '/invoice/generate';
+    });
     function cloneBiaya() {
         tambahanId++;
         let temp = $('#clone-biaya').clone().prop('id', 'tambahan-' + tambahanId).appendTo("#list-tambahan");

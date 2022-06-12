@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\shif;
+use App\Models\stand;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,11 @@ class DashboardController extends Controller
         // $cekshif = shif::where('number',$cekuser->shif)->first();
         // if($cekuser->role_id<4){
             if(Auth::guard('checkLogin')->attempt($data)){
-                return redirect('/');
+                if($cekuser->role_id>2){
+                    return redirect('/stock');
+                }else{
+                    return redirect('/');
+                }
             }else{
                 return redirect()->back()->with('pesan','email/password salah');
             }
@@ -60,5 +65,26 @@ class DashboardController extends Controller
     {
         Auth::guard('checkLogin')->logout();
         return redirect('tologin');
+    }
+    public function vendor()
+    {
+        $standa = stand::where('no_stand','like', 'a%')->orderBy('no_stand','desc')->get();
+        $standb = stand::where('no_stand','like', 'b%')->orderBy('no_stand','desc')->get();
+        $tempc = stand::where('no_stand','like', 'c%')->get();
+        foreach ($tempc as $key => $value) {
+            $standc[$key]['seller_name'] = $value->seller_name;
+            $standc[$key]['no_stand'] = $value->no_stand;
+            $standc[$key]['badan_usaha'] = $value->badan_usaha;
+        }
+        // dd($standc);
+        return view('pages.vendor',[
+            'standa' => $standa,
+            'standb' => $standb,
+            'standc' => $standc
+        ]);
+    }
+    public function vendorUpdate(Request $request)
+    {
+
     }
 }

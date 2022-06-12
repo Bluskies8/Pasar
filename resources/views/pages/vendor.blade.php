@@ -6,7 +6,7 @@
             <tbody>
                 <tr>
                     <td class="td-2">D1<br><span>Warung</span></td>
-                    <td id="B30" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">B30<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
+                    {{-- <td id="B30" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">B30<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
                     <td id="B29" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">B29<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
                     <td id="B28" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">B28<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
                     <td id="B27" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">B27<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
@@ -36,28 +36,31 @@
                     <td id="B4A" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">B4A<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
                     <td id="B3" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">B3<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
                     <td id="B2" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">B2<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
-                    <td id="B1" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">B1<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
+                    <td id="B1" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">B1<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td> --}}
+                    @foreach ($standb as $item)
+                    <td id="{{$item->no_stand}}" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">{{$item->no_stand}}<span class="nama-pt">{{$item->badan_usaha}}</span><span class="nama-lapak">{{$item->seller_name}}</span></div></td>
+                    @endforeach
                     <td class="td-2" rowspan="2">D2<br><span>Warung</span></td>
                     <td class="td-2" rowspan="2">D3<br><span>Koperasi</span></td>
                     <td class="td-2" rowspan="2">Tangga<br>ke atas</td>
                     <td class="td-2" rowspan="2">Tandon</td>
                 </tr>
                 <tr>
-                    <td class="td-2">C1<br><span class="nama-pt">nama-pt</span><br><span class="nama-lapak">nama-lapak</span></td>
+                    <td class="td-2">{{$standc[0]['no_stand']}}<br><span class="nama-pt">{{$standc[0]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[0]['seller_name']}}</span></td>
                 </tr>
                 <tr>
-                    <td class="td-2">C2<br><span class="nama-pt">nama-pt</span><br><span class="nama-lapak">nama-lapak</span></td>
+                    <td class="td-2">{{$standc[1]['no_stand']}}<br><span class="nama-pt">{{$standc[1]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[1]['seller_name']}}</span></td>
                     <td class="td-2 py-4 px-5" colspan="31" rowspan="3"><div class="h-100 d-flex justify-content-center align-items-center" style="background-color: lightgreen"><h1>Lahan Parkir</h1></div></td>
                 </tr>
                 <tr>
-                    <td class="td-2">C3<br><span class="nama-pt">nama-pt</span><br><span class="nama-lapak">nama-lapak</span><br></td>
+                    <td class="td-2">{{$standc[2]['no_stand']}}<br><span class="nama-pt">{{$standc[2]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[2]['seller_name']}}</span></td>
                 </tr>
                 <tr>
-                    <td class="td-2">C4<br><span class="nama-pt">nama-pt</span><br><span class="nama-lapak">nama-lapak</span><br></td>
+                    <td class="td-2">{{$standc[3]['no_stand']}}<br><span class="nama-pt">{{$standc[3]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[3]['seller_name']}}</span></td>
                 </tr>
                 <tr>
-                    <td class="td-2">C5<br><span class="nama-pt">nama-pt</span><br><span class="nama-lapak">nama-lapak</span><br></td>
-                    <td id="A30" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">A30<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
+                    <td class="td-2">{{$standc[4]['no_stand']}}<br><span class="nama-pt">{{$standc[4]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[4]['seller_name']}}</span></td>
+                    {{-- <td id="A34" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">A30<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
                     <td id="A29" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">A29<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
                     <td id="A28" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">A28<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
                     <td id="A27" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">A27<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
@@ -86,7 +89,10 @@
                     <td id="A4" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">A4<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
                     <td id="A3" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">A3<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
                     <td id="A2" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">A2<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
-                    <td id="A1" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">A1<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td>
+                    <td id="A1" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">A1<span class="nama-pt">nama-pt</span><span class="nama-lapak">nama-lapak</span></div></td> --}}
+                    @foreach ($standa as $item)
+                    <td id="{{$item->no_stand}}" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">{{$item->no_stand}}<span class="nama-pt">{{$item->badan_usaha}}</span><span class="nama-lapak">{{$item->seller_name}}</span></div></td>
+                    @endforeach
                     <td class="td-2" rowspan="2">Tangga<br>ke atas</td>
                     <td class="td-2" rowspan="2">Ponten</td>
                     <td class="td-2" rowspan="2">Sampah</td>

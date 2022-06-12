@@ -28,7 +28,7 @@
             <p>Netto : Rp&nbsp;</p>
             <p class="thousand-separator data-netto">3000</p>
         </div>
-        @if ($role == 3 && $data['id'] == null)
+        @if ($role == 4 && $data['id'] == null)
             <button class="btn btn-sm" id="tambah-barang" type="button" style="background: rgb(24, 144, 255);color: var(--bs-white);">Tambah Barang</button>
         @endif
     </header>
@@ -94,11 +94,11 @@
                 @if ($role == 2)
                     <tfoot>
                         <tr>
-                            <td class="text-end" colspan="3">Total</td>
+                            <td class="text-end" colspan="6">Total</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-between">
                                     <p>Rp</p>
-                                    <p class="thousand-separator">0</p> <!-- data total transaksi -->
+                                    <p class="thousand-separator">{{$data->total_harga}}</p> <!-- data total transaksi -->
                                 </div>
                             </td>
                         </tr>

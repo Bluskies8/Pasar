@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\dtrans;
 use App\Models\htrans;
+use App\Models\netto;
 use App\Models\stand;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,9 +20,22 @@ class HtransController extends Controller
      */
     public function index()
     {
-        // $htrans = new htrans();
-        // dd($htrans->details);
-        $temp = htrans::all();
+        // dd($carbon);
+        // $temp = htrans::all();
+        // $carbon = Carbon::createFromFormat('Y-m-d H:i:s','2022-06-12 07:15:00',7);
+        $carbon = Carbon::now();
+        $date = $carbon->toDateString();
+        $time = $carbon->toTimeString();
+        if($time > '07:00:00'){
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->addDays(1);
+        }else{
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->subDays(1);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
+        }
+        // dd($carbon.' - '.$start.' - '.$end);
+        $temp = htrans::whereBetween('created_at',[$start,$end])->get();
+        // dd($temp);
         $data = [];
         foreach ($temp as $id => $value) {
             $stand = stand::where('id',$value->stand_id)->first();
@@ -46,7 +61,6 @@ class HtransController extends Controller
             $stand[$key]['no_stand'] = $no_stand->no_stand;
             $stand[$key]['id'] = $no_stand->id;
         }
-        // dd($stand);
         return view('pages/stockDetail',[
             'stand'=>$stand,
             'data'=>['id'=>'','value'=>'1'],
@@ -91,14 +105,16 @@ class HtransController extends Controller
 
         // return response()->json(['$data'=>$request->all()]);
 
+        $carbon = Carbon::now();
+        $date = $carbon->format('dmY');
         $bruto = 0;
         $netto = 0;
         $total_jumlah = 0;
         $total_harga = 0;
         $count = htrans::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->count()+1;
-        // $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0");
+        $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count,3,"0",STR_PAD_LEFT);
         // return $request->stand_id;
-        $id = "HT01".str_pad($count,2,'0',STR_PAD_LEFT);
+        // $id = "HT01".str_pad($count,2,'0',STR_PAD_LEFT);
         try {
             $temp = htrans::create([
                 'id'=> $id,
@@ -134,9 +150,12 @@ class HtransController extends Controller
                         $bruto = $key['jumlah']/50;
                         break;
                 }
-                $round = round($bruto);
+                $round = ceil($bruto);
                 // dd($key);
-                $subtotal = $key['netto']*$round;
+                $netto = netto::first();
+                $subtotal = $netto->value*$round;
+                $total_harga += $subtotal+$key['parkir'];
+                $total_jumlah += $round;
                 dtrans::create([
                     'htrans_id' => $temp->id,
                     'kode' => $key['kode'],
@@ -144,13 +163,18 @@ class HtransController extends Controller
                     'jumlah' => $key['jumlah'],
                     'bruto' => $bruto,
                     'round' => $round,
-                    'netto' => $key['netto'],
+                    'netto' => $netto->value,
+                    'parkir' => $key['parkir'],
+                    'subtotal' => $subtotal
                 ]);
         }
         $data = htrans::where('id',$temp->id)->first();
+        $data->total_jumlah = $total_jumlah;
+        $data->total_harga = $total_harga;
+        $data->save();
         return redirect()->back();
         }catch (\Throwable $th) {
-            //throw $th;
+            return $th;
         }
     }
 

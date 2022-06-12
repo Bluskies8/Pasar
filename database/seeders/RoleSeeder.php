@@ -29,7 +29,7 @@ class RoleSeeder extends Seeder
         }
         User::create([
             'name'=>'checker1',
-            'role_id' => '3',
+            'role_id' => '4',
             'email' => 'checker1@gmail.com',
             'pasar_id' => '1',
             'password' => '$2y$10$20dNKaah/p.N3GelNUmm6e3t37AcbFpBbZ4V.hmlIL/016W3oL4FS',
@@ -37,7 +37,7 @@ class RoleSeeder extends Seeder
         ]);
         User::create([
             'name'=>'checker2',
-            'role_id' => '3',
+            'role_id' => '4',
             'email' => 'checker2@gmail.com',
             'pasar_id' => '1',
             'password' => '$2y$10$20dNKaah/p.N3GelNUmm6e3t37AcbFpBbZ4V.hmlIL/016W3oL4FS',
@@ -45,7 +45,7 @@ class RoleSeeder extends Seeder
         ]);
         User::create([
             'name'=>'checker3',
-            'role_id' => '3',
+            'role_id' => '4',
             'email' => 'checker3@gmail.com',
             'pasar_id' => '1',
             'password' => '$2y$10$20dNKaah/p.N3GelNUmm6e3t37AcbFpBbZ4V.hmlIL/016W3oL4FS',

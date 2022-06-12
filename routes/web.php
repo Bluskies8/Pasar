@@ -20,35 +20,32 @@ use Illuminate\Support\Facades\Route;
 Route::get('login', function () {
     return view('pages/login');
 });
-// Route::get('stock', function () {
-//     return view('pages/stock');
-// });
-// Route::get('details', function () {
-//     return view('pages/stockDetail');
-// });
 Route::post('clogin',[DashboardController::class,'login']);
+
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
-Route::prefix('invoice')->group(function () {
-    Route::get('/{id}',[HtransController::class,'invoice']);
-});
 Route::middleware(['checkLogin'])->group(function () {
     Route::get('/', function () {
         return view('pages.dashboard');
     });
-    Route::get('/invoice',function (){
-        return view('pages.invoice');
+    Route::prefix('invoice')->group(function () {
+        Route::get('/',[invoicecontroller::class,'invoice'])->middleware('role:2,3');
+        Route::get('/generate', [InvoiceController::class,'generate'])->middleware('role:2');
+        Route::get('/update', [InvoiceController::class,'update'])->middleware('role:2');
+        Route::get('/{id}', [InvoiceController::class,'invoicedetails'])->middleware('role:2,3');
     });
-    Route::get('invoice/{id}', [InvoiceController::class,'invoicedetails']);
     Route::get('stock', [HtransController::class,'index']);
-    Route::get('details', [HtransController::class,'detailspage']);
-    Route::get('details/{htrans}', [HtransController::class,'details']);
+    Route::prefix('details')->group(function () {
+        Route::get('/', [HtransController::class,'detailspage']);
+        Route::get('/{htrans}', [HtransController::class,'details']);
+    });
     Route::prefix('transaction')->group(function () {
         Route::post('create',[HtransController::class,'store'])->middleware('role:4');
         Route::post('delete/{htrans:id}',[HtransController::class,'destroy'])->middleware('role:3');
     });
+    Route::prefix('vendor')->middleware('role:2')->group(function () {
+        Route::get('/',[DashboardController::class,'vendor']);
+        Route::get('/update',[DashboardController::class,'vendorUpdate']);
+    });
 });
 
 // view vendor
-Route::get('vendor', function () {
-    return view('pages/vendor');
-});

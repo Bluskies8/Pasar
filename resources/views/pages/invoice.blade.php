@@ -23,48 +23,23 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($invoice as $item)
                 <tr>
-                    <td class="cell-id text-center">ID0001</td>
-                    <td class="text-center">24 Mei 2022</td>
-                    <td class="text-center">Wawan</td>
+                    <td class="cell-id text-center">{{$item->id}}</td>
+                    <td class="text-center">{{$item->created_at->format('d-M-Y')}}</td>
+                    <td class="text-center">{{$item->stand->seller_name}}</td>
                     <td>
                         <div class="d-flex justify-content-around">
                             <p>Rp</p>
-                            <p class="thousand-separator">73000</p>
+                            <p class="thousand-separator">{{$item->total}}</p>
                         </div>
                     </td>
                     <td class="position-relative" style="padding: 5px 4px;">
                         <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
                     </td>
                 </tr>
-                <tr>
-                    <td class="cell-id text-center">ID0002</td>
-                    <td class="text-center">24 Mei 2022</td>
-                    <td class="text-center">Bison</td>
-                    <td>
-                        <div class="d-flex justify-content-around">
-                            <p>Rp</p>
-                            <p class="thousand-separator">51000</p>
-                        </div>
-                    </td>
-                    <td class="position-relative" style="padding: 5px 4px;">
-                        <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="cell-id text-center">ID0003</td>
-                    <td class="text-center">24 Mei 2022</td>
-                    <td class="text-center">Kevin</td>
-                    <td>
-                        <div class="d-flex justify-content-around">
-                            <p>Rp</p>
-                            <p class="thousand-separator">69000</p>
-                        </div>
-                    </td>
-                    <td class="position-relative" style="padding: 5px 4px;">
-                        <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
-                    </td>
-                </tr>
+                @endforeach
+
             </tbody>
         </table>
     </div>
@@ -80,12 +55,21 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" placeholder="harga tambahan">
-                    <div class="d-flex mb-3">
-                        <p class="d-flex align-items-center">Nama Lapak :&nbsp;</p>
-                        <select class="form-select-sm" onfocus="this.size=5;" onblur="this.size=5;" onfocusout="this.size=null;" onchange="this.size=5; this.blur();">
-                            <option value selected>This is item 1</option>
-                        </select>
-                    </div>
+                    <p class="d-flex align-items-center mb-3" style="white-space: nowrap;">Nama Lapak :&nbsp;
+                        @if ($data['value'])
+                            <span id="nama-pelapak"></span>
+                            <input id="pelapak" list="list-pelapak" class="form-select-sm">
+                            <datalist id="list-pelapak">
+                                @foreach ($stand as $item)
+                                    @if ($item['seller_name'] != "")
+                                        <option id = "{{$item['id']}}" value="{{$item['seller_name'] . ' - ' . $item['no_stand']}}">
+                                    @endif
+                                @endforeach
+                            </datalist>
+                        @else
+                            <span id="nama-pelapak">{{$stand['seller_name']}}</span>
+                        @endif
+                    </p>
                     <div class="mb-3 d-flex" placeholder="Tipe Tambahan">
                         <div>
                             <p class="text-end py-1">Biaya Tambahan :&nbsp;</p>
@@ -147,7 +131,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="btn" type="button" style="background: rgb(24, 144, 255);color: white;" data-bs-dismiss="modal">Save</button>
+                    <button class="btn btn-save" type="button" style="background: rgb(24, 144, 255);color: white;" data-bs-dismiss="modal">Save</button>
                 </div>
             </div>
         </div>

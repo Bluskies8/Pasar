@@ -15,8 +15,8 @@
         <div class="col-12 col-lg-6 col-xxl-4 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <div>
-                        <p>ID Nota</p>
+                    {{-- <div>
+                        <p>{ID Nota}</p>
                         <div class="row">
                             <div class="col">
                                 <p>Nama PT</p>
@@ -27,9 +27,22 @@
                                 <p class="text-end">Nama Lapak</p>
                             </div>
                         </div>
+                    </div> --}}
+                    <div>
+                        <p>{{$invoice->id}}</p>
+                        <div class="row">
+                            <div class="col">
+                                <p>Nama PT</p>
+                                <p>{{$pasar->alamat}} </p>
+                            </div>
+                            <div class="col">
+                                <p class="text-end">{{$invoice->created_at->format('d-M-Y')}}</p>
+                                <p class="text-end">{{$invoice->stand->seller_name}}</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="mt-2 p-2" style="background: var(--bs-light);border: 1px solid var(--bs-gray) ;">
-                        <p class="text-center">Netto: Rp&nbsp;<span class="thousand-separator">3000</span>,-</p>
+                        <p class="text-center">Netto: Rp&nbsp;<span class="thousand-separator">{{$invoice->netto}}</span>,-</p>
                         <div class="table-responsive">
                             <table class="table mb-0">
                                 <thead>
@@ -44,7 +57,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    @foreach ($trans as $item)
+                                        @foreach ($item->details as $detail)
+                                        <tr>
+                                            <td>{{$detail->kode}}</td>
+                                            <td>{{$detail->nama_barang}}</td>
+                                            <td class="text-end">{{$detail->jumlah}}</td>
+                                            <td class="text-end">{{$detail->bruto}}</td>
+                                            <td class="text-end">{{$detail->round}}</td>
+                                            <td>Rp {{$detail->parkir}}</td>
+                                            <td>Rp {{$detail->subtotal}}</td>
+                                        </tr>
+                                        @endforeach
+                                    @endforeach
+                                    {{-- <tr>
                                         <td>k</td>
                                         <td>Import</td>
                                         <td class="text-end">113</td>
@@ -61,12 +87,12 @@
                                         <td class="text-end">10</td>
                                         <td>Rp 3000</td>
                                         <td>Rp 3000</td>
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td class="text-end" colspan="6">Total<br>Listrik<br>Dibayarkan</td>
-                                        <td>Rp 72000<br>Rp 75000<br>RP 147000</td>
+                                        <td class="text-end" colspan="6">Total<br>Parkir<br>Listrik<br>Dibayarkan</td>
+                                        <td>Rp {{$total-$parkir}}<br>Rp {{$parkir}}<br>RP {{$invoice->listrik}}<br>RP {{$total}}</td>
                                     </tr>
                                 </tfoot>
                             </table>

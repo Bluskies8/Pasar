@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('invoices', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('pasar_id')->referenced();
-            $table->string('stand_id')->referenced();
-            $table->string('netto');
-            $table->bigInteger('listrik');
-            $table->bigInteger('parkir');
-            $table->bigInteger('total');
+        Schema::create('logs', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('logs');
     }
 };
