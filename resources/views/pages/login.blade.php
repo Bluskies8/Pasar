@@ -28,5 +28,19 @@
     </form>
 </section>
 
+<script src="{{asset('js/jquery.min.js')}}"></script>
 <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/bs-init.js')}}"></script>
+
+<script>
+    $(document).ready(function() {
+        setCookie("nav_active", "dashboard", 1);
+
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+    });
+</script>

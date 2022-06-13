@@ -56,7 +56,7 @@ $(document).ready(function() {
         }
     };
 
-    /*
+
     var tambahanId = 0;
     $('#generate-invoice').on('click', function() {
         if (tambahanId == 0) {
@@ -65,6 +65,7 @@ $(document).ready(function() {
         $('#modal-invoice').modal('show');
     });
 
+    /*
     $('.btn-save').on('click', function() {
         window.open('/invoice/generate', 'Invoice');
         $('#modal-invoice').modal('hide');
