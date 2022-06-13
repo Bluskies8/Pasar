@@ -135,3 +135,13 @@ a, a:hover {
 th {
     text-align: center!important;
 }
+
+.modal-invoice tbody td {
+    text-align: center;
+}
+
+.modal-invoice tfoot td {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-style: none!important;
+}

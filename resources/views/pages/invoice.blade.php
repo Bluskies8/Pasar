@@ -31,7 +31,7 @@
                     <td>
                         <div class="d-flex justify-content-between px-5">
                             <p class="ms-5">Rp</p>
-                            <p class="thousand-separator me-5">{{$item->total}}</p>
+                            <p class="thousand-separator me-5 data-total">{{$item->total}}</p>
                         </div>
                     </td>
                     <td class="position-relative" style="padding: 5px 4px;">
@@ -41,8 +41,16 @@
                     </td>
                 </tr>
                 @endforeach
-
             </tbody>
+            <tfoot>
+                <td colspan="3" class="text-end">Total</td>
+                <td>
+                    <div class="d-flex justify-content-between px-5">
+                        <p class="ms-5">Rp</p>
+                        <p class="thousand-separator me-5" id="data-total-sum"></p>
+                    </div>
+                </td>
+            </tfoot>
         </table>
     </div>
     <ul class="list-unstyled py-2 px-1" id="list-aksi">
@@ -57,7 +65,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" placeholder="harga tambahan">
-                    <p class="d-flex align-items-center mb-3" style="white-space: nowrap;">Nama Lapak :&nbsp;
+                    <div class="d-flex align-items-center mb-3">
+                        <p class="text-end" style="white-space: nowrap; width: 100px;">Nama Lapak :&nbsp;</p>
                         @if ($data['value'])
                             <span id="nama-pelapak"></span>
                             <input id="pelapak" list="list-pelapak" class="form-select-sm">
@@ -71,26 +80,25 @@
                         @else
                             <span id="nama-pelapak">{{$stand['seller_name']}}</span>
                         @endif
-                    </p>
-                    <div class="mb-3 d-flex" placeholder="Tipe Tambahan">
-                        <div>
-                            <p class="text-end py-1">Biaya Tambahan :&nbsp;</p>
-                        </div>
-                        <div id="list-tambahan" class="d-flex flex-column">
-                            <div id="clone-biaya" class="d-none align-items-center mb-2">
-                                <input type="text" class="tipe-tambahan me-2" placeholder="tipe tambahan">
-                                <input type="text" class="biaya-tambahan me-2" placeholder="harga tambahan">
-                                <button class="btn btn-sm add-tambahan me-2" type="button" style="background: rgb(24, 144, 255);color: white;"><i class="fas fa-plus-circle"></i></button>
-                                <button class="btn btn-danger btn-sm delete-tambahan" type="button" style="display: none;"><i class="fas fa-times-circle"></i></button>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <p class="text-end py-1" style="width: 100px;">Biaya Listrik :&nbsp;</p>
+                        <select id="select-listrik" name="listrik" class="form-select form-select-sm" style="width: 173px;">
+                            <option value="0">0</option>
+                            <option value="24000">24.000</option>
+                            <option value="40000">40.000</option>
+                            <option value="50000">50.000</option>
+                            <option value="75000">75.000</option>
+                        </select>
                     </div>
                     <hr>
                     <div class="mt-2 p-2" style="background: var(--bs-light);border: 1px solid var(--bs-gray) ;">
                         <p class="text-center">Netto: Rp&nbsp;<span class="thousand-separator">3000</span>,-</p>
                     </div>
+
+                    <!-- hide soalnya belum ada data -->
                     <div class="table-responsive">
-                        <table class="table mb-0">
+                        <table class="table mb-0 modal-invoice">
                             <thead>
                                 <tr>
                                     <th>Kode</th>
@@ -108,24 +116,36 @@
                                     <td>Import</td>
                                     <td>113</td>
                                     <td>23</td>
-                                    <td>23</td>
-                                    <td>Rp 3000</td>
-                                    <td>Rp 69000</td>
+                                    <td class="data-round">23</td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">3000</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">69000</span></div></td>
                                 </tr>
                                 <tr>
                                     <td>p</td>
                                     <td>Import</td>
                                     <td>10</td>
                                     <td>10</td>
-                                    <td>10</td>
-                                    <td>Rp 3000</td>
-                                    <td>Rp 3000</td>
+                                    <td class="data-round">10</td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">3000</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">3000</span></div></td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td class="text-end" colspan="6">Total</td>
-                                    <td>Rp 72000<br></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="thousand-separator">72000</span></div></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end" colspan="6">Kuli</td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">33000</span></div></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end" colspan="6">Listrik</td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="thousand-separator">0</span></div></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end" colspan="6">Dibayarkan</td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">129000</span></div></td>
                                 </tr>
                             </tfoot>
                         </table>

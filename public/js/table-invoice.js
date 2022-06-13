@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $('#table-invoice').DataTable({
+        paging: false,
         columns: [
             null,
             null,
@@ -7,6 +8,16 @@ $(document).ready(function() {
             null,
             { orderable: false }
         ]
+    });
+
+    let sumTotal = 0;
+    $('.data-total').each(function(index, element) {
+        let val = $(element).text();
+        if (val != ''){
+            let number = parseInt(val);
+            sumTotal += number;
+        }
+        $('#data-total-sum').text(sumTotal.toLocaleString(['ban', 'id']));
     });
 
     var flag = false;
@@ -62,6 +73,17 @@ $(document).ready(function() {
         if (tambahanId == 0) {
             cloneBiaya();
         }
+
+        // event ini nanti akan dirubah ketika on lapak selected
+        let biayaKuli = 0;
+        $('.data-round').each(function(index, element) {
+            let val = parseInt($(element).html());
+            biayaKuli += val;
+        });
+        biayaKuli *= 1000;
+        $('#biaya-kuli').text(biayaKuli.toLocaleString(['ban', 'id']));
+        // end event
+
         $('#modal-invoice').modal('show');
     });
 
@@ -89,4 +111,7 @@ $(document).ready(function() {
         $(this).parent().remove();
     });
 
+    $('#select-listrik').on('change', function() {
+        $('#biaya-listrik').text($("#select-listrik option:selected").text());
+    });
 });
