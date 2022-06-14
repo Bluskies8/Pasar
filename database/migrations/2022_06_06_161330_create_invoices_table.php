@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('netto');
             $table->bigInteger('listrik');
             $table->bigInteger('parkir');
+            $table->bigInteger('kuli');
             $table->bigInteger('total');
             $table->timestamps();
         });

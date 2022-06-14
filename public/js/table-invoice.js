@@ -69,23 +69,23 @@ $(document).ready(function() {
 
 
     var tambahanId = 0;
-    $('#generate-invoice').on('click', function() {
-        if (tambahanId == 0) {
-            cloneBiaya();
-        }
+    // $('#generate-invoice').on('click', function() {
+    //     if (tambahanId == 0) {
+    //         cloneBiaya();
+    //     }
 
-        // event ini nanti akan dirubah ketika on lapak selected
-        let biayaKuli = 0;
-        $('.data-round').each(function(index, element) {
-            let val = parseInt($(element).html());
-            biayaKuli += val;
-        });
-        biayaKuli *= 1000;
-        $('#biaya-kuli').text(biayaKuli.toLocaleString(['ban', 'id']));
-        // end event
+    //     // event ini nanti akan dirubah ketika on lapak selected
+    //     let biayaKuli = 0;
+    //     $('.data-round').each(function(index, element) {
+    //         let val = parseInt($(element).html());
+    //         biayaKuli += val;
+    //     });
+    //     biayaKuli *= 1000;
+    //     $('#biaya-kuli').text(biayaKuli.toLocaleString(['ban', 'id']));
+    //     // end event
 
-        $('#modal-invoice').modal('show');
-    });
+    //     $('#modal-invoice').modal('show');
+    // });
 
     /*
     $('.btn-save').on('click', function() {

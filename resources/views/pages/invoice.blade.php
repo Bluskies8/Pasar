@@ -85,7 +85,7 @@
                         <p class="text-end py-1" style="width: 100px;">Biaya Listrik :&nbsp;</p>
                         <select id="select-listrik" name="listrik" class="form-select form-select-sm" style="width: 173px;">
                             <option value="0">0</option>
-                            <option value="24000">24.000</option>
+                            <option value="25000">25.000</option>
                             <option value="40000">40.000</option>
                             <option value="50000">50.000</option>
                             <option value="75000">75.000</option>
@@ -111,15 +111,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>k</td>
-                                    <td>Import</td>
-                                    <td>113</td>
-                                    <td>23</td>
-                                    <td class="data-round">23</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">3000</span></div></td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">69000</span></div></td>
-                                </tr>
+                                @foreach ($trans as $item)
+                                    @foreach ($item->details as $detail)
+                                    <tr>
+                                        <td>{{$detail->kode}}</td>
+                                        <td>{{$detail->nama_barang}}</td>
+                                        <td>{{$detail->jumlah}}</td>
+                                        <td>{{$detail->bruto}}</td>
+                                        <td>{{$detail->round}}</td>
+                                        <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->parkir}}</span></div></td>
+                                        <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->subtotal}}</span></div></td>
+                                    </tr>
+                                    @endforeach
+                                @endforeach
+
                                 <tr>
                                     <td>p</td>
                                     <td>Import</td>
