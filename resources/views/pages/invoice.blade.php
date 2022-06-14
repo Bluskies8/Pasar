@@ -6,12 +6,16 @@
 
     <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
         <div class="dropdown h-100"><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button">All Item</button>
-            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">First Item</a>
+                <a class="dropdown-item" href="#">Second Item</a>
+                <a class="dropdown-item" href="#">Third Item</a>
+            </div>
         </div>
-        <button class="btn btn-sm me-2" id="generate-invoice" type="button" style="background: rgb(24, 144, 255);color: white;">Generate Invoice</button>
+        <button class="btn btn-sm me-2" id="generate-invoice" type="button" style="background: rgb(24, 144, 255);color: white;">Buat Nota</button>
     </header>
     <hr class="my-0">
-    <div class="table-responsive p-3" style="max-height: 81.8vh;overflow-y: auto;">
+    <div class="table-responsive p-3" style="max-height: 88.8vh;overflow-y: auto;">
         <table class="table table-striped" id="table-invoice">
             <thead>
                 <tr class="text-center">
@@ -55,13 +59,14 @@
     </div>
     <ul class="list-unstyled py-2 px-1" id="list-aksi">
         <li id="item-detail" class="px-1">Tampilkan Nota</li>
+        <li id="item-update" class="px-1">Ubah Nota</li>
     </ul>
 
     <div class="modal fade" role="dialog" tabindex="-1" id="modal-invoice">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Generate Invoice</h4>
+                    <h4 class="modal-title">Buat Nota</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" placeholder="harga tambahan">

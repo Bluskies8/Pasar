@@ -35,6 +35,29 @@ $(document).ready(function() {
         currentID = '';
     });
 
+    $('#item-update').on('click', function() {
+        // code ajax data invoice
+
+        // end ajax
+
+        let biayaKuli = 0;
+        $('.data-round').each(function(index, element) {
+            let val = parseInt($(element).html());
+            biayaKuli += val;
+        });
+        biayaKuli *= 1000;
+        $('#biaya-kuli').text(biayaKuli.toLocaleString(['ban', 'id']));
+
+        let biayaListrik = 0;
+        if (biayaListrik != 0) {
+            $("#select-listrik").val(biayaListrik).change();
+        } else {
+            $("#select-listrik").val("0").change();
+        }
+
+        $('#modal-invoice').modal('show');
+    });
+
     $(document).on('click', function() {
         setTimeout(function (){
             if (flag) {
@@ -68,47 +91,13 @@ $(document).ready(function() {
     };
 
 
-    var tambahanId = 0;
     $('#generate-invoice').on('click', function() {
-        if (tambahanId == 0) {
-            cloneBiaya();
-        }
-
-        // event ini nanti akan dirubah ketika on lapak selected
-        let biayaKuli = 0;
-        $('.data-round').each(function(index, element) {
-            let val = parseInt($(element).html());
-            biayaKuli += val;
-        });
-        biayaKuli *= 1000;
-        $('#biaya-kuli').text(biayaKuli.toLocaleString(['ban', 'id']));
-        // end event
-
-        $('#modal-invoice').modal('show');
+        // code ajax untuk generate invoice
     });
 
-    /*
     $('.btn-save').on('click', function() {
-        window.open('/invoice/generate', 'Invoice');
+        // code ajax untuk update selected invoice
         $('#modal-invoice').modal('hide');
-    });
-    */
-
-    function cloneBiaya() {
-        tambahanId++;
-        let temp = $('#clone-biaya').clone().prop('id', 'tambahan-' + tambahanId).appendTo("#list-tambahan");
-        temp.removeClass('d-none');
-        temp.addClass('d-flex');
-    }
-
-    $(document).on('click', '.add-tambahan', function() {
-        cloneBiaya();
-        $(this).hide();
-        $(this).siblings('.btn').show();
-    });
-
-    $(document).on('click', '.delete-tambahan', function() {
-        $(this).parent().remove();
     });
 
     $('#select-listrik').on('change', function() {

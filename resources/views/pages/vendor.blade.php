@@ -8,7 +8,7 @@
                 <tr>
                     <td class="td-2">D1<br><span>Warung</span></td>
                     @foreach ($standb as $item)
-                    <td id="{{$item->no_stand}}" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">{{$item->no_stand}}<span class="nama-pt">{{$item->badan_usaha}}</span><span class="nama-lapak">{{$item->seller_name}}</span></div></td>
+                        <td id="{{$item->no_stand}}" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">{{$item->no_stand}}<span class="nama-pt">{{$item->badan_usaha}}</span><span class="nama-lapak">{{$item->seller_name}}</span></div></td>
                     @endforeach
                     <td class="td-2" rowspan="2">D2<br><span>Warung</span></td>
                     <td class="td-2" rowspan="2">D3<br><span>Koperasi</span></td>
@@ -31,7 +31,7 @@
                 <tr>
                     <td class="td-2">{{$standc[4]['no_stand']}}<br><span class="nama-pt">{{$standc[4]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[4]['seller_name']}}</span></td>
                     @foreach ($standa as $item)
-                    <td id="{{$item->no_stand}}" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">{{$item->no_stand}}<span class="nama-pt">{{$item->badan_usaha}}</span><span class="nama-lapak">{{$item->seller_name}}</span></div></td>
+                        <td id="{{$item->no_stand}}" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">{{$item->no_stand}}<span class="nama-pt">{{$item->badan_usaha}}</span><span class="nama-lapak">{{$item->seller_name}}</span></div></td>
                     @endforeach
                     <td class="td-2" rowspan="2">Tangga<br>ke atas</td>
                     <td class="td-2" rowspan="2">Ponten</td>
@@ -54,14 +54,14 @@
             <div class="modal-body">
                 <div class="position-relative mb-3">
                     <input id="input-namaPT" type="text" class="w-100 ps-2" style="height: 32px;" />
-                    <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Perusahaan</p>
+                    <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Lapak</p>
                 </div>
                 <div class="position-relative mb-3">
                     <select class="w-100" style="border-radius: 4px;height: 32px;">
                         <option value selected>-</option>
                         <option value></option>
                     </select>
-                    <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Pelapak</p>
+                    <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Pemilik</p>
                 </div>
             </div>
             <div class="modal-footer">

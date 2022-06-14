@@ -25,7 +25,15 @@
             </div>
             <i class="fas fa-cog fa-xl me-3"></i>
             <i class="fas fa-question-circle fa-xl me-3"></i>
-            <img class="rounded-circle me-4" style="width: 40px;height: 40px;" src="{{asset('img/logo.svg')}}">
+            <div class="dropdown me-4">
+                <button class="btn p-0" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="outline: none;box-shadow: none;">
+                    <img class="rounded-circle" style="width: 40px;height: 40px;" src="{{asset('img/logo.svg')}}">
+                </button>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" style="cursor: default;">Profile</a>
+                    <a class="dropdown-item" style="cursor: default;">Logout</a>
+                </div>
+            </div>
         </div>
     </div>
 </header>
