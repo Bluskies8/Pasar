@@ -124,33 +124,27 @@
                                     </tr>
                                     @endforeach
                                 @endforeach
-
-                                <tr>
-                                    <td>p</td>
-                                    <td>Import</td>
-                                    <td>10</td>
-                                    <td>10</td>
-                                    <td class="data-round">10</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">3000</span></div></td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">3000</span></div></td>
-                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td class="text-end" colspan="6">Total</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="thousand-separator">72000</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$total-$parkir}}</span></div></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end" colspan="6">Parkir</td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$parkir}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Kuli</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">33000</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">{{$htrans->total_jumlah*1000}}</span></div></td>
                                 </tr>
-                                <tr>
+                                tr>
                                     <td class="text-end" colspan="6">Listrik</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="thousand-separator">0</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$invoice->listrik}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Dibayarkan</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">129000</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$total}}</span></div></td>
                                 </tr>
                             </tfoot>
                         </table>

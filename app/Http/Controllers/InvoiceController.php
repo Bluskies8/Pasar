@@ -191,9 +191,13 @@ class InvoiceController extends Controller
      * @param  \App\Models\invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, invoice $invoice)
+    public function update(Request $request)
     {
-        //
+        $invoice = invoice::where('id',$request->id)->first();
+        $invoice->listrik = $request->listrik;
+        $invoice->total = $invoice->total+$request->listrik;
+        $invoice->save();
+        return "success update";
     }
 
     /**
