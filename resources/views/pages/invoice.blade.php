@@ -90,7 +90,7 @@
                         <p class="text-end py-1" style="width: 100px;">Biaya Listrik :&nbsp;</p>
                         <select id="select-listrik" name="listrik" class="form-select form-select-sm" style="width: 173px;">
                             <option value="0">0</option>
-                            <option value="24000">24.000</option>
+                            <option value="25000">25.000</option>
                             <option value="40000">40.000</option>
                             <option value="50000">50.000</option>
                             <option value="75000">75.000</option>
@@ -116,41 +116,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>k</td>
-                                    <td>Import</td>
-                                    <td>113</td>
-                                    <td>23</td>
-                                    <td class="data-round">23</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">3000</span></div></td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">69000</span></div></td>
-                                </tr>
-                                <tr>
-                                    <td>p</td>
-                                    <td>Import</td>
-                                    <td>10</td>
-                                    <td>10</td>
-                                    <td class="data-round">10</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">3000</span></div></td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">3000</span></div></td>
-                                </tr>
+                                @foreach ($trans as $item)
+                                    @foreach ($item->details as $detail)
+                                    <tr>
+                                        <td>{{$detail->kode}}</td>
+                                        <td>{{$detail->nama_barang}}</td>
+                                        <td>{{$detail->jumlah}}</td>
+                                        <td>{{$detail->bruto}}</td>
+                                        <td>{{$detail->round}}</td>
+                                        <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->parkir}}</span></div></td>
+                                        <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->subtotal}}</span></div></td>
+                                    </tr>
+                                    @endforeach
+                                @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td class="text-end" colspan="6">Total</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="thousand-separator">72000</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$total-$parkir}}</span></div></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end" colspan="6">Parkir</td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$parkir}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Kuli</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">33000</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">{{$htrans->total_jumlah*1000}}</span></div></td>
                                 </tr>
-                                <tr>
+                                tr>
                                     <td class="text-end" colspan="6">Listrik</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="thousand-separator">0</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$invoice->listrik}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Dibayarkan</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">129000</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$total}}</span></div></td>
                                 </tr>
                             </tfoot>
                         </table>

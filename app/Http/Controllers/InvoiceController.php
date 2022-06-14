@@ -80,9 +80,14 @@ class InvoiceController extends Controller
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
         // dd($carbon.' - '.$start.' - '.$end);
         // dd($temp);
+        $checkinvoice = invoice::where('id','like', '%'.$dateid.'%')->get();
+        if($checkinvoice){
+            return redirect()->back()->with(['pesan'=>'invoice sudah terbuat']);
+        }
         foreach ($stand as $key) {
             if($key['seller_name']!=""){
                 $total = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_harga');
+                $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_jumlah');
                 // dd($total);
                 $htrans = htrans::with('details')->where('stand_id',$key['id'])->get();
                 // $htrans = htrans::with(['details'=> function($query){
@@ -102,6 +107,7 @@ class InvoiceController extends Controller
                     'stand_id' => $key['id'],
                     'netto' => netto::first()->value,
                     'listrik' => 0,
+                    'kuli' => $jumlah*1000,
                     'parkir' => $parkir,
                     'total' => $total
                 ]);
@@ -111,8 +117,18 @@ class InvoiceController extends Controller
     public function transactionDetails(Request $request)
     {
         $lapak = $request->lapak;
-        $htrans = htrans::where('stand_id',$lapak)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->first();
-        $dtrans = dtrans::where('htrans_id',$htrans->id)->get();
+        $htrans = htrans::with('details')->where('stand_id',$lapak)->first();
+        $total = htrans::where('stand_id',$lapak)->sum('total_harga');
+        $parkir = dtrans::where('htrans_id',$htrans->id)->sum('parkir');
+        $pasar = pasar::where('id',Auth::guard('checkLogin')->user()->pasar_id)->first();
+        $stand = stand::where('id', $lapak)->first();
+        return [
+            'trans' => $htrans,
+            'total' =>$total,
+            'parkir' => $parkir,
+            'pasar' => $pasar,
+            'stand' => $stand
+        ];
     }
     public function invoicedetails($id)
     {
@@ -175,9 +191,13 @@ class InvoiceController extends Controller
      * @param  \App\Models\invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, invoice $invoice)
+    public function update(Request $request)
     {
-        //
+        $invoice = invoice::where('id',$request->id)->first();
+        $invoice->listrik = $request->listrik;
+        $invoice->total = $invoice->total+$request->listrik;
+        $invoice->save();
+        return "success update";
     }
 
     /**
