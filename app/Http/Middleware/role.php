@@ -34,6 +34,6 @@ class role
                 return $next($request);
             }
         // }
-        return redirect('tologin');
+        return redirect('login');
     }
 }

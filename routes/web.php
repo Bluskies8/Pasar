@@ -28,7 +28,7 @@ Route::middleware(['checkLogin'])->group(function () {
         return view('pages.dashboard');
     });
     Route::prefix('invoice')->group(function () {
-        Route::get('/',[invoicecontroller::class,'invoice'])->middleware('role:2,3');
+        Route::get('/',[invoicecontroller::class,'invoice']);
         Route::get('/generate', [InvoiceController::class,'generate'])->middleware('role:2');
         Route::get('/update', [InvoiceController::class,'update'])->middleware('role:2');
         Route::get('/{id}', [InvoiceController::class,'invoicedetails'])->middleware('role:2,3');

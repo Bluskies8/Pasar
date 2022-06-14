@@ -35,7 +35,17 @@ class InvoiceController extends Controller
     }
     public function invoice()
     {
-        $data = invoice::with('stand')->get();
+        $carbon = Carbon::now();
+        $date = $carbon->toDateString();
+        $time = $carbon->toTimeString();
+        if($time > '07:00:00'){
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->addDays(1);
+        }else{
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->subDays(1);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
+        }
+        $data = invoice::with('stand')->whereBetween('created_at',[$start,$end])->get();
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
         foreach ($temp as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
@@ -55,7 +65,7 @@ class InvoiceController extends Controller
     public function generate()
     {
         $carbon = Carbon::now();
-        $date = $carbon->format('dmY');
+
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
         foreach ($temp as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
@@ -63,10 +73,17 @@ class InvoiceController extends Controller
             $stand[$key]['no_stand'] = $no_stand->no_stand;
             $stand[$key]['id'] = $no_stand->id;
         }
-
+        $dateid = $carbon->format('dmY');
+        $date = $carbon->toDateString();
+        $time = $carbon->toTimeString();
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDays(1);
+        $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
+        // dd($carbon.' - '.$start.' - '.$end);
+        // dd($temp);
         foreach ($stand as $key) {
             if($key['seller_name']!=""){
-                $total = htrans::where('stand_id',$key['id'])->sum('total_harga');
+                $total = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_harga');
+                // dd($total);
                 $htrans = htrans::with('details')->where('stand_id',$key['id'])->get();
                 // $htrans = htrans::with(['details'=> function($query){
                 //     $query->sum('parkir','total_parkir');
@@ -78,7 +95,7 @@ class InvoiceController extends Controller
                     $parkir+=$dtrans;
                 }
                 $count = invoice::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->count()+1;
-                $id = "INV".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count,3,"0",STR_PAD_LEFT);
+                $id = "INV".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$dateid.str_pad($count,3,"0",STR_PAD_LEFT);
                 invoice::create([
                     'id' => $id,
                     'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
