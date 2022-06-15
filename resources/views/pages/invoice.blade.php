@@ -125,15 +125,15 @@
                             <tfoot>
                                 <tr>
                                     <td class="text-end" colspan="6">Total</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="thousand-separator"><!--{{$total-$parkir}}--></span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="thousand-separator">{{$total-$parkir}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Parkir</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir" class="thousand-separator"><!--{{$parkir}}--></span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir" class="thousand-separator">{{$parkir}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Kuli</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator"><!--{{$kuli}}--></span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">{{$kuli}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Listrik</td>
@@ -141,7 +141,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Dibayarkan</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator"><!--{{$total}}--></span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">{{$total}}</span></div></td>
                                 </tr>
                             </tfoot>
                         </table>

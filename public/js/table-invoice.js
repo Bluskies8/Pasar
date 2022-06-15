@@ -46,28 +46,37 @@ $(document).ready(function() {
                 id: currentID,
             },
             beforeSend: function(){
-                console.log(currentID);
+                // console.log(currentID);
             },
             success: function(data) {
-                console.log(data);
+                console.log(data.invoice.kuli);
 
-                jQuery.each(JSON.parse(data.trans), function( i, trans ) {
-                    jQuery.each(trans, function( j, detail ) {
+                jQuery.each(data.trans, function( i, trans ) {
+                    jQuery.each(trans.details, function( j, detail ) {
                         $('.modal-invoice tbody').append(
                             "<tr>" +
-                                "<td>" + detail.kode.toUpperCase() + "</td>" +
-                                "<td>" + detail.nama_barang + "</td>" +
-                                "<td>" + detail.jumlah + "</td>" +
-                                "<td>" + detail.bruto + "</td>" +
-                                "<td>" + detail.round + "</td>" +
-                                "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + detail.parkir + "</span></div></td>" +
-                                "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + detail.subtotal + "</span></div></td>" +
+                            "<td>" + detail.kode + "</td>" +
+                            "<td>" + detail.nama_barang + "</td>" +
+                            "<td>" + detail.jumlah + "</td>" +
+                            "<td>" + detail.bruto + "</td>" +
+                            "<td>" + detail.round + "</td>" +
+                            "<td>" + detail.parkir + "</td>" +
+                            "<td>" + detail.subtotal + "</td>" +
                             "</tr>"
                         );
                     });
                 });
+                // "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + data.invoice.parkir + "</span></div></td>"
+                // "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + data.invoice.subtotal + "</span></div></td>"
 
-                $('#biaya-total').text(data.total.toLocaleString(['ban', 'id']));
+                // $('#select-listrik').text(data.stand.seller_name);
+                $('#nama-lapak').html(data.stand.seller_name);
+                $('#biaya-kuli').html(data.invoice.kuli);
+                $('#biaya-total').html(data.invoice.total-data.invoice.parkir);
+                $('#biaya-parkir').html(data.invoice.parkir);
+                $('#biaya-listrik').html(data.invoice.listrik);
+                $('#biaya-dibayarkan').html(data.invoice.total);
+                // $('#biaya-total').text(data.total.toLocaleString(['ban', 'id']));
 
                 let biayaKuli = 0;
                 $('.data-round').each(function(index, element) {
