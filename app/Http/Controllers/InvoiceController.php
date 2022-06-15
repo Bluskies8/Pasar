@@ -93,7 +93,6 @@ class InvoiceController extends Controller
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
         $checkinvoice = invoice::where('id','like', '%'.$dateid.'%')->count();
         if($checkinvoice > 0){
-            dd('asd');
             return redirect()->back()->with(['pesan'=>'invoice sudah terbuat']);
         }
         foreach ($stand as $key) {
@@ -162,6 +161,13 @@ class InvoiceController extends Controller
     }
     public function transactionDetails(Request $request)
     {
+        $date = substr($request->id,5,8);
+        $day = substr($date,0,2);
+        $month = substr($date,2,2);
+        $year = substr($date,4,4);
+        $date = $year .'-' . $month .'-' . $day;
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDay(1);
+        $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
         $temp = invoice::where('id',$request->id)->first();
         $lapak = $temp->stand_id;
         $htrans = htrans::with('details')->where('stand_id',$lapak)->first();

@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->string('pasar_id')->referenced();
             $table->string('stand_id')->referenced();
-            $table->string('netto');
-            $table->bigInteger('listrik');
-            $table->bigInteger('parkir');
-            $table->bigInteger('kuli');
-            $table->bigInteger('total');
+            $table->string('netto')->default(0);
+            $table->bigInteger('listrik')->default(0);
+            $table->bigInteger('parkir')->default(0);
+            $table->bigInteger('kuli')->default(0);
+            $table->bigInteger('total')->default(0);
             $table->timestamps();
         });
     }

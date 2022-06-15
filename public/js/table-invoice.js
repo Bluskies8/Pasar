@@ -49,7 +49,7 @@ $(document).ready(function() {
                 console.log(currentID);
             },
             success: function(data) {
-                console.log(data);
+                console.log(data.invoice);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);
@@ -119,12 +119,6 @@ $(document).ready(function() {
             },
             type: "get",
             url: "invoice/generate",
-            data: {
-
-            },
-            beforeSend: function(){
-
-            },
             success: function(data) {
                 console.log(data);
             },
@@ -146,10 +140,10 @@ $(document).ready(function() {
             url: "invoice/update",
             data: {
                 id: currentID,
-                // listrik: ambil dr dropdown
+                listrik: $("#select-listrik option:selected").val()
             },
             beforeSend: function(){
-                console.log(currentID);
+                // console.log(listrik);
             },
             success: function(data) {
                 console.log(data);
