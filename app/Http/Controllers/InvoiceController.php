@@ -97,12 +97,12 @@ class InvoiceController extends Controller
         }
         foreach ($stand as $key) {
             if($key['seller_name']!=""){
-                // $total = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_harga');
-                // $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_jumlah');
-                // $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
-                $total = htrans::where('stand_id',$key['id'])->sum('total_harga');
-                $jumlah = htrans::where('stand_id',$key['id'])->sum('total_jumlah');
-                $htrans = htrans::with('details')->where('stand_id',$key['id'])->get();
+                $total = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_harga');
+                $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_jumlah');
+                $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
+                // $total = htrans::where('stand_id',$key['id'])->sum('total_harga');
+                // $jumlah = htrans::where('stand_id',$key['id'])->sum('total_jumlah');
+                // $htrans = htrans::with('details')->where('stand_id',$key['id'])->get();
                 $parkir = 0;
                 foreach ($htrans as $key2 ) {
                     $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
@@ -118,7 +118,8 @@ class InvoiceController extends Controller
                     'listrik' => 0,
                     'kuli' => $jumlah*1000,
                     'parkir' => $parkir,
-                    'total' => $total
+                    'total' => $total,
+                    'dibayarkan' => $total+($jumlah*1000),
                 ]);
             }
         }
@@ -168,8 +169,8 @@ class InvoiceController extends Controller
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
         $temp = invoice::where('id',$request->id)->first();
         $lapak = $temp->stand_id;
-        // $htrans = htrans::with('details')->where('stand_id',$lapak)->whereBetween('created_at',[$start,$end])->get();
-        $htrans = htrans::with('details')->where('stand_id',$lapak)->get();
+        $htrans = htrans::with('details')->where('stand_id',$lapak)->whereBetween('created_at',[$start,$end])->get();
+        // $htrans = htrans::with('details')->where('stand_id',$lapak)->get();
         $pasar = pasar::where('id',Auth::guard('checkLogin')->user()->pasar_id)->first();
         $stand = stand::where('id', $lapak)->first();
         return response()->json([
@@ -253,7 +254,7 @@ class InvoiceController extends Controller
     {
         $invoice = invoice::where('id',$request->id)->first();
         $invoice->listrik = $request->listrik;
-        $invoice->total = $invoice->total+$request->listrik;
+        $invoice->dibayarkan = $invoice->total+$request->listrik+$invoice->kuli;
         $invoice->save();
         return "success update";
     }

@@ -17,7 +17,8 @@ class invoice extends Model
         'listrik',
         'kuli',
         'parkir',
-        'netto'
+        'netto',
+        'dibayarkan'
     ];
     public function stand()
     {

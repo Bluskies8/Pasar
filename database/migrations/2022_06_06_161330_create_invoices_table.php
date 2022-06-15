@@ -22,6 +22,7 @@ return new class extends Migration
             $table->bigInteger('parkir')->default(0);
             $table->bigInteger('kuli')->default(0);
             $table->bigInteger('total')->default(0);
+            $table->bigInteger('dibayarkan')->default(0);
             $table->timestamps();
         });
     }
