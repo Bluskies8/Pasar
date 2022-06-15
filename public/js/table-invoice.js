@@ -115,10 +115,55 @@ $(document).ready(function() {
 
     $('#generate-invoice').on('click', function() {
         // code ajax untuk generate invoice
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                // 'contentType' : "application/json",
+            },
+            type: "get",
+            url: "invoice/generate",
+            data: {
+
+            },
+            beforeSend: function(){
+
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
     });
 
     $('.btn-save').on('click', function() {
         // code ajax untuk update selected invoice
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                // 'contentType' : "application/json",
+            },
+            type: "POST",
+            url: "invoice/update",
+            data: {
+                id: currentID,
+                // listrik: ambil dr dropdown
+            },
+            beforeSend: function(){
+                console.log(currentID);
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // JSON.parse(undefined);
+                console.log(xhr.status);
+                console.log(thrownError);
+                // console.log(ajaxOptions);
+            }
+        });
         $('#modal-invoice').modal('hide');
     });
 
