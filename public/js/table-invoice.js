@@ -138,7 +138,7 @@ $(document).ready(function() {
             url: "invoice/generate",
             success: function(data) {
                 console.log(data);
-                location.reload();
+                // location.reload();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);

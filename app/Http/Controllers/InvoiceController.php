@@ -86,8 +86,8 @@ class InvoiceController extends Controller
             $stand[$key]['id'] = $no_stand->id;
         }
         $dateid = $carbon->format('dmY');
-        // $dateid = "12062022";
         $date = $carbon->toDateString();
+        $date = "2022-06-16";
         $time = $carbon->toTimeString();
         $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDays(1);
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
@@ -97,14 +97,12 @@ class InvoiceController extends Controller
         }
         foreach ($stand as $key) {
             if($key['seller_name']!=""){
-                $total = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_harga');
-                $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_jumlah');
-                // dd($total);
-                $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
-                // $htrans = htrans::with(['details'=> function($query){
-                //     $query->sum('parkir','total_parkir');
-                //  }])->where('stand_id',$key['id'])->get();
-                // dd($htrans);
+                // $total = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_harga');
+                // $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_jumlah');
+                // $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
+                $total = htrans::where('stand_id',$key['id'])->sum('total_harga');
+                $jumlah = htrans::where('stand_id',$key['id'])->sum('total_jumlah');
+                $htrans = htrans::with('details')->where('stand_id',$key['id'])->get();
                 $parkir = 0;
                 foreach ($htrans as $key2 ) {
                     $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
