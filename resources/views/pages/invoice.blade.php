@@ -25,7 +25,6 @@
             <thead>
                 <tr class="text-center">
                     <th>ID Invoice</th>
-                    <th>Tanggal</th>
                     <th>Lapak</th>
                     <th>Total Transaksi</th>
                     <th style="width: 45px;"></th>
@@ -35,7 +34,6 @@
                 @foreach ($invoice as $item)
                 <tr>
                     <td class="cell-id text-center">{{$item->id}}</td>
-                    <td class="text-center">{{$item->created_at->format('d-M-Y')}}</td>
                     <td class="text-center">{{$item->stand->seller_name}}</td>
                     <td>
                         <div class="d-flex justify-content-between px-5">
@@ -52,7 +50,7 @@
                 @endforeach
             </tbody>
             <tfoot>
-                <td colspan="3" class="text-end">Total</td>
+                <td colspan="2" class="text-end">Total</td>
                 <td>
                     <div class="d-flex justify-content-between px-5">
                         <p class="ms-5">Rp</p>
