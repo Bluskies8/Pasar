@@ -21,13 +21,11 @@ $(document).ready(function() {
 
     var flag = false;
     var currentID = '';
-    var currentIndex = 0;
     $('.show-aksi').on('click', function() {
         $('#list-aksi').show();
         $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
         $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
         currentID = $(this).parent().parent().children('.cell-id').text();
-        currentIndex = $(this).parent().parent().data("index");
         flag = true;
     });
 
@@ -51,8 +49,42 @@ $(document).ready(function() {
                 console.log(currentID);
             },
             success: function(data) {
-                console.log(data.invoice);
-                
+                console.log(data);
+
+                jQuery.each(JSON.parse(data.trans), function( i, trans ) {
+                    jQuery.each(trans, function( j, detail ) {
+                        $('.modal-invoice tbody').append(
+                            "<tr>" +
+                                "<td>" + detail.kode.toUpperCase() + "</td>" +
+                                "<td>" + detail.nama_barang + "</td>" +
+                                "<td>" + detail.jumlah + "</td>" +
+                                "<td>" + detail.bruto + "</td>" +
+                                "<td>" + detail.round + "</td>" +
+                                "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + detail.parkir + "</span></div></td>" +
+                                "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + detail.subtotal + "</span></div></td>" +
+                            "</tr>"
+                        );
+                    });
+                });
+
+                $('#biaya-total').text(data.total.toLocaleString(['ban', 'id']));
+
+                let biayaKuli = 0;
+                $('.data-round').each(function(index, element) {
+                    let val = parseInt($(element).html());
+                    biayaKuli += val;
+                });
+                biayaKuli *= 1000;
+                $('#biaya-kuli').text(biayaKuli.toLocaleString(['ban', 'id']));
+
+                let biayaListrik = 0;
+                if (biayaListrik != 0) {
+                    $("#select-listrik").val(biayaListrik).change();
+                } else {
+                    $("#select-listrik").val("0").change();
+                }
+
+                $('#modal-invoice').modal('show');
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);
@@ -61,23 +93,6 @@ $(document).ready(function() {
                 // console.log(ajaxOptions);
             }
         });
-
-        let biayaKuli = 0;
-        $('.data-round').each(function(index, element) {
-            let val = parseInt($(element).html());
-            biayaKuli += val;
-        });
-        biayaKuli *= 1000;
-        $('#biaya-kuli').text(biayaKuli.toLocaleString(['ban', 'id']));
-
-        let biayaListrik = 0;
-        if (biayaListrik != 0) {
-            $("#select-listrik").val(biayaListrik).change();
-        } else {
-            $("#select-listrik").val("0").change();
-        }
-
-        $('#modal-invoice').modal('show');
     });
 
     $(document).on('click', function() {

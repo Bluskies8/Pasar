@@ -32,7 +32,7 @@
             </thead>
             <tbody>
                 @foreach ($invoice as $item)
-                <tr data-index="{{ $loop->index }}">
+                <tr>
                     <td class="cell-id text-center">{{$item->id}}</td>
                     <td class="text-center">{{$item->stand->seller_name}}</td>
                     <td>
@@ -125,23 +125,23 @@
                             <tfoot>
                                 <tr>
                                     <td class="text-end" colspan="6">Total</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="thousand-separator">{{$total-$parkir}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="thousand-separator"><!--{{$total-$parkir}}--></span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Parkir</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir" class="thousand-separator">{{$parkir}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir" class="thousand-separator"><!--{{$parkir}}--></span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Kuli</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">{{$kuli}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator"><!--{{$kuli}}--></span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Listrik</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="thousand-separator">0</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="thousand-separator"></span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Dibayarkan</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">{{$total}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator"><!--{{$total}}--></span></div></td>
                                 </tr>
                             </tfoot>
                         </table>
