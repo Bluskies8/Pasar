@@ -16,11 +16,11 @@
         <button class="btn btn-sm me-2" id="generate-invoice" type="button" style="background: rgb(24, 144, 255);color: white;">Buat Nota</button>
     </header>
     <hr class="my-0">
-    <div class="position-relative m-3" style="max-width: 250px;">
+    <div class="position-relative m-3" style="max-width: 250px; z-index: 1;">
         <input class="form-control d-flex justify-content-between" id="selected-date" name="date" type="date" style="height: 32px;" data-date="" data-date-format="DD/MM/YYYY" value="<?php echo date('Y-m-d'); ?>">
         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
     </div>
-    <div class="table-responsive p-3" style="max-height: 81.7vh;overflow-y: auto;">
+    <div class="position-absolute table-responsive p-3 w-100" style="max-height: 88.8vh;overflow-y: auto; top: 51px; z-index: 0;">
         <table class="table table-striped" id="table-invoice">
             <thead>
                 <tr class="text-center">
@@ -32,13 +32,13 @@
             </thead>
             <tbody>
                 @foreach ($invoice as $item)
-                <tr>
+                <tr id="row-{{$loop->index}}">
                     <td class="cell-id text-center">{{$item->id}}</td>
                     <td class="text-center">{{$item->stand->seller_name}}</td>
                     <td>
                         <div class="d-flex justify-content-between px-5">
-                            <p class="ms-5">Rp</p>
-                            <p class="thousand-separator me-5 data-total">{{$item->total}}</p>
+                            <p class="ms-lg-5 ms-0">Rp</p>
+                            <p class="thousand-separator me-lg-5 me-0 data-total">{{$item->total + $item->kuli}}</p>
                         </div>
                     </td>
                     <td class="position-relative" style="padding: 5px 4px;">
@@ -75,7 +75,7 @@
                 <div class="modal-body" placeholder="harga tambahan">
                     <div class="d-flex align-items-center mb-3">
                         <p class="text-end" style="white-space: nowrap; width: 100px;">Nama Lapak :&nbsp;</p>
-                        <span id="nama-pelapak"></span>
+                        <span id="nama-lapak"></span>
                     </div>
                     <div class="d-flex align-items-center mb-3">
                         <p class="text-end py-1" style="width: 100px;">Biaya Listrik :&nbsp;</p>
@@ -106,38 +106,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @isset($trans)
-                                    @foreach ($trans as $item)
-                                        @foreach ($item->details as $detail)
-                                        <tr>
-                                            <td>{{$detail->kode}}</td>
-                                            <td>{{$detail->nama_barang}}</td>
-                                            <td>{{$detail->jumlah}}</td>
-                                            <td>{{$detail->bruto}}</td>
-                                            <td>{{$detail->round}}</td>
-                                            <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->parkir}}</span></div></td>
-                                            <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->subtotal}}</span></div></td>
-                                        </tr>
-                                        @endforeach
-                                    @endforeach
-                                @endisset
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td class="text-end" colspan="6">Total</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="thousand-separator">{{$total-$parkir}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="biaya thousand-separator">{{$total-$parkir}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Parkir</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir" class="thousand-separator">{{$parkir}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir" class="biaya thousand-separator">{{$parkir}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Kuli</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">{{$kuli}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="biaya thousand-separator">{{$kuli}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Listrik</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="thousand-separator"></span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="biaya thousand-separator"></span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Dibayarkan</td>

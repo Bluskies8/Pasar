@@ -21,11 +21,13 @@ $(document).ready(function() {
 
     var flag = false;
     var currentID = '';
+    var selecetedRow = -1;
     $('.show-aksi').on('click', function() {
         $('#list-aksi').show();
         $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
         $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
         currentID = $(this).parent().parent().children('.cell-id').text();
+        selecetedRow = $(this).parent().parent().attr('id');
         flag = true;
     });
 
@@ -49,50 +51,39 @@ $(document).ready(function() {
                 // console.log(currentID);
             },
             success: function(data) {
-                console.log(data.invoice.kuli);
+                console.log(data);
+                $('.modal-invoice tbody').empty();
 
                 jQuery.each(data.trans, function( i, trans ) {
                     jQuery.each(trans.details, function( j, detail ) {
                         $('.modal-invoice tbody').append(
                             "<tr>" +
-                            "<td>" + detail.kode + "</td>" +
-                            "<td>" + detail.nama_barang + "</td>" +
-                            "<td>" + detail.jumlah + "</td>" +
-                            "<td>" + detail.bruto + "</td>" +
-                            "<td>" + detail.round + "</td>" +
-                            "<td>" + detail.parkir + "</td>" +
-                            "<td>" + detail.subtotal + "</td>" +
+                                "<td>" + detail.kode + "</td>" +
+                                "<td>" + detail.nama_barang + "</td>" +
+                                "<td>" + detail.jumlah + "</td>" +
+                                "<td>" + detail.bruto + "</td>" +
+                                "<td>" + detail.round + "</td>" +
+                                "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + detail.parkir + "</span></div></td>" +
+                                "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + detail.subtotal + "</span></div></td>" +
                             "</tr>"
                         );
                     });
                 });
-                // "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + data.invoice.parkir + "</span></div></td>"
-                // "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + data.invoice.subtotal + "</span></div></td>"
 
-                // $('#select-listrik').text(data.stand.seller_name);
-                $('#nama-lapak').html(data.stand.seller_name);
-                $('#biaya-kuli').html(data.invoice.kuli);
-                $('#biaya-total').html(data.invoice.total-data.invoice.parkir);
-                $('#biaya-parkir').html(data.invoice.parkir);
-                $('#biaya-listrik').html(data.invoice.listrik);
-                $('#biaya-dibayarkan').html(data.invoice.dibayarkan);
-                // $('#biaya-total').text(data.total.toLocaleString(['ban', 'id']));
+                $('#nama-lapak').text(data.stand.seller_name);
+                $('#biaya-kuli').text(data.invoice.kuli);
+                $('#biaya-total').text(data.invoice.total - data.invoice.parkir - data.invoice.listrik);
+                $('#biaya-parkir').text(data.invoice.parkir);
+                $('#biaya-dibayarkan').text(data.invoice.total + data.invoice.kuli);
 
-                let biayaKuli = 0;
-                $('.data-round').each(function(index, element) {
-                    let val = parseInt($(element).html());
-                    biayaKuli += val;
-                });
-                biayaKuli *= 1000;
-                $('#biaya-kuli').text(biayaKuli.toLocaleString(['ban', 'id']));
-
-                let biayaListrik = 0;
+                let biayaListrik = data.invoice.listrik;
                 if (biayaListrik != 0) {
                     $("#select-listrik").val(biayaListrik).change();
                 } else {
                     $("#select-listrik").val("0").change();
                 }
 
+                separatorInterval = setInterval(setThousandSeparator, 10);
                 $('#modal-invoice').modal('show');
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -132,9 +123,21 @@ $(document).ready(function() {
                     $(element).text(number.toLocaleString(['ban', 'id']));
                 }
             });
+            tidyBruto();
             clearInterval(separatorInterval);
         }
     };
+
+    function tidyBruto() {
+        $('#modal-invoice tbody td:nth-child(4)').each(function(index, element) {
+            let temp = $(element).html();
+            if (temp != '') {
+                if (temp.substr(temp.indexOf('.')).length > 4) {
+                    $(element).html(temp.substr(0, temp.indexOf('.') + 4));
+                }
+            }
+        });
+    }
 
 
     $('#generate-invoice').on('click', function() {
@@ -147,7 +150,7 @@ $(document).ready(function() {
             url: "invoice/generate",
             success: function(data) {
                 console.log(data);
-                // location.reload();
+                location.reload();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);
@@ -174,6 +177,7 @@ $(document).ready(function() {
             },
             success: function(data) {
                 console.log(data);
+                location.reload();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);
@@ -187,6 +191,19 @@ $(document).ready(function() {
 
     $('#select-listrik').on('change', function() {
         $('#biaya-listrik').text($("#select-listrik option:selected").text());
+
+        let dibayarkan = 0;
+        $('.biaya').each(function(index, element) {
+            let val = $(element).text();
+            if (val != ''){
+                while(val.indexOf('.') != -1){
+                    val = val.replace('.', '');
+                }
+                let number = parseInt(val);
+                dibayarkan += number;
+            }
+        });
+        $('#biaya-dibayarkan').text(dibayarkan.toLocaleString(['ban', 'id']))
     });
 
     $("#selected-date").on("change", function() {
