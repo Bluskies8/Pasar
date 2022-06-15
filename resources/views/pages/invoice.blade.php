@@ -91,7 +91,6 @@
                     <div class="mt-2 p-2" style="background: var(--bs-light);border: 1px solid var(--bs-gray) ;">
                         <p class="text-center">Netto: Rp&nbsp;<span class="thousand-separator">3000</span>,-</p>
                     </div>
-
                     <!-- hide soalnya belum ada data -->
                     <div class="table-responsive">
                         <table class="table mb-0 modal-invoice">
@@ -136,7 +135,7 @@
                                     <td class="text-end" colspan="6">Kuli</td>
                                     <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">{{$kuli}}</span></div></td>
                                 </tr>
-                                tr>
+                                <tr>
                                     <td class="text-end" colspan="6">Listrik</td>
                                     <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="thousand-separator">{{$invoice[0]->listrik}}</span></div></td>
                                 </tr>

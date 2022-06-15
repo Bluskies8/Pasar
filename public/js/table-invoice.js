@@ -52,6 +52,7 @@ $(document).ready(function() {
             },
             success: function(data) {
                 console.log(data.invoice);
+                
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);
