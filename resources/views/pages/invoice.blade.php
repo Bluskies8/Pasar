@@ -20,7 +20,7 @@
         <input class="form-control d-flex justify-content-between" id="selected-date" name="date" type="date" style="height: 32px;" data-date="" data-date-format="DD/MM/YYYY" value="<?php echo date('Y-m-d'); ?>">
         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
     </div>
-    <div class="table-responsive p-3" style="max-height: 88.8vh;overflow-y: auto;">
+    <div class="table-responsive p-3" style="max-height: 81.7vh;overflow-y: auto;">
         <table class="table table-striped" id="table-invoice">
             <thead>
                 <tr class="text-center">
@@ -32,7 +32,7 @@
             </thead>
             <tbody>
                 @foreach ($invoice as $item)
-                <tr>
+                <tr data-index="{{ $loop->index }}">
                     <td class="cell-id text-center">{{$item->id}}</td>
                     <td class="text-center">{{$item->stand->seller_name}}</td>
                     <td>
@@ -69,25 +69,13 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Buat Nota</h4>
+                    <h4 class="modal-title">Update Nota</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" placeholder="harga tambahan">
                     <div class="d-flex align-items-center mb-3">
                         <p class="text-end" style="white-space: nowrap; width: 100px;">Nama Lapak :&nbsp;</p>
-                        @if ($data['value'])
-                            <span id="nama-pelapak"></span>
-                            <input id="pelapak" list="list-pelapak" class="form-select-sm">
-                            <datalist id="list-pelapak">
-                                @foreach ($stand as $item)
-                                    @if ($item['seller_name'] != "")
-                                        <option id = "{{$item['id']}}" value="{{$item['seller_name'] . ' - ' . $item['no_stand']}}">
-                                    @endif
-                                @endforeach
-                            </datalist>
-                        @else
-                            <span id="nama-pelapak">{{$stand['seller_name']}}</span>
-                        @endif
+                        <span id="nama-pelapak"></span>
                     </div>
                     <div class="d-flex align-items-center mb-3">
                         <p class="text-end py-1" style="width: 100px;">Biaya Listrik :&nbsp;</p>
@@ -138,11 +126,11 @@
                             <tfoot>
                                 <tr>
                                     <td class="text-end" colspan="6">Total</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$total-$parkir}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total"  class="thousand-separator">{{$total-$parkir}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Parkir</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$parkir}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir"  class="thousand-separator">{{$parkir}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Kuli</td>
@@ -150,11 +138,11 @@
                                 </tr>
                                 tr>
                                     <td class="text-end" colspan="6">Listrik</td>
-                                    {{-- <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$invoice->listrik}}</span></div></td> --}}
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="thousand-separator">0</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Dibayarkan</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$total}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan"  class="thousand-separator">{{$total}}</span></div></td>
                                 </tr>
                             </tfoot>
                         </table>

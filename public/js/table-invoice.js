@@ -21,11 +21,13 @@ $(document).ready(function() {
 
     var flag = false;
     var currentID = '';
+    var currentIndex = 0;
     $('.show-aksi').on('click', function() {
         $('#list-aksi').show();
         $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
         $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
         currentID = $(this).parent().parent().children('.cell-id').text();
+        currentIndex = $(this).parent().parent().data("index");
         flag = true;
     });
 
@@ -111,7 +113,6 @@ $(document).ready(function() {
 
 
     $('#generate-invoice').on('click', function() {
-        // code ajax untuk generate invoice
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -127,6 +128,7 @@ $(document).ready(function() {
             },
             success: function(data) {
                 console.log(data);
+                location.reload();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);
@@ -184,8 +186,7 @@ $(document).ready(function() {
         var year = temp.getFullYear();
         var start = [year, month, day].join('-') + ' 07:00:00';
         var end = [year, month, day+1].join('-') + ' 07:00:00';
-        // alert(temp);
-        //ubah data tabel
+        // ubah data tabel
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
