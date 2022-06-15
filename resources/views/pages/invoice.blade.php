@@ -3,6 +3,7 @@
 @section('content')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
         <div class="dropdown h-100"><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button">All Item</button>
@@ -141,11 +142,11 @@
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Kuli</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">{{$htrans->total_jumlah*1000}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="thousand-separator">{{$kuli}}</span></div></td>
                                 </tr>
                                 tr>
                                     <td class="text-end" colspan="6">Listrik</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$invoice->listrik}}</span></div></td>
+                                    {{-- <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$invoice->listrik}}</span></div></td> --}}
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Dibayarkan</td>

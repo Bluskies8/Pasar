@@ -37,7 +37,29 @@ $(document).ready(function() {
 
     $('#item-update').on('click', function() {
         // code ajax data invoice
-
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                // 'contentType' : "application/json",
+            },
+            type: "POST",
+            url: "invoice/transdetail",
+            data: {
+                id: currentID,
+            },
+            beforeSend: function(){
+                console.log(currentID);
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // JSON.parse(undefined);
+                console.log(xhr.status);
+                console.log(thrownError);
+                // console.log(ajaxOptions);
+            }
+        });
         // end ajax
 
         let biayaKuli = 0;
