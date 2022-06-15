@@ -170,16 +170,12 @@ class InvoiceController extends Controller
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
         $temp = invoice::where('id',$request->id)->first();
         $lapak = $temp->stand_id;
-        $htrans = htrans::with('details')->where('stand_id',$lapak)->first();
-        $total = htrans::where('stand_id',$lapak)->sum('total_harga');
-        $parkir = dtrans::where('htrans_id',$htrans->id)->sum('parkir');
+        $htrans = htrans::with('details')->where('stand_id',$lapak)->whereBetween('created_at',[$start,$end])->get();
         $pasar = pasar::where('id',Auth::guard('checkLogin')->user()->pasar_id)->first();
         $stand = stand::where('id', $lapak)->first();
         return response()->json([
             'trans' => $htrans,
             'invoice' => $temp,
-            'total' =>$total,
-            'parkir' => $parkir,
             'pasar' => $pasar,
             'stand' => $stand
         ]);

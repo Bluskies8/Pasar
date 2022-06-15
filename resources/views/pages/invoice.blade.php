@@ -137,7 +137,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Listrik</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="thousand-separator">{{$invoice[0]->listrik}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="thousand-separator">0</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Dibayarkan</td>
