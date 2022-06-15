@@ -35,8 +35,8 @@ class InvoiceController extends Controller
     }
     public function invoice()
     {
-        // $carbon = Carbon::now();
-        $carbon = Carbon::createFromFormat('Y-m-d H:i:s','2022-06-12 07:15:00',7);
+        $carbon = Carbon::now();
+        // $carbon = Carbon::createFromFormat('Y-m-d H:i:s','2022-06-12 07:15:00',7);
         $date = $carbon->toDateString();
         $time = $carbon->toTimeString();
         if($time > '07:00:00'){
@@ -126,6 +126,39 @@ class InvoiceController extends Controller
                 ]);
             }
         }
+    }
+    public function datesort(Request $request)
+    {
+        // $start = Carbon::createFromFormat('Y-m-d H:i:s',$request->date.' 06:00:00',7);
+        // $end = Carbon::createFromFormat('Y-m-d H:i:s',$request->date.' 06:00:00',7)->addDays(1);
+        $data = invoice::with('stand')->whereBetween('created_at',[$request->start,$request->end])->get();
+        // return $data;
+        $temp = stand::select('seller_name')->groupBy('seller_name')->get();
+        foreach ($temp as $key => $value) {
+            $no_stand = stand::where('seller_name',$value->seller_name)->first();
+            $stand[$key]['seller_name'] = $no_stand->seller_name;
+            $stand[$key]['no_stand'] = $no_stand->no_stand;
+            $stand[$key]['id'] = $no_stand->id;
+            $total = htrans::where('stand_id',$no_stand->id)->sum('total_harga');
+            $kuli = htrans::where('stand_id',$no_stand->id)->sum('total_jumlah') * 1000;
+            $htrans = htrans::where('stand_id',$no_stand->id)->get();
+            $parkir = 0;
+            foreach ($htrans as $key2 ) {
+                $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
+                $parkir+=$dtrans;
+            }
+        }
+        return response()->json([
+            'invoice'=> $data,
+            'htrans' => $htrans,
+            'stand' => $stand,
+            'total' =>$total,
+            'parkir' =>$parkir,
+            'kuli' => $kuli,
+            'data' => [
+                'value' => 1
+            ]
+        ]);
     }
     public function transactionDetails(Request $request)
     {

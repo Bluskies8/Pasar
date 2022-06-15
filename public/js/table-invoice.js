@@ -174,5 +174,41 @@ $(document).ready(function() {
             moment(this.value, "YYYY-MM-DD")
             .format( this.getAttribute("data-date-format") )
         )
+        function pad (str, max) {
+            str = str.toString();
+            return str.length < max ? pad("0" + str, max) : str;
+        }
+        var temp = new Date($('#selected-date').val());
+        var day = temp.getDate();
+        var month = pad(temp.getMonth() + 1,2);
+        var year = temp.getFullYear();
+        var start = [year, month, day].join('-') + ' 07:00:00';
+        var end = [year, month, day+1].join('-') + ' 07:00:00';
+        // alert(temp);
+        //ubah data tabel
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                // 'contentType' : "application/json",
+            },
+            type: "POST",
+            url: "invoice/dates",
+            data: {
+                start: start,
+                end:end
+            },
+            beforeSend: function(){
+                console.log("start: "+start + " end: "+end);
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // JSON.parse(undefined);
+                console.log(xhr.status);
+                console.log(thrownError);
+                // console.log(ajaxOptions);
+            }
+        });
     }).trigger("change");
 });

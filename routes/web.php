@@ -31,6 +31,7 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('/',[invoicecontroller::class,'invoice']);
         Route::get('/generate', [InvoiceController::class,'generate'])->middleware('role:2');
         Route::post('/update', [InvoiceController::class,'update'])->middleware('role:2');
+        Route::post('/dates', [InvoiceController::class,'datesort'])->middleware('role:2');
         Route::post('/transdetail', [InvoiceController::class,'transactionDetails'])->middleware('role:2');
         Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
     });
