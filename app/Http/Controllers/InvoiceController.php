@@ -138,6 +138,7 @@ class InvoiceController extends Controller
         $stand = stand::where('id', $lapak)->first();
         return response()->json([
             'trans' => $htrans,
+            'invoice' => $temp,
             'total' =>$total,
             'parkir' => $parkir,
             'pasar' => $pasar,
