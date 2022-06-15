@@ -16,12 +16,15 @@
         <button class="btn btn-sm me-2" id="generate-invoice" type="button" style="background: rgb(24, 144, 255);color: white;">Buat Nota</button>
     </header>
     <hr class="my-0">
+    <div class="position-relative m-3" style="max-width: 250px;">
+        <input class="form-control d-flex justify-content-between" id="selected-date" name="date" type="date" style="height: 32px;" data-date="" data-date-format="DD/MM/YYYY" value="<?php echo date('Y-m-d'); ?>">
+        <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
+    </div>
     <div class="table-responsive p-3" style="max-height: 88.8vh;overflow-y: auto;">
         <table class="table table-striped" id="table-invoice">
             <thead>
                 <tr class="text-center">
                     <th>ID Invoice</th>
-                    <th>Tanggal</th>
                     <th>Lapak</th>
                     <th>Total Transaksi</th>
                     <th style="width: 45px;"></th>
@@ -31,7 +34,6 @@
                 @foreach ($invoice as $item)
                 <tr>
                     <td class="cell-id text-center">{{$item->id}}</td>
-                    <td class="text-center">{{$item->created_at->format('d-M-Y')}}</td>
                     <td class="text-center">{{$item->stand->seller_name}}</td>
                     <td>
                         <div class="d-flex justify-content-between px-5">
@@ -48,7 +50,7 @@
                 @endforeach
             </tbody>
             <tfoot>
-                <td colspan="3" class="text-end">Total</td>
+                <td colspan="2" class="text-end">Total</td>
                 <td>
                     <div class="d-flex justify-content-between px-5">
                         <p class="ms-5">Rp</p>
@@ -168,5 +170,6 @@
     <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
     <script src="{{asset('js/table-invoice.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 
 @endsection

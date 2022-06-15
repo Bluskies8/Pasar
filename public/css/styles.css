@@ -145,3 +145,11 @@ th {
     padding-bottom: 0px;
     border-style: none!important;
 }
+
+#selected-date:before {
+    content: attr(data-date);
+}
+
+#selected-date::-webkit-datetime-edit {
+    display: none;
+}

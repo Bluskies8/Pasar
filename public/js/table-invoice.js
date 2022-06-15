@@ -5,7 +5,6 @@ $(document).ready(function() {
             null,
             null,
             null,
-            null,
             { orderable: false }
         ]
     });
@@ -36,7 +35,6 @@ $(document).ready(function() {
     });
 
     $('#item-update').on('click', function() {
-        // code ajax data invoice
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -60,7 +58,6 @@ $(document).ready(function() {
                 // console.log(ajaxOptions);
             }
         });
-        // end ajax
 
         let biayaKuli = 0;
         $('.data-round').each(function(index, element) {
@@ -170,4 +167,12 @@ $(document).ready(function() {
     $('#select-listrik').on('change', function() {
         $('#biaya-listrik').text($("#select-listrik option:selected").text());
     });
+
+    $("#selected-date").on("change", function() {
+        this.setAttribute(
+            "data-date",
+            moment(this.value, "YYYY-MM-DD")
+            .format( this.getAttribute("data-date-format") )
+        )
+    }).trigger("change");
 });
