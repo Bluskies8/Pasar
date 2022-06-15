@@ -121,19 +121,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($trans as $item)
-                                    @foreach ($item->details as $detail)
-                                    <tr>
-                                        <td>{{$detail->kode}}</td>
-                                        <td>{{$detail->nama_barang}}</td>
-                                        <td>{{$detail->jumlah}}</td>
-                                        <td>{{$detail->bruto}}</td>
-                                        <td>{{$detail->round}}</td>
-                                        <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->parkir}}</span></div></td>
-                                        <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->subtotal}}</span></div></td>
-                                    </tr>
+                                @isset($trans)
+                                    @foreach ($trans as $item)
+                                        @foreach ($item->details as $detail)
+                                        <tr>
+                                            <td>{{$detail->kode}}</td>
+                                            <td>{{$detail->nama_barang}}</td>
+                                            <td>{{$detail->jumlah}}</td>
+                                            <td>{{$detail->bruto}}</td>
+                                            <td>{{$detail->round}}</td>
+                                            <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->parkir}}</span></div></td>
+                                            <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$detail->subtotal}}</span></div></td>
+                                        </tr>
+                                        @endforeach
                                     @endforeach
-                                @endforeach
+                                @endisset
                             </tbody>
                             <tfoot>
                                 <tr>
