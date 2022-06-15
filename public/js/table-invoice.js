@@ -72,7 +72,7 @@ $(document).ready(function() {
 
                 $('#nama-lapak').text(data.stand.seller_name);
                 $('#biaya-kuli').text(data.invoice.kuli);
-                $('#biaya-total').text(data.invoice.total - data.invoice.parkir - data.invoice.listrik);
+                $('#biaya-total').text(data.invoice.total - data.invoice.parkir);
                 $('#biaya-parkir').text(data.invoice.parkir);
                 $('#biaya-dibayarkan').text(data.invoice.total + data.invoice.kuli);
 

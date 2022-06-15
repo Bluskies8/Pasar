@@ -96,12 +96,12 @@ class InvoiceController extends Controller
         }
         foreach ($stand as $key) {
             if($key['seller_name']!=""){
-                //$total = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_harga');
-                //$jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_jumlah');
-                //$htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
-                $total = htrans::where('stand_id',$key['id'])->sum('total_harga');
-                $jumlah = htrans::where('stand_id',$key['id'])->sum('total_jumlah');
-                $htrans = htrans::with('details')->where('stand_id',$key['id'])->get();
+                $total = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_harga');
+                $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_jumlah');
+                $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
+                // $total = htrans::where('stand_id',$key['id'])->sum('total_harga');
+                // $jumlah = htrans::where('stand_id',$key['id'])->sum('total_jumlah');
+                // $htrans = htrans::with('details')->where('stand_id',$key['id'])->get();
                 $parkir = 0;
                 foreach ($htrans as $key2 ) {
                     $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');

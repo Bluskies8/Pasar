@@ -57,6 +57,7 @@ class RoleSeeder extends Seeder
             'email' => 'kapten1@gmail.com',
             'pasar_id' => '1',
             'password' => '$2y$10$20dNKaah/p.N3GelNUmm6e3t37AcbFpBbZ4V.hmlIL/016W3oL4FS',
+            'shif' => 1
         ]);
         User::create([
             'name'=>'kapten2',
@@ -64,6 +65,7 @@ class RoleSeeder extends Seeder
             'email' => 'kapten2@gmail.com',
             'pasar_id' => '1',
             'password' => '$2y$10$20dNKaah/p.N3GelNUmm6e3t37AcbFpBbZ4V.hmlIL/016W3oL4FS',
+            'shif' => 2
         ]);
         User::create([
             'name'=>'kapten3',
@@ -71,11 +73,12 @@ class RoleSeeder extends Seeder
             'email' => 'kapten3@gmail.com',
             'pasar_id' => '1',
             'password' => '$2y$10$20dNKaah/p.N3GelNUmm6e3t37AcbFpBbZ4V.hmlIL/016W3oL4FS',
+            'shif' => 3
         ]);
         User::create([
-            'name'=>'admin1',
+            'name'=>'admin',
             'role_id' => '2',
-            'email' => 'admin1@gmail.com',
+            'email' => 'admin@gmail.com',
             'pasar_id' => '1',
             'password' => '$2y$10$20dNKaah/p.N3GelNUmm6e3t37AcbFpBbZ4V.hmlIL/016W3oL4FS',
         ]);

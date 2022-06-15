@@ -38,7 +38,7 @@
                     <td>
                         <div class="d-flex justify-content-between px-5">
                             <p class="ms-lg-5 ms-0">Rp</p>
-                            <p class="thousand-separator me-lg-5 me-0 data-total">{{$item->total + $item->kuli}}</p>
+                            <p class="thousand-separator me-lg-5 me-0 data-total">{{$item->total + $item->kuli + $item->listrik}}</p>
                         </div>
                     </td>
                     <td class="position-relative" style="padding: 5px 4px;">
@@ -126,7 +126,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Dibayarkan</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">{{$total}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">{{$total+$parkir+$kuli}}</span></div></td>
                                 </tr>
                             </tfoot>
                         </table>

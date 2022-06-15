@@ -89,7 +89,7 @@
 
                                 <tr>
                                     <td class="text-end" colspan="6">Dibayarkan</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$total}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$invoice->total + $invoice->kuli + $invoice->listrik}}</span></div></td>
                                 </tr>
                             </tfoot>
                         </table>
