@@ -75,7 +75,7 @@ $(document).ready(function() {
                 $('#biaya-total').html(data.invoice.total-data.invoice.parkir);
                 $('#biaya-parkir').html(data.invoice.parkir);
                 $('#biaya-listrik').html(data.invoice.listrik);
-                $('#biaya-dibayarkan').html(data.invoice.total);
+                $('#biaya-dibayarkan').html(data.invoice.dibayarkan);
                 // $('#biaya-total').text(data.total.toLocaleString(['ban', 'id']));
 
                 let biayaKuli = 0;

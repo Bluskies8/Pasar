@@ -87,7 +87,6 @@ class InvoiceController extends Controller
         }
         $dateid = $carbon->format('dmY');
         $date = $carbon->toDateString();
-        $date = "2022-06-16";
         $time = $carbon->toTimeString();
         $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDays(1);
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
