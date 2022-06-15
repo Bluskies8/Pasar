@@ -78,7 +78,6 @@ class InvoiceController extends Controller
     public function generate()
     {
         $carbon = Carbon::now();
-
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
         foreach ($temp as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
@@ -87,14 +86,14 @@ class InvoiceController extends Controller
             $stand[$key]['id'] = $no_stand->id;
         }
         $dateid = $carbon->format('dmY');
+        // $dateid = "12062022";
         $date = $carbon->toDateString();
         $time = $carbon->toTimeString();
         $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDays(1);
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
-        // dd($carbon.' - '.$start.' - '.$end);
-        // dd($temp);
-        $checkinvoice = invoice::where('id','like', '%'.$dateid.'%')->get();
-        if($checkinvoice){
+        $checkinvoice = invoice::where('id','like', '%'.$dateid.'%')->count();
+        if($checkinvoice > 0){
+            dd('asd');
             return redirect()->back()->with(['pesan'=>'invoice sudah terbuat']);
         }
         foreach ($stand as $key) {
@@ -102,7 +101,7 @@ class InvoiceController extends Controller
                 $total = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_harga');
                 $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_jumlah');
                 // dd($total);
-                $htrans = htrans::with('details')->where('stand_id',$key['id'])->get();
+                $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
                 // $htrans = htrans::with(['details'=> function($query){
                 //     $query->sum('parkir','total_parkir');
                 //  }])->where('stand_id',$key['id'])->get();
@@ -126,6 +125,7 @@ class InvoiceController extends Controller
                 ]);
             }
         }
+        return "success";
     }
     public function datesort(Request $request)
     {
@@ -180,9 +180,18 @@ class InvoiceController extends Controller
     }
     public function invoicedetails($id)
     {
+
+        // $data = invoice::with('stand')->whereBetween('created_at',[$request->start,$request->end])->get();
+        $date = substr($id,5,8);
+        $day = substr($date,0,2);
+        $month = substr($date,2,2);
+        $year = substr($date,4,4);
+        $date = $year .'-' . $month .'-' . $day;
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDay(1);
+        $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
         $invoice = invoice::with(['stand'])->where('id',$id)->first();
-        $trans = htrans::with('details')->where('stand_id',$invoice->stand_id)->get();
-        $total = htrans::where('stand_id',$invoice->stand_id)->sum('total_harga');
+        $trans = htrans::with('details')->where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->get();
+        $total = htrans::where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_harga');
         $parkir = 0;
         foreach ($trans as $key ) {
             $dtrans = dtrans::where('htrans_id',$key->id)->sum('parkir');

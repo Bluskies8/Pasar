@@ -15,6 +15,7 @@ class invoice extends Model
         'stand_id',
         'total',
         'listrik',
+        'kuli',
         'parkir',
         'netto'
     ];

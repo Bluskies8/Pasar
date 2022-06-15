@@ -31,7 +31,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" style="cursor: default;">Profile</a>
-                    <a class="dropdown-item" style="cursor: default;">Logout</a>
+                    <a href="/logout" class="dropdown-item" style="cursor: default;">Logout</a>
                 </div>
             </div>
         </div>

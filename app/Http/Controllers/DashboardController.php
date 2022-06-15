@@ -64,7 +64,7 @@ class DashboardController extends Controller
     public function logout()
     {
         Auth::guard('checkLogin')->logout();
-        return redirect('tologin');
+        return redirect('login');
     }
     public function vendor()
     {
