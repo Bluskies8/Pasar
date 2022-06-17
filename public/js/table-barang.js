@@ -87,7 +87,6 @@ $(document).ready(function(){
 
         let data = [];
         $('tbody tr').each(function() {
-
             let parkir = $(this).find('.data-parkir').html();
             while(parkir.indexOf('.') != -1){
                 parkir = parkir.replace('.', '');
