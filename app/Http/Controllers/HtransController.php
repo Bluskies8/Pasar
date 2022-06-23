@@ -104,7 +104,6 @@ class HtransController extends Controller
         // dd($request->all());
 
         // return response()->json(['$data'=>$request->all()]);
-
         $carbon = Carbon::now();
         $date = $carbon->format('dmY');
         $bruto = 0;

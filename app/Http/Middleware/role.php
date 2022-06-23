@@ -18,12 +18,10 @@ class role
      */
     public function handle(Request $request, Closure $next,$type)
     {
-        // dd(Auth::guard('checkLogin')->check());
         if (!Auth::guard('checkLogin')->check())
             return redirect('tologin');
 
         $user = Auth::guard('checkLogin')->user();
-        $roles = ModelsRole::get();
         if($user->role_id == 1){
             return $next($request);
         }
