@@ -9,6 +9,8 @@ $(document).ready(function() {
         ]
     });
 
+    $('#table-invoice_filter').parent().siblings().append($('#container-tanggal').detach());
+
     let sumTotal = 0;
     $('.data-total').each(function(index, element) {
         let val = $(element).text();

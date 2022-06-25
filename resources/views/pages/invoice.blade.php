@@ -16,7 +16,7 @@
         <button class="btn btn-sm me-2" id="generate-invoice" type="button" style="background: rgb(24, 144, 255);color: white;">Buat Nota</button>
     </header>
     <hr class="my-0">
-    <div class="position-relative m-3" style="max-width: 250px; z-index: 1;">
+    <div class="position-relative" style="max-width: 250px;" id="container-tanggal">
         <input class="form-control d-flex justify-content-between" id="selected-date" name="date" type="date" style="height: 32px;" data-date="" data-date-format="DD/MM/YYYY" value="<?php echo date('Y-m-d'); ?>">
         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
     </div>
