@@ -36,9 +36,9 @@
                     <td class="text-center">{{$item['checker']}}</td>
                     <td class="text-center">{{$item['tanggal']}}</td>
                     <td>
-                        <div class="d-flex justify-content-between px-5">
-                            <p class="ms-5">Rp</p>
-                            <p class="thousand-separator me-5">{{$item['total']}}</p>
+                        <div class="d-flex justify-content-between">
+                            <p>Rp</p>
+                            <p class="thousand-separator">{{$item['total']}}</p>
                         </div>
                     </td>
                     <td class="position-relative" style="padding: 5px 4px;">
@@ -52,6 +52,9 @@
     </div>
     <ul class="list-unstyled py-2 px-1" id="list-aksi">
         <li id="item-detail" class="px-1">Lihat Detail</li>
+        @if ($role == 3)
+            <li id="item-delete" class="px-1">Hapus Transaksi</li>
+        @endif
     </ul>
 
     <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>

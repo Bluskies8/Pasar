@@ -25,6 +25,33 @@ $(document).ready(function(){
         currentID = '';
     });
 
+    $('#item-delete').on('click', function() {
+        if (confirm('Yakin untuk menghapus transaksi ' + currentID + ' ?')) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    // 'contentType' : "application/json",
+                },
+                type: "POST",
+                url: "transaction/delete/",
+                data: {
+                    id: currentID,
+                },
+                beforeSend: function(){
+                    //console.log(currentID);
+                },
+                success: function(data) {
+                    console.log(data);
+                    location.reload();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
+    });
+
     $(document).on('click', function() {
         setTimeout(function (){
             if (flag) {
