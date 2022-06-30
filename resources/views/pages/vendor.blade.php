@@ -57,10 +57,7 @@
                     <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Lapak</p>
                 </div>
                 <div class="position-relative mb-3">
-                    <select class="w-100" style="border-radius: 4px;height: 32px;">
-                        <option value selected>-</option>
-                        <option value></option>
-                    </select>
+                    <input id="input-pemilik" type="text" class="w-100 ps-2" style="height: 32px;" />
                     <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Pemilik</p>
                 </div>
             </div>
