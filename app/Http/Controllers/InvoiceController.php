@@ -152,9 +152,9 @@ class InvoiceController extends Controller
             'total' =>$total,
             'parkir' =>$parkir,
             'kuli' => $kuli,
-            'data' => [
-                'value' => 1
-            ]
+            // 'data' => [
+            //     'value' => 1
+            // ]
         ]);
     }
     public function transactionDetails(Request $request)

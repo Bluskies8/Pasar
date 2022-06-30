@@ -42,7 +42,7 @@ class HtransController extends Controller
             $data[$id]['id_trans'] = $value->id;
             $data[$id]['nama'] = $stand->seller_name;
             $data[$id]['checker'] = User::where('id',$value->user_id)->first()->name;
-            $data[$id]['tanggal'] = date('d-M-Y',strtotime($value->created_at));
+            $data[$id]['tanggal'] = date('d-M-Y H:m:s',strtotime($value->created_at));
             $data[$id]['total'] = $value->total_harga;
         }
         // dd($data);
