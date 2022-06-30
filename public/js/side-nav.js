@@ -33,6 +33,7 @@ $(document).ready(function(){
     }
 
     if (getCookie("nav_open") == "false") {
+        sideNav_opened = false;
         closeNav(false);
     }
 
@@ -80,22 +81,21 @@ $(document).ready(function(){
     });
 
     if ($(window).width() < 768) {
-        $('#minimize-nav').trigger('click');
+        sideNav_opened = false;
+        closeNav(false);
     }
 
     $(window).resize(function() {
         if ($(window).width() < 768) {
-            if (sideNav_opened) {
-                sideNav_opened = false;
-                $('#side-nav, #minimize-nav').css('width', '50px');
-            }
-        }
-
-        if (sideNav_opened) {
-            originalWidth = $(window).width() - 200;
+            sideNav_opened = false;
+            closeNav();
         } else {
-            originalWidth = $(window).width() - 50;
+            if (sideNav_opened) {
+                originalWidth = $(window).width() - 200;
+            } else {
+                originalWidth = $(window).width() - 50;
+            }
+            $('#content').css('width', originalWidth + 'px');
         }
-        $('#content').css('width', originalWidth + 'px');
     });
 });
