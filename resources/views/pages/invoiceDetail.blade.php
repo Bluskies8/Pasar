@@ -47,6 +47,7 @@
                         <table class="table mb-0" id="table-detail-invoice">
                             <thead>
                                 <tr>
+                                    <th>Checker</th>
                                     <th>Kode</th>
                                     <th>Nama Barang</th>
                                     <th>Jumlah</th>
@@ -60,6 +61,7 @@
                                 @foreach ($trans as $item)
                                     @foreach ($item->details as $detail)
                                     <tr>
+                                        <td>Checker</td>
                                         <td>{{$detail->kode}}</td>
                                         <td>{{$detail->nama_barang}}</td>
                                         <td>{{$detail->jumlah}}</td>
@@ -73,22 +75,22 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td class="text-end" colspan="6">Total</td>
+                                    <td class="text-end" colspan="7">Total</td>
                                     <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$total-$parkir}}</span></div></td>
                                 </tr>
                                 <tr>
-                                    <td class="text-end" colspan="6">Parkir</td>
+                                    <td class="text-end" colspan="7">Parkir</td>
                                     <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$parkir}}</span></div></td>
                                 </tr>
 
                                 <!-- loop tambahan -->
                                 <tr>
-                                    <td class="text-end" colspan="6">Listrik</td>
+                                    <td class="text-end" colspan="7">Listrik</td>
                                     <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$invoice->listrik}}</span></div></td>
                                 </tr>
 
                                 <tr>
-                                    <td class="text-end" colspan="6">Dibayarkan</td>
+                                    <td class="text-end" colspan="7">Dibayarkan</td>
                                     <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$invoice->total + $invoice->kuli + $invoice->listrik}}</span></div></td>
                                 </tr>
                             </tfoot>
