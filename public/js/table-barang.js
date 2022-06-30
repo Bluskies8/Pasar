@@ -10,8 +10,10 @@ $(document).ready(function(){
     }
 
     var formCount;
+    var formID;
     $('#tambah-barang').on('click', function() {
         formCount = 0;
+        formID = 0;
         let save = $('#form-template').detach();
         $('#modal-row').empty().append(save);
         cloneForm();
@@ -25,10 +27,16 @@ $(document).ready(function(){
 
     function cloneForm() {
         formCount++;
-        let temp = $('#form-template').clone().prop('id', 'form-' + formCount).appendTo("#modal-row");
+        formID++;
+        $('#save-barang').prop('disabled', false);
+        let temp = $('#form-template').clone().prop('id', 'form-' + formID).appendTo("#modal-row");
 
-        let btnRemoveForm = $('#form-' + formCount).children().children().children('.btn-remove-form');
+        let btnRemoveForm = $('#form-' + formID).children().children().children('.btn-remove-form');
         $(btnRemoveForm).on('click', function() {
+            formCount--;
+            if (formCount == 0) {
+                $('#save-barang').prop('disabled', true);
+            }
             $(this).parent().parent().parent().detach();
         })
 
@@ -105,6 +113,11 @@ $(document).ready(function(){
                 parkir: parkir
             });
         });
+
+        if (data.length == 0) {
+            alert("silahkan tambah barang terlebih dahulu !");
+            return;
+        }
 
         $.ajax({
             type: "POST",
