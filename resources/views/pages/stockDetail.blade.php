@@ -121,7 +121,8 @@
                     <div id="modal-row" class="row">
                         <div id="form-template" class="col-12 col-md-6 col-lg-4 mb-3" style="display: none;">
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-body position-relative" style="padding-top: 20px;">
+                                    <button type="button" class="btn-close btn-remove-form position-absolute" style="top: -2px; right: -2px; box-shadow: none;" aria-label="Close"></button>
                                     <div class="d-flex align-items-center mb-3">
                                         <p class="me-2">Kode</p>
                                         <select name="kode" class="form-select form-select-sm">

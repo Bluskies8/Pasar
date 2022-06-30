@@ -26,6 +26,12 @@ $(document).ready(function(){
     function cloneForm() {
         formCount++;
         let temp = $('#form-template').clone().prop('id', 'form-' + formCount).appendTo("#modal-row");
+
+        let btnRemoveForm = $('#form-' + formCount).children().children().children('.btn-remove-form');
+        $(btnRemoveForm).on('click', function() {
+            $(this).parent().parent().parent().detach();
+        })
+
         temp.show();
     }
 
