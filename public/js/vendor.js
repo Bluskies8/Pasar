@@ -4,11 +4,12 @@ $(document).ready(function() {
     $('td').on('dblclick', function(){
         $('#input-namaPT').val("");
         $('#nama-stand').text($(this).attr('id'));
-        if ($(this).find('.nama-pt').text() != "") {
+        // if ($(this).find('.nama-pt').text() != "") {
             $('#input-namaPT').val($(this).find('.nama-pt').text());
             $('#input-pemilik').val($(this).find('.nama-lapak').text());
-        }
+        // }
         currentID = $(this).attr('id');
+        console.log(currentID);
         $('#modal-vendor').modal('show');
     });
     $('#btn-save').click(function () {
@@ -25,6 +26,11 @@ $(document).ready(function() {
                 id: currentID,
                 seller_name: seller_name,
                 badan_usaha: badan_usaha
+            },
+            before: function(){
+                console.log(id);
+                console.log(badan_usaha);
+                console.log(seller_name);
             },
             success: function(data) {
                 console.log(data);

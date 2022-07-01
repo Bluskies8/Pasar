@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="d-flex align-items-center h-100 px-5">
     <div class="table-responsive" id="denah-pasar">
         <table class="table">
@@ -38,7 +39,9 @@
                     <td class="td-2" rowspan="2">Sampah</td>
                 </tr>
                 <tr>
-                    <td class="td-2">C4<br><span class="nama-pt"></span><br><span class="nama-lapak"></span></td>
+                    <td class="td-2">{{$standc[5]['no_stand']}}<br><span class="nama-pt">{{$standc[5]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[5]['seller_name']}}</span></td>
+
+                    {{-- <td class="td-2">C5<br><span class="nama-pt"></span><br><span class="nama-lapak"></span></td> --}}
                 </tr>
             </tbody>
         </table>

@@ -85,10 +85,19 @@ class DashboardController extends Controller
     }
     public function vendorUpdate(Request $request)
     {
+        $badan = $request->badan_usaha;
+        $nama = $request->seller_name;
+        if($badan == null){
+            $badan = "";
+        }
+        if($nama == null){
+            $nama = "";
+        }
+
         try {
-            $stand = stand::where('id',$request->id)->first();
-            $stand->badan_usaha = $request->badan_usaha;
-            $stand->seller_name = $request->seller_name;
+            $stand = stand::where('no_stand',$request->id)->first();
+            $stand->badan_usaha = $badan;
+            $stand->seller_name = $nama;
             $stand->save();
             return "success";
         } catch (\Throwable $th) {
