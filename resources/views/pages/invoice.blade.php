@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
         <div class="dropdown h-100"><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button">All Item</button>
             <div class="dropdown-menu">
@@ -31,23 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($invoice as $item)
-                <tr id="row-{{$loop->index}}">
-                    <td class="cell-id text-center">{{$item->id}}</td>
-                    <td class="text-center">{{$item->stand->seller_name}}</td>
-                    <td>
-                        <div class="d-flex justify-content-between px-5">
-                            <p class="ms-lg-5 ms-0">Rp</p>
-                            <p class="thousand-separator me-lg-5 me-0 data-total">{{$item->total + $item->kuli + $item->listrik}}</p>
-                        </div>
-                    </td>
-                    <td class="position-relative" style="padding: 5px 4px;">
-                        <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;">
-                            <i class="fas fa-bars fa-lg"></i>
-                        </button>
-                    </td>
-                </tr>
-                @endforeach
+
             </tbody>
             <tfoot>
                 <td colspan="2" class="text-end">Total</td>

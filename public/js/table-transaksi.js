@@ -33,10 +33,7 @@ $(document).ready(function(){
                     // 'contentType' : "application/json",
                 },
                 type: "POST",
-                url: "transaction/delete/",
-                data: {
-                    id: currentID,
-                },
+                url: "transaction/delete/"+currentID,
                 beforeSend: function(){
                     //console.log(currentID);
                 },

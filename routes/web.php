@@ -47,7 +47,7 @@ Route::middleware(['checkLogin'])->group(function () {
     });
     Route::prefix('vendor')->group(function () {
         Route::get('/',[DashboardController::class,'vendor']);
-        Route::get('/update',[DashboardController::class,'vendorUpdate']);
+        Route::post('/update',[DashboardController::class,'vendorUpdate']);
     });
 });
 

@@ -71,12 +71,14 @@ $(document).ready(function(){
         let parkir = $('select[name="parkir"]');
 
         for (let i = 1; i < formCount + 1; i++) {
-            let temp = $('#tr-template').clone().appendTo("#table-barang tbody");
-            temp.find('.data-kode').html(kode[i].value);
-            temp.find('.data-nama').html(nama[i].value);
-            temp.find('.data-jumlah').html(jumlah[i].value);
-            temp.find('.data-parkir').text(parkir[i].value);
-            temp.show();
+            if(nama[i].value && jumlah[i].value){
+                let temp = $('#tr-template').clone().appendTo("#table-barang tbody");
+                temp.find('.data-kode').html(kode[i].value);
+                temp.find('.data-nama').html(nama[i].value);
+                temp.find('.data-jumlah').html(jumlah[i].value);
+                temp.find('.data-parkir').text(parkir[i].value);
+                temp.show();
+            }
         }
         separatorInterval = setInterval(setThousandSeparator, 10);
     });

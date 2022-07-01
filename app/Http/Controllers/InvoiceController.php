@@ -128,7 +128,8 @@ class InvoiceController extends Controller
     {
         // $start = Carbon::createFromFormat('Y-m-d H:i:s',$request->date.' 06:00:00',7);
         // $end = Carbon::createFromFormat('Y-m-d H:i:s',$request->date.' 06:00:00',7)->addDays(1);
-        $data = invoice::with('stand')->whereBetween('created_at',[$request->start,$request->end])->get();
+        // $data = invoice::with('stand')->whereBetween('created_at',[$request->start,$request->end])->get();
+        $data = invoice::with('stand')->where('id','like','%' . $request->start.'%')->get();
         // return $data;
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
         foreach ($temp as $key => $value) {
