@@ -28,15 +28,6 @@ $(document).ready(function() {
     var flag = false;
     var currentID = '';
     var selecetedRow = -1;
-    $('.show-aksi').on('click', function() {
-        alert();
-        $('#list-aksi').show();
-        $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
-        $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
-        currentID = $(this).parent().parent().children('.cell-id').text();
-        selecetedRow = $(this).parent().parent().attr('id');
-        flag = true;
-    });
 
     $('#item-detail').on('click', function() {
         window.open('/invoice/' + currentID, 'Invoice');
@@ -145,7 +136,6 @@ $(document).ready(function() {
             }
         });
     }
-
 
     $('#generate-invoice').on('click', function() {
         $.ajax({
@@ -263,6 +253,14 @@ $(document).ready(function() {
                         "<td class='position-relative' style='padding: 5px 4px;'><button class='btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto' type='button' style='background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;'><i class='fas fa-bars fa-lg'></i></button></td>" +
                     "</tr>";
                     $('tbody').append(temp);
+                    $('.show-aksi').eq(i).on('click', function() {
+                        $('#list-aksi').show();
+                        $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
+                        $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
+                        currentID = $(this).parent().parent().children('.cell-id').text();
+                        selecetedRow = $(this).parent().parent().attr('id');
+                        flag = true;
+                    });
                 }
 
                 separatorInterval = setInterval(setThousandSeparator, 10);

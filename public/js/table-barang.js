@@ -38,7 +38,7 @@ $(document).ready(function(){
                 $('#save-barang').prop('disabled', true);
             }
             $(this).parent().parent().parent().detach();
-        })
+        });
 
         temp.show();
     }

@@ -40,6 +40,7 @@
                         <p class="thousand-separator me-5" id="data-total-sum"></p>
                     </div>
                 </td>
+                <td></td>
             </tfoot>
         </table>
     </div>
