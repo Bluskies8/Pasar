@@ -5,33 +5,53 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 
-    <header id="content-header" class="d-flex align-items-center justify-content-between px-2" style="height: 50px;">
-        <button class="btn btn-primary"><a href="/stock">back</a></button>
+    <header id="content-header" class="row mx-0" style="padding: 6px 0;">
         @if ($data['id'])
-            <p>ID Transaksi :&nbsp;<span id="id-transaksi">{{$data->id}}</span></p>
+        <div class="col-12 col-lg-4 d-flex align-items-center">
+            <a href="/stock"><button class="btn" style="background-color: rgb(24, 144, 255);color: var(--bs-white); text-decoration: none;">Back</button></a>
+            <div class="d-flex flex-xl-row flex-lg-column flex-row align-items-center align-items-lg-start align-items-xl-center ms-3">
+                <p style="white-space: nowrap">ID Transaksi :&nbsp;</p>
+                <span id="id-transaksi">{{$data->id}}</span>
+            </div>
+        </div>
         @endif
-        <p class="d-flex align-items-center justify-content-end" style="white-space: nowrap;">Nama Lapak :&nbsp;
-            @if ($data['value'])
-                <span id="nama-pelapak"></span>
-                <input id="pelapak" list="list-pelapak" class="form-select-sm">
-                <datalist id="list-pelapak">
-                    @foreach ($stand as $item)
-                        @if ($item['seller_name'] != "")
-                            <option id = "{{$item['id']}}" value="{{$item['seller_name'] . ' - ' . $item['no_stand']}}">
-                        @endif
-                    @endforeach
-                </datalist>
-            @else
-                <span id="nama-pelapak">{{$stand['seller_name']}}</span>
-            @endif
+
+        @if ($data['value'])
+        <p class="col-12 col-md-6 col-lg-4 d-flex align-items-center justify-content-lg-start justify-content-md-center justify-content-start mt-3 mt-lg-0 order-lg-1 order-2" style="white-space: nowrap;">Nama Lapak :&nbsp;
+            <span id="nama-pelapak"></span>
+            <input id="pelapak" list="list-pelapak" class="form-select-sm">
+            <datalist id="list-pelapak">
+                @foreach ($stand as $item)
+                    @if ($item['seller_name'] != "")
+                        <option id = "{{$item['id']}}" value="{{$item['seller_name'] . ' - ' . $item['no_stand']}}">
+                    @endif
+                @endforeach
+            </datalist>
         </p>
-        <div class="d-flex">
+        @else
+        <p class="col-md-6 col-lg-4 d-flex align-items-center justify-content-md-center justify-content-start  mt-3 mt-lg-0" style="white-space: nowrap;">Nama Lapak :&nbsp;
+            <span id="nama-pelapak">{{$stand['seller_name']}}</span>
+        </p>
+        @endif
+
+        @if ($data['id'])
+        <div class="col-12 col-md-6 col-lg-4 d-flex align-items-center justify-content-md-center justify-content-start justify-content-lg-end mt-3 mt-lg-0">
             <p>Netto : Rp&nbsp;</p>
             <p class="thousand-separator data-netto">3000</p>
         </div>
-        @if ($role == 4 && $data['id'] == null)
-            <button class="btn btn-sm" id="tambah-barang" type="button" style="background-color: rgb(24, 144, 255);color: var(--bs-white);">Tambah Barang</button>
+        @else
+        <div class="col-12 col-md-6 col-lg-4 d-flex align-items-center justify-content-md-center justify-content-start mt-md-3 mt-2 mt-lg-0 order-lg-2 order-3">
+            <p>Netto : Rp&nbsp;</p>
+            <p class="thousand-separator data-netto">3000</p>
+        </div>
         @endif
+
+        @if ($role == 4 && $data['id'] == null)
+        <div class="col-12 col-lg-4 d-flex justify-content-end order-lg-3 order-1">
+            <button class="btn btn-sm" id="tambah-barang" type="button" style="background-color: rgb(24, 144, 255);color: var(--bs-white);">Tambah Barang</button>
+        </div>
+        @endif
+
     </header>
     <hr class="my-0">
     <div class="table-responsive p-3 pb-0" style="max-height: 81.8vh;overflow-y: auto;">
