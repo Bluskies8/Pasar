@@ -17,20 +17,20 @@
                     <td class="td-2" rowspan="2">Tandon</td>
                 </tr>
                 <tr>
-                    <td class="td-2">{{$standc[0]['no_stand']}}<br><span class="nama-pt">{{$standc[0]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[0]['seller_name']}}</span></td>
+                    <td class="td-2" id="{{$standc[0]['no_stand']}}">{{$standc[0]['no_stand']}}<br><span class="nama-pt">{{$standc[0]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[0]['seller_name']}}</span></td>
                 </tr>
                 <tr>
-                    <td class="td-2">{{$standc[1]['no_stand']}}<br><span class="nama-pt">{{$standc[1]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[1]['seller_name']}}</span></td>
+                    <td class="td-2" id = "{{$standc[1]['no_stand']}}">{{$standc[1]['no_stand']}}<br><span class="nama-pt">{{$standc[1]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[1]['seller_name']}}</span></td>
                     <td class="td-2 py-4 px-5" colspan="31" rowspan="3"><div class="h-100 d-flex justify-content-center align-items-center" style="background-color: lightgreen"><h1>Lahan Parkir</h1></div></td>
                 </tr>
                 <tr>
-                    <td class="td-2">{{$standc[2]['no_stand']}}<br><span class="nama-pt">{{$standc[2]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[2]['seller_name']}}</span></td>
+                    <td class="td-2" id = "{{$standc[2]['no_stand']}}">{{$standc[2]['no_stand']}}<br><span class="nama-pt">{{$standc[2]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[2]['seller_name']}}</span></td>
                 </tr>
                 <tr>
-                    <td class="td-2">{{$standc[3]['no_stand']}}<br><span class="nama-pt">{{$standc[3]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[3]['seller_name']}}</span></td>
+                    <td class="td-2" id = "{{$standc[3]['no_stand']}}">{{$standc[3]['no_stand']}}<br><span class="nama-pt">{{$standc[3]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[3]['seller_name']}}</span></td>
                 </tr>
                 <tr>
-                    <td class="td-2">{{$standc[4]['no_stand']}}<br><span class="nama-pt">{{$standc[4]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[4]['seller_name']}}</span></td>
+                    <td class="td-2" id = "{{$standc[4]['no_stand']}}">{{$standc[4]['no_stand']}}<br><span class="nama-pt">{{$standc[4]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[4]['seller_name']}}</span></td>
                     @foreach ($standa as $item)
                         <td id="{{$item->no_stand}}" rowspan="2"><div class="d-flex flex-column justify-content-between h-100">{{$item->no_stand}}<span class="nama-pt">{{$item->badan_usaha}}</span><span class="nama-lapak">{{$item->seller_name}}</span></div></td>
                     @endforeach
@@ -39,9 +39,7 @@
                     <td class="td-2" rowspan="2">Sampah</td>
                 </tr>
                 <tr>
-                    <td class="td-2">{{$standc[5]['no_stand']}}<br><span class="nama-pt">{{$standc[5]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[5]['seller_name']}}</span></td>
-
-                    {{-- <td class="td-2">C5<br><span class="nama-pt"></span><br><span class="nama-lapak"></span></td> --}}
+                    <td class="td-2" id = "{{$standc[5]['no_stand']}}">{{$standc[5]['no_stand']}}<br><span class="nama-pt">{{$standc[5]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[5]['seller_name']}}</span></td>
                 </tr>
             </tbody>
         </table>
