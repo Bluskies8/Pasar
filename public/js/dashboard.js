@@ -2,7 +2,7 @@ $(document).ready(function() {
     var chartBarangMasuk = new Chart($('#chart-barang-masuk'), {
         type: 'bar',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun','Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
             datasets: [{
                 label: 'Barang Masuk',
                 data: [4500, 5300, 6250, 7800, 9800, 8400],
@@ -27,7 +27,7 @@ $(document).ready(function() {
     var chartPendapatanKotor = new Chart($('#chart-pendapatan-kotor'), {
         type: 'bar',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun','Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
             datasets: [{
                 label: 'Pendapatan Kotor',
                 data: [36125000, 28651200, 33245610, 43682130, 34561199, 30156408],

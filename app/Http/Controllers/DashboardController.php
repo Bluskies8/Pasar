@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\htrans;
+use App\Models\netto;
 use App\Models\User;
 use App\Models\shif;
 use App\Models\stand;
@@ -103,5 +105,24 @@ class DashboardController extends Controller
         } catch (\Throwable $th) {
             return $th;
         }
+    }
+    public function dashboard()
+    {
+        $now = Carbon::now();
+        $netto = netto::first();
+        $dataKuli = [];
+        for ($i=3; $i >= 0; $i--) {
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$now->startOfMonth()->toDateString().' 00:00:00',7)->subMonth($i);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$now->endOfMonth()->toDateString().' 23:59:59',7)->subMonth($i);
+            $countKuli = htrans::whereBetween('created_at',[$start,$end])->sum('total_jumlah');
+            $dataKuli[$i] = [
+                'bulan'=>$start->format('F'),
+                'jumlah'=>$countKuli*$netto->value,
+            ];
+        }
+        
+        return view('pages.dashboard',[
+            'kuli' => $dataKuli
+        ]);
     }
 }

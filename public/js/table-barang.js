@@ -135,10 +135,9 @@ $(document).ready(function(){
                 console.log(this.data);
             },
             success: function(data) {
-                console.log(data);
                 //pindah ke halaman stock dan data masuk ke tabel
-                if(data == "Berhasil Input data") {
-                    // alert(data);
+                if(data == "Success") {
+                    window.location.href = 'stock';
                 }
                 $('#tambah-barang').hide();
                 $('#save-detail').hide();

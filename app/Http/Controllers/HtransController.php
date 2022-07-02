@@ -34,7 +34,11 @@ class HtransController extends Controller
             $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
         }
         // dd($carbon.' - '.$start.' - '.$end);
-        $temp = htrans::whereBetween('created_at',[$start,$end])->get();
+        if(Auth::guard('checkLogin')->user()->role_id <3){
+            $temp = htrans::all();
+        }else{
+            $temp = htrans::whereBetween('created_at',[$start,$end])->get();
+        }
         // dd($temp);
         $data = [];
         foreach ($temp as $id => $value) {
@@ -171,7 +175,7 @@ class HtransController extends Controller
         $data->total_jumlah = $total_jumlah;
         $data->total_harga = $total_harga;
         $data->save();
-        return redirect()->back();
+        return "Success";
         }catch (\Throwable $th) {
             return $th;
         }
