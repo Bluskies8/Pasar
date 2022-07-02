@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\htrans;
+use App\Models\netto;
 use App\Models\User;
 use App\Models\shif;
 use App\Models\stand;
@@ -85,14 +87,42 @@ class DashboardController extends Controller
     }
     public function vendorUpdate(Request $request)
     {
+        $badan = $request->badan_usaha;
+        $nama = $request->seller_name;
+        if($badan == null){
+            $badan = "";
+        }
+        if($nama == null){
+            $nama = "";
+        }
+
         try {
-            $stand = stand::where('id',$request->id)->first();
-            $stand->badan_usaha = $request->badan_usaha;
-            $stand->seller_name = $request->seller_name;
+            $stand = stand::where('no_stand',$request->id)->first();
+            $stand->badan_usaha = $badan;
+            $stand->seller_name = $nama;
             $stand->save();
             return "success";
         } catch (\Throwable $th) {
             return $th;
         }
+    }
+    public function dashboard()
+    {
+        $now = Carbon::now();
+        $netto = netto::first();
+        $dataKuli = [];
+        for ($i=3; $i >= 0; $i--) {
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$now->startOfMonth()->toDateString().' 00:00:00',7)->subMonth($i);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$now->endOfMonth()->toDateString().' 23:59:59',7)->subMonth($i);
+            $countKuli = htrans::whereBetween('created_at',[$start,$end])->sum('total_jumlah');
+            $dataKuli[$i] = [
+                'bulan'=>$start->format('F'),
+                'jumlah'=>$countKuli*$netto->value,
+            ];
+        }
+        
+        return view('pages.dashboard',[
+            'kuli' => $dataKuli
+        ]);
     }
 }

@@ -544,5 +544,13 @@ class StandSeeder extends Seeder
             'Phone' => '',
             'jenis_jualan' => ""
         ]);
+        stand::create([
+            'no_stand' => 'C06',
+            'pasar_id' => '1',
+            'badan_usaha' => '',
+            'seller_name' => '',
+            'Phone' => '',
+            'jenis_jualan' => ""
+        ]);
     }
 }

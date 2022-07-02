@@ -25,9 +25,7 @@ Route::get('logout',[DashboardController::class,'logout']);
 
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
 Route::middleware(['checkLogin'])->group(function () {
-    Route::get('/', function () {
-        return view('pages.dashboard');
-    });
+    Route::get('/', [DashboardController::class,'dashboard']);
     Route::prefix('invoice')->group(function () {
         Route::get('/',[invoicecontroller::class,'invoice']);
         Route::get('/generate', [InvoiceController::class,'generate']);//->middleware('role:2');

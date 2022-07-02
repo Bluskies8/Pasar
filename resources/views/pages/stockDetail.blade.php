@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 
     <header id="content-header" class="d-flex align-items-center justify-content-between px-2" style="height: 50px;">
+        <button class="btn btn-primary"><a href="/stock">back</a></button>
         @if ($data['id'])
             <p>ID Transaksi :&nbsp;<span id="id-transaksi">{{$data->id}}</span></p>
         @endif

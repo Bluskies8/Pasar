@@ -12,15 +12,17 @@
             <div class="card">
                 <div class="card-body pb-0">
                     <h2 class="card-title" style="color: rgb(24, 144, 255);">Laporan Biaya Kuli</h2>
-                    <hr />
+                    {{-- <hr/> --}}
                     <div id="laporan-biaya-kuli" class="row">
+                        @foreach ($kuli as $item)
                         <div class="col-xl-3 col-md-6 col-12 mb-4 d-flex justify-content-center align-items-center">
-                            <div class="d-flex flex-column justify-content-center p-3 text-center" style="height: 200px;width: 200px;border-radius: 50%;display: inline-block;background-color: rgba(255, 159, 64, 0.2); border: 1px solid rgba(255, 159, 64, 1);">
-                                <p style="font-weight: 600;">Sedang terkumpul bulan ini</p>
-                                <h2>Rp <span class="thousand-separator">800.000</span></h2>
+                            <div class="d-flex flex-column justify-content-center p-3 text-center" style="height: 200px;width: 200px;border-radius: 50%;display: inline-block;">
+                                <p style="font-weight: 600;" class="nth-bulan">{{$item['bulan']}}</p>
+                                <h2>Rp <span class="thousand-separator">{{$item['jumlah']}}</span></h2>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6 col-12 mb-4 d-flex justify-content-center align-items-center">
+                        @endforeach
+                        {{-- <div class="col-xl-3 col-md-6 col-12 mb-4 d-flex justify-content-center align-items-center">
                             <div class="d-flex flex-column justify-content-center p-3 text-center" style="height: 200px;width: 200px;border-radius: 50%;display: inline-block;background-color: rgba(153, 102, 255, 0.2); border: 1px solid rgba(153, 102, 255, 1);">
                                 <p style="font-size: 32px;font-weight: 600;">Mei</p>
                                 <h2>Rp <span class="thousand-separator">800.000</span></h2>
@@ -37,7 +39,7 @@
                                 <p style="font-size: 32px;font-weight: 600;">Maret</p>
                                 <h2>Rp <span class="thousand-separator">800.000</span></h2>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
