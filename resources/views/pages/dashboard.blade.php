@@ -2,6 +2,8 @@
 
 @section('content')
 
+<meta name="data-barang-masuk" content="{{ $barangmasuk }}">
+<meta name="data-pendapatan-kotor" content="{{ $pendapatan }}">
 <div class="h-100">
     <ul role="tablist" class="nav nav-tabs px-3" style="height: 50px;">
         <li role="presentation" class="nav-item mx-3" style="height: initial"><a role="tab" data-bs-toggle="tab" class="nav-link active px-0" href="#tab-1">Dasboard</a></li>

@@ -29,6 +29,7 @@ $(document).ready(function() {
     var currentID = '';
     var selecetedRow = -1;
     $('.show-aksi').on('click', function() {
+        alert();
         $('#list-aksi').show();
         $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
         $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
@@ -248,7 +249,6 @@ $(document).ready(function() {
                 $('tbody tr').each(function() {
                     $(this).detach();
                 });
-                console.log(data)
                 for (var i = 0; i < data.invoice.length; i++) {
                     const element = data.invoice[i];
                     let temp = "";

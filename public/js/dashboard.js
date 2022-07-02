@@ -7,6 +7,9 @@ $(document).ready(function() {
         element.css('background-color', colors[i]);
         element.css('border', '1px solid ' + border[i]);
     }
+    
+    var barangmasuk = $('meta[name="data-barang-masuk"]').attr('content');
+    var pendapatan = $('meta[name="data-pendapatan-kotor"]').attr('content');
 
     var chartBarangMasuk = new Chart($('#chart-barang-masuk'), {
         type: 'bar',
@@ -14,7 +17,7 @@ $(document).ready(function() {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun','Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
             datasets: [{
                 label: 'Barang Masuk',
-                data: [4500, 5300, 6250, 7800, 9800, 8400],
+                data: barangmasuk.split(','),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)'
                 ],
@@ -39,7 +42,7 @@ $(document).ready(function() {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun','Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
             datasets: [{
                 label: 'Pendapatan Kotor',
-                data: [36125000, 28651200, 33245610, 43682130, 34561199, 30156408],
+                data: pendapatan.split(','),
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)'
                 ],

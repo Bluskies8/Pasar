@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\htrans;
+use App\Models\invoice;
 use App\Models\netto;
 use App\Models\User;
 use App\Models\shif;
@@ -111,6 +112,8 @@ class DashboardController extends Controller
         $now = Carbon::now();
         $netto = netto::first();
         $dataKuli = [];
+        $barang = [];
+        $pendapatan = [];
         for ($i=3; $i >= 0; $i--) {
             $start = Carbon::createFromFormat('Y-m-d H:i:s',$now->startOfMonth()->toDateString().' 00:00:00',7)->subMonth($i);
             $end = Carbon::createFromFormat('Y-m-d H:i:s',$now->endOfMonth()->toDateString().' 23:59:59',7)->subMonth($i);
@@ -120,9 +123,32 @@ class DashboardController extends Controller
                 'jumlah'=>$countKuli*$netto->value,
             ];
         }
-        
+
+        //data barang masuk
+        for ($i=1; $i < 13; $i++) {
+            $date = new carbon($now->format('Y').'-'.str_pad($i,2,"0",STR_PAD_LEFT).'-'.'01');
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date->startOfMonth()->toDateString().' 00:00:00',7);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date->endOfMonth()->toDateString().' 23:59:59',7);
+            $temp = htrans::whereBetween('created_at',[$start,$end])->sum('total_jumlah');
+
+            $barang[$i-1] = $temp;
+        }
+        $databarang = join(',',$barang);
+
+        //data pendapatan kotor
+        for ($i=1; $i < 13; $i++) {
+            $date = new carbon($now->format('Y').'-'.str_pad($i,2,"0",STR_PAD_LEFT).'-'.'01');
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date->startOfMonth()->toDateString().' 00:00:00',7);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date->endOfMonth()->toDateString().' 23:59:59',7);
+            $temp = invoice::whereBetween('created_at',[$start,$end])->sum('dibayarkan');
+
+            $pendapatan[$i-1] = $temp;
+        }
+        $datapendapatan = join(',',$pendapatan);
         return view('pages.dashboard',[
-            'kuli' => $dataKuli
+            'kuli' => $dataKuli,
+            'barangmasuk' => $databarang,
+            'pendapatan' => $datapendapatan
         ]);
     }
 }
