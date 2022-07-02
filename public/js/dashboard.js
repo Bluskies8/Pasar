@@ -1,4 +1,13 @@
 $(document).ready(function() {
+
+    let colors = ['rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
+    let border = ['rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
+    for (let i = 0; i < $('.nth-bulan').length; i++) {
+        const element = $('.nth-bulan').eq(i).parent();
+        element.css('background-color', colors[i]);
+        element.css('border', '1px solid ' + border[i]);
+    }
+
     var chartBarangMasuk = new Chart($('#chart-barang-masuk'), {
         type: 'bar',
         data: {
