@@ -73,6 +73,7 @@ $(document).ready(function(){
         for (let i = 1; i < formCount + 1; i++) {
             if(nama[i].value && jumlah[i].value){
                 let temp = $('#tr-template').clone().appendTo("#table-barang tbody");
+                temp.attr('id','tr-' + (i + 1));
                 temp.find('.data-kode').html(kode[i].value);
                 temp.find('.data-nama').html(nama[i].value);
                 temp.find('.data-jumlah').html(jumlah[i].value);
@@ -87,14 +88,7 @@ $(document).ready(function(){
         // insert data table ke db
         let save = $('#tr-template').detach();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                // 'contentType' : "application/json",
-            }
-        });
-        e.preventDefault();
-
+        console.log($('tbody tr').length);
         let lapak = $('#list-pelapak').find('option[value="' + $('#pelapak').val() + '"]').attr('id');
         if (typeof lapak === "undefined") {
             alert("pilih nama lapak terlebih dahulu !");
@@ -120,6 +114,14 @@ $(document).ready(function(){
             alert("silahkan tambah barang terlebih dahulu !");
             return;
         }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                // 'contentType' : "application/json",
+            }
+        });
+        e.preventDefault();
 
         $.ajax({
             type: "POST",
