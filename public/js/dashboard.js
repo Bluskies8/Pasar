@@ -7,10 +7,10 @@ $(document).ready(function() {
         element.css('background-color', colors[i]);
         element.css('border', '1px solid ' + border[i]);
     }
-    
+
     var barangmasuk = $('meta[name="data-barang-masuk"]').attr('content');
     var pendapatan = $('meta[name="data-pendapatan-kotor"]').attr('content');
-
+    console.log(pendapatan);
     var chartBarangMasuk = new Chart($('#chart-barang-masuk'), {
         type: 'bar',
         data: {
