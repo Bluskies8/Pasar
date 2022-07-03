@@ -25,7 +25,7 @@
                     <th>Checker</th>
                     <th>Tanggal</th>
                     <th>Total Transaksi</th>
-                    <th style="width: 45px;"></th>
+                    <th style="min-width: 45px;"></th>
                 </tr>
             </thead>
             <tbody>

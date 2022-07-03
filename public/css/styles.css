@@ -153,3 +153,7 @@ th {
 #selected-date::-webkit-datetime-edit {
     display: none;
 }
+
+.show-aksi {
+    max-height: 30px;
+}

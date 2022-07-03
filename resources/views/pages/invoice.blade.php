@@ -26,7 +26,7 @@
                     <th>ID Invoice</th>
                     <th>Lapak</th>
                     <th>Total Transaksi</th>
-                    <th style="width: 45px;"></th>
+                    <th style="min-width: 45px;"></th>
                 </tr>
             </thead>
             <tbody>
