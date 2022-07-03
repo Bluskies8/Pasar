@@ -18,7 +18,14 @@ $(document).ready(function() {
             { orderable: false }
         ]
     });
-
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+    $(document).keydown(function(e){
+        if(e.which === 123){
+            return false;
+        }
+    });
     $('#table-invoice_filter').parent().siblings().append($('#container-tanggal').detach());
 
     let sumTotal = 0;
