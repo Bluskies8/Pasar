@@ -7,7 +7,8 @@ $(document).ready(function(){
             null,
             null,
             { orderable: false }
-        ]
+        ],
+        paging: false
     });
 
     var flag = false;
