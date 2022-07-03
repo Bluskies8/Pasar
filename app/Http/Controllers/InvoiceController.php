@@ -33,20 +33,22 @@ class InvoiceController extends Controller
     {
         //
     }
-    public function invoice()
+    public function invoice(Request $request)
     {
-        $carbon = Carbon::now();
-        // $carbon = Carbon::createFromFormat('Y-m-d H:i:s','2022-06-12 07:15:00',7);
-        $date = $carbon->toDateString();
-        $time = $carbon->toTimeString();
-        if($time > '07:00:00'){
-            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
-            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->addDays(1);
-        }else{
-            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->subDays(1);
-            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
-        }
-        $data = invoice::with('stand')->whereBetween('created_at',[$start,$end])->get();
+        $date = Carbon::createFromFormat('d-m-Y',$request->date)->format('dmY');
+        $carbon = Carbon::createFromFormat('d-m-Y',$request->date)->format('Y-m-d');
+        // $date = $carbon->toDateString();
+        // $time = $carbon->toTimeString();
+        // if($time > '07:00:00'){
+        //     $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
+        //     $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->addDays(1);
+        // }else{
+        //     $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->subDays(1);
+        //     $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
+        // }
+        // $data = invoice::with('stand')->whereBetween('created_at',[$start,$end])->get();
+
+        $data = invoice::with('stand')->where('id','like','%' . $date.'%')->get();
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
         foreach ($temp as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
@@ -62,8 +64,9 @@ class InvoiceController extends Controller
                 $parkir+=$dtrans;
             }
         }
-        // dd($data);
+        // dd($date);
         return view('pages/invoice',[
+            'date'=> $carbon,
             'invoice'=> $data,
             'htrans' => $htrans,
             'stand' => $stand,
@@ -123,40 +126,6 @@ class InvoiceController extends Controller
             }
         }
         return "success";
-    }
-    public function datesort(Request $request)
-    {
-        // $start = Carbon::createFromFormat('Y-m-d H:i:s',$request->date.' 06:00:00',7);
-        // $end = Carbon::createFromFormat('Y-m-d H:i:s',$request->date.' 06:00:00',7)->addDays(1);
-        // $data = invoice::with('stand')->whereBetween('created_at',[$request->start,$request->end])->get();
-        $data = invoice::with('stand')->where('id','like','%' . $request->start.'%')->get();
-        // return $data;
-        $temp = stand::select('seller_name')->groupBy('seller_name')->get();
-        foreach ($temp as $key => $value) {
-            $no_stand = stand::where('seller_name',$value->seller_name)->first();
-            $stand[$key]['seller_name'] = $no_stand->seller_name;
-            $stand[$key]['no_stand'] = $no_stand->no_stand;
-            $stand[$key]['id'] = $no_stand->id;
-            $total = htrans::where('stand_id',$no_stand->id)->sum('total_harga');
-            $kuli = htrans::where('stand_id',$no_stand->id)->sum('total_jumlah') * 1000;
-            $htrans = htrans::where('stand_id',$no_stand->id)->get();
-            $parkir = 0;
-            foreach ($htrans as $key2 ) {
-                $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
-                $parkir+=$dtrans;
-            }
-        }
-        return response()->json([
-            'invoice'=> $data,
-            'htrans' => $htrans,
-            'stand' => $stand,
-            'total' =>$total,
-            'parkir' =>$parkir,
-            'kuli' => $kuli,
-            // 'data' => [
-            //     'value' => 1
-            // ]
-        ]);
     }
     public function transactionDetails(Request $request)
     {

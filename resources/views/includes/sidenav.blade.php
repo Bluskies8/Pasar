@@ -11,7 +11,7 @@
             <i class="fas fa-shopping-basket me-3"></i>
             <p>Items</p>
         </a>
-        <a href="/invoice" id="nav-item-invoice" class="d-flex align-items-center ps-3 nav-item">
+        <a href="/invoice?date={{date('d-m-Y') }}"id="nav-item-invoice" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-file-invoice me-3"></i>
             <p>Invoice</p>
         </a>
@@ -46,5 +46,4 @@
         <i class="fas fa-chevron-left" id="minimize-icon"></i>
     </button>
 </div>
-
 <script src="{{asset('js/side-nav.js')}}"></script>

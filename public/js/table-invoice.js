@@ -214,65 +214,66 @@ $(document).ready(function() {
             return str.length < max ? pad("0" + str, max) : str;
         }
         var temp = new Date($('#selected-date').val());
-        var day = temp.getDate();
+        var day = pad(temp.getDate(),2);
         var month = pad(temp.getMonth() + 1,2);
         var year = temp.getFullYear();
         // var start = [year, month, day].join('-') + ' 07:00:00';
         // var end = [year, month, day+1].join('-') + ' 07:00:00';
-        var start = [day, month, year].join('');
+        var start = [day, month, year].join('-');
+        window.location.href = "invoice?date="+start;
         // ubah data tabel
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                // 'contentType' : "application/json",
-            },
-            type: "POST",
-            url: "invoice/dates",
-            data: {
-                start: start,
-                // end:end
-            },
-            beforeSend: function(){
+        // $.ajax({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        //         // 'contentType' : "application/json",
+        //     },
+        //     type: "POST",
+        //     url: "invoice/dates",
+        //     data: {
+        //         start: start,
+        //         // end:end
+        //     },
+        //     beforeSend: function(){
 
-            },
-            success: function(data) {
-                $('tbody tr').each(function() {
-                    $(this).detach();
-                });
-                for (var i = 0; i < data.invoice.length; i++) {
-                    const element = data.invoice[i];
-                    let temp = "";
-                    if (i % 2 == 0) {
-                        temp = "<tr id='row-" + i + "' class='odd'>";
-                    } else {
-                        temp = "<tr id='row-" + i + "' class='even'>";
-                    }
-                    temp += "<td class='cell-id text-center'>" + element.id + "</td>" +
-                        "<td class='text-center'>" + element.stand.seller_name + "</td>" +
-                        "<td><div class='d-flex justify-content-between px-5'><p class='ms-lg-5 ms-0'>Rp</p><p class='thousand-separator me-lg-5 me-0 data-total'>" + (element.total + element.kuli + element.listrik) + "</p></div></td>" +
-                        "<td class='position-relative' style='padding: 5px 4px;'><button class='btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto' type='button' style='background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;'><i class='fas fa-bars fa-lg'></i></button></td>" +
-                    "</tr>";
-                    $('tbody').append(temp);
-                    $('.show-aksi').eq(i).on('click', function() {
-                        $('#list-aksi').show();
-                        $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
-                        $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
-                        currentID = $(this).parent().parent().children('.cell-id').text();
-                        selecetedRow = $(this).parent().parent().attr('id');
-                        flag = true;
-                    });
-                }
+        //     },
+        //     success: function(data) {
+        //         $('tbody tr').each(function() {
+        //             $(this).detach();
+        //         });
+        //         for (var i = 0; i < data.invoice.length; i++) {
+        //             const element = data.invoice[i];
+        //             let temp = "";
+        //             if (i % 2 == 0) {
+        //                 temp = "<tr id='row-" + i + "' class='odd'>";
+        //             } else {
+        //                 temp = "<tr id='row-" + i + "' class='even'>";
+        //             }
+        //             temp += "<td class='cell-id text-center'>" + element.id + "</td>" +
+        //                 "<td class='text-center'>" + element.stand.seller_name + "</td>" +
+        //                 "<td><div class='d-flex justify-content-between px-5'><p class='ms-lg-5 ms-0'>Rp</p><p class='thousand-separator me-lg-5 me-0 data-total'>" + (element.total + element.kuli + element.listrik) + "</p></div></td>" +
+        //                 "<td class='position-relative' style='padding: 5px 4px;'><button class='btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto' type='button' style='background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;'><i class='fas fa-bars fa-lg'></i></button></td>" +
+        //             "</tr>";
+        //             $('tbody').append(temp);
+        //             $('.show-aksi').eq(i).on('click', function() {
+        //                 $('#list-aksi').show();
+        //                 $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
+        //                 $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
+        //                 currentID = $(this).parent().parent().children('.cell-id').text();
+        //                 selecetedRow = $(this).parent().parent().attr('id');
+        //                 flag = true;
+        //             });
+        //         }
 
-                separatorInterval = setInterval(setThousandSeparator, 10);
+        //         separatorInterval = setInterval(setThousandSeparator, 10);
 
-                calculateTotal();
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                // JSON.parse(undefined);
-                console.log(xhr.status);
-                console.log(thrownError);
-                // console.log(ajaxOptions);
-            }
-        });
-    }).trigger("change");
+        //         calculateTotal();
+        //     },
+        //     error: function (xhr, ajaxOptions, thrownError) {
+        //         // JSON.parse(undefined);
+        //         console.log(xhr.status);
+        //         console.log(thrownError);
+        //         // console.log(ajaxOptions);
+        //     }
+        // });
+    });
 });

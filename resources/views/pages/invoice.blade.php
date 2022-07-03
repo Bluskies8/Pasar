@@ -16,7 +16,8 @@
     </header>
     <hr class="my-0">
     <div class="position-relative" style="max-width: 250px;" id="container-tanggal">
-        <input class="form-control d-flex justify-content-between" id="selected-date" name="date" type="date" style="height: 32px;" data-date="" data-date-format="DD/MM/YYYY" value="<?php echo date('Y-m-d'); ?>">
+        {{-- <input class="form-control d-flex justify-content-between" id="selected-date" name="date" type="date" style="height: 32px;" data-date="" data-date-format="DD/MM/YYYY" value="<?php echo date('Y-m-d'); ?>"> --}}
+        <input class="form-control d-flex justify-content-between" id="selected-date" name="date" type="date" style="height: 32px;" data-date="{{$date}}" data-date-format="DD/MM/YYYY" value="{{$date}}">
         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
     </div>
     <div class="position-absolute table-responsive p-3 w-100" style="max-height: 88.8vh;overflow-y: auto; top: 51px; z-index: 0;">
@@ -30,6 +31,20 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($invoice as $item)
+                    <tr>
+                        <td class='cell-id text-center'>{{$item->id}} </td>
+                        <td class='text-center'>{{$item->stand->seller_name}}</td>
+                        <td>
+                            <div class='d-flex justify-content-between px-5'>
+                                <p class='ms-lg-5 ms-0'>Rp</p><p class='thousand-separator me-lg-5 me-0 data-total'>{{$total + $kuli}}</p>
+                            </div>
+                        </td>
+                        <td class='position-relative' style='padding: 5px 4px;'>
+                            <button class='btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto' type='button' style='background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;'><i class='fas fa-bars fa-lg'></i></button>
+                        </td>
+                    </tr>
+                @endforeach
 
             </tbody>
             <tfoot>
