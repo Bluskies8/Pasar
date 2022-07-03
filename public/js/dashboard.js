@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     var barangmasuk = $('meta[name="data-barang-masuk"]').attr('content');
     var pendapatan = $('meta[name="data-pendapatan-kotor"]').attr('content');
-    console.log(pendapatan);
+    alert(pendapatan);
     var chartBarangMasuk = new Chart($('#chart-barang-masuk'), {
         type: 'bar',
         data: {
