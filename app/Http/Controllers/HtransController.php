@@ -114,10 +114,10 @@ class HtransController extends Controller
         $netto = 0;
         $total_jumlah = 0;
         $total_harga = 0;
-        $count = htrans::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->count()+1;
-        $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count,3,"0",STR_PAD_LEFT);
-        // return $request->stand_id;
-        // $id = "HT01".str_pad($count,2,'0',STR_PAD_LEFT);
+        $count = htrans::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->where('id','like','%'. $date. '%')->count();
+
+        $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count+1,3,"0",STR_PAD_LEFT);
+        
         try {
             $temp = htrans::create([
                 'id'=> $id,

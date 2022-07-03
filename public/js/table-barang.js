@@ -88,7 +88,7 @@ $(document).ready(function(){
         // insert data table ke db
         let save = $('#tr-template').detach();
 
-        console.log($('tbody tr').length);
+
         let lapak = $('#list-pelapak').find('option[value="' + $('#pelapak').val() + '"]').attr('id');
         if (typeof lapak === "undefined") {
             alert("pilih nama lapak terlebih dahulu !");
@@ -124,6 +124,9 @@ $(document).ready(function(){
         e.preventDefault();
 
         $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
             type: "POST",
             url: "transaction/create",
             // dataType: "json",
@@ -134,9 +137,10 @@ $(document).ready(function(){
                 items:data
             },
             beforeSend: function(){
-                console.log(this.data);
+                // console.log(this.data);
             },
             success: function(data) {
+                console.log(data)
                 //pindah ke halaman stock dan data masuk ke tabel
                 if(data == "Success") {
                     window.location.href = 'stock';
