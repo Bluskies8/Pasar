@@ -49,3 +49,7 @@ Route::middleware(['checkLogin'])->group(function () {
 });
 
 // view vendor
+
+Route::get('retribusi', function () {
+    return view('pages/retribusi');
+});
