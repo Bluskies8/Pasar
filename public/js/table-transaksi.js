@@ -16,6 +16,7 @@ $(document).ready(function(){
             null,
             null,
             null,
+            null,
             { orderable: false }
         ],
         paging: false

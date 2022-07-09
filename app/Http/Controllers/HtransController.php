@@ -35,7 +35,7 @@ class HtransController extends Controller
         }
         // dd($carbon.' - '.$start.' - '.$end);
         if(Auth::guard('checkLogin')->user()->role_id <3){
-            $temp = htrans::all();
+            $temp = htrans::withTrashed()->get();
         }else{
             $temp = htrans::whereBetween('created_at',[$start,$end])->get();
         }
@@ -48,6 +48,7 @@ class HtransController extends Controller
             $data[$id]['checker'] = User::where('id',$value->user_id)->first()->name;
             $data[$id]['tanggal'] = date('d-M-Y H:m:s',strtotime($value->created_at));
             $data[$id]['total'] = $value->total_harga;
+            $data[$id]['deleted'] = $value->deleted_at;
         }
         // dd($data);
         return view('pages/stock',[
@@ -117,7 +118,7 @@ class HtransController extends Controller
         $count = htrans::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->where('id','like','%'. $date. '%')->count();
 
         $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count+1,3,"0",STR_PAD_LEFT);
-        
+
         try {
             $temp = htrans::create([
                 'id'=> $id,
