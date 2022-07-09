@@ -157,3 +157,8 @@ th {
 .show-aksi {
     max-height: 30px;
 }
+
+.disabled {
+    pointer-events: none;
+    background-color: grey;
+}
