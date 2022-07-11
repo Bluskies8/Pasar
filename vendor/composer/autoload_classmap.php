@@ -30,6 +30,7 @@ return array(
     'App\\Http\\Middleware\\checkLogin' => $baseDir . '/app/Http/Middleware/checkLogin.php',
     'App\\Http\\Middleware\\checkshif' => $baseDir . '/app/Http/Middleware/checkshif.php',
     'App\\Http\\Middleware\\role' => $baseDir . '/app/Http/Middleware/role.php',
+    'App\\Models\\Retribusi' => $baseDir . '/app/Models/Retribusi.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\dtrans' => $baseDir . '/app/Models/dtrans.php',
     'App\\Models\\htrans' => $baseDir . '/app/Models/htrans.php',

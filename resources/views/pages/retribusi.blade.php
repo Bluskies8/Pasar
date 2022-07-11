@@ -4,10 +4,15 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="retribusi" content="{{ $retribusi }}">
+<meta name="listrik" content="{{ $listrik }}">
+<meta name="kuli" content="{{ $kuli }}">
 <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
     <div class="dropdown h-100"><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="visibility: hidden;">All Item</button>
         <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
     </div>
+    <button class="btn btn-sm me-2" id="btn-retribusi" type="button" style="background: rgb(24, 144, 255);color: white;">Buat Retribusi</button>
 </header>
 <div class="container pb-5">
     <div class="card mb-4">
@@ -185,7 +190,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-retribusi">
         <div class="modal-dialog modal-lg modal-fullscreen-lg-down" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -220,13 +225,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <form>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;" disabled="">
+                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Poten Siang</p>
                                         </div>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;" disabled="">
+                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Poten Malam</p>
                                         </div>
-                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;" disabled="">
+                                        <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
                                             <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Parkir Siang</p>
                                         </div>
                                         <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">

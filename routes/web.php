@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HtransController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\RetribusiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,12 @@ Route::get('logout',[DashboardController::class,'logout']);
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
 Route::middleware(['checkLogin'])->group(function () {
     Route::get('/', [DashboardController::class,'dashboard']);
+
+    Route::prefix('retribusi')->group(function () {
+        Route::get('/', [RetribusiController::class,'index']);
+        Route::post('/create', [RetribusiController::class,'store']);
+
+    });
     Route::prefix('invoice')->group(function () {
         Route::get('/',[invoicecontroller::class,'invoice']);
         Route::get('/generate', [InvoiceController::class,'generate']);//->middleware('role:2');
@@ -46,10 +53,4 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('/',[DashboardController::class,'vendor']);
         Route::post('/update',[DashboardController::class,'vendorUpdate']);
     });
-});
-
-// view vendor
-
-Route::get('retribusi', function () {
-    return view('pages/retribusi');
 });

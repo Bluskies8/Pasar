@@ -529,6 +529,7 @@ class ComposerStaticInitcca1d8e4c87105cfff9cf3fdcd8f1b8a
         'App\\Http\\Middleware\\checkLogin' => __DIR__ . '/../..' . '/app/Http/Middleware/checkLogin.php',
         'App\\Http\\Middleware\\checkshif' => __DIR__ . '/../..' . '/app/Http/Middleware/checkshif.php',
         'App\\Http\\Middleware\\role' => __DIR__ . '/../..' . '/app/Http/Middleware/role.php',
+        'App\\Models\\Retribusi' => __DIR__ . '/../..' . '/app/Models/Retribusi.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\dtrans' => __DIR__ . '/../..' . '/app/Models/dtrans.php',
         'App\\Models\\htrans' => __DIR__ . '/../..' . '/app/Models/htrans.php',

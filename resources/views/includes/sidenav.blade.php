@@ -20,6 +20,10 @@
             <i class="fas fa-user me-3"></i>
             <p>Denah</p>
         </a>
+        <a href="/retribusi" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
+            <i class="fas fa-user me-3"></i>
+            <p>Retribusi</p>
+        </a>
         @endif
     </div>
     {{-- <div id="nav-group-2" class="nav-group py-2">

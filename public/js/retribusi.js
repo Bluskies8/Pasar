@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+    var retribusi = $('meta[name="retribusi"]').attr('content');
+    var listrik = $('meta[name="listrik"]').attr('content');
+    var kuli = $('meta[name="kuli"]').attr('content');
+    alert(retribusi + '\n' + listrik + '\n' + kuli)
     $('#table-1').DataTable();
     $('#table-2').DataTable();
 
@@ -21,4 +25,8 @@ $(document).ready(function() {
             clearInterval(separatorInterval);
         }
     };
+
+    $('#btn-retribusi').on('click', function(){
+        $('#modal-retribusi').modal('show');
+    });
 });
