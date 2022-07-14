@@ -6,6 +6,7 @@ use App\Models\dtrans;
 use App\Models\htrans;
 use App\Models\invoice;
 use App\Models\Retribusi;
+use App\Models\retribusitambahan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,13 +18,27 @@ class RetribusiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $carbon = Carbon::now();
-        $date = $carbon->toDateString();
-        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDays(1);
-        $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
+        $retribusi = retribusi::with('tambahan')->whereDate('created_at', $request->date)->first();
+        $total = $retribusi->retribusi+$retribusi->listrik+$retribusi->kuli+$retribusi->sampah+$retribusi->ponten_siang+$retribusi->ponten_malam+$retribusi->parkir_siang+$retribusi->parkir_malam+$retribusi->motor_siang+$retribusi->motor_malam;
+        foreach ($retribusi->tambahan as $key) {
+            $total = $total-$key->value;
+        }
+        $all = retribusi::get();
+        return view('pages.retribusi',[
+            'date' => $request->date,
+            'data' => $retribusi,
+            'total' => $total,
+            'all' => $all
+        ]);
+    }
+    public function getRetri(Request $request)
+    {
+        // $carbon = Carbon::now();
+        // $date = $carbon->toDateString();
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$request->date.' 06:00:00',7)->subDays(1);
+        $end = Carbon::createFromFormat('Y-m-d H:i:s',$request->date.' 06:00:00',7);
         $total = htrans::whereBetween('created_at',[$start,$end])->sum('total_harga');
         $kuli = htrans::whereBetween('created_at',[$start,$end])->sum('total_jumlah')*1000;
         $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->get();
@@ -34,13 +49,12 @@ class RetribusiController extends Controller
             $parkir+=$dtrans;
         }
         $total = $total-$parkir;
-        return view('pages.retribusi',[
+        return [
             'retribusi'=>$total,
             'kuli' => $kuli,
             'listrik' => $listrik,
-        ]);
+        ];
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -59,7 +73,7 @@ class RetribusiController extends Controller
      */
     public function store(Request $request)
     {
-        retribusi::create([
+        $retri = retribusi::create([
             'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
             'retribusi' => $request->retribusi,
             'listrik' => $request->listrik,
@@ -72,6 +86,14 @@ class RetribusiController extends Controller
             'motor_siang' => $request->motor_siang,
             'motor_malam' => $request->motor_malam,
         ]);
+        foreach ($request->tambahan as $key) {
+            $t = retribusitambahan::create([
+                'retribusi_id' => $retri->id,
+                'type' => $key['tipe'],
+                'name' => $key['nama'],
+                'value' => $key['nominal']
+            ]);
+        }
         return "success";
     }
 

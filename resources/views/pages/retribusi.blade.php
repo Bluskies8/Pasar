@@ -5,9 +5,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<meta name="retribusi" content="{{ $retribusi }}">
+{{-- <meta name="retribusi" content="{{ $retribusi }}">
 <meta name="listrik" content="{{ $listrik }}">
-<meta name="kuli" content="{{ $kuli }}">
+<meta name="kuli" content="{{ $kuli }}"> --}}
 
 <div style="max-height: calc(100vh - 50px); overflow-y: auto;">
     <div class="px-2 px-lg-5 pb-4">
@@ -15,7 +15,13 @@
             <button class="btn" id="btn-retribusi" type="button" style="background: rgb(24, 144, 255);color: white;">Buat Retribusi</button>
         </div>
         <div class="card mb-4">
-            <div class="card-body"><input class="mb-3" type="date">
+            <div class="card-body">
+
+                <div class="position-relative" style="max-width: 250px;" id="container-tanggal">
+                <input class="form-control d-flex justify-content-between" id="selected-date" name="date" type="date" style="height: 32px;" data-date="{{$date}}" data-date-format="DD/MM/YYYY" value="{{$date}}">
+                {{-- <input class="mb-3" type="date"> --}}
+                <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
+                </div>
                 <div class="table-responsive">
                     <table id="table-retribusi" class="table table-striped">
                         <thead>
@@ -28,28 +34,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{-- @foreach ($collection as $item)
+
+                            @endforeach --}}
                             <tr>
                                 <td>1</td>
-                                <td>Saldo awal</td>
+                                <td>Retribusi</td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$data->retribusi}}</span>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Pembayaran listrik</td>
                                 <td>
                                     <div class="d-flex justify-content-around">
                                         <p>Rp</p><span class="thousand-separator">0</span>
@@ -57,22 +52,222 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">7500000</span>
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Listrik</td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">{{$data->listrik}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">7500000</span>
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>kuli</td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">{{$data->kuli}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Sampah</td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">{{$data->sampah}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Ponten Siang</td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">{{$data->ponten_siang}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Ponten Malam</td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">{{$data->ponten_malam}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Parkir Siang</td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">{{$data->parkir_siang}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Parkir Malam</td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">{{$data->parkir_malam}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>Motor Siang</td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">{{$data->motor_siang}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Motor Malam</td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">{{$data->motor_malam}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            @foreach ($data->tambahan as $item)
+                            <tr>
+                                <td>{{$loop->index+11}}</td>
+                                <td>{{$item->name}}</td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                @if($item->type == "operasional")
+                                    <td>
+                                        <div class="d-flex justify-content-around">
+                                            <p>Rp</p><span class="thousand-separator">{{$item->value}}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-around">
+                                            <p>Rp</p><span class="thousand-separator">0</span>
+                                        </div>
+                                    </td>
+                                @else
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around">
+                                        <p>Rp</p><span class="thousand-separator">{{$item->value}}</span>
+                                    </div>
+                                </td>
+                                @endif
+                            </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td colspan="4">Total</td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$total}}</span>
                                     </div>
                                 </td>
                             </tr>
@@ -96,34 +291,36 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($all as $item)
                             <tr>
-                                <td class="text-center">9 Jul 2022</td>
+                                <td class="text-center">{{$item->created_at->format('d M Y')}}</td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->retribusi}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->listrik}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->kuli}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->sampah}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->retribusi+$item->kuli+$item->sampah+$item->listrik}}</span>
                                     </div>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -146,44 +343,46 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($all as $item)
                             <tr>
-                                <td class="text-center">9 Jul 2022</td>
+                                <td class="text-center">{{$item->created_at->format('d M Y')}}</td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->ponten_siang}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->ponten_malam}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->parkir_siang}}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->parkir_malam}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->motor_siang}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->motor_malam}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">25000000</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->ponten_siang+$item->ponten_malam+$item->parkir_siang+$item->parkir_malam+$item->motor_siang+$item->motor_malam}}</span>
                                     </div>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -201,19 +400,19 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <form>
-                                            <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;" disabled="">
+                                            <div class="position-relative mb-3"><input class="form-control" type="text" id = "retribusi" style="height: 32px;" disabled="">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Retribusi</p>
                                             </div>
-                                            <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;" disabled="">
+                                            <div class="position-relative mb-3"><input class="form-control" type="text" id = "listrik" style="height: 32px;" disabled="">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Listrik</p>
                                             </div>
-                                            <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;" disabled="">
+                                            <div class="position-relative mb-3"><input class="form-control" type="text" id = "kuli" style="height: 32px;" disabled="">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Kuli</p>
                                             </div>
-                                            <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                                            <div class="position-relative mb-3"><input class="form-control" type="text" id = "sampah" style="height: 32px;" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Sampah</p>
                                             </div>
-                                            <div class="position-relative"><input class="form-control" type="text" style="height: 32px;" disabled="">
+                                            <div class="position-relative"><input class="form-control" type="text" id = "total_retribusi" style="height: 32px;" disabled="">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Total</p>
                                             </div>
                                         </form>
@@ -224,25 +423,25 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <form>
-                                            <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                                            <div class="position-relative mb-3"><input class="form-control" type="text" id = "ponten_siang" style="height: 32px;" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Poten Siang</p>
                                             </div>
-                                            <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                                            <div class="position-relative mb-3"><input class="form-control" type="text" id = "ponten_malam" style="height: 32px;" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Poten Malam</p>
                                             </div>
-                                            <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                                            <div class="position-relative mb-3"><input class="form-control" type="text" id = "parkir_siang" style="height: 32px;" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Parkir Siang</p>
                                             </div>
-                                            <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                                            <div class="position-relative mb-3"><input class="form-control" type="text" id = "parkir_malam" style="height: 32px;" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Parkir Malam</p>
                                             </div>
-                                            <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                                            <div class="position-relative mb-3"><input class="form-control" type="text" id = "motor_siang" style="height: 32px;" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Motor Siang</p>
                                             </div>
-                                            <div class="position-relative mb-3"><input class="form-control" type="text" style="height: 32px;">
+                                            <div class="position-relative mb-3"><input class="form-control" type="text" id = "motor_malam" style="height: 32px;" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Motor Malam</p>
                                             </div>
-                                            <div class="position-relative"><input class="form-control" type="text" style="height: 32px;" disabled="">
+                                            <div class="position-relative"><input class="form-control" type="text" id = "total_ponten" style="height: 32px;" disabled="">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Total</p>
                                             </div>
                                         </form>
@@ -256,9 +455,13 @@
                                         <form class="w-100">
                                             <div id="list-tambahan" style="max-height: 200px;overflow-y: auto;">
                                                 <div id="clone-tambahan" class="d-flex align-items-center mb-3">
-                                                    <input type="text" class="form-control tambahan-nama" />
+                                                    <input type="text" name = "nama" class="form-control tambahan-nama" />
                                                     <p class="mx-2">:</p>
-                                                    <input type="text" class="form-control me-3 tambahan-nominal" />
+                                                    <input type="text" name = "nominal" class="form-control me-3 tambahan-nominal" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+                                                    <select name="tipe" class="form-select form-select-sm">
+                                                        <option value="operasional">Operasional</option>
+                                                        <option value="prive">Prive</option>
+                                                    </select>
                                                     <button class="btn btn-primary py-1 px-2 delete-tambahan" type="button" style="background-color: rgb(24, 144, 255);">
                                                         <i class="far fa-trash-alt"></i>
                                                     </button>
@@ -272,7 +475,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="button" style="background: rgb(24, 144, 255);color: var(--bs-white);">Simpan</button>
+                        <button class="btn btn-primary" id = "btn-save" type="button" style="background: rgb(24, 144, 255);color: var(--bs-white);">Simpan</button>
                     </div>
                 </div>
             </div>

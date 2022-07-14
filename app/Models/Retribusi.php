@@ -21,4 +21,8 @@ class Retribusi extends Model
         'motor_siang',
         'motor_malam',
     ];
+    public function tambahan()
+    {
+        return $this->hasMany(retribusitambahan::class,'retribusi_id','id');
+    }
 }

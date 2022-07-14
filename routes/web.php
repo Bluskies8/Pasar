@@ -30,6 +30,7 @@ Route::middleware(['checkLogin'])->group(function () {
 
     Route::prefix('retribusi')->group(function () {
         Route::get('/', [RetribusiController::class,'index']);
+        Route::post('/getretri', [RetribusiController::class,'getRetri']);
         Route::post('/create', [RetribusiController::class,'store']);
 
     });
