@@ -152,7 +152,7 @@ $(document).ready(function() {
             },
             success: function(data) {
                 console.log(data);
-                // location.reload();
+                location.reload();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);
