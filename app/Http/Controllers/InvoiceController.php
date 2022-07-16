@@ -99,7 +99,14 @@ class InvoiceController extends Controller
         }
         foreach ($stand as $key) {
             if($key['seller_name']!=""){
-                $total = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_harga');
+                $total = 0;
+                $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
+                foreach ($temp as $detail) {
+                    foreach ($detail->details as $key2 ) {
+                        // $subtotal = dtrans::where('htrans_id',$key2->id)->sum('subtotal');
+                        $total += $key2->subtotal;
+                    }
+                }
                 $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_jumlah');
                 $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
                 $parkir = 0;
@@ -109,6 +116,13 @@ class InvoiceController extends Controller
                 }
                 $count = invoice::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->count()+1;
                 $id = "INV".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$dateid.str_pad($count,3,"0",STR_PAD_LEFT);
+                // return [
+                //     'id' =>$key['id'],
+                //     'total' =>$total,
+                //     'parkir' =>$parkir,
+                //     'jumlah' =>$jumlah,
+                //     'total' => $total+($jumlah*1000)+$parkir
+                // ];
                 invoice::create([
                     'id' => $id,
                     'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
@@ -118,7 +132,7 @@ class InvoiceController extends Controller
                     'kuli' => $jumlah*1000,
                     'parkir' => $parkir,
                     'total' => $total,
-                    'dibayarkan' => $total+($jumlah*1000),
+                    'dibayarkan' => $total+($jumlah*1000)+$parkir,
                 ]);
             }
         }
@@ -159,12 +173,24 @@ class InvoiceController extends Controller
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
         $invoice = invoice::with(['stand'])->where('id',$id)->first();
         $trans = htrans::with('details')->where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->get();
-        $total = htrans::where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_harga');
+        // $total = htrans::where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_harga');
+        $total = 0;
         $parkir = 0;
-        foreach ($trans as $key ) {
-            $dtrans = dtrans::where('htrans_id',$key->id)->sum('parkir');
-            $parkir+=$dtrans;
+        $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$invoice->stand_id)->get();
+        foreach ($temp as $detail) {
+            foreach ($detail->details as $key2 ) {
+                $total += $key2->subtotal;
+                $parkir+=$key2->parkir;
+            }
         }
+        $kuli = htrans::where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
+        // return [
+        //     'id' =>$invoice->stand_id,
+        //     'total' =>$total,
+        //     'parkir' =>$parkir,
+        //     'jumlah' =>$invoice->kuli,
+        //     'total' => $total+$invoice->kuli+$parkir
+        // ];
         $pasar = pasar::where('id',Auth::guard('checkLogin')->user()->pasar_id)->first();
         $stand = stand::where('id', $invoice->stand_id)->first();
         return view('pages.invoiceDetail',[
@@ -173,6 +199,7 @@ class InvoiceController extends Controller
             'total' =>$total,
             'parkir' => $parkir,
             'pasar' => $pasar,
+            'kuli' => $kuli,
             'stand' => $stand
         ]);
     }

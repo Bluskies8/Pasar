@@ -104,11 +104,6 @@ class HtransController extends Controller
      */
     public function store(Request $request)
     {
-        // return ['msg'=>"masuk"];
-        // return json_decode($request->nama,true);
-        // dd($request->all());
-
-        // return response()->json(['$data'=>$request->all()]);
         $carbon = Carbon::now();
         $date = $carbon->format('dmY');
         $bruto = 0;
@@ -130,7 +125,6 @@ class HtransController extends Controller
                 'Total_harga' => 0
             ]);
             foreach ($request->items as $key) {
-                // return $key['kode'];
                 switch ($key['kode']) {
                     case 'k':
                         $bruto = $key['jumlah']/5;
@@ -171,12 +165,12 @@ class HtransController extends Controller
                     'parkir' => $key['parkir'],
                     'subtotal' => $subtotal
                 ]);
-        }
-        $data = htrans::where('id',$temp->id)->first();
-        $data->total_jumlah = $total_jumlah;
-        $data->total_harga = $total_harga;
-        $data->save();
-        return "Success";
+            }
+            $data = htrans::where('id',$temp->id)->first();
+            $data->total_jumlah = $total_jumlah;
+            $data->total_harga = $total_harga;
+            $data->save();
+            return "Success";
         }catch (\Throwable $th) {
             return $th;
         }
