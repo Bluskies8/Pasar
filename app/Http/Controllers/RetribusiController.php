@@ -21,9 +21,12 @@ class RetribusiController extends Controller
     public function index(Request $request)
     {
         $retribusi = retribusi::with('tambahan')->whereDate('created_at', $request->date)->first();
-        $total = $retribusi->retribusi+$retribusi->listrik+$retribusi->kuli+$retribusi->sampah+$retribusi->ponten_siang+$retribusi->ponten_malam+$retribusi->parkir_siang+$retribusi->parkir_malam+$retribusi->motor_siang+$retribusi->motor_malam;
-        foreach ($retribusi->tambahan as $key) {
-            $total = $total-$key->value;
+        $total = 0;
+        if($retribusi){
+            $total = $retribusi->retribusi+$retribusi->listrik+$retribusi->kuli+$retribusi->sampah+$retribusi->ponten_siang+$retribusi->ponten_malam+$retribusi->parkir_siang+$retribusi->parkir_malam+$retribusi->motor_siang+$retribusi->motor_malam;
+            foreach ($retribusi->tambahan as $key) {
+                $total = $total-$key->value;
+            }
         }
         $all = retribusi::get();
         return view('pages.retribusi',[

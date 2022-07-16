@@ -34,9 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($collection as $item)
-
-                            @endforeach --}}
+                            @isset($data)
                             <tr>
                                 <td>1</td>
                                 <td>Retribusi</td>
@@ -261,6 +259,7 @@
                                 @endif
                             </tr>
                             @endforeach
+                            @endisset
                         </tbody>
                         <tfoot>
                             <tr>
