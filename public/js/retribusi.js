@@ -6,7 +6,7 @@ $(document).ready(function() {
     // var listrik = $('meta[name="listrik"]').attr('content');
     // var kuli = $('meta[name="kuli"]').attr('content');
 
-    console.log('retribusi : ' + retribusi + '\nlistrik : ' + listrik + '\n kuli : ' + kuli);
+    // console.log('retribusi : ' + retribusi + '\nlistrik : ' + listrik + '\n kuli : ' + kuli);
 
     var separatorInterval = setInterval(setThousandSeparator, 10);
 
@@ -43,6 +43,7 @@ $(document).ready(function() {
         var start = [year, month, day].join('-');
         window.location.href = "retribusi?date="+start;
     });
+
     $('#btn-retribusi').on('click', function(){
         // this.setAttribute(
         //     "data-date",
@@ -72,12 +73,10 @@ $(document).ready(function() {
 
             },
             success: function(data) {
-                console.log(data);
                 $('#retribusi').val(data.retribusi);
                 $('#kuli').val(data.kuli);
                 $('#listrik').val(data.listrik);
                 $('#total_retribusi').val(data.listrik+data.retribusi+data.kuli);
-                // location.reload();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);

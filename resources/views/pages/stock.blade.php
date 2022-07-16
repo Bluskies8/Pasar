@@ -49,7 +49,7 @@
                     </td>
                     <td class="text-center">{{$item['deleted']}}</td>
                     <td class="position-relative" style="padding: 5px 4px;">
-                        <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
+                        <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: #38A34A;color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
                     </td>
                 </tr>
                 @endforeach

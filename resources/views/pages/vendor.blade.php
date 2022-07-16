@@ -64,7 +64,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" id = "btn-save" type="button" data-bs-dismiss="modal" style="background: rgb(24, 144, 255);color: white;">Save</button>
+                <button class="btn btn-primary" id = "btn-save" type="button" data-bs-dismiss="modal" style="background: #38A34A;color: white;">Save</button>
             </div>
         </div>
     </div>

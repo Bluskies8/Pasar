@@ -129,7 +129,7 @@
         </table>
     </div>
     @if ($data['id'] == null)
-        <button class="btn btn-primary position-fixed m-2" id="save-detail" type="button" style="bottom: 0px;right: 0px;background: rgb(24, 144, 255);color: white;">Simpan Transaksi</button>
+        <button class="btn btn-primary position-fixed m-2" id="save-detail" type="button" style="bottom: 0px;right: 0px;background: #38A34A;color: white;">Simpan Transaksi</button>
     @endif
     <div class="modal fade" role="dialog" tabindex="-1" id="modal-barang">
         <div class="modal-dialog modal-xl modal-fullscreen-lg-down" role="document">
@@ -183,7 +183,7 @@
                 <div class="modal-footer">
                     <button class="btn btn-light" type="button" data-bs-dismiss="modal">Batal</button>
                     <button class="btn" id="new-form" type="button" style="background: var(--bs-teal);color: white;">Tambah Form Baru</button>
-                    <button class="btn" id="save-barang" type="button" data-bs-dismiss="modal" style="background: rgb(24, 144, 255);color: white;">Simpan Barang</button>
+                    <button class="btn" id="save-barang" type="button" data-bs-dismiss="modal" style="background: #38A34A;color: white;">Simpan Barang</button>
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@
                 <a class="dropdown-item" href="#">Third Item</a>
             </div>
         </div>
-        <button class="btn btn-sm me-2" id="generate-invoice" type="button" style="background: rgb(24, 144, 255);color: white;">Buat Nota</button>
+        <button class="btn btn-sm me-2" id="generate-invoice" type="button" style="background: #38A34A;color: white;">Buat Nota</button>
     </header>
     <hr class="my-0">
     <div class="position-relative" style="max-width: 250px;" id="container-tanggal">
@@ -36,11 +36,11 @@
                         <td class='text-center'>{{$item->stand->seller_name}}</td>
                         <td>
                             <div class='d-flex justify-content-between px-5'>
-                                <p class='ms-lg-5 ms-0'>Rp</p><p class='thousand-separator me-lg-5 me-0 data-total'>{{$total + $kuli}}</p>
+                                <p class='ms-lg-5 ms-0'>Rp</p><p class='thousand-separator me-lg-5 me-0 data-total'>{{$item->total + $item->kuli}}</p>
                             </div>
                         </td>
                         <td class='position-relative' style='padding: 5px 4px;'>
-                            <button class='btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto' type='button' style='background: rgb(24, 144, 255);color: white;left: 0;right: 0;max-width: 35.5px;'><i class='fas fa-bars fa-lg'></i></button>
+                            <button class='btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto' type='button' style='background: #38A34A;color: white;left: 0;right: 0;max-width: 35.5px;'><i class='fas fa-bars fa-lg'></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -50,7 +50,7 @@
                 <td colspan="2" class="text-end">Total</td>
                 <td>
                     <div class="d-flex justify-content-between px-5">
-                        <p class="ms-5">Rp</p>
+                        <p class="ms-5">Rp{{$total}}</p>
                         <p class="thousand-separator me-5" id="data-total-sum"></p>
                     </div>
                 </td>
@@ -132,7 +132,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-save" type="button" style="background: rgb(24, 144, 255);color: white;" data-bs-dismiss="modal">Save</button>
+                    <button class="btn btn-save" type="button" style="background: #38A34A;color: white;" data-bs-dismiss="modal">Save</button>
                 </div>
             </div>
         </div>

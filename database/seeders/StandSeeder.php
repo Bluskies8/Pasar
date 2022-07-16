@@ -492,7 +492,7 @@ class StandSeeder extends Seeder
             'no_stand' => 'B29',
             'pasar_id' => '1',
             'badan_usaha' => '',
-            'seller_name' => '',
+            'seller_name' => 'Ali',
             'Phone' => '',
             'jenis_jualan' => ""
         ]);
@@ -500,7 +500,7 @@ class StandSeeder extends Seeder
             'no_stand' => 'B30',
             'pasar_id' => '1',
             'badan_usaha' => '',
-            'seller_name' => '',
+            'seller_name' => 'Ali',
             'Phone' => '',
             'jenis_jualan' => ""
         ]);

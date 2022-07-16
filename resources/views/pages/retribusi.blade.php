@@ -12,7 +12,7 @@
 <div style="max-height: calc(100vh - 50px); overflow-y: auto;">
     <div class="px-2 px-lg-5 pb-4">
         <div class="d-flex justify-content-end my-3">
-            <button class="btn" id="btn-retribusi" type="button" style="background: rgb(24, 144, 255);color: white;">Buat Retribusi</button>
+            <button class="btn" id="btn-retribusi" type="button" style="background: #38A34A;color: white;">Buat Retribusi</button>
         </div>
         <div class="card mb-4">
             <div class="card-body">

@@ -26,12 +26,12 @@ class HtransController extends Controller
         $carbon = Carbon::now();
         $date = $carbon->toDateString();
         $time = $carbon->toTimeString();
-        if($time > '07:00:00'){
-            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
-            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->addDays(1);
+        if($time > '06:00:00'){
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->addDays(1);
         }else{
-            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->subDays(1);
-            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDays(1);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
         }
         // dd($carbon.' - '.$start.' - '.$end);
         if(Auth::guard('checkLogin')->user()->role_id <3){
