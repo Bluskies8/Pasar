@@ -14,29 +14,22 @@ $(document).ready(function() {
 
     var flag = false;
     var selectedID = '';
-    // $('.show-aksi').on('click', function() {
-    //     let lebarList = 184;
-    //     let lebarBtn = $(this).css('width');
-    //     lebarBtn = parseInt(lebarBtn.substr(0, lebarBtn.indexOf('px')));
-    //     $('#list-aksi').css('left', $(this).offset().left - $('#content').children('.container').offset().left - lebarList + lebarBtn + 2);
-
-    //     let tinggiHeader = 0;
-    //     let tinggiBtn = $(this).css('height');
-    //     tinggiBtn = parseInt(tinggiBtn.substr(0, tinggiBtn.indexOf('px')));
-    //     $('#list-aksi').css('top', $(this).offset().top - $('#content').offset().top + tinggiBtn);
-
-    //     $('#list-aksi').show();
-    //     selectedID = $(this).closest('tr').attr('id');
-    //     flag = true;
-    // });
     $('.show-aksi').on('click', function() {
+        let lebarList = 184;
+        let lebarBtn = $(this).css('width');
+        lebarBtn = parseInt(lebarBtn.substr(0, lebarBtn.indexOf('px')));
+        $('#list-aksi').css('left', $(this).offset().left - $('#content').children('.container').offset().left - lebarList + lebarBtn + 2);
+
+        let tinggiHeader = 0;
+        let tinggiBtn = $(this).css('height');
+        tinggiBtn = parseInt(tinggiBtn.substr(0, tinggiBtn.indexOf('px')));
+        $('#list-aksi').css('top', $(this).offset().top - $('#content').offset().top + tinggiBtn);
+
         $('#list-aksi').show();
-        $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
-        $('#list-aksi').css('top', $(this).offset().top - 100 /* tinggi header */ + 30 /* tinggi button */);
-        currentID = $(this).parent().parent().children('.cell-id').text();
-        // selecetedRow = $(this).parent().parent().attr('id');
+        selectedID = $(this).closest('tr').attr('id');
         flag = true;
     });
+    
     $(document).on('click', function() {
         setTimeout(function (){
             if (flag) {
