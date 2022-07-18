@@ -2,7 +2,9 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container position-relative mt-5">
+    <h2 class="text-danger d-flex align-items-center justify-content-between mb-3">Master User<button class="btn btn-danger" id="add-user" type="button">User Baru</button></h2>
     <div class="table-responsive">
         <table class="table" id="table-user">
             <thead>
@@ -10,20 +12,24 @@
                     <th>Nama</th>
                     <th>Username</th>
                     <th>Password</th>
+                    <th>Role</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
+                @foreach ($data as $item)
+                <tr id ="{{$item->id}}">
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->email}}</td>
+                    <td></td>
+                    <td>{{$item->role->name}}</td>
                     <td class="position-relative d-flex justify-content-end">
                         <button class="btn btn-sm btn-danger d-flex show-aksi" type="button">
                             <i class="fas fa-bars fa-l"></i>
                         </button>
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -52,8 +58,14 @@
                         <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Password</p>
                         <p class="small text-danger error-msg"></p>
                     </div>
+                    <div class="form-control d-flex justify-content-between">
+                        <!-- kalau data nama bidang dirubah, harap mengubah data paten dibawah ini dengan mengambil data bidang dari database -->
+                        <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-2" name="role" value="2"/><label class="form-check-label" for="role-2">Admin</label></div>
+                        <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-3" name="role" value="3"/><label class="form-check-label" for="role-3">Kapten</label></div>
+                        <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-4" name="role" value="4"/><label class="form-check-label" for="role-4">Checker</label></div>
+                    </div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" id="btn-save" type="button">Save</button></div>
             </div>
         </div>
     </div>

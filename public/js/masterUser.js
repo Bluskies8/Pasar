@@ -7,6 +7,7 @@ $(document).ready(function() {
             null,
             null,
             null,
+            null,
             { orderable: false }
         ]
     });
@@ -41,29 +42,103 @@ $(document).ready(function() {
         }, 10);
     });
 
-    $('#item-update').on('click', function() {
-        tipe = "update"
-        $('.modal-title').text("Rubah Nomor Punggung");
-        $('#input-nama').val($('#' + selectedID).children().eq(0).html());
-        $('#input-username').val($('#' + selectedID).children().eq(1).html());
-        $('#input-password').val($('#' + selectedID).children().eq(2).html());
+    var action;
+    $('#add-user').on('click', function() {
+        $('.modal-title').text("Buat User baru");
+        $('.input-radio').each(function(index, element) {
+            $(element).prop("checked", false);
+        });
+        action = 'insert';
+        $('#input-kelas').val('');
         $('#modal-update').modal('show');
     });
 
+    $('#item-update').on('click', function() {
+        action = "update"
+        $('.modal-title').text("Rubah User");
+        $('#input-nama').val($('#' + selectedID).children().eq(0).html());
+        $('#input-username').val($('#' + selectedID).children().eq(1).html());
+        $('#input-password').val($('#' + selectedID).children().eq(2).html());
+        var selectedRole = $('#' + selectedID).children().eq(3).html();
+        $('.input-radio').each(function(index, element) {
+            $(element).prop("checked", false);
+            if ($(element).siblings('.form-check-label').text() == selectedRole) {
+                $(element).prop("checked", true);
+            }
+        });
+        $('#modal-update').modal('show');
+    });
 
-    $('#item-delete').on('click', function() {
-        if(confirm('yakin untuk menghapus nomor punggung ?')) {
+    $('#btn-save').on('click', function(){
+        var radioValue = $("input[name='role']:checked").val();
+        var nama = $('#input-nama').val();
+        var username = $('#input-username').val();
+        var password = $('#input-password').val();
+        if(action == 'insert'){
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 type: "post",
-                url: "/admin/user/delete/"+selectedID,
+                url: "/user/create",
+                data:{
+                    role:radioValue,
+                    nama:nama,
+                    username:username,
+                    password:password,
+                },
+                beforeSend: function(){
+                    
+                },
+                success: function(res) {
+                    // console.log(res);
+                    window.location.reload();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+            }else if(action == 'update'){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    type: "post",
+                    url: "/user/update/"+selectedID,
+                    data:{
+                        role:radioValue,
+                        nama:nama,
+                        username:username,
+                        password:password,
+                    },
+                    beforeSend: function(){
+
+                    },
+                    success: function(res) {
+                        // console.log(res);
+                        window.location.reload();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                });
+            }
+    });
+
+    $('#item-delete').on('click', function() {
+        if(confirm('yakin untuk menghapus user ini ?')) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                type: "post",
+                url: "/user/delete/"+selectedID,
                 beforeSend: function(){
 
                 },
                 success: function(res) {
-                    console.log(res);
                     window.location.reload();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {

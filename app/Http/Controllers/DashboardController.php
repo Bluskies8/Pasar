@@ -11,6 +11,7 @@ use App\Models\stand;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
@@ -46,6 +47,44 @@ class DashboardController extends Controller
         // }else{
         //     return redirect()->back()->with('pesan','bukan shif anda');
         // }
+    }
+    public function userPages()
+    {
+        $data = User::with('role')->get();
+        return view('pages.masterUser',[
+            'data' => $data
+        ]);
+    }
+    public function createUser(Request $request)
+    {
+        try {
+            User::create([
+                'name'=> $request->nama,
+                'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
+                'email' => $request->username,
+                'password' => Hash::make($request->password),
+                'role_id' => $request->role
+            ]);
+            return "success";
+        } catch (\Throwable $th) {
+            return $th;
+        }
+
+    }
+    public function updateUser(Request $request, User $user)
+    {
+        if($request->username)$user->email = $request->username;
+        if($request->password)$user->password = Hash::make($request->password);
+        if($request->nama)$user->name = $request->nama;
+        if($request->role)$user->role_id = $request->role;
+        $user->save();
+        return "success";
+    }
+    public function deleteUser(User $user)
+    {
+        // $user = User::find($request->id);
+        $user->delete();
+        return 'success';
     }
     function updateDate()
     {

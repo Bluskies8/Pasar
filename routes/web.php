@@ -28,6 +28,12 @@ Route::get('logout',[DashboardController::class,'logout']);
 Route::middleware(['checkLogin'])->group(function () {
     Route::get('/', [DashboardController::class,'dashboard']);
 
+    Route::prefix('user')->group(function () {
+        Route::get('/',[DashboardController::class,'userPages']);
+        Route::post('/create',[DashboardController::class,'createUser']);
+        Route::post('/update/{user:id}',[DashboardController::class,'updateUser']);
+        Route::post('/delete/{user:id}',[DashboardController::class,'deleteUser']);
+    });
     Route::prefix('retribusi')->group(function () {
         Route::get('/', [RetribusiController::class,'index']);
         Route::post('/getretri', [RetribusiController::class,'getRetri']);
