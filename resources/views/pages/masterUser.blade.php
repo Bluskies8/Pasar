@@ -2,6 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container position-relative mt-5">
     <h2 class="text-danger d-flex align-items-center justify-content-between mb-3">Master User<button class="btn btn-danger" id="add-user" type="button">User Baru</button></h2>
@@ -72,5 +73,6 @@
 </div>
 <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 <script src="{{asset('js/masterUser.js')}}"></script>
 @endsection
