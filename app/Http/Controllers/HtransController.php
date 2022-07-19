@@ -42,6 +42,7 @@ class HtransController extends Controller
         // dd($temp);
         $data = [];
         foreach ($temp as $id => $value) {
+            dd($value);
             $stand = stand::where('id',$value->stand_id)->first();
             $data[$id]['id_trans'] = $value->id;
             $data[$id]['nama'] = $stand->seller_name;
