@@ -157,7 +157,11 @@
                                         </select>
                                     </div>
                                     <div class="position-relative mb-3">
-                                        <input class="form-control" name="nama" type="text" style="height: 32px;">
+                                        <!-- <input class="form-control" name="nama" type="text" style="height: 32px;"> -->
+                                        <select name="nama" id="tipe-barang" class="form-control pt-1" style="height: 32px;">
+                                            <!-- add data tipe dari db ke sini -->
+                                            <option value="buah">buah</option>
+                                        </select>
                                         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Nama Barang</p>
                                     </div>
                                     <div class="position-relative mb-3">
