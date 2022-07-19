@@ -24,6 +24,10 @@ Route::get('login', function () {
 Route::post('clogin',[DashboardController::class,'login']);
 Route::get('logout',[DashboardController::class,'logout']);
 
+Route::get('barang', function () {
+    return view('pages/masterBarang');
+});
+
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
 Route::middleware(['checkLogin'])->group(function () {
     Route::get('/', [DashboardController::class,'dashboard']);
