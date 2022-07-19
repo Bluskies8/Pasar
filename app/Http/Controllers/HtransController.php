@@ -45,7 +45,7 @@ class HtransController extends Controller
             $stand = stand::where('id',$value->stand_id)->first();
             // dd($stand);
             $data[$id]['id_trans'] = $value->id;
-            $data[$id]['nama'] = $stand->seller_name;
+            $data[$id]['nama'] = ($stand->seller_name)?$stand->seller_name:$stand->id;
             $data[$id]['checker'] = User::where('id',$value->user_id)->first()->name;
             $data[$id]['tanggal'] = date('d-M-Y H:m:s',strtotime($value->created_at));
             $data[$id]['total'] = $value->total_harga;
