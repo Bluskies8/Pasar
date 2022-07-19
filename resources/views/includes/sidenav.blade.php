@@ -1,7 +1,7 @@
 <div id="side-nav" class="position-relative" style="width: 200px;height: calc(100vh - 50px);background: rgb(45,55,60);color: white;">
     <div id="nav-group-1" class="nav-group py-2">
 
-        @if (auth()->guard('checkLogin')->user()->role_id == 2)
+        @if (auth()->guard('checkLogin')->user()->role_id <= 2)
         <a href="/" id="nav-item-dashboard" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-tachometer-alt me-3"></i>
             <p>Dashboard</p>
@@ -15,7 +15,7 @@
             <i class="fas fa-file-invoice me-3"></i>
             <p>Invoice</p>
         </a>
-        @if (auth()->guard('checkLogin')->user()->role_id == 2)
+        @if (auth()->guard('checkLogin')->user()->role_id < 3)
         <a href="/vendor" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-user me-3"></i>
             <p>Denah</p>

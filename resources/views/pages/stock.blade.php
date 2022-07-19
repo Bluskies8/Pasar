@@ -59,7 +59,7 @@
     </div>
     <ul class="list-unstyled py-2 px-1" id="list-aksi">
         <li id="item-detail" class="px-1">Lihat Detail</li>
-        @if ($role == 3)
+        @if ($role <= 3)
             <li id="item-delete" class="px-1">Hapus Transaksi</li>
         @endif
     </ul>
