@@ -40,7 +40,6 @@ class HtransController extends Controller
             $temp = htrans::whereBetween('created_at',[$start,$end])->get();
         }
         $data = [];
-        return $temp;
         foreach ($temp as $id => $value) {
             $stand = stand::where('id',$value->stand_id)->first();
             // dd($stand);
@@ -104,6 +103,7 @@ class HtransController extends Controller
      */
     public function store(Request $request)
     {
+        $c = false;
         $carbon = Carbon::now();
         $date = $carbon->format('dmY');
         $bruto = 0;
@@ -113,17 +113,25 @@ class HtransController extends Controller
         $count = htrans::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->where('id','like','%'. $date. '%')->count();
 
         $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count+1,3,"0",STR_PAD_LEFT);
-
+        $checkstandid = stand::where('id',$request->stand_id)->first();
+        
+        $parkir = [0,3000,5000,1000,20000,50000];
+        $kode = ['k','b','td','dt','sd','p','t'];
         try {
-            $temp = htrans::create([
-                'id'=> $id,
-                'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
-                'user_id' => Auth::guard('checkLogin')->user()->id,
-                'stand_id' => $request->stand_id,
-                'transportasi' => $request->transportasi,
-                'Total_jumlah' => 0,
-                'Total_harga' => 0
-            ]);
+
+            foreach ($request->items as $key) {
+                if(in_array($key['kode'], $kode) && in_array($key['parkir'], $parkir) && $checkstandid){
+                    $temp = htrans::create([
+                        'id'=> $id,
+                        'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
+                        'user_id' => Auth::guard('checkLogin')->user()->id,
+                        'stand_id' => $request->stand_id,
+                        'transportasi' => $request->transportasi,
+                        'Total_jumlah' => 0,
+                        'Total_harga' => 0
+                    ]);
+                }
+            }
             foreach ($request->items as $key) {
                 switch ($key['kode']) {
                     case 'k':
@@ -149,7 +157,6 @@ class HtransController extends Controller
                         break;
                 }
                 $round = ceil($bruto);
-                // dd($key);
                 $netto = netto::first();
                 $subtotal = $netto->value*$round;
                 $total_harga += $subtotal+$key['parkir'];

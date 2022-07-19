@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\dtrans;
 use App\Models\htrans;
 use App\Models\invoice;
 use App\Models\netto;
@@ -85,6 +86,12 @@ class DashboardController extends Controller
         // $user = User::find($request->id);
         $user->delete();
         return 'success';
+    }
+    public function reset()
+    {
+        htrans::query()->truncate();
+        dtrans::query()->truncate();
+        return redirect('/');
     }
     function updateDate()
     {

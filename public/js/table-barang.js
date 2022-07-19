@@ -138,8 +138,6 @@ $(document).ready(function(){
             },
             type: "POST",
             url: "transaction/create",
-            // dataType: "json",
-            // data: $('form').serialize(),
             data: {
                 stand_id: lapak,
                 transportasi:"pick up",
@@ -154,10 +152,10 @@ $(document).ready(function(){
                 if(data == "Success") {
                     window.location.href = 'stock';
                 }
-                $('#tambah-barang').hide();
-                $('#save-detail').hide();
-                $('#pelapak').hide();
-                $('#nama-pelapak').text($('#pelapak').val());
+                // $('#tambah-barang').hide();
+                // $('#save-detail').hide();
+                // $('#pelapak').hide();
+                // $('#nama-pelapak').text($('#pelapak').val());
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);

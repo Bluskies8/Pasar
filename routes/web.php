@@ -27,6 +27,7 @@ Route::get('logout',[DashboardController::class,'logout']);
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
 Route::middleware(['checkLogin'])->group(function () {
     Route::get('/', [DashboardController::class,'dashboard']);
+    Route::get('/reset',[DashboardController::class,'reset']);
 
     Route::prefix('user')->group(function () {
         Route::get('/',[DashboardController::class,'userPages']);
