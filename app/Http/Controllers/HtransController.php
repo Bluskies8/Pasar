@@ -39,19 +39,18 @@ class HtransController extends Controller
         }else{
             $temp = htrans::whereBetween('created_at',[$start,$end])->get();
         }
-        // dd($temp);
         $data = [];
+        return $temp;
         foreach ($temp as $id => $value) {
             $stand = stand::where('id',$value->stand_id)->first();
             // dd($stand);
             $data[$id]['id_trans'] = $value->id;
-            $data[$id]['nama'] = "";
+            $data[$id]['nama'] = $stand->seller_name;
             $data[$id]['checker'] = User::where('id',$value->user_id)->first()->name;
             $data[$id]['tanggal'] = date('d-M-Y H:m:s',strtotime($value->created_at));
             $data[$id]['total'] = $value->total_harga;
             $data[$id]['deleted'] = $value->deleted_at;
         }
-        // dd($data);
         return view('pages/stock',[
             'data'=>$data,
             'role'=> Auth::guard('checkLogin')->user()->role_id
