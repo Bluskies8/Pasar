@@ -159,12 +159,15 @@
                                     <div class="position-relative mb-3">
                                         <!-- <input class="form-control" name="nama" type="text" style="height: 32px;"> -->
 
+                                        @isset($buah)
                                         <input name = "nama" id="nama-buah" list="list-buah" class="form-select-sm">
                                         <datalist id="list-buah">
                                             @foreach ($buah as $item)
                                             <option id="{{$item->id}}" value = "{{$item->name}}"></option>
                                             @endforeach
                                         </datalist>
+
+                                        @endisset
                                         {{-- <select name="nama" id="tipe-barang" class="form-control pt-1" style="height: 32px;">
                                             <!-- add data tipe dari db ke sini -->
                                             @foreach ($buah as $item)
