@@ -121,7 +121,7 @@ class HtransController extends Controller
         $kode = ['k','b','td','dt','sd','p','t'];
         try {
             foreach ($request->items as $key) {
-                $checkbuah = buah::where('nama',$key['nama'])->first();
+                $checkbuah = buah::where('name',$key['nama'])->first();
                 if(in_array($key['kode'], $kode) && in_array($key['parkir'], $parkir) && $checkstandid && $checkbuah){
                     $temp = htrans::create([
                         'id'=> $id,
