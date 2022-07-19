@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BuahController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HtransController;
 use App\Http\Controllers\InvoiceController;
@@ -24,15 +25,19 @@ Route::get('login', function () {
 Route::post('clogin',[DashboardController::class,'login']);
 Route::get('logout',[DashboardController::class,'logout']);
 
-Route::get('barang', function () {
-    return view('pages/masterBarang');
-});
+
 
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
 Route::middleware(['checkLogin'])->group(function () {
     Route::get('/', [DashboardController::class,'dashboard']);
     Route::get('/reset',[DashboardController::class,'reset']);
 
+    Route::prefix('buah')->group(function () {
+        Route::get('/',[BuahController::class,'index']);
+        Route::post('/create',[BuahController::class,'store']);
+        Route::post('/update/{buah:id}',[BuahController::class,'update']);
+        Route::post('/delete/{buah:id}',[BuahController::class,'destroy']);
+    });
     Route::prefix('user')->group(function () {
         Route::get('/',[DashboardController::class,'userPages']);
         Route::post('/create',[DashboardController::class,'createUser']);

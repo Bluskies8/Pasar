@@ -2,7 +2,6 @@ $(document).ready(function(){
     $('#table-barang').DataTable({
         columns: [
             null,
-            null,
             { orderable: false }
         ],
         paging: false
@@ -29,16 +28,91 @@ $(document).ready(function(){
             }
         }, 10);
     });
+    var action;
+    $('#add-buah').on('click', function() {
+        action = "insert"
+        $('.modal-title').text("Tambah Buah");
+        $('#modal-update').modal('show');
+    });
+
+    $('#item-delete').on('click', function() {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            type: "post",
+            url: "/buah/delete/"+selectedID,
+            beforeSend: function(){
+
+            },
+            success: function(res) {
+                // console.log(res);
+                window.location.reload();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    });
 
     $('#item-update').on('click', function() {
         action = "update"
-        $('.modal-title').text("Rubah User");
-        $('#input-kode').val($('#' + selectedID).children().eq(0).html());
-        $('#input-nama').val($('#' + selectedID).children().eq(1).html());
+        $('.modal-title').text("Rubah Buah");
+        $('#input-nama').val($('#' + selectedID).children().eq(0).html());
         $('#modal-update').modal('show');
     });
 
     $('#btn-save').on('click', function() {
+        var nama = $('#input-nama').val();
 
+        (!nama)? $('#error-nama').text("Nama Buah wajib di isi"):$('#error-nama').text("");
+
+        if(action == 'insert'){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                type: "post",
+                url: "/buah/create",
+                data:{
+                    nama:nama,
+                },
+                beforeSend: function(){
+
+                },
+                success: function(res) {
+                    // console.log(res);
+                    window.location.reload();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }else if(action == 'update'){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                type: "post",
+                url: "/buah/update/"+selectedID,
+                data:{
+                    nama:nama,
+                },
+                beforeSend: function(){
+
+                },
+                success: function(res) {
+                    // console.log(res);
+                    window.location.reload();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
     });
+
 });

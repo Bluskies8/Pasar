@@ -3,6 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
     <div class="dropdown h-100">
         <button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="visibility: hidden;">All Item</button>
@@ -12,33 +13,26 @@
             <a class="dropdown-item" href="#">Third Item</a>
         </div>
     </div>
-    <button class="btn btn-sm me-2" id="add-user" type="button" style="background-color: #38A34A; color: white;">Tipe Baru</button>
+    <button class="btn btn-sm me-2" id="add-buah" type="button" style="background-color: #38A34A; color: white;">Buah Baru</button>
 </header>
 <hr class="my-0">
 <div class="table-responsive p-3">
     <table class="table" id="table-barang">
         <thead>
             <tr>
-                <th>Kode</th>
-                <th>Nama Tipe</th>
+                <th>Nama Buah</th>
                 <th></th>
             </tr>
         </thead>
         <tbody class="text-center">
-            <tr>
-                <td>Cell 1</td>
-                <td>Cell 2</td>
+            @foreach ($buah as $item)
+            <tr id = "{{$item->id}}">
+                <td>{{$item->name}}</td>
                 <td class="position-relative" style="padding: 5px 4px;">
                     <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: #38A34A;color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
                 </td>
             </tr>
-            <tr>
-                <td>Cell 3</td>
-                <td>Cell 4</td>
-                <td class="position-relative" style="padding: 5px 4px;">
-                    <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: #38A34A;color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
-                </td>
-            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
@@ -55,13 +49,13 @@
                 <h4 class="modal-title">Ubah data user</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="position-relative mb-3"><input type="text" class="form-control" id="input-kode" disabled/>
+                {{-- <div class="position-relative mb-3"><input type="text" class="form-control" id="input-kode" disabled/>
                     <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Kode</p>
                     <p class="small text-danger error-msg"></p>
-                </div>
+                </div> --}}
                 <div class="position-relative mb-3"><input type="text" class="form-control" id="input-nama" />
                     <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Nama Tipe</p>
-                    <p class="small text-danger error-msg"></p>
+                    <p class="small text-danger error-msg" id = "error-nama"></p>
                 </div>
             </div>
             <div class="modal-footer">

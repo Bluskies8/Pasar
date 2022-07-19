@@ -78,7 +78,6 @@ $(document).ready(function(){
         let nama = $('input[name="nama"]');
         let jumlah = $('input[name="jumlah"]');
         let parkir = $('select[name="parkir"]');
-
         for (let i = 1; i < formCount + 1; i++) {
             if(nama[i].value && jumlah[i].value){
                 let temp = $('#tr-template').clone().appendTo("#table-barang tbody");

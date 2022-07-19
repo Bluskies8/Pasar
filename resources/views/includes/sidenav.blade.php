@@ -28,6 +28,10 @@
             <i class="fas fa-user me-3"></i>
             <p>User Management</p>
         </a>
+        <a href="/buah" id="nav-item-items" class="d-flex align-items-center ps-3 nav-item">
+            <i class="fas fa-shopping-basket me-3"></i>
+            <p>Master Buah</p>
+        </a>
         @endif
     </div>
     {{-- <div id="nav-group-2" class="nav-group py-2">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\buah;
 use App\Models\dtrans;
 use App\Models\htrans;
 use App\Models\netto;
@@ -59,6 +60,7 @@ class HtransController extends Controller
     public function detailspage()
     {
         $tmep = stand::select('seller_name')->groupBy('seller_name')->get();
+        $buah = buah::get();
         foreach ($tmep as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
             $stand[$key]['seller_name'] = $no_stand->seller_name;
@@ -68,7 +70,8 @@ class HtransController extends Controller
         return view('pages/stockDetail',[
             'stand'=>$stand,
             'data'=>['id'=>'','value'=>'1'],
-            'role' => Auth::guard('checkLogin')->user()->role_id
+            'role' => Auth::guard('checkLogin')->user()->role_id,
+            'buah' => $buah
         ]);
     }
 
@@ -114,13 +117,12 @@ class HtransController extends Controller
 
         $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count+1,3,"0",STR_PAD_LEFT);
         $checkstandid = stand::where('id',$request->stand_id)->first();
-        
         $parkir = [0,3000,5000,1000,20000,50000];
         $kode = ['k','b','td','dt','sd','p','t'];
         try {
-
             foreach ($request->items as $key) {
-                if(in_array($key['kode'], $kode) && in_array($key['parkir'], $parkir) && $checkstandid){
+                $checkbuah = buah::where('nama',$key['nama'])->first();
+                if(in_array($key['kode'], $kode) && in_array($key['parkir'], $parkir) && $checkstandid && $checkbuah){
                     $temp = htrans::create([
                         'id'=> $id,
                         'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,

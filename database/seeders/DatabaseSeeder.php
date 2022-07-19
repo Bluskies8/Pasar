@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             StandSeeder::class,
             NettoSeeder::class,
+            BuahSeeder::class,
         ]);
     }
 }

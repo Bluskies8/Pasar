@@ -158,10 +158,19 @@
                                     </div>
                                     <div class="position-relative mb-3">
                                         <!-- <input class="form-control" name="nama" type="text" style="height: 32px;"> -->
-                                        <select name="nama" id="tipe-barang" class="form-control pt-1" style="height: 32px;">
+
+                                        <input name = "nama" id="nama-buah" list="list-buah" class="form-select-sm">
+                                        <datalist id="list-buah">
+                                            @foreach ($buah as $item)
+                                            <option id="{{$item->id}}" value = "{{$item->name}}"></option>
+                                            @endforeach
+                                        </datalist>
+                                        {{-- <select name="nama" id="tipe-barang" class="form-control pt-1" style="height: 32px;">
                                             <!-- add data tipe dari db ke sini -->
-                                            <option value="buah">buah</option>
-                                        </select>
+                                            @foreach ($buah as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select> --}}
                                         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Nama Barang</p>
                                     </div>
                                     <div class="position-relative mb-3">
