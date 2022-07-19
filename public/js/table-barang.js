@@ -97,7 +97,6 @@ $(document).ready(function(){
         // insert data table ke db
         let save = $('#tr-template').detach();
 
-
         let lapak = $('#list-pelapak').find('option[value="' + $('#pelapak').val() + '"]').attr('id');
         if (typeof lapak === "undefined") {
             alert("pilih nama lapak terlebih dahulu !");
