@@ -248,7 +248,7 @@ class InvoiceController extends Controller
     {
         $invoice = invoice::where('id',$request->id)->first();
         $invoice->listrik = $request->listrik;
-        $invoice->dibayarkan = $invoice->total+$request->listrik+$invoice->kuli;
+        $invoice->dibayarkan = $invoice->total+$request->listrik+$invoice->kuli+$invoice->parkir;
         $invoice->save();
         return "success update";
     }

@@ -108,7 +108,7 @@
                             <tfoot>
                                 <tr>
                                     <td class="text-end" colspan="6">Total</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="biaya thousand-separator">{{$total-$parkir}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="biaya thousand-separator">{{$total}}</span></div></td>
                                 </tr>
                                 <tr>
                                     <td class="text-end" colspan="6">Parkir</td>

@@ -40,22 +40,16 @@ class RetribusiController extends Controller
     {
         // $carbon = Carbon::now();
         // $date = $carbon->toDateString();
-        $start = Carbon::createFromFormat('Y-m-d H:i:s',$request->date.' 06:00:00',7)->subDays(1);
-        $end = Carbon::createFromFormat('Y-m-d H:i:s',$request->date.' 06:00:00',7);
-        $total = htrans::whereBetween('created_at',[$start,$end])->sum('total_harga');
-        $kuli = htrans::whereBetween('created_at',[$start,$end])->sum('total_jumlah')*1000;
-        $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->get();
-        $listrik = invoice::whereBetween('created_at',[$start,$end])->sum('listrik');
-        $parkir = 0;
-        foreach ($htrans as $key2 ) {
-            $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
-            $parkir+=$dtrans;
-        }
-        $total = $total-$listrik;
+        $date = Carbon::createFromFormat('Y-m-d',$request->date)->format('dmY');
+        $listrik = invoice::where('id','like','%' . $date.'%')->sum('listrik');
+        $total = invoice::where('id','like','%' . $date.'%')->sum('dibayarkan');
+        $kuli = invoice::where('id','like','%' . $date.'%')->sum('kuli');
+        $total = $total-$listrik-$kuli;
         return [
             'retribusi'=>$total,
             'kuli' => $kuli,
             'listrik' => $listrik,
+            'total' => $total+$listrik+$kuli
         ];
     }
     /**
