@@ -27,11 +27,11 @@ $(document).ready(function() {
         }
     };
     $("#selected-date").on("change", function() {
-        this.setAttribute(
-            "data-date",
-            moment(this.value, "YYYY-MM-DD")
-            .format( this.getAttribute("data-date-format") )
-        )
+        // this.setAttribute(
+        //     "data-date",
+        //     moment(this.value, "YYYY-MM-DD")
+        //     .format( this.getAttribute("data-date-format") )
+        // )
         function pad (str, max) {
             str = str.toString();
             return str.length < max ? pad("0" + str, max) : str;
