@@ -26,6 +26,7 @@ $(document).ready(function() {
             clearInterval(separatorInterval);
         }
     };
+
     $("#selected-date").on("change", function() {
         this.setAttribute(
             "data-date",
