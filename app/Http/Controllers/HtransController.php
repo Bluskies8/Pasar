@@ -185,7 +185,7 @@ class HtransController extends Controller
                 $data->save();
                 return "Success";
             }else{
-                return "ada data yang kosong";
+                return "ada data yang kosong atau salah";
             }
 
         }catch (\Throwable $th) {
