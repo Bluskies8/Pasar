@@ -27,7 +27,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
             @foreach ($data as $item)
             <tr id ="{{$item->id}}">
                 <td>{{$item->name}}</td>
