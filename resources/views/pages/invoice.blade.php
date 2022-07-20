@@ -36,7 +36,7 @@
                         <td class='text-center'>{{$item->stand->seller_name}}</td>
                         <td>
                             <div class='d-flex justify-content-between px-5'>
-                                <p class='ms-lg-5 ms-0'>Rp</p><p class='thousand-separator me-lg-5 me-0 data-total'>{{$item->total + $item->kuli}}</p>
+                                <p class='ms-lg-5 ms-0'>Rp</p><p class='thousand-separator me-lg-5 me-0 data-total'>{{$item->dibayarkan}}</p>
                             </div>
                         </td>
                         <td class='position-relative' style='padding: 5px 4px;'>

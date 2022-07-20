@@ -51,7 +51,7 @@ class RetribusiController extends Controller
             $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
             $parkir+=$dtrans;
         }
-        $total = $total-$parkir;
+        $total = $total-$listrik;
         return [
             'retribusi'=>$total,
             'kuli' => $kuli,
