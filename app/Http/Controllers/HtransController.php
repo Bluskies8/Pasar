@@ -114,7 +114,7 @@ class HtransController extends Controller
         $total_jumlah = 0;
         $total_harga = 0;
         $count = htrans::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->where('id','like','%'. $date. '%')->count();
-        return $count;
+        // return $count;
         $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count,3,"0",STR_PAD_LEFT);
         $checkstandid = stand::where('id',$request->stand_id)->first();
         $parkir = [0,3000,5000,1000,20000,50000];
