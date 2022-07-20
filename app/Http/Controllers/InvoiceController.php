@@ -64,6 +64,7 @@ class InvoiceController extends Controller
                 $parkir+=$dtrans;
             }
         }
+        // dd($total);
         return view('pages/invoice',[
             'date'=> $carbon,
             'invoice'=> $data,
@@ -179,7 +180,7 @@ class InvoiceController extends Controller
         $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$invoice->stand_id)->get();
         foreach ($temp as $detail) {
             foreach ($detail->details as $key2 ) {
-                $total += $key2->subtotal;
+                $total += $key2->subtotal+$key2->parkir;
                 $parkir+=$key2->parkir;
             }
         }
@@ -247,7 +248,7 @@ class InvoiceController extends Controller
     {
         $invoice = invoice::where('id',$request->id)->first();
         $invoice->listrik = $request->listrik;
-        $invoice->dibayarkan = $invoice->total+$request->listrik+$invoice->kuli;
+        $invoice->dibayarkan = $invoice->total+$request->listrik+$invoice->kuli+$invoice->parkir;
         $invoice->save();
         return "success update";
     }

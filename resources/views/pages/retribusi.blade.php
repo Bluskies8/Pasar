@@ -440,9 +440,6 @@
                                             <div class="position-relative mb-3"><input class="form-control" type="text" id = "motor_malam" style="height: 32px;" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                 <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Motor Malam</p>
                                             </div>
-                                            <div class="position-relative"><input class="form-control" type="text" id = "total_ponten" style="height: 32px;" disabled="">
-                                                <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Total</p>
-                                            </div>
                                         </form>
                                     </div>
                                 </div>

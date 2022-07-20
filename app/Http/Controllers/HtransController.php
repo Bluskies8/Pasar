@@ -114,8 +114,8 @@ class HtransController extends Controller
         $total_jumlah = 0;
         $total_harga = 0;
         $count = htrans::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->where('id','like','%'. $date. '%')->count();
-
-        $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count+1,3,"0",STR_PAD_LEFT);
+        // return $count;
+        $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count,3,"0",STR_PAD_LEFT);
         $checkstandid = stand::where('id',$request->stand_id)->first();
         $parkir = [0,3000,5000,1000,20000,50000];
         $kode = ['k','b','td','dt','sd','p','t'];
@@ -123,63 +123,71 @@ class HtransController extends Controller
             foreach ($request->items as $key) {
                 $checkbuah = buah::where('name',$key['nama'])->first();
                 if(in_array($key['kode'], $kode) && in_array($key['parkir'], $parkir) && $checkstandid && $checkbuah){
-                    $temp = htrans::create([
-                        'id'=> $id,
-                        'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
-                        'user_id' => Auth::guard('checkLogin')->user()->id,
-                        'stand_id' => $request->stand_id,
-                        'transportasi' => $request->transportasi,
-                        'Total_jumlah' => 0,
-                        'Total_harga' => 0
+                    $c = true;
+                }else{
+                    $c = false;
+                }
+            }
+            if($c == true){
+                $temp = htrans::create([
+                    'id'=> $id,
+                    'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
+                    'user_id' => Auth::guard('checkLogin')->user()->id,
+                    'stand_id' => $request->stand_id,
+                    'transportasi' => $request->transportasi,
+                    'Total_jumlah' => 0,
+                    'Total_harga' => 0
+                ]);
+                foreach ($request->items as $key) {
+                    switch ($key['kode']) {
+                        case 'k':
+                            $bruto = $key['jumlah']/5;
+                            break;
+                        case 'b':
+                            $bruto = $key['jumlah']/3;
+                            break;
+                        case 'td':
+                            $bruto = $key['jumlah']/1.5;
+                            break;
+                        case 'dt':
+                            $bruto = $key['jumlah']*1.5;
+                            break;
+                        case 'sd':
+                            $bruto = $key['jumlah']/2;
+                            break;
+                        case 'p':
+                            $bruto = $key['jumlah']*1;
+                            break;
+                        case 't':
+                            $bruto = $key['jumlah']/50;
+                            break;
+                    }
+                    $round = ceil($bruto);
+                    $netto = netto::first();
+                    $subtotal = $netto->value*$round;
+                    $total_harga += $subtotal+$key['parkir'];
+                    $total_jumlah += $round;
+                    dtrans::create([
+                        'htrans_id' => $temp->id,
+                        'kode' => $key['kode'],
+                        'nama_barang' => $key['nama'],
+                        'jumlah' => $key['jumlah'],
+                        'bruto' => $bruto,
+                        'round' => $round,
+                        'netto' => $netto->value,
+                        'parkir' => $key['parkir'],
+                        'subtotal' => $subtotal
                     ]);
                 }
+                $data = htrans::where('id',$temp->id)->first();
+                $data->total_jumlah = $total_jumlah;
+                $data->total_harga = $total_harga;
+                $data->save();
+                return "Success";
+            }else{
+                return "ada data yang kosong atau salah";
             }
-            foreach ($request->items as $key) {
-                switch ($key['kode']) {
-                    case 'k':
-                        $bruto = $key['jumlah']/5;
-                        break;
-                    case 'b':
-                        $bruto = $key['jumlah']/3;
-                        break;
-                    case 'td':
-                        $bruto = $key['jumlah']/1.5;
-                        break;
-                    case 'dt':
-                        $bruto = $key['jumlah']*1.5;
-                        break;
-                    case 'sd':
-                        $bruto = $key['jumlah']/2;
-                        break;
-                    case 'p':
-                        $bruto = $key['jumlah']*1;
-                        break;
-                    case 't':
-                        $bruto = $key['jumlah']/50;
-                        break;
-                }
-                $round = ceil($bruto);
-                $netto = netto::first();
-                $subtotal = $netto->value*$round;
-                $total_harga += $subtotal+$key['parkir'];
-                $total_jumlah += $round;
-                dtrans::create([
-                    'htrans_id' => $temp->id,
-                    'kode' => $key['kode'],
-                    'nama_barang' => $key['nama'],
-                    'jumlah' => $key['jumlah'],
-                    'bruto' => $bruto,
-                    'round' => $round,
-                    'netto' => $netto->value,
-                    'parkir' => $key['parkir'],
-                    'subtotal' => $subtotal
-                ]);
-            }
-            $data = htrans::where('id',$temp->id)->first();
-            $data->total_jumlah = $total_jumlah;
-            $data->total_harga = $total_harga;
-            $data->save();
-            return "Success";
+
         }catch (\Throwable $th) {
             return $th;
         }

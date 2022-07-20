@@ -87,9 +87,9 @@ $(document).ready(function() {
 
                 $('#nama-lapak').text(data.stand.seller_name);
                 $('#biaya-kuli').text(data.invoice.kuli);
-                $('#biaya-total').text(data.invoice.total - data.invoice.parkir);
+                $('#biaya-total').text(data.invoice.total);
                 $('#biaya-parkir').text(data.invoice.parkir);
-                $('#biaya-dibayarkan').text(data.invoice.total + data.invoice.kuli);
+                $('#biaya-dibayarkan').text(data.invoice.dibayarkan);
 
                 let biayaListrik = data.invoice.listrik;
                 if (biayaListrik != 0) {
