@@ -41,7 +41,6 @@ class HtransController extends Controller
             $temp = htrans::whereBetween('created_at',[$start,$end])->get();
         }
         $data = [];
-        return $temp;
         foreach ($temp as $id => $value) {
             $stand = stand::where('id',$value->stand_id)->first();
             // dd($stand);

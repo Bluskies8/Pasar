@@ -52,6 +52,7 @@ class DashboardController extends Controller
     public function userPages()
     {
         $data = User::with('role')->get();
+        dd($data);
         return view('pages.masterUser',[
             'data' => $data
         ]);
