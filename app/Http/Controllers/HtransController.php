@@ -51,6 +51,7 @@ class HtransController extends Controller
             $data[$id]['total'] = $value->total_harga;
             $data[$id]['deleted'] = $value->deleted_at;
         }
+        return $data;
         return view('pages/stock',[
             'data'=>$data,
             'role'=> Auth::guard('checkLogin')->user()->role_id
