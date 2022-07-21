@@ -41,6 +41,7 @@ class HtransController extends Controller
             $temp = htrans::whereBetween('created_at',[$start,$end])->get();
         }
         $data = [];
+        dd($temp);
         foreach ($temp as $id => $value) {
             $stand = stand::where('id',$value->stand_id)->first();
             // dd($stand);
@@ -51,7 +52,6 @@ class HtransController extends Controller
             $data[$id]['total'] = $value->total_harga;
             $data[$id]['deleted'] = $value->deleted_at;
         }
-        dd($data);
         return view('pages/stock',[
             'data'=>$data,
             'role'=> Auth::guard('checkLogin')->user()->role_id
