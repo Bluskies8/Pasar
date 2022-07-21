@@ -43,10 +43,11 @@ class HtransController extends Controller
         $data = [];
         foreach ($temp as $id => $value) {
             $stand = stand::where('id',$value->stand_id)->first();
-            // dd($stand);
+            $name = User::where('id',$value->user_id)->first();
+            // dd($name);
             $data[$id]['id_trans'] = $value->id;
             $data[$id]['nama'] = $stand->seller_name;
-            $data[$id]['checker'] = User::where('id',$value->user_id)->first()->name;
+            $data[$id]['checker'] = $name->name;
             $data[$id]['tanggal'] = date('d-M-Y H:m:s',strtotime($value->created_at));
             $data[$id]['total'] = $value->total_harga;
             $data[$id]['deleted'] = $value->deleted_at;
