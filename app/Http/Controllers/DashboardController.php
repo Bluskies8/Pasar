@@ -52,7 +52,7 @@ class DashboardController extends Controller
     public function userPages()
     {
         $data = User::with('role')->get();
-        dd($data);
+        // dd($data);
         return view('pages.masterUser',[
             'data' => $data
         ]);
@@ -90,8 +90,12 @@ class DashboardController extends Controller
     }
     public function reset()
     {
-        htrans::query()->truncate();
-        dtrans::query()->truncate();
+        $data = htrans::where('user_id',9)->get();
+        foreach ($data as $key) {
+            $key->delete();
+        }
+        // htrans::query()->truncate();
+        // dtrans::query()->truncate();
         return redirect('/');
     }
     function updateDate()
