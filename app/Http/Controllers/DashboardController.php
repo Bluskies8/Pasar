@@ -90,12 +90,12 @@ class DashboardController extends Controller
     }
     public function reset()
     {
-        $data = htrans::where('user_id',9)->get();
-        foreach ($data as $key) {
-            $key->delete();
-        }
-        // htrans::query()->truncate();
-        // dtrans::query()->truncate();
+        // $data = htrans::where('user_id',2)->get();
+        // foreach ($data as $key) {
+        //     $key->delete();
+        // }
+        htrans::query()->truncate();
+        dtrans::query()->truncate();
         return redirect('/');
     }
     function updateDate()
