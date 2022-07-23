@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta name="csrf-token" content="{{ csrf_token() }}">
+
 <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
     <div class="dropdown h-100">
         <button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="visibility: hidden;">All Item</button>
@@ -70,11 +71,24 @@
                     <p class="small text-danger error-msg"></p>
                 </div>
                 <p class="px-1" style="font-size: 14px;background-color: white; margin-left: 10px;">Role</p>
-                <div class="form-control d-flex justify-content-between">
+                <div class="form-control d-flex justify-content-between mb-3">
                     <!-- kalau data nama bidang dirubah, harap mengubah data paten dibawah ini dengan mengambil data bidang dari database -->
                     <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-2" name="role" value="2"/><label class="form-check-label" for="role-2">Admin</label></div>
                     <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-3" name="role" value="3"/><label class="form-check-label" for="role-3">Kapten</label></div>
                     <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-4" name="role" value="4"/><label class="form-check-label" for="role-4">Checker</label></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="position-relative"><input type="time" class="form-control" id="input-shift-masuk" style="width: 200px;" />
+                        <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Shift Mulai</p>
+                        <p class="small text-danger error-msg"></p>
+                    </div>
+                    <div class="position-relative"><input type="time" class="form-control" id="input-shift-keluar" style="width: 200px;" />
+                        <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Shift Selesai</p>
+                        <p class="small text-danger error-msg"></p>
+                    </div>
+                    <button id="btn-reset-clock" class="btn btn-sm" type="button" style="background-color: #38A34A; width: 34px;">
+                        <i class="fas fa-trash fa-l" style="color: white"></i>
+                    </button>
                 </div>
             </div>
             <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" id="btn-save" type="button">Save</button></div>

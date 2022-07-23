@@ -140,4 +140,9 @@ $(document).ready(function() {
             });
         }
     });
+
+    $('#btn-reset-clock').on('click', function() {
+        $('#input-shift-masuk').val(null);
+        $('#input-shift-keluar').val(null);
+    });
 });

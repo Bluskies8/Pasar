@@ -26,7 +26,7 @@
         </a>
         <a href="/user" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-user me-3"></i>
-            <p>User Management</p>
+            <p>Managemen User</p>
         </a>
         <a href="/buah" id="nav-item-items" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-shopping-basket me-3"></i>
