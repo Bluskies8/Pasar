@@ -51,8 +51,12 @@ class DashboardController extends Controller
     }
     public function userPages()
     {
-        $data = User::with('role')->get();
-        // dd($data);
+        if(Auth::guard('checkLogin')->user()->role_id<3){
+            $data = User::with('role')->get();
+
+        }else{
+            $data = User::with('role')->where('role_id',4)->get();
+        }
         return view('pages.masterUser',[
             'data' => $data
         ]);
@@ -79,7 +83,18 @@ class DashboardController extends Controller
         if($request->password)$user->password = Hash::make($request->password);
         if($request->nama)$user->name = $request->nama;
         if($request->role)$user->role_id = $request->role;
+        if($request->tambahan_start){
+            $user->tambahan_start = $request->tambahan_start;
+        }else{
+           $user->tambahan_start = null;
+        }
+        if($request->tambahan_end){
+            $user->tambahan_end = $request->tambahan_end;
+        }else{
+            $user->tambahan_end = null;
+        }
         $user->save();
+        return $user;
         return "success";
     }
     public function deleteUser(User $user)

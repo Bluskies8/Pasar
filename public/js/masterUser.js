@@ -8,6 +8,7 @@ $(document).ready(function() {
             null,
             null,
             null,
+            null,
             { orderable: false }
         ]
     });
@@ -47,10 +48,14 @@ $(document).ready(function() {
 
     $('#item-update').on('click', function() {
         action = "update"
+        var explode =$('#' + selectedID).children().eq(4).html().split(' - ');
+        console.log(explode)
         $('.modal-title').text("Rubah User");
         $('#input-nama').val($('#' + selectedID).children().eq(0).html());
         $('#input-username').val($('#' + selectedID).children().eq(1).html());
         $('#input-password').val($('#' + selectedID).children().eq(2).html());
+        $('#input-shif-masuk').val(explode[0]);
+        $('#input-shif-keluar').val(explode[1]);
         var selectedRole = $('#' + selectedID).children().eq(3).html();
         $('.input-radio').each(function(index, element) {
             $(element).prop("checked", false);
@@ -66,6 +71,10 @@ $(document).ready(function() {
         var nama = $('#input-nama').val();
         var username = $('#input-username').val();
         var password = $('#input-password').val();
+        var shif_start = $('#input-shif-masuk').val();
+        var shif_end = $('#input-shif-keluar').val();
+        console.log(shif_start, shif_end)
+        let check = false;
         if(action == 'insert'){
             $.ajax({
                 headers: {
@@ -78,13 +87,15 @@ $(document).ready(function() {
                     nama:nama,
                     username:username,
                     password:password,
+                    tambaban_start:shif_start,
+                    tambahan_end:shif_end
                 },
                 beforeSend: function(){
 
                 },
                 success: function(res) {
-                    // console.log(res);
-                    window.location.reload();
+                    console.log(res);
+                    // window.location.reload();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);
@@ -92,30 +103,45 @@ $(document).ready(function() {
                 }
             });
             }else if(action == 'update'){
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    type: "post",
-                    url: "/user/update/"+selectedID,
-                    data:{
-                        role:radioValue,
-                        nama:nama,
-                        username:username,
-                        password:password,
-                    },
-                    beforeSend: function(){
+                // if(shif_start != null && shif_end != null){
+                //     // alert();
+                //     check = true;
+                // }
+                if(shif_start && shif_end || !shif_start && !shif_end){
+                    check=true;
+                }else{
+                    (!shif_start)?$('#error-msg-masuk').text("Jam Mulai harus di isi"):$('#error-msg-masuk').text("");
+                    (!shif_end)?$('#error-msg-keluar').text("Jam Selesai harus di isi"):$('#error-msg-keluar').text("");
+                }
+                console.log(check);
+                if(check == true){
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        type: "post",
+                        url: "/user/update/"+selectedID,
+                        data:{
+                            role:radioValue,
+                            nama:nama,
+                            username:username,
+                            password:password,
+                            tambahan_start:shif_start,
+                            tambahan_end:shif_end
+                        },
+                        beforeSend: function(){
 
-                    },
-                    success: function(res) {
-                        // console.log(res);
-                        window.location.reload();
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        console.log(xhr.status);
-                        console.log(thrownError);
-                    }
-                });
+                        },
+                        success: function(res) {
+                            console.log(res);
+                            // window.location.reload();
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.log(xhr.status);
+                            console.log(thrownError);
+                        }
+                    });
+                }
             }
     });
 
@@ -142,7 +168,7 @@ $(document).ready(function() {
     });
 
     $('#btn-reset-clock').on('click', function() {
-        $('#input-shift-masuk').val(null);
-        $('#input-shift-keluar').val(null);
+        $('#input-shif-masuk').val(null);
+        $('#input-shif-keluar').val(null);
     });
 });

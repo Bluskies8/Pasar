@@ -33,6 +33,12 @@
             <p>Master Buah</p>
         </a>
         @endif
+        @if (auth()->guard('checkLogin')->user()->role_id < 4)
+        <a href="/user" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
+            <i class="fas fa-user me-3"></i>
+            <p>Managemen User</p>
+        </a>
+        @endif
     </div>
     {{-- <div id="nav-group-2" class="nav-group py-2">
         <div id="nav-item-customer" class="d-flex align-items-center ps-3 nav-item"><i class="fas fa-user me-3"></i>

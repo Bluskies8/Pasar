@@ -13,5 +13,7 @@ class stand extends Model
         'seller_name',
         'Phone',
         'jenis_jualan',
+        'tambahan_start',
+        'tambahan_end'
     ];
 }

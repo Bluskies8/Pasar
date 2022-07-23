@@ -25,6 +25,7 @@
                 <th>Username</th>
                 <th>Password</th>
                 <th>Role</th>
+                <th>Tambahan Shif</th>
                 <th></th>
             </tr>
         </thead>
@@ -35,6 +36,7 @@
                 <td>{{$item->email}}</td>
                 <td></td>
                 <td>{{$item->role->name}}</td>
+                <td>{{$item->tambahan_start}} - {{$item->tambahan_end}}</td>
                 <td class="position-relative d-flex justify-content-end">
                     <button class="btn btn-sm d-flex show-aksi" type="button" style="background-color: #38A34A; color: white;">
                         <i class="fas fa-bars fa-l"></i>
@@ -78,13 +80,13 @@
                     <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-4" name="role" value="4"/><label class="form-check-label" for="role-4">Checker</label></div>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <div class="position-relative"><input type="time" class="form-control" id="input-shift-masuk" style="width: 200px;" />
+                    <div class="position-relative"><input type="time" class="form-control" id="input-shif-masuk" style="width: 200px;" />
                         <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Shift Mulai</p>
-                        <p class="small text-danger error-msg"></p>
+                        <p class="small text-danger error-msg-masuk" id = "error-msg-masuk"></p>
                     </div>
-                    <div class="position-relative"><input type="time" class="form-control" id="input-shift-keluar" style="width: 200px;" />
+                    <div class="position-relative"><input type="time" class="form-control" id="input-shif-keluar" style="width: 200px;" />
                         <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Shift Selesai</p>
-                        <p class="small text-danger error-msg"></p>
+                        <p class="small text-danger error-msg-keluar" id = "error-msg-keluar"></p>
                     </div>
                     <button id="btn-reset-clock" class="btn btn-sm" type="button" style="background-color: #38A34A; width: 34px;">
                         <i class="fas fa-trash fa-l" style="color: white"></i>
