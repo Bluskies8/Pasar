@@ -80,11 +80,11 @@
                     <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-4" name="role" value="4"/><label class="form-check-label" for="role-4">Checker</label></div>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <div class="position-relative"><input type="time" class="form-control" id="input-shif-masuk" style="width: 200px;" />
+                    <div class="position-relative"><input type="datetime-local" class="form-control" id="input-shif-masuk" style="width: 200px;" />
                         <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Shift Mulai</p>
                         <p class="small text-danger error-msg-masuk" id = "error-msg-masuk"></p>
                     </div>
-                    <div class="position-relative"><input type="time" class="form-control" id="input-shif-keluar" style="width: 200px;" />
+                    <div class="position-relative"><input type="datetime-local" class="form-control" id="input-shif-keluar" style="width: 200px;" />
                         <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Shift Selesai</p>
                         <p class="small text-danger error-msg-keluar" id = "error-msg-keluar"></p>
                     </div>

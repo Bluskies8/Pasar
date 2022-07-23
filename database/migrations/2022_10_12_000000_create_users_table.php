@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('pasar_id')->reference();
             $table->string('password');
             $table->integer('shif')->nullable();
-            $table->time('tambahan_start')->nullable();
-            $table->time('tambahan_end')->nullable();
+            $table->dateTime('tambahan_start')->nullable();
+            $table->dateTime('tambahan_end')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

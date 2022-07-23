@@ -18,7 +18,7 @@ class DashboardController extends Controller
 {
     public function login(Request $request)
     {
-        // $this->updateDate();
+        $this->updateDate();
         $data = [
             'email' => $request->email,
             'password' => $request->password
@@ -115,19 +115,24 @@ class DashboardController extends Controller
     }
     function updateDate()
     {
-        $date = Carbon::now()->format('Y-m-d');
+        $now = Carbon::now();
+        // $now = Carbon::createFromFormat('Y-m-d H:i:s','2022-07-24 09:00:00',7);
+        $date = $now->format('Y-m-d');
         $cekshif = shif::all();
-        foreach ($cekshif as $key) {
-            $start = date("H:i:s",strtotime($key->start));
-            $end = date("H:i:s",strtotime($key->end));
-            $key->start = $date.' '.$start;
-            if($key->number == 3){
-                $date = Carbon::now()->addDays(1)->format('Y-m-d');
-                $key->end = $date.' '.$end;
-            }else{
-                $key->end = $date.' '.$end;
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
+        if($now>$start){
+            foreach ($cekshif as $key) {
+                $start = date("H:i:s",strtotime($key->start));
+                $end = date("H:i:s",strtotime($key->end));
+                $key->start = $date.' '.$start;
+                if($key->number == 3){
+                    $date = Carbon::now()->addDays(1)->format('Y-m-d');
+                    $key->end = $date.' '.$end;
+                }else{
+                    $key->end = $date.' '.$end;
+                }
+                $key->save();
             }
-            $key->save();
         }
     }
     public function logout()

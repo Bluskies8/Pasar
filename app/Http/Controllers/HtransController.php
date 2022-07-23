@@ -6,6 +6,7 @@ use App\Models\buah;
 use App\Models\dtrans;
 use App\Models\htrans;
 use App\Models\netto;
+use App\Models\shif;
 use App\Models\stand;
 use App\Models\User;
 use Carbon\Carbon;
@@ -19,11 +20,42 @@ class HtransController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function updateDate()
+    {
+        // $now = Carbon::now();
+        $now = Carbon::createFromFormat('Y-m-d H:i:s','2022-07-23 23:00:00',7);
+        $date = $now->format('Y-m-d');
+        $cekshif = shif::all();
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
+        if($now>$start){
+            foreach ($cekshif as $key) {
+                $start = date("H:i:s",strtotime($key->start));
+                $end = date("H:i:s",strtotime($key->end));
+                $key->start = $date.' '.$start;
+                if($key->number == 3){
+                    $date = Carbon::now()->addDays(1)->format('Y-m-d');
+                    $key->end = $date.' '.$end;
+                }else{
+                    $key->end = $date.' '.$end;
+                }
+                $key->save();
+            }
+        }
+    }
     public function index()
     {
-        // dd($carbon);
-        // $temp = htrans::all();
-        // $carbon = Carbon::createFromFormat('Y-m-d H:i:s','2022-06-12 07:15:00',7);
+        $this->updateDate();
+        $now = Carbon::now();
+        $user = Auth::guard('checkLogin')->user();
+        $cekshif = shif::where('number',$user->shif)->first();
+        $check = false;
+        if($now < $cekshif->end && $now > $cekshif->start) {
+            $check=true;
+        }else{
+            if($now < $user->tambahan_end && $now > $user->tambahan_start){
+                $check=true;
+            }
+        }
         $carbon = Carbon::now();
         $date = $carbon->toDateString();
         $time = $carbon->toTimeString();
@@ -54,12 +86,14 @@ class HtransController extends Controller
         }
         return view('pages/stock',[
             'data'=>$data,
-            'role'=> Auth::guard('checkLogin')->user()->role_id
+            'role'=> Auth::guard('checkLogin')->user()->role_id,
+            'check' => $check
         ]);
     }
 
     public function detailspage()
     {
+
         $tmep = stand::select('seller_name')->groupBy('seller_name')->get();
         $buah = buah::get();
         foreach ($tmep as $key => $value) {
@@ -72,7 +106,7 @@ class HtransController extends Controller
             'stand'=>$stand,
             'data'=>['id'=>'','value'=>'1'],
             'role' => Auth::guard('checkLogin')->user()->role_id,
-            'buah' => $buah
+            'buah' => $buah,
         ]);
     }
 
@@ -107,20 +141,29 @@ class HtransController extends Controller
      */
     public function store(Request $request)
     {
-        $c = false;
-        $carbon = Carbon::now();
-        $date = $carbon->format('dmY');
-        $bruto = 0;
-        $netto = 0;
-        $total_jumlah = 0;
-        $total_harga = 0;
-        $count = htrans::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->where('id','like','%'. $date. '%')->withTrashed()->count()+1;
-        // return $count;
-        $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count,3,"0",STR_PAD_LEFT);
-        $checkstandid = stand::where('id',$request->stand_id)->first();
-        $parkir = [0,3000,5000,1000,20000,50000];
-        $kode = ['k','b','td','dt','sd','p','t'];
-        try {
+
+        $time = Carbon::now();
+        $user = Auth::guard('checkLogin')->user();
+        $cekshif = shif::where('number',$user->shif)->first();
+        $check = false;
+        if($time < $cekshif->end && $time > $cekshif->start) {
+            if(!$user->tambahan_start && !$user->tambahan_end)$check == true;
+            if($time < $user->tambahan_end && $time > $user->tambahan_start)$check==true;
+        }
+        if($check){
+            $c = false;
+            $carbon = Carbon::now();
+            $date = $carbon->format('dmY');
+            $bruto = 0;
+            $netto = 0;
+            $total_jumlah = 0;
+            $total_harga = 0;
+            $count = htrans::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->where('id','like','%'. $date. '%')->withTrashed()->count()+1;
+            // return $count;
+            $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count,3,"0",STR_PAD_LEFT);
+            $checkstandid = stand::where('id',$request->stand_id)->first();
+            $parkir = [0,3000,5000,1000,20000,50000];
+            $kode = ['k','b','td','dt','sd','p','t'];
             foreach ($request->items as $key) {
                 $checkbuah = buah::where('name',$key['nama'])->first();
                 if(in_array($key['kode'], $kode) && in_array($key['parkir'], $parkir) && $checkstandid && $checkbuah){
@@ -188,9 +231,6 @@ class HtransController extends Controller
             }else{
                 return "ada data yang kosong atau salah";
             }
-
-        }catch (\Throwable $th) {
-            return $th;
         }
     }
 
