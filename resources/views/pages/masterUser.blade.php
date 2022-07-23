@@ -14,7 +14,9 @@
             <a class="dropdown-item" href="#">Third Item</a>
         </div>
     </div>
+    @if (Auth::guard('checkLogin')->user()->role_id<3)
     <button class="btn btn-sm me-2" id="add-user" type="button" style="background-color: #38A34A; color: white;">User Baru</button>
+    @endif
 </header>
 <hr class="my-0">
 <div class="table-responsive p-3">
