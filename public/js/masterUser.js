@@ -81,7 +81,7 @@ $(document).ready(function() {
         var shif_start = $('#input-shif-masuk').val();
         var shif_end = $('#input-shif-keluar').val();
         var shif = $('#input-shif-id').val();
-        console.log(shif)
+        // console.log(shif)
         let check = false;
         if(action == 'insert'){
             $.ajax({
@@ -103,7 +103,7 @@ $(document).ready(function() {
 
                 },
                 success: function(res) {
-                    console.log(res);
+                    // console.log(res);
                     window.location.reload();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -122,7 +122,7 @@ $(document).ready(function() {
                     (!shif_start)?$('#error-msg-masuk').text("Jam Mulai harus di isi"):$('#error-msg-masuk').text("");
                     (!shif_end)?$('#error-msg-keluar').text("Jam Selesai harus di isi"):$('#error-msg-keluar').text("");
                 }
-                console.log(check);
+                // console.log(check);
                 if(check == true){
                     $.ajax({
                         headers: {
@@ -143,7 +143,7 @@ $(document).ready(function() {
 
                         },
                         success: function(res) {
-                            console.log(res);
+                            // console.log(res);
                             window.location.reload();
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
