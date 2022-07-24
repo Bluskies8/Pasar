@@ -69,7 +69,8 @@ class DashboardController extends Controller
                 'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
                 'email' => $request->username,
                 'password' => Hash::make($request->password),
-                'role_id' => $request->role
+                'role_id' => $request->role,
+                'shif' => $request->shif,
             ]);
             return "success";
         } catch (\Throwable $th) {
