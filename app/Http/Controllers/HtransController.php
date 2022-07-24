@@ -47,6 +47,7 @@ class HtransController extends Controller
         $this->updateDate();
         $now = Carbon::now();
         $user = Auth::guard('checkLogin')->user();
+        dd($user);
         $cekshif = shif::where('number',$user->shif)->first();
         $check = false;
         if($now < $cekshif->end && $now > $cekshif->start) {
@@ -84,7 +85,6 @@ class HtransController extends Controller
             $data[$id]['total'] = $value->total_harga;
             $data[$id]['deleted'] = $value->deleted_at;
         }
-        dd($check);
         return view('pages/stock',[
             'data'=>$data,
             'role'=> Auth::guard('checkLogin')->user()->role_id,
