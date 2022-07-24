@@ -22,8 +22,8 @@ class HtransController extends Controller
      */
     function updateDate()
     {
-        // $now = Carbon::now();
-        $now = Carbon::createFromFormat('Y-m-d H:i:s','2022-07-23 23:00:00',7);
+        $now = Carbon::now();
+        // $now = Carbon::createFromFormat('Y-m-d H:i:s','2022-07-23 23:00:00',7);
         $date = $now->format('Y-m-d');
         $cekshif = shif::all();
         $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
