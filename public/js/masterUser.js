@@ -104,7 +104,7 @@ $(document).ready(function() {
                 },
                 success: function(res) {
                     console.log(res);
-                    // window.location.reload();
+                    window.location.reload();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);
@@ -144,7 +144,7 @@ $(document).ready(function() {
                         },
                         success: function(res) {
                             console.log(res);
-                            // window.location.reload();
+                            window.location.reload();
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             console.log(xhr.status);

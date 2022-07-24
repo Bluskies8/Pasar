@@ -56,7 +56,6 @@ class HtransController extends Controller
                 $check=true;
             }
         }
-        dd($check);
         $carbon = Carbon::now();
         $date = $carbon->toDateString();
         $time = $carbon->toTimeString();
