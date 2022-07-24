@@ -112,17 +112,12 @@ $(document).ready(function() {
                 }
             });
             }else if(action == 'update'){
-                // if(shif_start != null && shif_end != null){
-                //     // alert();
-                //     check = true;
-                // }
                 if(shif_start && shif_end || !shif_start && !shif_end){
                     check=true;
                 }else{
                     (!shif_start)?$('#error-msg-masuk').text("Jam Mulai harus di isi"):$('#error-msg-masuk').text("");
                     (!shif_end)?$('#error-msg-keluar').text("Jam Selesai harus di isi"):$('#error-msg-keluar').text("");
                 }
-                // console.log(check);
                 if(check == true){
                     $.ajax({
                         headers: {
