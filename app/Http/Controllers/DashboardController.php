@@ -79,10 +79,12 @@ class DashboardController extends Controller
     }
     public function updateUser(Request $request, User $user)
     {
+        // return $request->all();
         if($request->username)$user->email = $request->username;
         if($request->password)$user->password = Hash::make($request->password);
         if($request->nama)$user->name = $request->nama;
         if($request->role)$user->role_id = $request->role;
+        if($request->shif)$user->shif = $request->shif;
         if($request->tambahan_start){
             $user->tambahan_start = $request->tambahan_start;
         }else{

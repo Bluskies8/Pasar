@@ -27,6 +27,7 @@
                 <th>Username</th>
                 <th>Password</th>
                 <th>Role</th>
+                <th>Shif</th>
                 <th>Tambahan Shif</th>
                 <th></th>
             </tr>
@@ -38,6 +39,7 @@
                 <td>{{$item->email}}</td>
                 <td></td>
                 <td>{{$item->role->name}}</td>
+                <td>{{$item->shif}}</td>
                 <td>{{$item->tambahan_start}} - {{$item->tambahan_end}}</td>
                 <td class="position-relative d-flex justify-content-end">
                     <button class="btn btn-sm d-flex show-aksi" type="button" style="background-color: #38A34A; color: white;">
@@ -70,8 +72,12 @@
                     <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Username</p>
                     <p class="small text-danger error-msg"></p>
                 </div>
-                <div class="position-relative mb-1"><input type="password" class="form-control" id="input-password"/>
+                <div class="position-relative mb-3"><input type="password" class="form-control" id="input-password"/>
                     <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Password</p>
+                    <p class="small text-danger error-msg"></p>
+                </div>
+                <div class="position-relative mb-1"><input type="number" class="form-control" id="input-shif-id" min="1" max="3"/>
+                    <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Shif</p>
                     <p class="small text-danger error-msg"></p>
                 </div>
                 <p class="px-1" style="font-size: 14px;background-color: white; margin-left: 10px;">Role</p>

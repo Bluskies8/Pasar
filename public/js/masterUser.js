@@ -9,6 +9,7 @@ $(document).ready(function() {
             null,
             null,
             null,
+            null,
             { orderable: false }
         ]
     });
@@ -41,19 +42,25 @@ $(document).ready(function() {
         $('.input-radio').each(function(index, element) {
             $(element).prop("checked", false);
         });
+        $('#input-nama').val('');
+        $('#input-username').val('');
+        $('#input-password').val('');
+        $('#input-shif-id').val('');
+        $('#input-shif-masuk').val('');
+        $('#input-shif-keluar').val('');
         action = 'insert';
-        $('#input-kelas').val('');
         $('#modal-update').modal('show');
     });
 
     $('#item-update').on('click', function() {
         action = "update"
-        var explode =$('#' + selectedID).children().eq(4).html().split(' - ');
+        var explode =$('#' + selectedID).children().eq(5).html().split(' - ');
         console.log(explode)
         $('.modal-title').text("Rubah User");
         $('#input-nama').val($('#' + selectedID).children().eq(0).html());
         $('#input-username').val($('#' + selectedID).children().eq(1).html());
         $('#input-password').val($('#' + selectedID).children().eq(2).html());
+        $('#input-shif-id').val($('#' + selectedID).children().eq(4).html());
         $('#input-shif-masuk').val(explode[0]);
         $('#input-shif-keluar').val(explode[1]);
         var selectedRole = $('#' + selectedID).children().eq(3).html();
@@ -73,7 +80,8 @@ $(document).ready(function() {
         var password = $('#input-password').val();
         var shif_start = $('#input-shif-masuk').val();
         var shif_end = $('#input-shif-keluar').val();
-        console.log(shif_start, shif_end)
+        var shif = $('#input-shif-id').val();
+        console.log(shif)
         let check = false;
         if(action == 'insert'){
             $.ajax({
@@ -88,7 +96,8 @@ $(document).ready(function() {
                     username:username,
                     password:password,
                     tambaban_start:shif_start,
-                    tambahan_end:shif_end
+                    tambahan_end:shif_end,
+                    shif:shif
                 },
                 beforeSend: function(){
 
@@ -127,7 +136,8 @@ $(document).ready(function() {
                             username:username,
                             password:password,
                             tambahan_start:shif_start,
-                            tambahan_end:shif_end
+                            tambahan_end:shif_end,
+                            shif:shif
                         },
                         beforeSend: function(){
 
