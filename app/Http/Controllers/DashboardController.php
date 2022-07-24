@@ -137,6 +137,7 @@ class DashboardController extends Controller
                 $key->save();
             }
         }
+        dd($cekshif);
     }
     public function logout()
     {
