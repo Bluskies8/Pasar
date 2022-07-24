@@ -26,6 +26,20 @@ class HtransController extends Controller
         // $now = Carbon::createFromFormat('Y-m-d H:i:s','2022-07-23 23:00:00',7);
         $date = $now->format('Y-m-d');
         $cekshif = shif::all();
+        foreach ($cekshif as $key =>$value) {
+            if($value->number == 1){
+                $value->start = $date.' 04:00:00';
+                $value->end = $date.' 12:00:00';
+            }else if($value->number == 2){
+                $value->start = $date.' 12:00:00';
+                $value->end = $date.' 20:00:00';
+
+            }else if($value->number == 3){
+                $value->start = $date.' 20:00:00';
+                $value->end = $now->addDays(1)->format('Y-m-d').' 04:00:00';
+            }
+            $value->save();
+        }
         $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
         if($now>$start){
             foreach ($cekshif as $key) {
@@ -49,11 +63,13 @@ class HtransController extends Controller
         $user = Auth::guard('checkLogin')->user();
         $cekshif = shif::where('number',$user->shif)->first();
         $check = false;
-        if($now < $cekshif->end && $now > $cekshif->start) {
-            $check=true;
-        }else{
-            if($now < $user->tambahan_end && $now > $user->tambahan_start){
+        if($user->role_id == 4){
+            if($now < $cekshif->end && $now > $cekshif->start) {
                 $check=true;
+            }else{
+                if($now < $user->tambahan_end && $now > $user->tambahan_start){
+                    $check=true;
+                }
             }
         }
         $carbon = Carbon::now();
