@@ -47,8 +47,8 @@ class HtransController extends Controller
         $this->updateDate();
         $now = Carbon::now();
         $user = Auth::guard('checkLogin')->user();
-        dd($user);
         $cekshif = shif::where('number',$user->shif)->first();
+        dd($cekshif);
         $check = false;
         if($now < $cekshif->end && $now > $cekshif->start) {
             $check=true;
