@@ -160,7 +160,7 @@
                                         <!-- <input class="form-control" name="nama" type="text" style="height: 32px;"> -->
 
                                         @isset($buah)
-                                        <input name = "nama" id="nama-buah" list="list-buah" class="form-select-sm">
+                                        <input name="nama" id="nama-buah" list="list-buah" class="form-select-sm w-100">
                                         <datalist id="list-buah">
                                             @foreach ($buah as $item)
                                             <option id="{{$item->id}}" value = "{{$item->name}}"></option>
