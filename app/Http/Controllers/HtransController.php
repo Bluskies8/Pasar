@@ -157,14 +157,13 @@ class HtransController extends Controller
      */
     public function store(Request $request)
     {
-
         $time = Carbon::now();
         $user = Auth::guard('checkLogin')->user();
         $cekshif = shif::where('number',$user->shif)->first();
         $check = false;
         if($time < $cekshif->end && $time > $cekshif->start) {
-            if(!$user->tambahan_start && !$user->tambahan_end)$check == true;
-            if($time < $user->tambahan_end && $time > $user->tambahan_start)$check==true;
+            if(!$user->tambahan_start && !$user->tambahan_end)$check = true;
+            if($time < $user->tambahan_end && $time > $user->tambahan_start)$check=true;
         }
         if($check){
             $c = false;
