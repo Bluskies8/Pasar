@@ -44,7 +44,6 @@
                         </td>
                     </tr>
                 @endforeach
-
             </tbody>
             <tfoot>
                 <td colspan="2" class="text-end">Total</td>

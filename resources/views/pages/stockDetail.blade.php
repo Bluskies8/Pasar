@@ -175,6 +175,7 @@
                                             @endforeach
                                         </select> --}}
                                         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Nama Barang</p>
+                                        <p id="error-nama" class="small text-danger error-msg"></p>
                                     </div>
                                     <div class="position-relative mb-3">
                                         <input class="form-control" name="jumlah" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
