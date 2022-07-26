@@ -49,6 +49,8 @@ $(document).ready(function(){
             $(this).parent().parent().parent().detach();
         });
 
+        let errorMessage = $('#form-' + formID + " .error-msg").prop('id', 'error-message-' + formID);
+
         temp.show();
     }
 
