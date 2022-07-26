@@ -19,6 +19,16 @@ class BuahController extends Controller
             'buah' => $data
         ]);
     }
+    public function cari()
+    {
+        $data = buah::get();
+        return $data;
+        // if($data){
+        //     return 'success';
+        // }else{
+        //     return "decline";
+        // }
+    }
 
     /**
      * Show the form for creating a new resource.
