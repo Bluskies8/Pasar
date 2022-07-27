@@ -97,12 +97,13 @@ $(document).ready(function(){
                     data.push(element.name);
                 });
                 for (let i = 1; i < formCount + 1; i++) {
-                    if($.inArray( nama[i].value, data ) == -1 || !jumlah[i].value){
+                    (!jumlah[i].value)?$('#error-jumlah-'+i).text('jumlah harus di isi'):$('#error-jumlah-'+i).text('');
+                    if($.inArray( nama[i].value, data ) == -1){
                         $('#error-message-'+i).text("buah tidak terdaftar");
-                        $('#error-jumlah-'+i).text('jumlah harus di isi');
+
                         check[i] = "false";
                     }else{
-                        $('#error-jumlah-'+i).text('');
+
                         $('#error-message-'+i).text("");
                         check[i] = "true";
                     }
