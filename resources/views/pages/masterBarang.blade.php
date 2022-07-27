@@ -26,7 +26,7 @@
         </thead>
         <tbody class="text-center">
             @foreach ($buah as $item)
-            <tr id = "{{$item->id}}">
+            <tr id="{{$item->id}}">
                 <td>{{$item->name}}</td>
                 <td class="position-relative" style="padding: 5px 4px;">
                     <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: #38A34A;color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
