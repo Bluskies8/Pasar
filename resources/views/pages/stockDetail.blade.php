@@ -163,7 +163,7 @@
                                         <input name = "nama" id="nama-buah" list="list-buah" class="form-select-sm w-100">
                                         <datalist id="list-buah">
                                             @foreach ($buah as $item)
-                                            <option id="{{$item->id}}" value = "{{$item->name}}"></option>
+                                            <option id="{{$item->id}}" value = "{{$item->name}} - {{$item->id}}"></option>
                                             @endforeach
                                         </datalist>
 
