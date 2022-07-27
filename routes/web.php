@@ -6,6 +6,7 @@ use App\Http\Controllers\HtransController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RetribusiController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+if(env('APP_ENV') == "production") {
+    URL::forceScheme('https');
+}
 Route::get('login', function () {
     return view('pages/login');
 });
@@ -34,6 +37,7 @@ Route::middleware(['checkLogin'])->group(function () {
 
     Route::prefix('buah')->group(function () {
         Route::get('/',[BuahController::class,'index']);
+        Route::get('/cari',[BuahController::class,'cari']);
         Route::post('/create',[BuahController::class,'store']);
         Route::post('/update/{buah:id}',[BuahController::class,'update']);
         Route::post('/delete/{buah:id}',[BuahController::class,'destroy']);

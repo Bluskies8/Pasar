@@ -160,10 +160,10 @@
                                         <!-- <input class="form-control" name="nama" type="text" style="height: 32px;"> -->
 
                                         @isset($buah)
-                                        <input name="nama" id="nama-buah" list="list-buah" class="form-select-sm w-100">
+                                        <input name = "nama" id="nama-buah" list="list-buah" class="form-select-sm w-100">
                                         <datalist id="list-buah">
                                             @foreach ($buah as $item)
-                                            <option id="{{$item->id}}" value = "{{$item->name}}"></option>
+                                            <option id="{{$item->id}}" value = "{{$item->name}}"> {{$item->name}} - {{$item->id}}</option>
                                             @endforeach
                                         </datalist>
 
@@ -175,11 +175,12 @@
                                             @endforeach
                                         </select> --}}
                                         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Nama Barang</p>
-                                        <p class="small text-danger error-msg">asd</p>
+                                        <p class="small text-danger error-msg"></p>
                                     </div>
                                     <div class="position-relative mb-3">
                                         <input class="form-control" name="jumlah" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
                                         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Jumlah</p>
+                                        <p class="small text-danger error-msg-jumlah"></p>
                                     </div>
                                     <div class="d-flex align-items-center">
                                         <p class="me-2">Parkir</p>
@@ -200,7 +201,7 @@
                 <div class="modal-footer">
                     <button class="btn btn-light" type="button" data-bs-dismiss="modal">Batal</button>
                     <button class="btn" id="new-form" type="button" style="background: var(--bs-teal);color: white;">Tambah Form Baru</button>
-                    <button class="btn" id="save-barang" type="button" data-bs-dismiss="modal" style="background: #38A34A;color: white;">Simpan Barang</button>
+                    <button class="btn" id="save-barang" type="button" style="background: #38A34A;color: white;">Simpan Barang</button>
                 </div>
             </div>
         </div>
