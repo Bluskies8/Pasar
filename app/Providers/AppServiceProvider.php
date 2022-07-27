@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        dd($this->app['request']->server);
+        // dd($this->app['request']->server);
         if (env('APP_ENV') == "local") {
             // $this->app->register('Barryvdh\Debugbar\ServiceProvider');
             $this->app['request']->server->set('HTTP', true);
