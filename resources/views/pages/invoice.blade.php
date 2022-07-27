@@ -19,7 +19,7 @@
         <input class="form-control d-flex justify-content-between" id="selected-date" name="date" type="date" style="height: 32px;" data-date="{{$date}}" data-date-format="DD/MM/YYYY" value="{{$date}}">
         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
     </div>
-    <div class="position-absolute table-responsive p-3 w-100" style="max-height: 88.8vh;overflow-y: auto; top: 51px; z-index: 0;">
+    <div class="table-responsive p-3 w-100">
         <table class="table table-striped" id="table-invoice">
             <thead>
                 <tr class="text-center">
@@ -75,7 +75,7 @@
                         <span id="nama-lapak"></span>
                     </div>
                     <div class="d-flex align-items-center mb-3">
-                        <p class="text-end py-1" style="width: 100px;">Biaya Listrik :&nbsp;</p>
+                        <p class="text-end py-1" style="white-space: nowrap; width: 100px;">Biaya Listrik :&nbsp;</p>
                         <select id="select-listrik" name="listrik" class="form-select form-select-sm" style="width: 173px;">
                             <option value="0">0</option>
                             <option value="25000">25.000</option>
