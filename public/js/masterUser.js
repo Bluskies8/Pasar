@@ -83,43 +83,54 @@ $(document).ready(function() {
         var shif_start = $('#input-shif-masuk').val();
         var shif_end = $('#input-shif-keluar').val();
         var shif = $('#input-shif-id').val();
-        // console.log(shif)
+        console.log((shif_start > shif_end))
         let check = false;
+        if(shif_start > shif_end){
+            check = false;
+        }
+        if(shif_start && shif_end || !shif_start && !shif_end){
+            check=true;
+        }else{
+            (!shif_start)?$('#error-msg-masuk').text("Jam Mulai harus di isi"):$('#error-msg-masuk').text("");
+            (!shif_end)?$('#error-msg-keluar').text("Jam Selesai harus di isi"):$('#error-msg-keluar').text("");
+        }
+        if($.inArray(shif,['1','2','3']) == -1){
+            check = false;
+        }else{
+            check = true;
+        }
         if(action == 'insert'){
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                type: "post",
-                url: "/user/create",
-                data:{
-                    role:radioValue,
-                    nama:nama,
-                    username:username,
-                    password:password,
-                    tambaban_start:shif_start,
-                    tambahan_end:shif_end,
-                    shif:shif
-                },
-                beforeSend: function(){
+            if(check == true){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    type: "post",
+                    url: "/user/create",
+                    data:{
+                        role:radioValue,
+                        nama:nama,
+                        username:username,
+                        password:password,
+                        tambaban_start:shif_start,
+                        tambahan_end:shif_end,
+                        shif:shif
+                    },
+                    beforeSend: function(){
 
-                },
-                success: function(res) {
-                    // console.log(res);
-                    window.location.reload();
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                }
-            });
+                    },
+                    success: function(res) {
+                        // console.log(res);
+                        window.location.reload();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                });
+            }
             }else if(action == 'update'){
-                if(shif_start && shif_end || !shif_start && !shif_end){
-                    check=true;
-                }else{
-                    (!shif_start)?$('#error-msg-masuk').text("Jam Mulai harus di isi"):$('#error-msg-masuk').text("");
-                    (!shif_end)?$('#error-msg-keluar').text("Jam Selesai harus di isi"):$('#error-msg-keluar').text("");
-                }
+
                 if(check == true){
                     $.ajax({
                         headers: {
@@ -141,7 +152,7 @@ $(document).ready(function() {
                         },
                         success: function(res) {
                             // console.log(res);
-                            window.location.reload();
+                            // window.location.reload();
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             console.log(xhr.status);

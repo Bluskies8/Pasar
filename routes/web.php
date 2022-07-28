@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HtransController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RetribusiController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
@@ -28,50 +29,131 @@ Route::get('login', function () {
 Route::post('clogin',[DashboardController::class,'login']);
 Route::get('logout',[DashboardController::class,'logout']);
 
-
-
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
 Route::middleware(['checkLogin'])->group(function () {
-    Route::get('/', [DashboardController::class,'dashboard']);//->middleware('role:1,2,3');;
-    Route::get('/reset',[DashboardController::class,'reset']);
-
-    Route::prefix('buah')->group(function () {
-        Route::get('/',[BuahController::class,'index']);
-        Route::get('/cari',[BuahController::class,'cari']);
-        Route::post('/create',[BuahController::class,'store']);
-        Route::post('/update/{buah:id}',[BuahController::class,'update']);
-        Route::post('/delete/{buah:id}',[BuahController::class,'destroy']);
-    });
-    Route::prefix('user')->group(function () {
-        Route::get('/',[DashboardController::class,'userPages']);
-        Route::post('/create',[DashboardController::class,'createUser']);
-        Route::post('/update/{user:id}',[DashboardController::class,'updateUser']);
-        Route::post('/delete/{user:id}',[DashboardController::class,'deleteUser']);
-    });
-    Route::prefix('retribusi')->group(function () {
-        Route::get('/', [RetribusiController::class,'index']);
-        Route::post('/getretri', [RetribusiController::class,'getRetri']);
-        Route::post('/create', [RetribusiController::class,'store']);
-
-    });
-    Route::prefix('invoice')->group(function () {
-        Route::get('/',[invoicecontroller::class,'invoice']);
-        Route::get('/generate', [InvoiceController::class,'generate']);//->middleware('role:2');
-        Route::post('/update', [InvoiceController::class,'update'])->middleware('role:1,2');
-        Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);//->middleware('role:2');
-        Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
-    });
     Route::get('stock', [HtransController::class,'index']);
-    Route::prefix('details')->group(function () {
-        Route::get('/', [HtransController::class,'detailspage']);
-        Route::get('/{htrans}', [HtransController::class,'details']);
+    Route::group(['middleware'=>'role'],function () {
+        Route::get('/', [DashboardController::class,'dashboard']);
+        Route::get('/reset',[DashboardController::class,'reset']);
+        Route::prefix('buah')->group(function () {
+            Route::get('/',[BuahController::class,'index']);
+            Route::get('/cari',[BuahController::class,'cari']);
+            Route::post('/create',[BuahController::class,'store']);
+            Route::post('/update/{buah:id}',[BuahController::class,'update']);
+            Route::post('/delete/{buah:id}',[BuahController::class,'destroy']);
+        });
+        Route::prefix('user')->group(function () {
+            Route::get('/',[DashboardController::class,'userPages']);
+            Route::post('/create',[DashboardController::class,'createUser']);
+            Route::post('/update/{user:id}',[DashboardController::class,'updateUser']);
+            Route::post('/delete/{user:id}',[DashboardController::class,'deleteUser']);
+        });
+        Route::prefix('retribusi')->group(function () {
+            Route::get('/', [RetribusiController::class,'index']);
+            Route::post('/getretri', [RetribusiController::class,'getRetri']);
+            Route::post('/create', [RetribusiController::class,'store']);
+        });
+        Route::prefix('invoice')->group(function () {
+            Route::get('/',[invoicecontroller::class,'invoice']);
+            Route::get('/generate', [InvoiceController::class,'generate']);
+            Route::post('/update', [InvoiceController::class,'update']);
+            Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
+            Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
+        });
+        Route::prefix('details')->group(function () {
+            Route::get('/', [HtransController::class,'detailspage']);
+            Route::get('/{htrans}', [HtransController::class,'details']);
+        });
+        Route::prefix('transaction')->group(function () {
+            Route::post('create',[HtransController::class,'store']);
+            Route::post('delete/{htrans:id}',[HtransController::class,'destroy']);
+        });
+        Route::prefix('vendor')->group(function () {
+            Route::get('/',[DashboardController::class,'vendor']);
+            Route::post('/update',[DashboardController::class,'vendorUpdate']);
+        });
     });
-    Route::prefix('transaction')->group(function () {
-        Route::post('create',[HtransController::class,'store'])->middleware('role:4');
-        Route::post('delete/{htrans:id}',[HtransController::class,'destroy'])->middleware('role:3');
+    Route::group(['middleware'=>'admin'],function () {
+        Route::get('/', [DashboardController::class,'dashboard']);
+        Route::prefix('buah')->group(function () {
+            Route::get('/',[BuahController::class,'index']);
+            Route::post('/create',[BuahController::class,'store']);
+            Route::post('/update/{buah:id}',[BuahController::class,'update']);
+            Route::post('/delete/{buah:id}',[BuahController::class,'destroy']);
+        });
+        Route::prefix('user')->group(function () {
+            Route::get('/',[DashboardController::class,'userPages']);
+            Route::post('/create',[DashboardController::class,'createUser']);
+            Route::post('/update/{user:id}',[DashboardController::class,'updateUser']);
+            Route::post('/delete/{user:id}',[DashboardController::class,'deleteUser']);
+        });
+        Route::prefix('retribusi')->group(function () {
+            Route::get('/', [RetribusiController::class,'index']);
+            Route::post('/getretri', [RetribusiController::class,'getRetri']);
+            Route::post('/create', [RetribusiController::class,'store']);
+        });
+        Route::prefix('invoice')->group(function () {
+            Route::get('/',[invoicecontroller::class,'invoice']);
+            Route::get('/generate', [InvoiceController::class,'generate']);
+            Route::post('/update', [InvoiceController::class,'update']);
+            Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
+            Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
+        });
+        Route::prefix('details')->group(function () {
+            Route::get('/', [HtransController::class,'detailspage']);
+            Route::get('/{htrans}', [HtransController::class,'details']);
+        });
+        Route::prefix('transaction')->group(function () {
+            Route::post('delete/{htrans:id}',[HtransController::class,'destroy']);
+        });
+        Route::prefix('vendor')->group(function () {
+            Route::get('/',[DashboardController::class,'vendor']);
+            Route::post('/update',[DashboardController::class,'vendorUpdate']);
+        });
     });
-    Route::prefix('vendor')->group(function () {
-        Route::get('/',[DashboardController::class,'vendor']);
-        Route::post('/update',[DashboardController::class,'vendorUpdate']);
+    Route::group(['middleware'=>'kapten'],function () {
+        Route::prefix('buah')->group(function () {
+            Route::get('/',[BuahController::class,'index']);
+            Route::post('/create',[BuahController::class,'store']);
+            Route::post('/update/{buah:id}',[BuahController::class,'update']);
+            Route::post('/delete/{buah:id}',[BuahController::class,'destroy']);
+        });
+        Route::prefix('user')->group(function () {
+            Route::get('/',[DashboardController::class,'userPages']);
+            Route::post('/create',[DashboardController::class,'createUser']);
+            Route::post('/update/{user:id}',[DashboardController::class,'updateUser']);
+            Route::post('/delete/{user:id}',[DashboardController::class,'deleteUser']);
+        });
+        Route::prefix('invoice')->group(function () {
+            Route::get('/',[invoicecontroller::class,'invoice']);
+            Route::get('/generate', [InvoiceController::class,'generate']);
+            // Route::post('/update', [InvoiceController::class,'update']);
+            Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
+            Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
+        });
+        Route::prefix('details')->group(function () {
+            Route::get('/', [HtransController::class,'detailspage']);
+            Route::get('/{htrans}', [HtransController::class,'details']);
+        });
+        Route::prefix('transaction')->group(function () {
+            Route::post('delete/{htrans:id}',[HtransController::class,'destroy']);
+        });
     });
+    Route::group(['middleware'=>'checker'],function () {
+        Route::prefix('transaction')->group(function () {
+            Route::post('create',[HtransController::class,'store']);
+        });
+        Route::get('/buah/cari',[BuahController::class,'cari']);
+        Route::prefix('invoice')->group(function () {
+            Route::get('/',[invoicecontroller::class,'invoice']);
+            Route::get('/generate', [InvoiceController::class,'generate']);
+            Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
+            Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
+        });
+        Route::prefix('details')->group(function () {
+            Route::get('/', [HtransController::class,'detailspage']);
+            Route::get('/{htrans}', [HtransController::class,'details']);
+        });
+    });
+
 });

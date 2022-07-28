@@ -2,12 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\role as ModelsRole;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class role
+class admin
 {
     /**
      * Handle an incoming request.
@@ -19,7 +18,7 @@ class role
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::guard('checkLogin')->user();
-        if($user->role_id == 1){
+        if($user->role_id == 2){
             return $next($request);
         }
         return redirect()->back();

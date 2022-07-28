@@ -93,6 +93,7 @@ $(document).ready(function(){
                 // console.log(this.data);
             },
             success: function(res) {
+                console.log(res);
                 res.forEach(element => {
                     data.push(element.name);
                 });
