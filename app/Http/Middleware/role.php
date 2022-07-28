@@ -18,6 +18,7 @@ class role
      */
     public function handle(Request $request, Closure $next,$type)
     {
+        dd($type);
         if (!Auth::guard('checkLogin')->check())
             return redirect('tologin');
 
