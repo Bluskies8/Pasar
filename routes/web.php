@@ -32,7 +32,7 @@ Route::get('logout',[DashboardController::class,'logout']);
 
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
 Route::middleware(['checkLogin'])->group(function () {
-    Route::get('/', [DashboardController::class,'dashboard'])->middleware('role:1,2,3');;
+    Route::get('/', [DashboardController::class,'dashboard']);//->middleware('role:1,2,3');;
     Route::get('/reset',[DashboardController::class,'reset']);
 
     Route::prefix('buah')->group(function () {
