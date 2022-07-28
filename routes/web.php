@@ -32,7 +32,7 @@ Route::get('logout',[DashboardController::class,'logout']);
 
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
 Route::middleware(['checkLogin'])->group(function () {
-    Route::get('/', [DashboardController::class,'dashboard']);
+    Route::get('/', [DashboardController::class,'dashboard'])->middleware('role:1,2,3');;
     Route::get('/reset',[DashboardController::class,'reset']);
 
     Route::prefix('buah')->group(function () {
@@ -57,7 +57,7 @@ Route::middleware(['checkLogin'])->group(function () {
     Route::prefix('invoice')->group(function () {
         Route::get('/',[invoicecontroller::class,'invoice']);
         Route::get('/generate', [InvoiceController::class,'generate']);//->middleware('role:2');
-        Route::post('/update', [InvoiceController::class,'update']);//->middleware('role:2');
+        Route::post('/update', [InvoiceController::class,'update'])->middleware('role:1,2');
         Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);//->middleware('role:2');
         Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
     });
@@ -67,8 +67,8 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('/{htrans}', [HtransController::class,'details']);
     });
     Route::prefix('transaction')->group(function () {
-        Route::post('create',[HtransController::class,'store']);//->middleware('role:4');
-        Route::post('delete/{htrans:id}',[HtransController::class,'destroy']);//->middleware('role:3');
+        Route::post('create',[HtransController::class,'store'])->middleware('role:4');
+        Route::post('delete/{htrans:id}',[HtransController::class,'destroy'])->middleware('role:3');
     });
     Route::prefix('vendor')->group(function () {
         Route::get('/',[DashboardController::class,'vendor']);
