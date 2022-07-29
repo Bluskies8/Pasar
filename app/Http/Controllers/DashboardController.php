@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\dtrans;
 use App\Models\htrans;
 use App\Models\invoice;
+use App\Models\log;
 use App\Models\netto;
 use App\Models\User;
 use App\Models\shif;
@@ -30,10 +31,15 @@ class DashboardController extends Controller
         // $cekshif = shif::where('number',$cekuser->shif)->first();
         // if($cekuser->role_id<4){
             if(Auth::guard('checkLogin')->attempt($data)){
+                log::create([
+                    'user_id' =>$cekuser->id,
+                    'pasar_id' =>$cekuser->pasar_id,
+                    'keterangan' => "login"
+                ]);
                 if($cekuser->role_id>2){
-                    return redirect('/stock');
+                    return redirect(strtolower(Auth::guard('checkLogin')->user()->role->name).'/stock');
                 }else{
-                    return redirect('/');
+                    return redirect('/'.strtolower(Auth::guard('checkLogin')->user()->role->name));
                 }
             }else{
                 return redirect()->back()->with('pesan','email/password salah');
@@ -52,7 +58,7 @@ class DashboardController extends Controller
     public function userPages()
     {
         if(Auth::guard('checkLogin')->user()->role_id<3){
-            $data = User::with('role')->get();
+            $data = User::with('role')->where('role_id','>',1)->get();
 
         }else{
             $data = User::with('role')->where('role_id',4)->get();
@@ -76,11 +82,14 @@ class DashboardController extends Controller
         } catch (\Throwable $th) {
             return $th;
         }
-
     }
     public function updateUser(Request $request, User $user)
     {
-        // return $request->all();
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "update user ".$user->name
+        ]);
         if($request->username)$user->email = $request->username;
         if($request->password)$user->password = Hash::make($request->password);
         if($request->nama)$user->name = $request->nama;
@@ -97,12 +106,15 @@ class DashboardController extends Controller
             $user->tambahan_end = null;
         }
         $user->save();
-        return $user;
         return "success";
     }
     public function deleteUser(User $user)
     {
-        // $user = User::find($request->id);
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "delete user ".$user->nama
+        ]);
         $user->delete();
         return 'success';
     }
@@ -140,6 +152,11 @@ class DashboardController extends Controller
     }
     public function logout()
     {
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "User ".Auth::guard('checkLogin')->user()->id." logout"
+        ]);
         Auth::guard('checkLogin')->logout();
         return redirect('login');
     }
@@ -176,6 +193,11 @@ class DashboardController extends Controller
             $stand->badan_usaha = $badan;
             $stand->seller_name = $nama;
             $stand->save();
+            log::create([
+                'user_id' =>Auth::guard('checkLogin')->user()->id,
+                'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+                'keterangan' => "Update Vendor ".$stand->id
+            ]);
             return "success";
         } catch (\Throwable $th) {
             return $th;
@@ -223,6 +245,13 @@ class DashboardController extends Controller
             'kuli' => $dataKuli,
             'barangmasuk' => $databarang,
             'pendapatan' => $datapendapatan
+        ]);
+    }
+    public function logs()
+    {
+        $data = log::with('user.role')->get();
+        return view('pages.Logs',[
+            'data' => $data
         ]);
     }
 }

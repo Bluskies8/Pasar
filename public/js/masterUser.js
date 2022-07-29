@@ -35,7 +35,7 @@ $(document).ready(function() {
             }
         }, 10);
     });
-
+    var role = window.location.pathname.split('/');
     var action;
     $('#add-user').on('click', function() {
         $('.modal-title').text("Buat User baru");
@@ -55,7 +55,6 @@ $(document).ready(function() {
     $('#item-update').on('click', function() {
         action = "update"
         var explode =$('#' + selectedID).children().eq(5).html().split(' - ');
-        console.log(explode)
         $('.modal-title').text("Rubah User");
         $('#input-nama').val($('#' + selectedID).children().eq(0).html());
         $('#input-username').val($('#' + selectedID).children().eq(1).html());
@@ -81,22 +80,35 @@ $(document).ready(function() {
         var shif_start = $('#input-shif-masuk').val();
         var shif_end = $('#input-shif-keluar').val();
         var shif = $('#input-shif-id').val();
-        console.log((shif_start > shif_end))
         let check = false;
-        if(shif_start > shif_end){
-            check = false;
-        }
-        if(shif_start && shif_end || !shif_start && !shif_end){
-            check=true;
+
+        (!radioValue)?$('#error-msg-role').text("Role harus dipilih"):$('#error-msg-role').text("");
+        (!nama)?$('#error-msg-nama').text("Nama harus di isi"):$('#error-msg-nama').text("");
+        (!username)?$('#error-msg-username').text("Username harus di isi"):$('#error-msg-username').text("");
+        if(radioValue == 4){
+            (!shif)?$('#error-msg-shif').text("Shif harus dipilih"):$('#error-msg-shif').text("");
+            if(shif_start && shif_end){
+                if(new Date(shif_start) > new Date(shif_end)){
+                    check = false;
+                }else{
+                    check=true;
+                }
+            }else if(!shif_start && !shif_end){
+                check=true;
+            }else{
+                (!shif_start)?$('#error-msg-masuk').text("Jam Mulai harus di isi"):$('#error-msg-masuk').text("");
+                (!shif_end)?$('#error-msg-keluar').text("Jam Selesai harus di isi"):$('#error-msg-keluar').text("");
+            }
+            if($.inArray(shif,['1','2','3']) == -1){
+                check = false;
+            }else{
+                check = true;
+            }
         }else{
-            (!shif_start)?$('#error-msg-masuk').text("Jam Mulai harus di isi"):$('#error-msg-masuk').text("");
-            (!shif_end)?$('#error-msg-keluar').text("Jam Selesai harus di isi"):$('#error-msg-keluar').text("");
-        }
-        if($.inArray(shif,['1','2','3']) == -1){
-            check = false;
-        }else{
+            $('#error-msg-shif').text("");
             check = true;
         }
+        console.log(check)
         if(action == 'insert'){
             if(check == true){
                 $.ajax({
@@ -104,7 +116,7 @@ $(document).ready(function() {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
                     type: "post",
-                    url: "/user/create",
+                    url: "/"+role[1]+"/user/create",
                     data:{
                         role:radioValue,
                         nama:nama,
@@ -128,14 +140,13 @@ $(document).ready(function() {
                 });
             }
             }else if(action == 'update'){
-
                 if(check == true){
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },
                         type: "post",
-                        url: "/user/update/"+selectedID,
+                        url: "/"+role[1]+"/user/update/"+selectedID,
                         data:{
                             role:radioValue,
                             nama:nama,
@@ -150,7 +161,7 @@ $(document).ready(function() {
                         },
                         success: function(res) {
                             // console.log(res);
-                            // window.location.reload();
+                            window.location.reload();
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             console.log(xhr.status);
@@ -168,7 +179,7 @@ $(document).ready(function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 type: "post",
-                url: "/user/delete/"+selectedID,
+                url: "/"+role[1]+"/user/delete/"+selectedID,
                 beforeSend: function(){
 
                 },

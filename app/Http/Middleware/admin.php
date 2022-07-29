@@ -18,6 +18,7 @@ class admin
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::guard('checkLogin')->user();
+        // dd($user);
         if($user->role_id == 2){
             return $next($request);
         }

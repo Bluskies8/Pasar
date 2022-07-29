@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\buah;
 use App\Models\dtrans;
 use App\Models\htrans;
+use App\Models\log;
 use App\Models\netto;
 use App\Models\shif;
 use App\Models\stand;
@@ -242,6 +243,11 @@ class HtransController extends Controller
                 $data->total_jumlah = $total_jumlah;
                 $data->total_harga = $total_harga;
                 $data->save();
+                log::create([
+                    'user_id' =>Auth::guard('checkLogin')->user()->id,
+                    'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+                    'keterangan' => "Input transaksi dengan kode ".$data->id
+                ]);
                 return "Success";
             }else{
                 return "ada data yang kosong atau salah";
@@ -291,6 +297,11 @@ class HtransController extends Controller
      */
     public function destroy(htrans $htrans)
     {
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "Menghapus transaksi dengan kode ".$htrans->id
+        ]);
         dtrans::where('htrans_id',$htrans->id)->delete();
         $htrans->delete();
         return 'success';

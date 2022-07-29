@@ -36,6 +36,7 @@ $(document).ready(function() {
 
     var flag = false;
     var currentID = '';
+    var role = window.location.pathname.split('/');
     var selecetedRow = -1;
     $('.show-aksi').on('click', function() {
         $('#list-aksi').show();
@@ -47,7 +48,7 @@ $(document).ready(function() {
     });
 
     $('#item-detail').on('click', function() {
-        window.open('/invoice/' + currentID, 'Invoice');
+        window.open('/'+role[1]+'/invoice/' + currentID, 'Invoice');
         currentID = '';
     });
 
@@ -58,7 +59,7 @@ $(document).ready(function() {
                 // 'contentType' : "application/json",
             },
             type: "POST",
-            url: "invoice/transdetail",
+            url: "/"+role[1]+"/invoice/transdetail",
             data: {
                 id: currentID,
             },
@@ -161,7 +162,7 @@ $(document).ready(function() {
                 // 'contentType' : "application/json",
             },
             type: "get",
-            url: "invoice/generate",
+            url: "/"+role[1]+"/invoice/generate",
             success: function(data) {
                 console.log(data);
                 location.reload();
@@ -181,7 +182,7 @@ $(document).ready(function() {
                 // 'contentType' : "application/json",
             },
             type: "POST",
-            url: "invoice/update",
+            url: "/"+role[1]+"/invoice/update",
             data: {
                 id: currentID,
                 listrik: $("#select-listrik option:selected").val()
@@ -235,6 +236,6 @@ $(document).ready(function() {
         var month = pad(temp.getMonth() + 1,2);
         var year = temp.getFullYear();
         var start = [day, month, year].join('-');
-        window.location.href = "invoice?date="+start;
+        window.location.href = "/"+role[1]+"/invoice?date="+start;
     });
 });

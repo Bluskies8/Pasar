@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\dtrans;
 use App\Models\htrans;
 use App\Models\invoice;
+use App\Models\log;
 use App\Models\netto;
 use App\Models\pasar;
 use App\Models\stand;
@@ -80,6 +81,7 @@ class InvoiceController extends Controller
     }
     public function generate()
     {
+
         $carbon = Carbon::now();
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
         foreach ($temp as $key => $value) {
@@ -137,6 +139,11 @@ class InvoiceController extends Controller
                 ]);
             }
         }
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "Generate invoice"
+        ]);
         return "success";
     }
     public function transactionDetails(Request $request)
@@ -250,6 +257,11 @@ class InvoiceController extends Controller
         $invoice->listrik = $request->listrik;
         $invoice->dibayarkan = $invoice->total+$request->listrik+$invoice->kuli+$invoice->parkir;
         $invoice->save();
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "Update invoice dengan kode invoice ".$invoice->id
+        ]);
         return "success update";
     }
 

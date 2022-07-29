@@ -8,7 +8,7 @@
     <header id="content-header" class="row mx-0" style="padding: 6px 0;">
         @if ($data['id'])
         <div class="col-12 col-lg-4 d-flex align-items-center">
-            <a href="/stock"><button class="btn" style="background-color: rgb(24, 144, 255);color: var(--bs-white); text-decoration: none;">Back</button></a>
+            <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/stock"><button class="btn" style="background-color: rgb(24, 144, 255);color: var(--bs-white); text-decoration: none;">Back</button></a>
             <div class="d-flex flex-xl-row flex-lg-column flex-row align-items-center align-items-lg-start align-items-xl-center ms-3">
                 <p style="white-space: nowrap">ID Transaksi :&nbsp;</p>
                 <span id="id-transaksi">{{$data->id}}</span>

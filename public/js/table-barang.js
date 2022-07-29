@@ -57,6 +57,7 @@ $(document).ready(function(){
 
     //set thousand separator
     var separatorInterval = setInterval(setThousandSeparator, 10);
+    var role = window.location.pathname.split('/');
 
     function setThousandSeparator () {
         let length = $('.thousand-separator').length;
@@ -81,6 +82,7 @@ $(document).ready(function(){
         let jumlah = $('input[name="jumlah"]');
         let parkir = $('select[name="parkir"]');
         var check = [];
+        var check2 = [];
         var data = [];
 
         $.ajax({
@@ -88,7 +90,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             type: "get",
-            url: "buah/cari",
+            url: "/"+role[1]+"/buah/cari",
             beforeSend: function(){
                 // console.log(this.data);
             },
@@ -98,18 +100,23 @@ $(document).ready(function(){
                     data.push(element.name);
                 });
                 for (let i = 1; i < formCount + 1; i++) {
-                    (!jumlah[i].value)?$('#error-jumlah-'+i).text('jumlah harus di isi'):$('#error-jumlah-'+i).text('');
+                    console.log(jumlah[i].value);
+                    if(!jumlah[i].value){
+                        $('#error-jumlah-'+i).text('jumlah harus di isi')
+                        check2[i] = "false";
+                    }else{
+                        $('#error-jumlah-'+i).text('');
+                    }
                     if($.inArray( nama[i].value, data ) == -1){
                         $('#error-message-'+i).text("buah tidak terdaftar");
 
                         check[i] = "false";
                     }else{
-
                         $('#error-message-'+i).text("");
                         check[i] = "true";
                     }
                 }
-                if($.inArray( "false", check ) == -1){
+                if($.inArray( "false", check ) == -1 && $.inArray( "false", check2 ) == -1){
                     for (let i = 1; i < formCount + 1; i++) {
                         if(nama[i].value && jumlah[i].value){
                             let temp = $('#tr-template').clone().appendTo("#table-barang tbody");
@@ -176,7 +183,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             type: "POST",
-            url: "transaction/create",
+            url: "/"+role[1]+"/transaction/create",
             data: {
                 stand_id: lapak,
                 transportasi:"pick up",

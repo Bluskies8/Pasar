@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\buah;
+use App\Models\log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BuahController extends Controller
 {
@@ -48,12 +50,12 @@ class BuahController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            //code...
-            buah::create(['name'=>$request->nama]);
-        } catch (\Throwable $th) {
-            return $th;
-        }
+        buah::create(['name'=>$request->nama]);
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "Tambah Nama Buah ".$request->nama
+        ]);
         return "success";
     }
 
@@ -88,6 +90,11 @@ class BuahController extends Controller
      */
     public function update(Request $request, buah $buah)
     {
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "Ubah nama buah dari ".$buah->name." menjadi ".$request->nama
+        ]);
         $buah->name = $request->nama;
         $buah->save();
         return "success";
@@ -101,6 +108,11 @@ class BuahController extends Controller
      */
     public function destroy(buah $buah)
     {
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "Menghapus buah ".$buah->name
+        ]);
         $buah->delete();
         return "success";
     }

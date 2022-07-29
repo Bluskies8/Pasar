@@ -66,15 +66,15 @@
             <div class="modal-body">
                 <div class="position-relative mb-3"><input type="text" class="form-control" id="input-nama"/>
                     <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Nama User</p>
-                    <p class="small text-danger error-msg"></p>
+                    <p class="small text-danger error-msg" id = "error-msg-nama"></p>
                 </div>
                 <div class="position-relative mb-3"><input type="text" class="form-control" id="input-username"/>
                     <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Username</p>
-                    <p class="small text-danger error-msg"></p>
+                    <p class="small text-danger error-msg" id = "error-msg-username"></p>
                 </div>
                 <div class="position-relative mb-1"><input type="password" class="form-control" id="input-password"/>
                     <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Password</p>
-                    <p class="small text-danger error-msg"></p>
+                    <p class="small text-danger error-msg" id = "error-msg-password"></p>
                 </div>
                 <p class="px-1" style="font-size: 14px;background-color: white; margin-left: 10px;">Role</p>
                 <div class="form-control d-flex justify-content-between mb-3">
@@ -82,6 +82,7 @@
                     <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-2" name="role" value="2"/><label class="form-check-label" for="role-2">Admin</label></div>
                     <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-3" name="role" value="3"/><label class="form-check-label" for="role-3">Kapten</label></div>
                     <div class="form-check"><input type="radio" class="form-check-input input-radio" id="role-4" name="role" value="4"/><label class="form-check-label" for="role-4">Checker</label></div>
+                    <p class="small text-danger error-msg" id = "error-msg-role"></p>
                 </div>
                 <div class="position-relative mb-3">
                     <select class="form-control" name="select-shif" id="input-shif-id">
@@ -91,7 +92,7 @@
                         <option value="3">3</option>
                     </select>
                     <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Shif</p>
-                    <p class="small text-danger error-msg"></p>
+                    <p class="small text-danger error-msg" id = "error-msg-shif"></p>
                 </div>
                 <div class="d-flex justify-content-between">
                     <div class="position-relative">

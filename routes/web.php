@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\URL;
 if(env('APP_ENV') == "production") {
     URL::forceScheme('https');
 }
+
+Route::get('/', function () {
+    return redirect('login');
+});
 Route::get('login', function () {
     return view('pages/login');
 });
@@ -31,8 +35,8 @@ Route::get('logout',[DashboardController::class,'logout']);
 
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
 Route::middleware(['checkLogin'])->group(function () {
-    Route::get('stock', [HtransController::class,'index']);
-    Route::group(['middleware'=>'role'],function () {
+    Route::group(['middleware'=>'role','prefix'=>'superadmin'],function () {
+        Route::get('stock', [HtransController::class,'index']);
         Route::get('/', [DashboardController::class,'dashboard']);
         Route::get('/reset',[DashboardController::class,'reset']);
         Route::prefix('buah')->group(function () {
@@ -72,8 +76,10 @@ Route::middleware(['checkLogin'])->group(function () {
             Route::get('/',[DashboardController::class,'vendor']);
             Route::post('/update',[DashboardController::class,'vendorUpdate']);
         });
+        Route::get('/logs',[DashboardController::class,'logs']);
     });
-    Route::group(['middleware'=>'admin'],function () {
+    Route::group(['middleware'=>'admin','prefix'=>'admin'],function () {
+        Route::get('stock', [HtransController::class,'index']);
         Route::get('/', [DashboardController::class,'dashboard']);
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
@@ -111,7 +117,8 @@ Route::middleware(['checkLogin'])->group(function () {
             Route::post('/update',[DashboardController::class,'vendorUpdate']);
         });
     });
-    Route::group(['middleware'=>'kapten'],function () {
+    Route::group(['middleware'=>'kapten','prefix'=>'kapten'],function () {
+        Route::get('stock', [HtransController::class,'index']);
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
             Route::post('/create',[BuahController::class,'store']);
@@ -139,7 +146,8 @@ Route::middleware(['checkLogin'])->group(function () {
             Route::post('delete/{htrans:id}',[HtransController::class,'destroy']);
         });
     });
-    Route::group(['middleware'=>'checker'],function () {
+    Route::group(['middleware'=>'checker','prefix'=>'checker'],function () {
+        Route::get('stock', [HtransController::class,'index']);
         Route::prefix('transaction')->group(function () {
             Route::post('create',[HtransController::class,'store']);
         });

@@ -10,7 +10,7 @@
             <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
         </div>
         @if ($role==4 && $check)
-        <a href="/details">
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/details">
             <button class="btn btn-sm me-2" id="tambah-transaksi" type="button" style="">Transaksi Baru</button>
         </a>
         @endif

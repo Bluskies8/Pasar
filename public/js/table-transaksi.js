@@ -24,6 +24,7 @@ $(document).ready(function(){
 
     var flag = false;
     var currentID = '';
+    var role = window.location.pathname.split('/');
     $('.show-aksi').on('click', function() {
         $('#list-aksi').show();
         $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
@@ -33,7 +34,7 @@ $(document).ready(function(){
     });
 
     $('#item-detail').on('click', function() {
-        location.href = '/details/' + currentID;
+        location.href = '/'+role[1]+'/details/' + currentID;
         currentID = '';
     });
 
@@ -45,7 +46,7 @@ $(document).ready(function(){
                     // 'contentType' : "application/json",
                 },
                 type: "POST",
-                url: "transaction/delete/"+currentID,
+                url: "/"+role[1]+"/transaction/delete/"+currentID,
                 beforeSend: function(){
                     //console.log(currentID);
                 },

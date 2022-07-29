@@ -29,6 +29,7 @@ $(document).ready(function(){
         }, 10);
     });
     var action;
+    var role = window.location.pathname.split('/');
     $('#add-buah').on('click', function() {
         action = "insert"
         $('.modal-title').text("Tambah Buah");
@@ -41,7 +42,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             type: "post",
-            url: "/buah/delete/"+selectedID,
+            url: "/"+role[1]+"/buah/delete/"+selectedID,
             beforeSend: function(){
 
             },
@@ -74,7 +75,7 @@ $(document).ready(function(){
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 type: "post",
-                url: "/buah/create",
+                url: "/"+role[1]+"/buah/create",
                 data:{
                     nama:nama,
                 },
@@ -96,7 +97,7 @@ $(document).ready(function(){
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 type: "post",
-                url: "/buah/update/"+selectedID,
+                url: "/"+role[1]+"/buah/update/"+selectedID,
                 data:{
                     nama:nama,
                 },

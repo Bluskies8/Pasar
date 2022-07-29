@@ -37,16 +37,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-
-        User::create([
-            'name' => $request->name,
-            'role_id' => $request->role_id,
-            'email' => $request->email,
-            'pasar_id' => $request->pasar_id,
-            'password' => Hash::make($request->password),
-            'shif' => $request->shif,
-        ]);
-        return 'success create user';
+        
     }
 
     /**

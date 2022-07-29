@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id')->referenced();
+            $table->string('pasar_id')->referenced();
+            $table->string('keterangan');
             $table->timestamps();
         });
     }

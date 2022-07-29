@@ -2,37 +2,43 @@
     <div id="nav-group-1" class="nav-group py-2">
 
         @if (auth()->guard('checkLogin')->user()->role_id <= 2)
-        <a href="/" id="nav-item-dashboard" class="d-flex align-items-center ps-3 nav-item">
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}" id="nav-item-dashboard" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-tachometer-alt me-3"></i>
             <p>Dashboard</p>
         </a>
         @endif
-        <a href="/stock" id="nav-item-items" class="d-flex align-items-center ps-3 nav-item">
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/stock" id="nav-item-items" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-shopping-basket me-3"></i>
             <p>Items</p>
         </a>
-        <a href="/invoice?date={{date('d-m-Y') }}"id="nav-item-invoice" class="d-flex align-items-center ps-3 nav-item">
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/invoice?date={{date('d-m-Y') }}"id="nav-item-invoice" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-file-invoice me-3"></i>
             <p>Invoice</p>
         </a>
         @if (auth()->guard('checkLogin')->user()->role_id < 3)
-        <a href="/vendor" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/vendor" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-store-alt me-3"></i>
             <p>Denah</p>
         </a>
-        <a href="/retribusi?date={{date('Y-m-d') }}" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/retribusi?date={{date('Y-m-d') }}" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-book me-3"></i>
             <p>Retribusi</p>
         </a>
         @endif
         @if (auth()->guard('checkLogin')->user()->role_id < 4)
-        <a href="/buah" id="nav-item-items" class="d-flex align-items-center ps-3 nav-item">
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/buah" id="nav-item-items" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-shopping-basket me-3"></i>
             <p>Master Buah</p>
         </a>
-        <a href="/user" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/user" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-user-friends me-3"></i>
             <p>Managemen User</p>
+        </a>
+        @endif
+        @if (auth()->guard('checkLogin')->user()->role_id == 1)
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/logs" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
+            <i class="fas fa-book me-3"></i>
+            <p>Logs</p>
         </a>
         @endif
     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\dtrans;
 use App\Models\htrans;
 use App\Models\invoice;
+use App\Models\log;
 use App\Models\Retribusi;
 use App\Models\retribusitambahan;
 use Carbon\Carbon;
@@ -91,6 +92,11 @@ class RetribusiController extends Controller
                 'value' => $key['nominal']
             ]);
         }
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "Input retribusi dengan kode ".$retri->id
+        ]);
         return "success";
     }
 

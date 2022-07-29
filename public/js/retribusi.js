@@ -9,6 +9,7 @@ $(document).ready(function() {
     // console.log('retribusi : ' + retribusi + '\nlistrik : ' + listrik + '\n kuli : ' + kuli);
 
     var separatorInterval = setInterval(setThousandSeparator, 10);
+    var role = window.location.pathname.split('/');
 
     function setThousandSeparator () {
         let length = $('.thousand-separator').length;
@@ -66,7 +67,7 @@ $(document).ready(function() {
                 // 'contentType' : "application/json",
             },
             type: "POST",
-            url: "retribusi/getretri",
+            url: "/"+role[1]+"/retribusi/getretri",
             data: {
                 date: start
             },
@@ -134,7 +135,7 @@ $(document).ready(function() {
                 // 'contentType' : "application/json",
             },
             type: "POST",
-            url: "retribusi/create",
+            url: "/"+role[1]+"/retribusi/create",
             data: {
                 retribusi: $('#retribusi').val(),
                 listrik:$('#listrik').val(),
