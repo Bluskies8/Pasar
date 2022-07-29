@@ -48,7 +48,6 @@ $(document).ready(function() {
         $('#input-shif-id').val('');
         $('#input-shif-masuk').val('');
         $('#input-shif-keluar').val('');
-        $('.dropdown-shif').addClass('d-none');
         action = 'insert';
         $('#modal-update').modal('show');
     });
@@ -71,7 +70,6 @@ $(document).ready(function() {
                 $(element).prop("checked", true);
             }
         });
-        $('.dropdown-shif').addClass('d-none');
         $('#modal-update').modal('show');
     });
 
@@ -177,49 +175,5 @@ $(document).ready(function() {
     $('#btn-reset-clock').on('click', function() {
         $('#input-shif-masuk').val(null);
         $('#input-shif-keluar').val(null);
-    });
-
-    var flagMasuk = false;
-    $('#container-shif-masuk').on('click', function() {
-        if (flagMasuk) {
-            flagMasuk = !flagMasuk;
-        } else {
-            $('#dropdown-shif-masuk').removeClass('d-none');
-        }
-    });
-
-    $('#dropdown-jam-masuk p').on('click', function() {
-        $('#jam-masuk').text($(this).text());
-    });
-
-    $('#dropdown-menit-masuk p').on('click', function() {
-        $('#menit-masuk').text($(this).text());
-    });
-
-    $('#dropdown-shif-masuk .btn').on('click', function() {
-        $('#dropdown-shif-masuk').addClass('d-none');
-        flagMasuk = true;
-    });
-
-    var flagKeluar = false;
-    $('#container-shif-keluar').on('click', function() {
-        if (flagKeluar) {
-            flagKeluar = !flagKeluar;
-        } else {
-            $('#dropdown-shif-keluar').removeClass('d-none');
-        }
-    });
-
-    $('#dropdown-jam-keluar p').on('click', function() {
-        $('#jam-keluar').text($(this).text());
-    });
-
-    $('#dropdown-menit-keluar p').on('click', function() {
-        $('#menit-keluar').text($(this).text());
-    });
-
-    $('#dropdown-shif-keluar .btn').on('click', function() {
-        $('#dropdown-shif-keluar').addClass('d-none');
-        flagKeluar = true;
     });
 });
