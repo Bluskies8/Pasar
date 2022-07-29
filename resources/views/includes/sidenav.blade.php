@@ -24,12 +24,12 @@
             <i class="fas fa-book me-3"></i>
             <p>Retribusi</p>
         </a>
+        @endif
+        @if (auth()->guard('checkLogin')->user()->role_id < 4)
         <a href="/buah" id="nav-item-items" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-shopping-basket me-3"></i>
             <p>Master Buah</p>
         </a>
-        @endif
-        @if (auth()->guard('checkLogin')->user()->role_id < 4)
         <a href="/user" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-user-friends me-3"></i>
             <p>Managemen User</p>
