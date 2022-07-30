@@ -223,6 +223,7 @@ class DashboardController extends Controller
     }
     public function dashboard()
     {
+        dd(Auth::guard('checkLogin')->user());
         $now = Carbon::now();
         $netto = netto::first();
         $dataKuli = [];
