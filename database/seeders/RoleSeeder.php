@@ -77,7 +77,7 @@ class RoleSeeder extends Seeder
         User::create([
             'name'=>'superadmin',
             'role_id' => '1',
-            'email' => 'superadmin',
+            'email' => 'sadmin',
             'pasar_id' => '1',
             'password' => '$2y$10$lQABvLawm3q6QSviXQPRd.nbJ5c1CeMHHJvflODxl/Xi//E7PWVPK',
         ]);

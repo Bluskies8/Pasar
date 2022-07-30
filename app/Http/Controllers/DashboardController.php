@@ -36,6 +36,7 @@ class DashboardController extends Controller
                     'pasar_id' =>$cekuser->pasar_id,
                     'keterangan' => "login"
                 ]);
+                dd(Auth::guard('checkLogin')->user());
                 if($cekuser->role_id>2){
                     return redirect(strtolower(Auth::guard('checkLogin')->user()->role->name).'/stock');
                 }else{
@@ -223,7 +224,6 @@ class DashboardController extends Controller
     }
     public function dashboard()
     {
-        dd(Auth::guard('checkLogin')->user());
         $now = Carbon::now();
         $netto = netto::first();
         $dataKuli = [];
