@@ -19,6 +19,7 @@ class role
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::guard('checkLogin')->user();
+        dd($user->role_id);
         if($user->role_id == 1){
             return $next($request);
         }
