@@ -152,6 +152,7 @@ Route::middleware(['checkLogin'])->group(function () {
             Route::post('create',[HtransController::class,'store']);
         });
         Route::get('/buah/cari',[BuahController::class,'cari']);
+        Route::post('/user/update',[DashboardController::class,'updatepassword']);
         Route::prefix('invoice')->group(function () {
             Route::get('/',[invoicecontroller::class,'invoice']);
             Route::get('/generate', [InvoiceController::class,'generate']);
