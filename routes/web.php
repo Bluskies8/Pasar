@@ -30,6 +30,9 @@ Route::get('/', function () {
 Route::get('login', function () {
     return view('pages/login');
 });
+Route::get('changePassword', function () {
+    return view('pages/changePassword');
+});
 Route::post('clogin',[DashboardController::class,'login']);
 Route::get('logout',[DashboardController::class,'logout']);
 
