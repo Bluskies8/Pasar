@@ -85,15 +85,21 @@ class DashboardController extends Controller
     }
     public function updatepassword(Request $request)
     {
+        // dd($request->all());
         $user = User::where('id',Auth::guard('checkLogin')->user()->id)->first();
-        if($request->password)$user->password = Hash::make($request->password);
-        $user->save();
-        log::create([
-            'user_id' =>Auth::guard('checkLogin')->user()->id,
-            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
-            'keterangan' => "update password ".$user->name
-        ]);
-        return "success";
+        if(Hash::check($request->old_password, $user->password)){
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            log::create([
+                'user_id' =>Auth::guard('checkLogin')->user()->id,
+                'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+                'keterangan' => "update password ".$user->name
+            ]);
+            Auth::guard('checkLogin')->logout();
+            return redirect('login');
+        }else{
+            return redirect()->back()->with('error','Password Salah');
+        }
     }
     public function updateUser(Request $request, User $user)
     {

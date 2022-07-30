@@ -30,15 +30,16 @@ Route::get('/', function () {
 Route::get('login', function () {
     return view('pages/login');
 });
-Route::get('changePassword', function () {
-    return view('pages/changePassword');
-});
 Route::post('clogin',[DashboardController::class,'login']);
 Route::get('logout',[DashboardController::class,'logout']);
 
 // Route::middleware(['checkLogin','checkshif'])->group(function () {
-Route::middleware(['checkLogin'])->group(function () {
-    Route::group(['middleware'=>'role','prefix'=>'superadmin'],function () {
+    Route::middleware(['checkLogin'])->group(function () {
+        Route::post('updatePassword',[DashboardController::class,'updatepassword']);
+        Route::group(['middleware'=>'role','prefix'=>'superadmin'],function () {
+        Route::get('changePassword', function () {
+            return view('pages/changePassword');
+        });
         Route::get('stock', [HtransController::class,'index']);
         Route::get('/', [DashboardController::class,'dashboard']);
         Route::get('/reset',[DashboardController::class,'reset']);
@@ -82,6 +83,9 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('/logs',[DashboardController::class,'logs']);
     });
     Route::group(['middleware'=>'admin','prefix'=>'admin'],function () {
+        Route::get('changePassword', function () {
+            return view('pages/changePassword');
+        });
         Route::get('stock', [HtransController::class,'index']);
         Route::get('/', [DashboardController::class,'dashboard']);
         Route::prefix('buah')->group(function () {
@@ -121,6 +125,9 @@ Route::middleware(['checkLogin'])->group(function () {
         });
     });
     Route::group(['middleware'=>'kapten','prefix'=>'kapten'],function () {
+        Route::get('changePassword', function () {
+            return view('pages/changePassword');
+        });
         Route::get('stock', [HtransController::class,'index']);
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
@@ -150,6 +157,9 @@ Route::middleware(['checkLogin'])->group(function () {
         });
     });
     Route::group(['middleware'=>'checker','prefix'=>'checker'],function () {
+        Route::get('changePassword', function () {
+            return view('pages/changePassword');
+        });
         Route::get('stock', [HtransController::class,'index']);
         Route::prefix('transaction')->group(function () {
             Route::post('create',[HtransController::class,'store']);

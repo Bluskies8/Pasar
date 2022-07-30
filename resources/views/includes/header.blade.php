@@ -39,7 +39,7 @@
                     <img class="rounded-circle" style="width: 40px;height: 40px;" src="{{asset('img/logo.svg')}}">
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" style="cursor: default;">Profile</a>
+                    <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/changePassword"class="dropdown-item" style="cursor: default;">Change Password</a>
                     <a href="/logout" class="dropdown-item" style="cursor: default;">Logout</a>
                 </div>
             </div>
