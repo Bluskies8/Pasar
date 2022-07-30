@@ -37,11 +37,11 @@ Route::get('logout',[DashboardController::class,'logout']);
     Route::middleware(['checkLogin'])->group(function () {
         Route::post('updatePassword',[DashboardController::class,'updatepassword']);
         Route::group(['middleware'=>'role','prefix'=>'superadmin'],function () {
+            Route::get('/', [DashboardController::class,'dashboard']);
         Route::get('changePassword', function () {
             return view('pages/changePassword');
         });
         Route::get('stock', [HtransController::class,'index']);
-        Route::get('/', [DashboardController::class,'dashboard']);
         Route::get('/reset',[DashboardController::class,'reset']);
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
