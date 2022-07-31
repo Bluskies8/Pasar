@@ -9,6 +9,7 @@ $(document).ready(function(){
         }
     });
 
+    $('#check-confirm').hide();
     $('#table-barang').DataTable({
         paging: false,
         info: false,
@@ -169,7 +170,7 @@ $(document).ready(function(){
             alert("silahkan tambah barang terlebih dahulu !");
             return;
         }
-        
+
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -189,6 +190,9 @@ $(document).ready(function(){
                 //pindah ke halaman stock dan data masuk ke tabel
                 if(data == "Success") {
                     window.location.href = 'stock';
+                }else{
+                    $('.alert-confirm').html(data);
+                    $('#check-confirm').show();
                 }
                 // $('#tambah-barang').hide();
                 // $('#save-detail').hide();

@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 
     <header id="content-header" class="row mx-0" style="padding: 6px 0;">
+        <div class="alert alert-success" role="alert" id="check-confirm">
+            <div class="d-flex justify-content-between">
+                <span class="alert-confirm"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </div>
+        </div>
         @if ($data['id'])
         <div class="col-12 col-lg-4 d-flex align-items-center">
             <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/stock"><button class="btn" style="background-color: rgb(24, 144, 255);color: var(--bs-white); text-decoration: none;">Back</button></a>
