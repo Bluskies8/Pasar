@@ -6,6 +6,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
+
         <div class="dropdown h-100"><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="visibility: hidden;">All Item</button>
             <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
         </div>
@@ -14,7 +15,17 @@
             <button class="btn btn-sm me-2" id="tambah-transaksi" type="button" style="">Transaksi Baru</button>
         </a>
         @endif
+
     </header>
+    @if(session('error'))
+        <div class="alert alert-success" role="alert" id="check-confirm">
+            <div class="d-flex justify-content-between">
+                <span class="alert-confirm"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </div>
+        </div>
+    @endif
+
     <hr class="my-0">
     <div class="table-responsive p-3" style="max-height: 81.8vh;overflow-y: auto;">
         <table class="table table-hover" id="table-transaksi">

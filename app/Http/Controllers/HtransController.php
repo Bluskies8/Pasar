@@ -182,10 +182,29 @@ class HtransController extends Controller
             $kode = ['k','b','td','dt','sd','p','t'];
             foreach ($request->items as $key) {
                 $checkbuah = buah::where('name',$key['nama'])->first();
-                if(in_array($key['kode'], $kode) && in_array($key['parkir'], $parkir) && $checkstandid && $checkbuah){
+                if(in_array($key['kode'], $kode)){
                     $c = true;
                 }else{
                     $c = false;
+                    return "kode tidak sesuai";
+                }
+                if(in_array($key['parkir'], $parkir)){
+                    $c = true;
+                }else{
+                    $c = false;
+                    return "parkir tidak sesuai";
+                }
+                if($checkstandid){
+                    $c = true;
+                }else{
+                    $c = false;
+                    return "stand tidak sesuai";
+                }
+                if($checkbuah){
+                    $c = true;
+                }else{
+                    $c = false;
+                    return "buah tidak sesuai";
                 }
             }
             if($c == true){
