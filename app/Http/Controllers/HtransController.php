@@ -166,6 +166,9 @@ class HtransController extends Controller
             if(!$user->tambahan_start && !$user->tambahan_end)$check = true;
             if($time < $user->tambahan_end && $time > $user->tambahan_start)$check=true;
         }
+        else{
+            return "bukan shif anda";
+        }
         if($check){
             $c = false;
             $carbon = Carbon::now();
@@ -217,6 +220,9 @@ class HtransController extends Controller
                     'Total_jumlah' => 0,
                     'Total_harga' => 0
                 ]);
+                if(!$temp){
+                    return "header transaksi gagal di buat";
+                }
                 foreach ($request->items as $key) {
                     switch ($key['kode']) {
                         case 'k':
