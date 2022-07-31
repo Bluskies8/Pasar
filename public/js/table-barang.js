@@ -169,15 +169,7 @@ $(document).ready(function(){
             alert("silahkan tambah barang terlebih dahulu !");
             return;
         }
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                // 'contentType' : "application/json",
-            }
-        });
-        e.preventDefault();
-
+        
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
