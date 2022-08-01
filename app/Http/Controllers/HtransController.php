@@ -163,12 +163,16 @@ class HtransController extends Controller
         $cekshif = shif::where('number',$user->shif)->first();
         $check = false;
         if($time < $cekshif->end && $time > $cekshif->start) {
-            if(!$user->tambahan_start && !$user->tambahan_end)$check = true;
-            if($time < $user->tambahan_end && $time > $user->tambahan_start)$check=true;
-            if($check == false){
-                return "bukan shif anda";
+            if(!$user->tambahan_start && !$user->tambahan_end){
+                $check = true;
+            }
+            if($time < $user->tambahan_end && $time > $user->tambahan_start){
+                $check = true;
+            }else{
+                return "bukan shif tambahan anda";
             }
         }
+        return $time;
         if($check){
             $c = false;
             $carbon = Carbon::now();
