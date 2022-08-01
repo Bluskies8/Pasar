@@ -163,7 +163,7 @@ class HtransController extends Controller
         $user = Auth::guard('checkLogin')->user();
         $cekshif = shif::where('number',$user->shif)->first();
         $check = false;
-        // return $time;
+        return $time;
         if($time < $cekshif->end && $time > $cekshif->start) {
             if(!$user->tambahan_start && !$user->tambahan_end){
                 $check = true;
