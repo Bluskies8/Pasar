@@ -162,17 +162,13 @@ class HtransController extends Controller
         $user = Auth::guard('checkLogin')->user();
         $cekshif = shif::where('number',$user->shif)->first();
         $check = false;
-        return $time;
         if($time < $cekshif->end && $time > $cekshif->start) {
-            if(!$user->tambahan_start && !$user->tambahan_end){
-                $check = true;
-            }else if($time < $user->tambahan_end && $time > $user->tambahan_start){
-                $check = true;
-            }else{
-                return "bukan shif tambahan anda";
-            }
-        }else{
-            return "bukan shif anda";
+            $check = true;
+        }
+        if(!$user->tambahan_start && !$user->tambahan_end){
+            $check = true;
+        }else if($time < $user->tambahan_end && $time > $user->tambahan_start){
+            $check = true;
         }
         if($check){
             $c = false;
@@ -282,6 +278,8 @@ class HtransController extends Controller
             }else{
                 return "ada data yang kosong atau salah";
             }
+        }else{
+            return "bukan shif anda";
         }
     }
 
