@@ -14,13 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // dd($this->app['request']->server);
-        // if (env('APP_ENV') == "local") {
-        //     // $this->app->register('Barryvdh\Debugbar\ServiceProvider');
-        //     $this->app['request']->server->set('HTTP', true);
-        // } else {
-        //     $this->app['request']->server->set('HTTPS', true);
-        // }
+
     }
 
     /**
@@ -31,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         config(['app.locale' => 'id']);
-        Carbon::setLocale('id');
-        date_default_timezone_set('Asia/Jakarta');
+        // Carbon::setLocale('id');
+        // date_default_timezone_set('Asia/Jakarta');
     }
 }
