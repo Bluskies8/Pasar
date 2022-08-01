@@ -165,9 +165,9 @@ class HtransController extends Controller
         if($time < $cekshif->end && $time > $cekshif->start) {
             if(!$user->tambahan_start && !$user->tambahan_end)$check = true;
             if($time < $user->tambahan_end && $time > $user->tambahan_start)$check=true;
-        }
-        else{
-            return "bukan shif anda";
+            if($check == false){
+                return "bukan shif anda";
+            }
         }
         if($check){
             $c = false;

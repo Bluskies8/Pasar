@@ -170,6 +170,7 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::prefix('invoice')->group(function () {
             Route::get('/',[invoicecontroller::class,'invoice']);
             Route::get('/generate', [InvoiceController::class,'generate']);
+            Route::post('/update', [InvoiceController::class,'update']);
             Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
             Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
         });
