@@ -172,7 +172,7 @@ class HtransController extends Controller
                 return "bukan shif tambahan anda";
             }
         }
-        return $time;
+        // return $time;
         if($check){
             $c = false;
             $carbon = Carbon::now();
