@@ -24,6 +24,7 @@ class HtransController extends Controller
     function updateDate()
     {
         $now = Carbon::now();
+        dd($now);
         // $now = Carbon::createFromFormat('Y-m-d H:i:s','2022-07-23 23:00:00',7);
         $date = $now->format('Y-m-d');
         $cekshif = shif::all();
@@ -48,7 +49,7 @@ class HtransController extends Controller
                 $end = date("H:i:s",strtotime($key->end));
                 $key->start = $date.' '.$start;
                 if($key->number == 3){
-                    $date = Carbon::now()->addDays(1)->format('Y-m-d');
+                    $date = Carbon::now('Asia/Jakarta')->addDays(1)->format('Y-m-d');
                     $key->end = $date.' '.$end;
                 }else{
                     $key->end = $date.' '.$end;
@@ -158,24 +159,25 @@ class HtransController extends Controller
      */
     public function store(Request $request)
     {
-        $time = Carbon::now();
+        $time = Carbon::now('Asia/Jakarta');
         $user = Auth::guard('checkLogin')->user();
         $cekshif = shif::where('number',$user->shif)->first();
         $check = false;
+        return $time;
         if($time < $cekshif->end && $time > $cekshif->start) {
             if(!$user->tambahan_start && !$user->tambahan_end){
                 $check = true;
-            }
-            if($time < $user->tambahan_end && $time > $user->tambahan_start){
+            }else if($time < $user->tambahan_end && $time > $user->tambahan_start){
                 $check = true;
             }else{
                 return "bukan shif tambahan anda";
             }
+        }else{
+            return "bukan shif anda";
         }
-        // return $time;
         if($check){
             $c = false;
-            $carbon = Carbon::now();
+            $carbon = Carbon::now('Asia/Jakarta');
             $date = $carbon->format('dmY');
             $bruto = 0;
             $netto = 0;
