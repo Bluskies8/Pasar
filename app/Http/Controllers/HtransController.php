@@ -159,7 +159,7 @@ class HtransController extends Controller
      */
     public function store(Request $request)
     {
-        $time = Carbon::now('Asia/Jakarta');
+        $time = Carbon::now();
         $user = Auth::guard('checkLogin')->user();
         $cekshif = shif::where('number',$user->shif)->first();
         $check = false;
