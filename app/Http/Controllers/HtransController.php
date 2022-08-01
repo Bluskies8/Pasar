@@ -181,7 +181,7 @@ class HtransController extends Controller
             // return $count;
             $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count,3,"0",STR_PAD_LEFT);
             $checkstandid = stand::where('id',$request->stand_id)->first();
-            $parkir = [0,3000,5000,1000,20000,50000];
+            $parkir = [0,3000,5000,10000,20000,50000];
             $kode = ['k','b','td','dt','sd','p','t'];
             foreach ($request->items as $key) {
                 $checkbuah = buah::where('name',$key['nama'])->first();
