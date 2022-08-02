@@ -73,60 +73,77 @@
                     <div class="d-flex align-items-center mb-3">
                         <p class="text-end" style="white-space: nowrap; width: 100px;">Nama Lapak :&nbsp;</p>
                         <span id="nama-lapak"></span>
-                    </div>
-                    <div class="d-flex align-items-center mb-3">
-                        <p class="text-end py-1" style="white-space: nowrap; width: 100px;">Biaya Listrik :&nbsp;</p>
-                        <select id="select-listrik" name="listrik" class="form-select form-select-sm" style="width: 173px;">
-                            <option value="0">0</option>
-                            <option value="25000">25.000</option>
-                            <option value="40000">40.000</option>
-                            <option value="50000">50.000</option>
-                            <option value="75000">75.000</option>
-                        </select>
+
+                        <input id="pelapak" list="list-pelapak" class="form-select-sm">
+                        <datalist id="list-pelapak">
+                            <option class="list-option-pelapak" id="temp-0" value="testing">
+                            @foreach ($stand as $item)
+                                @if ($item['seller_name'] != "")
+                                    <!-- <option id="{{$item['id']}}" value="{{$item['seller_name'] . ' - ' . $item['no_stand']}}"> -->
+                                @endif
+                            @endforeach
+                        </datalist>
                     </div>
                     <hr>
-                    <div class="mt-2 p-2" style="background: var(--bs-light);border: 1px solid var(--bs-gray) ;">
-                        <p class="text-center">Netto: Rp&nbsp;<span class="thousand-separator">3000</span>,-</p>
-                    </div>
-                    <!-- hide soalnya belum ada data -->
-                    <div class="table-responsive">
-                        <table class="table mb-0 modal-invoice">
-                            <thead>
-                                <tr>
-                                    <th>Kode</th>
-                                    <th>Nama Barang</th>
-                                    <th>Jumlah</th>
-                                    <th>Bruto</th>
-                                    <th>Round</th>
-                                    <th>Parkir</th>
-                                    <th>Sub Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td class="text-end" colspan="6">Total</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="biaya thousand-separator">{{$total}}</span></div></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-end" colspan="6">Parkir</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir" class="biaya thousand-separator">{{$parkir}}</span></div></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-end" colspan="6">Kuli</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="biaya thousand-separator">{{$kuli}}</span></div></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-end" colspan="6">Listrik</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="biaya thousand-separator"></span></div></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-end" colspan="6">Dibayarkan</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">{{$total+$parkir+$kuli}}</span></div></td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                    <div class="modal-content">
+                        <div class="modal-table d-none">
+                            <div class="d-flex align-items-center mb-3">
+                                <p class="text-end py-1" style="white-space: nowrap; width: 100px;">Biaya Listrik :&nbsp;</p>
+                                <select id="select-listrik" name="listrik" class="form-select form-select-sm" style="width: 173px;">
+                                    <option value="0">0</option>
+                                    <option value="25000">25.000</option>
+                                    <option value="40000">40.000</option>
+                                    <option value="50000">50.000</option>
+                                    <option value="75000">75.000</option>
+                                </select>
+                            </div>
+                            <div class="mt-2 p-2" style="background: var(--bs-light);border: 1px solid var(--bs-gray) ;">
+                                <p class="text-center">Netto: Rp&nbsp;<span class="thousand-separator">3000</span>,-</p>
+                            </div>
+                            <!-- hide soalnya belum ada data -->
+                            <div class="table-responsive">
+                                <table class="table mb-0 modal-invoice">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode</th>
+                                            <th>Nama Barang</th>
+                                            <th>Jumlah</th>
+                                            <th>Bruto</th>
+                                            <th>Round</th>
+                                            <th>Parkir</th>
+                                            <th>Sub Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="text-end" colspan="6">Total</td>
+                                            <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="biaya thousand-separator">{{$total}}</span></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-end" colspan="6">Parkir</td>
+                                            <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir" class="biaya thousand-separator">{{$parkir}}</span></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-end" colspan="6">Kuli</td>
+                                            <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="biaya thousand-separator">{{$kuli}}</span></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-end" colspan="6">Listrik</td>
+                                            <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="biaya thousand-separator"></span></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-end" colspan="6">Dibayarkan</td>
+                                            <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">{{$total+$parkir+$kuli}}</span></div></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-loading p-5 d-flex justify-content-center">
+                            <i class="fas fa-circle-notch fa-spin fa-4x" style="color: rgb(33,37,41, 0.8);"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

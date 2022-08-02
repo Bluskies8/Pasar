@@ -156,6 +156,8 @@ $(document).ready(function() {
     }
 
     $('#generate-invoice').on('click', function() {
+        $('#modal-invoice').modal('show');
+        /*
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -172,6 +174,29 @@ $(document).ready(function() {
                 console.log(thrownError);
             }
         });
+        */
+    });
+
+    $('.list-option-pelapak').on('input', function() {
+        var nama = $(this).val();
+
+        $("#list-pelapak").find("option").each(function() {
+            if ($(this).val() == nama) {
+
+                // ajax disini
+
+
+                /*
+                    ketika sudah nemu datanya
+                    masukan code
+                        $('.modal-table').removeClass('d-none');
+                        $('.modal-loading').addClass('d-none');
+
+                    dan code dari item update
+                */
+
+            }
+        })
     });
 
     $('.btn-save').on('click', function() {
