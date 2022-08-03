@@ -210,4 +210,64 @@ $(document).ready(function(){
         // untuk mengembalikan template
         $('tbody').prepend(save);
     });
+
+    $('#update-detail').on('click', function() {
+        formCount = 0;
+        formID = 0;
+        let save = $('#form-template').detach();
+        $('#modal-row').empty().append(save);
+        $('#modal-barang').modal('show');
+
+        for (let i = 0; i < $('#table-barang tbody tr').length; i++) {
+            const element = $('#table-barang tbody tr').eq(i);
+            cloneForm(element);
+        }
+    });
+
+    function cloneForm(element) {
+        formCount++;
+        formID++;
+        $('#save-barang').prop('disabled', false);
+        let temp = $('#form-template').clone().prop('id', 'form-' + formID).appendTo("#modal-row");
+
+        // set select id
+        $('#form-' + formID + ' .select-kode').val(element.children('td:nth-child(1)').html());
+
+        // set nama buah
+        //$('#form-' + formID + ' .nama-buah').val(element.children('td:nth-child(2)').html());
+
+        // set jumlah buah
+        $('#form-' + formID + ' .jumlah-buah').val(element.children('td:nth-child(3)').html());
+
+        // set select parkir
+        let removedDot = element.children('td:nth-child(6)').children().children('.thousand-separator').text().replace('.', '');
+        $('#form-' + formID + ' .select-parkir').val(removedDot);
+
+        let btnRemoveForm = $('#form-' + formID).children().children().children('.btn-remove-form');
+        $(btnRemoveForm).on('click', function() {
+            formCount--;
+            if (formCount == 0) {
+                $('#save-barang').prop('disabled', true);
+            }
+            $(this).parent().parent().parent().detach();
+        });
+
+        let errorMessage = $('#form-' + formID + " .error-msg").prop('id', 'error-message-' + formID);
+        let errorMessagebuah = $('#form-' + formID + " .error-msg-jumlah").prop('id', 'error-jumlah-' + formID);
+
+        temp.show();
+    }
+
+    tidyBruto();
+
+    function tidyBruto() {
+        $('#table-barang tbody td:nth-child(4)').each(function(index, element) {
+            let temp = $(element).html();
+            if (temp != '') {
+                if (temp.substr(temp.indexOf('.')).length > 4) {
+                    $(element).html(temp.substr(0, temp.indexOf('.') + 4));
+                }
+            }
+        });
+    }
 });
