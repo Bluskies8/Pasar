@@ -30,6 +30,7 @@ class RetribusiController extends Controller
             }
         }
         $all = retribusi::get();
+        dd($all);
         return view('pages.retribusi',[
             'date' => $request->date,
             'data' => $retribusi,
