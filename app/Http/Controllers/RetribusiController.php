@@ -71,7 +71,6 @@ class RetribusiController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
         $retri = retribusi::create([
             'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
             'retribusi' => $request->retribusi,
