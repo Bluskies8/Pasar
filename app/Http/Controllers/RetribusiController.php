@@ -71,6 +71,7 @@ class RetribusiController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
         $retri = retribusi::create([
             'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
             'retribusi' => $request->retribusi,
@@ -84,13 +85,15 @@ class RetribusiController extends Controller
             'motor_siang' => $request->motor_siang,
             'motor_malam' => $request->motor_malam,
         ]);
-        foreach ($request->tambahan as $key) {
-            $t = retribusitambahan::create([
-                'retribusi_id' => $retri->id,
-                'type' => $key['tipe'],
-                'name' => $key['nama'],
-                'value' => $key['nominal']
-            ]);
+        if($request->tambahan){
+            foreach ($request->tambahan as $key) {
+                $t = retribusitambahan::create([
+                    'retribusi_id' => $retri->id,
+                    'type' => $key['tipe'],
+                    'name' => $key['nama'],
+                    'value' => $key['nominal']
+                ]);
+            }
         }
         log::create([
             'user_id' =>Auth::guard('checkLogin')->user()->id,
