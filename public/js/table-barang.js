@@ -21,7 +21,9 @@ $(document).ready(function(){
 
     var formCount;
     var formID;
+    var action;
     $('#tambah-barang').on('click', function() {
+        action = "insert";
         formCount = 0;
         formID = 0;
         let save = $('#form-template').detach();
@@ -85,59 +87,130 @@ $(document).ready(function(){
         var check = [];
         var check2 = [];
         var data = [];
-
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            },
-            type: "get",
-            url: "/"+role[1]+"/buah/cari",
-            beforeSend: function(){
-                // console.log(this.data);
-            },
-            success: function(res) {
-                console.log(res);
-                res.forEach(element => {
-                    data.push(element.name);
-                });
-                for (let i = 1; i < formCount + 1; i++) {
-                    console.log(jumlah[i].value);
-                    if(!jumlah[i].value){
-                        $('#error-jumlah-'+i).text('jumlah harus di isi')
-                        check2[i] = "false";
-                    }else{
-                        $('#error-jumlah-'+i).text('');
-                    }
-                    if($.inArray( nama[i].value, data ) == -1){
-                        $('#error-message-'+i).text("buah tidak terdaftar");
-
-                        check[i] = "false";
-                    }else{
-                        $('#error-message-'+i).text("");
-                        check[i] = "true";
-                    }
-                }
-                if($.inArray( "false", check ) == -1 && $.inArray( "false", check2 ) == -1){
+        console.log(action);
+        if(action == "insert"){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                type: "get",
+                url: "/"+role[1]+"/buah/cari",
+                beforeSend: function(){
+                    // console.log(this.data);
+                },
+                success: function(res) {
+                    console.log(res);
+                    res.forEach(element => {
+                        data.push(element.name);
+                    });
                     for (let i = 1; i < formCount + 1; i++) {
-                        if(nama[i].value && jumlah[i].value){
-                            let temp = $('#tr-template').clone().appendTo("#table-barang tbody");
-                            temp.attr('id','tr-' + (i + 1));
-                            temp.find('.data-kode').html(kode[i].value);
-                            temp.find('.data-nama').html(nama[i].value);
-                            temp.find('.data-jumlah').html(jumlah[i].value);
-                            temp.find('.data-parkir').text(parkir[i].value);
-                            temp.show();
+                        console.log(jumlah[i].value);
+                        if(!jumlah[i].value){
+                            $('#error-jumlah-'+i).text('jumlah harus di isi')
+                            check2[i] = "false";
+                        }else{
+                            $('#error-jumlah-'+i).text('');
+                        }
+                        if($.inArray( nama[i].value, data ) == -1){
+                            $('#error-message-'+i).text("buah tidak terdaftar");
+
+                            check[i] = "false";
+                        }else{
+                            $('#error-message-'+i).text("");
+                            check[i] = "true";
                         }
                     }
-                    $('#modal-barang').modal('hide');
-                    separatorInterval = setInterval(setThousandSeparator, 10);
+                    if($.inArray( "false", check ) == -1 && $.inArray( "false", check2 ) == -1){
+                        for (let i = 1; i < formCount + 1; i++) {
+                            if(nama[i].value && jumlah[i].value){
+                                let temp = $('#tr-template').clone().appendTo("#table-barang tbody");
+                                temp.attr('id','tr-' + (i + 1));
+                                temp.find('.data-kode').html(kode[i].value);
+                                temp.find('.data-nama').html(nama[i].value);
+                                temp.find('.data-jumlah').html(jumlah[i].value);
+                                temp.find('.data-parkir').text(parkir[i].value);
+                                temp.show();
+                            }
+                        }
+                        $('#modal-barang').modal('hide');
+                        separatorInterval = setInterval(setThousandSeparator, 10);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
                 }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-            }
-        });
+            });
+        }else if(action == 'update'){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                type: "get",
+                url: "/"+role[1]+"/buah/cari",
+                beforeSend: function(){
+                    // console.log(this.data);
+                },
+                success: function(res) {
+                    res.forEach(element => {
+                        data.push(element.name);
+                    });
+                    for (let i = 1; i < formCount + 1; i++) {
+                        if(!jumlah[i].value){
+                            $('#error-jumlah-'+i).text('jumlah harus di isi')
+                            check2[i] = "false";
+                        }else{
+                            $('#error-jumlah-'+i).text('');
+                        }
+                        if($.inArray( nama[i].value, data ) == -1){
+                            $('#error-message-'+i).text("buah tidak terdaftar");
+
+                            check[i] = "false";
+                        }else{
+                            $('#error-message-'+i).text("");
+                            check[i] = "true";
+                        }
+                    }
+                    if($.inArray( "false", check ) == -1 && $.inArray( "false", check2 ) == -1){
+                        var temp = [];
+                        for (let i = 1; i < formCount + 1; i++) {
+                            temp.push({
+                                id : $('#form-' + i + ' #id-dtrans').val(),
+                                kode: $('#form-' + i + ' .select-kode').val(),
+                                jumlah: $('#form-' + i + ' .jumlah-buah').val(),
+                            });
+                        }
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            type: "get",
+                            url: "/"+role[1]+"/details/update/"+ $('#id-transaksi').text(),
+                            data:{
+                                data: temp
+                            },
+                            beforeSend: function(){
+                                // console.log(this.data);
+                            },
+                            success: function(res) {
+                                console.log(res)
+                                window.location.reload();
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                console.log(xhr.status);
+                                console.log(thrownError);
+                            }
+                        });
+                        // $('#modal-barang').modal('hide');
+                        separatorInterval = setInterval(setThousandSeparator, 10);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
 
     });
 
@@ -212,29 +285,32 @@ $(document).ready(function(){
     });
 
     $('#update-detail').on('click', function() {
+        action = "update";
         formCount = 0;
         formID = 0;
         let save = $('#form-template').detach();
         $('#modal-row').empty().append(save);
+        $('.modal-title').text('Rubah Barang');
         $('#modal-barang').modal('show');
-
         for (let i = 0; i < $('#table-barang tbody tr').length; i++) {
             const element = $('#table-barang tbody tr').eq(i);
-            cloneForm(element);
+            cloneForm2(element);
         }
     });
 
-    function cloneForm(element) {
+    function cloneForm2(element) {
         formCount++;
         formID++;
         $('#save-barang').prop('disabled', false);
         let temp = $('#form-template').clone().prop('id', 'form-' + formID).appendTo("#modal-row");
 
+        $('#form-' + formID + ' #id-dtrans').val(element.children('td:nth-child(8)').html());
         // set select id
         $('#form-' + formID + ' .select-kode').val(element.children('td:nth-child(1)').html());
 
         // set nama buah
-        //$('#form-' + formID + ' .nama-buah').val(element.children('td:nth-child(2)').html());
+        $('#form-' + formID + ' .nama-buah').val(element.children('td:nth-child(2)').html());
+        $('#form-' + formID + ' .nama-buah').attr('disabled','disabled');
 
         // set jumlah buah
         $('#form-' + formID + ' .jumlah-buah').val(element.children('td:nth-child(3)').html());
@@ -242,6 +318,7 @@ $(document).ready(function(){
         // set select parkir
         let removedDot = element.children('td:nth-child(6)').children().children('.thousand-separator').text().replace('.', '');
         $('#form-' + formID + ' .select-parkir').val(removedDot);
+        $('#form-' + formID + ' .select-parkir').attr('disabled','disabled');
 
         let btnRemoveForm = $('#form-' + formID).children().children().children('.btn-remove-form');
         $(btnRemoveForm).on('click', function() {

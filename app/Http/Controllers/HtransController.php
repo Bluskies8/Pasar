@@ -133,10 +133,12 @@ class HtransController extends Controller
         $data = htrans::with(['details','stand'])->where('id',$htrans)->first();
         $stand['id'] = $data->stand->id;
         $stand['seller_name'] = $data->stand->seller_name;
+        $buah = buah::get();
         // dd($stand);
         return view('pages/stockDetail',[
             'stand' => $stand,
             'data'=>$data,
+            'buah' => $buah,
             'role' => Auth::guard('checkLogin')->user()->role_id
         ]);
     }
@@ -248,7 +250,7 @@ class HtransController extends Controller
                             $bruto = $key['jumlah']/50;
                             break;
                     }
-                    $round = ceil($bruto);
+                    $round = round($bruto);
                     $netto = netto::first();
                     $subtotal = $netto->value*$round;
                     $total_harga += $subtotal+$key['parkir'];
@@ -312,9 +314,55 @@ class HtransController extends Controller
      * @param  \App\Models\htrans  $htrans
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, htrans $htrans)
+    public function update(Request $request,htrans $htrans)
     {
-        //
+        // return $request->data;
+        $bruto = 0;
+        $netto = 0;
+        $total_jumlah = 0;
+        $total_harga = 0;
+        foreach ($request->data as $key) {
+            $dtrans = dtrans::where('id',$key['id'])->first();
+            switch ($key['kode']) {
+                case 'k':
+                    $bruto = $key['jumlah']/5;
+                    break;
+                case 'b':
+                    $bruto = $key['jumlah']/3;
+                    break;
+                case 'td':
+                    $bruto = $key['jumlah']/1.5;
+                    break;
+                case 'dt':
+                    $bruto = $key['jumlah']*1.5;
+                    break;
+                case 'sd':
+                    $bruto = $key['jumlah']/2;
+                    break;
+                case 'p':
+                    $bruto = $key['jumlah']*1;
+                    break;
+                case 't':
+                    $bruto = $key['jumlah']/50;
+                    break;
+            }
+            $round = round($bruto);
+            $netto = netto::first();
+            $subtotal = $netto->value*$round;
+            $total_harga += $subtotal+$dtrans->parkir;
+            $total_jumlah += $round;
+
+            $dtrans->kode = $key['kode'];
+            $dtrans->jumlah = $key['jumlah'];
+            $dtrans->bruto = $bruto;
+            $dtrans->round = $round;
+            $dtrans->subtotal = $subtotal;
+            $dtrans->save();
+        }
+        $htrans->total_jumlah = $total_jumlah;
+        $htrans->total_harga = $total_harga;
+        $htrans->save();
+        return "success";
     }
 
     /**

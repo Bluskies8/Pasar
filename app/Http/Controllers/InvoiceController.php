@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\dtrans;
 use App\Models\htrans;
 use App\Models\invoice;
+use App\Models\listrik;
 use App\Models\log;
 use App\Models\netto;
 use App\Models\pasar;
@@ -65,7 +66,7 @@ class InvoiceController extends Controller
                 $parkir+=$dtrans;
             }
         }
-        // dd($total);
+        $listrik = listrik::orderBy('value')->get();
         return view('pages/invoice',[
             'date'=> $carbon,
             'invoice'=> $data,
@@ -74,44 +75,34 @@ class InvoiceController extends Controller
             'total' =>$total,
             'parkir' =>$parkir,
             'kuli' => $kuli,
+            'listrik' => $listrik,
             'data' => [
                 'value' => 1
             ]
         ]);
     }
-    public function generate()
+    public function generate($idlapak, Request $request)
     {
-
         $carbon = Carbon::now();
-        $temp = stand::select('seller_name')->groupBy('seller_name')->get();
-        foreach ($temp as $key => $value) {
-            $no_stand = stand::where('seller_name',$value->seller_name)->first();
-            $stand[$key]['seller_name'] = $no_stand->seller_name;
-            $stand[$key]['no_stand'] = $no_stand->no_stand;
-            $stand[$key]['id'] = $no_stand->id;
-        }
         $dateid = $carbon->format('dmY');
         $date = $carbon->toDateString();
-        $time = $carbon->toTimeString();
         $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDays(1);
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
-        $checkinvoice = invoice::where('id','like', '%'.$dateid.'%')->count();
-        // return $checkinvoice;
+        $checkinvoice = invoice::where('id','like', '%'.$dateid.'%')->where('stand_id',$idlapak)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->count();
         if($checkinvoice > 0){
             return redirect()->back()->with(['pesan'=>'invoice sudah terbuat']);
         }
-        foreach ($stand as $key) {
-            if($key['seller_name']!=""){
+        // foreach ($stand as $key) {
+            // if($key['seller_name']!=""){
                 $total = 0;
-                $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
+                $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$idlapak)->get();
                 foreach ($temp as $detail) {
                     foreach ($detail->details as $key2 ) {
-                        // $subtotal = dtrans::where('htrans_id',$key2->id)->sum('subtotal');
                         $total += $key2->subtotal;
                     }
                 }
-                $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->sum('total_jumlah');
-                $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$key['id'])->get();
+                $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$idlapak)->sum('total_jumlah');
+                $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$idlapak)->get();
                 $parkir = 0;
                 foreach ($htrans as $key2 ) {
                     $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
@@ -126,46 +117,64 @@ class InvoiceController extends Controller
                 //     'jumlah' =>$jumlah,
                 //     'total' => $total+($jumlah*1000)+$parkir
                 // ];
-                invoice::create([
+                $invo = invoice::create([
                     'id' => $id,
                     'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
-                    'stand_id' => $key['id'],
+                    'stand_id' => $idlapak,
                     'netto' => netto::first()->value,
-                    'listrik' => 0,
+                    'listrik' => $request->listrik,
                     'kuli' => $jumlah*1000,
                     'parkir' => $parkir,
                     'total' => $total,
-                    'dibayarkan' => $total+($jumlah*1000)+$parkir,
+                    'dibayarkan' => $total+($jumlah*1000)+$parkir+$request->listrik,
                 ]);
-            }
-        }
+            // }
+        // }
         log::create([
             'user_id' =>Auth::guard('checkLogin')->user()->id,
             'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
-            'keterangan' => "Generate invoice"
+            'keterangan' => "Generate invoice ".$invo
         ]);
         return "success";
     }
     public function transactionDetails(Request $request)
     {
-        $date = substr($request->id,5,8);
-        $day = substr($date,0,2);
-        $month = substr($date,2,2);
-        $year = substr($date,4,4);
-        $date = $year .'-' . $month .'-' . $day;
+        // $date = substr($request->id,5,8);
+        // return $request->all();
+        if($request->invoice){
+            $listrik = invoice::where('id',$request->invoice)->first()->listrik;
+        }else{
+            $listrik = 0;
+        }
+        $carbon = Carbon::now();
+        $date = $carbon->toDateString();
         $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDay(1);
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
-        $temp = invoice::where('id',$request->id)->first();
-        $lapak = $temp->stand_id;
+        // return $date;
+        $lapak = $request->stand_id;
         $htrans = htrans::with('details')->where('stand_id',$lapak)->whereBetween('created_at',[$start,$end])->get();
         // $htrans = htrans::with('details')->where('stand_id',$lapak)->get();
         $pasar = pasar::where('id',Auth::guard('checkLogin')->user()->pasar_id)->first();
         $stand = stand::where('id', $lapak)->first();
+        $total = 0;
+        $parkir = 0;
+        $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$request->stand_id)->get();
+        foreach ($temp as $detail) {
+            foreach ($detail->details as $key2 ) {
+                $total += $key2->subtotal;
+                $parkir+=$key2->parkir;
+            }
+        }
+        $kuli = htrans::where('stand_id',$request->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
         return response()->json([
             'trans' => $htrans,
-            'invoice' => $temp,
             'pasar' => $pasar,
-            'stand' => $stand
+            'stand' => $stand,
+            'total' =>$total,
+            'parkir' => $parkir,
+            'kuli' => $kuli,
+            'dibayarkan' => $total+$parkir+$kuli,
+            'listrik' => $listrik,
         ]);
     }
     public function invoicedetails($id)
@@ -253,16 +262,21 @@ class InvoiceController extends Controller
      */
     public function update(Request $request)
     {
-        $invoice = invoice::where('id',$request->id)->first();
-        $invoice->listrik = $request->listrik;
-        $invoice->dibayarkan = $invoice->total+$request->listrik+$invoice->kuli+$invoice->parkir;
-        $invoice->save();
-        log::create([
-            'user_id' =>Auth::guard('checkLogin')->user()->id,
-            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
-            'keterangan' => "Update invoice dengan kode invoice ".$invoice->id
-        ]);
-        return "success update";
+        $check = listrik::where('value',$request->listrik)->first();
+        if($check){
+            $invoice = invoice::where('id',$request->id)->first();
+            $invoice->listrik = $request->listrik;
+            $invoice->dibayarkan = $invoice->total+$request->listrik+$invoice->kuli+$invoice->parkir;
+            $invoice->save();
+            log::create([
+                'user_id' =>Auth::guard('checkLogin')->user()->id,
+                'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+                'keterangan' => "Update invoice dengan kode invoice ".$invoice->id
+            ]);
+            return "success update";
+        }else{
+            return "err listrik";
+        }
     }
 
     /**

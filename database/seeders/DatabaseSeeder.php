@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             PasarSeeder::class,
-            // ShifSeeder::class,
+            ListrikSeeder::class,
             RoleSeeder::class,
             StandSeeder::class,
             NettoSeeder::class,

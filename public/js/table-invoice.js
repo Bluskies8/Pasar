@@ -36,14 +36,15 @@ $(document).ready(function() {
 
     var flag = false;
     var currentID = '';
+    var action;
     var role = window.location.pathname.split('/');
-    var selecetedRow = -1;
+    var selectedRow = -1;
     $('.show-aksi').on('click', function() {
         $('#list-aksi').show();
         $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
         $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
         currentID = $(this).parent().parent().children('.cell-id').text();
-        selecetedRow = $(this).parent().parent().attr('id');
+        selectedRow = $(this).parent().parent().attr('id');
         flag = true;
     });
 
@@ -53,6 +54,8 @@ $(document).ready(function() {
     });
 
     $('#item-update').on('click', function() {
+        $('#modal-invoice tbody').empty();
+        action = "update";
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -61,19 +64,21 @@ $(document).ready(function() {
             type: "POST",
             url: "/"+role[1]+"/invoice/transdetail",
             data: {
-                id: currentID,
+                stand_id: selectedRow,
+                invoice: currentID
             },
             beforeSend: function(){
                 // console.log(currentID);
             },
             success: function(data) {
-                console.log(data);
-                $('.modal-invoice tbody').empty();
+                // console.log(data);
+                $('#modal-invoice tbody').empty();
 
                 jQuery.each(data.trans, function( i, trans ) {
                     jQuery.each(trans.details, function( j, detail ) {
-                        $('.modal-invoice tbody').append(
+                        $('#modal-invoice tbody').append(
                             "<tr>" +
+                                "<td>" + detail.htrans_id + "</td>" +
                                 "<td>" + detail.kode + "</td>" +
                                 "<td>" + detail.nama_barang + "</td>" +
                                 "<td>" + detail.jumlah + "</td>" +
@@ -86,13 +91,14 @@ $(document).ready(function() {
                     });
                 });
 
-                $('#nama-lapak').text(data.stand.seller_name);
-                $('#biaya-kuli').text(data.invoice.kuli);
-                $('#biaya-total').text(data.invoice.total);
-                $('#biaya-parkir').text(data.invoice.parkir);
-                $('#biaya-dibayarkan').text(data.invoice.dibayarkan);
-
-                let biayaListrik = data.invoice.listrik;
+                $('#pelapak').val(data.stand.seller_name + " - " + data.stand.no_stand);
+                $('#biaya-kuli').text(data.kuli);
+                $('#biaya-total').text(data.total);
+                $('#biaya-parkir').text(data.parkir);
+                $('#biaya-dibayarkan').text(data.dibayarkan);
+                $('#biaya-listrik').text(data.listrik);
+                console.log(data.listrik);
+                let biayaListrik = data.listrik;
                 if (biayaListrik != 0) {
                     $("#select-listrik").val(biayaListrik).change();
                 } else {
@@ -154,8 +160,65 @@ $(document).ready(function() {
             }
         });
     }
+    var idlapak;
+    $('#pelapak').on('change',function(e) {
+        var namalapak = this.value;
 
+        $('#list-pelapak option').each(function(index, element) {
+            if(namalapak == element.value){
+                idlapak = element.id;
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        // 'contentType' : "application/json",
+                    },
+                    type: "POST",
+                    url: "/"+role[1]+"/invoice/transdetail",
+                    data: {
+                        stand_id: element.id,
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        $('#modal-invoice tbody').empty();
+
+                        jQuery.each(data.trans, function( i, trans ) {
+                            jQuery.each(trans.details, function( j, detail ) {
+                                $('#modal-invoice tbody').append(
+                                    "<tr>" +
+                                        "<td>" + detail.htrans_id + "</td>" +
+                                        "<td>" + detail.kode + "</td>" +
+                                        "<td>" + detail.nama_barang + "</td>" +
+                                        "<td>" + detail.jumlah + "</td>" +
+                                        "<td>" + detail.bruto + "</td>" +
+                                        "<td>" + detail.round + "</td>" +
+                                        "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + detail.parkir + "</span></div></td>" +
+                                        "<td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + detail.subtotal + "</span></div></td>" +
+                                    "</tr>"
+                                );
+                            });
+                        });
+                        $('#biaya-kuli').text(data.kuli);
+                        $('#biaya-total').text(data.total);
+                        $('#biaya-parkir').text(data.parkir);
+                        $('#biaya-dibayarkan').text(data.dibayarkan);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                });
+            }
+        });
+    });
     $('#generate-invoice').on('click', function() {
+        action = "insert";
+        $("#select-listrik").val("0").change();
+        $('#modal-invoice tbody').empty();
+        $('#pelapak').val('');
+        $('#biaya-kuli').text(0);
+        $('#biaya-total').text(0);
+        $('#biaya-parkir').text(0);
+        $('#biaya-dibayarkan').text(0);
         $('#modal-invoice').modal('show');
         /*
         $.ajax({
@@ -179,32 +242,64 @@ $(document).ready(function() {
 
     $('.btn-save').on('click', function() {
         // code ajax untuk update selected invoice
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                // 'contentType' : "application/json",
-            },
-            type: "POST",
-            url: "/"+role[1]+"/invoice/update",
-            data: {
-                id: currentID,
-                listrik: $("#select-listrik option:selected").val()
-            },
-            beforeSend: function(){
-                // console.log(listrik);
-            },
-            success: function(data) {
-                console.log(data);
-                location.reload();
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                // JSON.parse(undefined);
-                console.log(xhr.status);
-                console.log(thrownError);
-                // console.log(ajaxOptions);
-            }
-        });
-        $('#modal-invoice').modal('hide');
+        if(action == "insert"){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    // 'contentType' : "application/json",
+                },
+                type: "get",
+                url: "/"+role[1]+"/invoice/generate/"+idlapak,
+                data: {
+                    listrik: $("#select-listrik option:selected").val()
+                },
+                beforeSend: function(){
+                    // console.log(listrik);
+                },
+                success: function(data) {
+                    console.log(data);
+                    if(data == 'success'){
+                        location.reload();
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // JSON.parse(undefined);
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    // console.log(ajaxOptions);
+                }
+            });
+        }else if(action == 'update'){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    // 'contentType' : "application/json",
+                },
+                type: "post",
+                url: "/"+role[1]+"/invoice/update",
+                data: {
+                    id:currentID,
+                    listrik: $("#select-listrik option:selected").val()
+                },
+                beforeSend: function(){
+                    // console.log(listrik);
+                },
+                success: function(data) {
+                    console.log(data);
+                    (data == 'err listrik')?$('.error-msg-listrik').text("value listrik salah"):$('.error-msg-listrik').text("");
+                    if(data == 'success'){
+                        location.reload();
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // JSON.parse(undefined);
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    // console.log(ajaxOptions);
+                }
+            });
+        }
+        // $('#modal-invoice').modal('hide');
     });
 
     $('#select-listrik').on('change', function() {

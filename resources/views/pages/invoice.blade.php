@@ -5,8 +5,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
-        <div class="dropdown h-100"><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button">All Item</button>
-            <div class="dropdown-menu">
+        {{-- <div class="dropdown h-100" disabled><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button"></button> --}}
+        <div class="dropdown h-100" disabled>
+            <div class="dropdown-menu" >
                 <a class="dropdown-item" href="#">First Item</a>
                 <a class="dropdown-item" href="#">Second Item</a>
                 <a class="dropdown-item" href="#">Third Item</a>
@@ -31,7 +32,7 @@
             </thead>
             <tbody>
                 @foreach ($invoice as $item)
-                    <tr>
+                    <tr id = "{{$item->stand->id}}">
                         <td class='cell-id text-center'>{{$item->id}} </td>
                         <td class='text-center'>{{$item->stand->seller_name}}</td>
                         <td>
@@ -76,10 +77,9 @@
 
                         <input id="pelapak" list="list-pelapak" class="form-select-sm">
                         <datalist id="list-pelapak">
-                            <option class="list-option-pelapak" id="temp-0" value="testing">
                             @foreach ($stand as $item)
                                 @if ($item['seller_name'] != "")
-                                    <!-- <option id="{{$item['id']}}" value="{{$item['seller_name'] . ' - ' . $item['no_stand']}}"> -->
+                                     <option id="{{$item['id']}}" value="{{$item['seller_name'] . ' - ' . $item['no_stand']}}">
                                 @endif
                             @endforeach
                         </datalist>
@@ -88,22 +88,21 @@
                             <p class="text-end py-1" style="white-space: nowrap; width: 100px;">Biaya Listrik :&nbsp;</p>
                             <select id="select-listrik" name="listrik" class="form-select form-select-sm" style="width: 173px;">
                                 <option value="0">0</option>
-                                <option value="25000">25.000</option>
-                                <option value="40000">40.000</option>
-                                <option value="50000">50.000</option>
-                                <option value="75000">75.000</option>
+                                @foreach ($listrik as $item)
+                                    <option value="{{$item->value}}">{{$item->value}}</option>
+                                @endforeach
                             </select>
+                            <p class="small text-danger error-msg-listrik"></p>
                         </div>
                         <hr>
                         <div class="mt-2 p-2" style="background: var(--bs-light);border: 1px solid var(--bs-gray) ;">
                             <p class="text-center">Netto: Rp&nbsp;<span class="thousand-separator">3000</span>,-</p>
                         </div>
-
-                        <!-- hide soalnya belum ada data -->
                         <div class="table-responsive">
                             <table class="table mb-0 table-invoice-detail">
                                 <thead>
                                     <tr>
+                                        <th>ID Transaksi</th>
                                         <th>Kode</th>
                                         <th>Nama Barang</th>
                                         <th>Jumlah</th>
@@ -117,34 +116,34 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td class="text-end w-75" colspan="6">Total</td>
+                                        <td class="text-end w-75" colspan="7">Total</td>
                                         <td><div class="d-flex justify-content-between">Rp <span id="biaya-total" class="biaya thousand-separator">{{$total}}</span></div></td>
                                     </tr>
                                     <tr>
-                                        <td class="text-end w-75" colspan="6">Parkir</td>
+                                        <td class="text-end w-75" colspan="7">Parkir</td>
                                         <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir" class="biaya thousand-separator">{{$parkir}}</span></div></td>
                                     </tr>
                                     <tr>
-                                        <td class="text-end w-75" colspan="6">Kuli</td>
+                                        <td class="text-end w-75" colspan="7">Kuli</td>
                                         <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="biaya thousand-separator">{{$kuli}}</span></div></td>
                                     </tr>
                                     <tr>
-                                        <td class="text-end w-75" colspan="6">Listrik</td>
+                                        <td class="text-end w-75" colspan="7">Listrik</td>
                                         <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="biaya thousand-separator">0</span></div></td>
                                         <!-- saya tidak tahu backend -->
                                     </tr>
                                     <tr>
-                                        <td class="text-end w-75" colspan="6">Dibayarkan</td>
+                                        <td class="text-end w-75" colspan="7">Dibayarkan</td>
                                         <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">{{$total+$parkir+$kuli}}</span></div></td>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-save" type="button" style="background: #38A34A;color: white;" data-bs-dismiss="modal">Save</button>
+                    <div class="modal-footer">
+                        <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-save" type="button" style="background: #38A34A;color: white;">Save</button>
+                    </div>
                 </div>
             </div>
         </div>

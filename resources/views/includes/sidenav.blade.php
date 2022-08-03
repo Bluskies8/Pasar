@@ -24,6 +24,10 @@
             <i class="fas fa-book me-3"></i>
             <p>Retribusi</p>
         </a>
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/listrik" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
+            <i class="fas fa-book me-3"></i>
+            <p>Listrik</p>
+        </a>
         @endif
         @if (auth()->guard('checkLogin')->user()->role_id < 4)
         <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/buah" id="nav-item-items" class="d-flex align-items-center ps-3 nav-item">

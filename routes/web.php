@@ -4,6 +4,7 @@ use App\Http\Controllers\BuahController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HtransController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ListrikController;
 use App\Http\Controllers\RetribusiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,12 @@ Route::middleware(['checkLogin'])->group(function () {
             Route::post('/update/{buah:id}',[BuahController::class,'update']);
             Route::post('/delete/{buah:id}',[BuahController::class,'destroy']);
         });
+        Route::prefix('listrik')->group(function () {
+            Route::get('/',[ListrikController::class,'index']);
+            Route::post('/create',[ListrikController::class,'store']);
+            Route::post('/update/{listrik:id}',[ListrikController::class,'update']);
+            Route::post('/delete/{listrik:id}',[ListrikController::class,'destroy']);
+        });
         Route::prefix('user')->group(function () {
             Route::get('/',[DashboardController::class,'userPages']);
             Route::post('/create',[DashboardController::class,'createUser']);
@@ -64,13 +71,14 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::prefix('invoice')->group(function () {
             Route::get('/',[invoicecontroller::class,'invoice']);
-            Route::get('/generate', [InvoiceController::class,'generate']);
+            Route::get('/generate/{idlapak}', [InvoiceController::class,'generate']);
             Route::post('/update', [InvoiceController::class,'update']);
             Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
             Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
         });
         Route::prefix('details')->group(function () {
             Route::get('/', [HtransController::class,'detailspage']);
+            Route::get('/update', [HtransController::class,'detailspage']);
             Route::get('/{htrans}', [HtransController::class,'details']);
         });
         Route::prefix('transaction')->group(function () {
@@ -91,9 +99,16 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('/', [DashboardController::class,'dashboard']);
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
+            Route::get('/cari',[BuahController::class,'cari']);
             Route::post('/create',[BuahController::class,'store']);
             Route::post('/update/{buah:id}',[BuahController::class,'update']);
             Route::post('/delete/{buah:id}',[BuahController::class,'destroy']);
+        });
+        Route::prefix('listrik')->group(function () {
+            Route::get('/',[ListrikController::class,'index']);
+            Route::post('/create',[ListrikController::class,'store']);
+            Route::post('/update/{listrik:id}',[ListrikController::class,'update']);
+            Route::post('/delete/{listrik:id}',[ListrikController::class,'destroy']);
         });
         Route::prefix('user')->group(function () {
             Route::get('/',[DashboardController::class,'userPages']);
@@ -108,13 +123,14 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::prefix('invoice')->group(function () {
             Route::get('/',[invoicecontroller::class,'invoice']);
-            Route::get('/generate', [InvoiceController::class,'generate']);
+            Route::get('/generate/{idlapak}', [InvoiceController::class,'generate']);
             Route::post('/update', [InvoiceController::class,'update']);
             Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
             Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
         });
         Route::prefix('details')->group(function () {
             Route::get('/', [HtransController::class,'detailspage']);
+            Route::get('/update/{htrans:id}', [HtransController::class,'update']);
             Route::get('/{htrans}', [HtransController::class,'details']);
         });
         Route::prefix('transaction')->group(function () {
@@ -144,8 +160,8 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::prefix('invoice')->group(function () {
             Route::get('/',[invoicecontroller::class,'invoice']);
-            Route::get('/generate', [InvoiceController::class,'generate']);
-            // Route::post('/update', [InvoiceController::class,'update']);
+            Route::get('/generate/{idlapak}', [InvoiceController::class,'generate']);
+            Route::post('/update', [InvoiceController::class,'update']);
             Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
             Route::get('/{id}', [InvoiceController::class,'invoicedetails']);
         });
@@ -169,7 +185,7 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::post('/user/update',[DashboardController::class,'updatepassword']);
         Route::prefix('invoice')->group(function () {
             Route::get('/',[invoicecontroller::class,'invoice']);
-            Route::get('/generate', [InvoiceController::class,'generate']);
+            Route::get('/generate/{idlapak}', [InvoiceController::class,'generate']);
             Route::post('/update', [InvoiceController::class,'update']);
             Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
             Route::get('/{id}', [InvoiceController::class,'invoicedetails']);

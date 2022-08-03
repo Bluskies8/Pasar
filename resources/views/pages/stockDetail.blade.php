@@ -75,10 +75,11 @@
                     @if ($role == 2)
                         <th>Subtotal</th>
                     @endif
+                    <th style="display:none;"></th>
                 </tr>
             </thead>
             <tbody>
-                @if ($role > 2)
+                @if ($role == 1)
                     <tr id="tr-template" style="display: none">
                         <td class="text-center data-kode"></td>
                         <td class="data-nama"></td>
@@ -89,6 +90,7 @@
                                 <p class="thousand-separator data-parkir"></p>
                             </div>
                         </td>
+                        <td class="text-center"></td>
                     </tr>
                 @endif
 
@@ -98,7 +100,7 @@
                         <td class="text-center">{{$item->kode}}</td>
                         <td>{{$item->nama_barang}}</td>
                         <td class="text-center">{{$item->jumlah}}</td>
-                        @if ($role == 2)
+                        @if ($role <= 2)
                             <td class="text-center">{{$item->bruto}}</td>
                             <td class="text-center">{{$item->round}}</td>
                         @endif
@@ -108,7 +110,7 @@
                                 <p class="thousand-separator">{{$item->parkir}}</p>
                             </div>
                         </td>
-                        @if ($role == 2)
+                        @if ($role <= 2)
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <p>Rp</p>
@@ -116,11 +118,12 @@
                                 </div>
                             </td>
                         @endif
+                        <td style="display:none;">{{$item->id}}</td>
                     </tr>
                 @endforeach
                 @endisset
             </tbody>
-            @if ($role == 2)
+            @if ($role <= 2)
                 <tfoot>
                     <tr>
                         <td class="text-end" colspan="6">Total</td>
@@ -138,7 +141,7 @@
     @if ($data['id'] == null)
         <button class="btn btn-primary position-fixed m-2" id="save-detail" type="button" style="bottom: 0px;right: 0px;background: #38A34A;color: white;">Simpan Transaksi</button>
     @endif
-    @if ($role <= 2)
+    @if ($role <= 3)
         <button class="btn btn-primary position-fixed m-2" id="update-detail" type="button" style="bottom: 0px;right: 0px;background: #38A34A;color: white;">Rubah Transaksi</button>
     @endif
     <div class="modal fade" role="dialog" tabindex="-1" id="modal-barang">
@@ -166,6 +169,7 @@
                                             <option value="t">Tonase</option>
                                         </select>
                                     </div>
+                                    <input type="hidden" id = "id-dtrans" value = "">
                                     <div class="position-relative mb-3" style="height: 32px;">
                                         <!-- <input class="form-control" name="nama" type="text" style="height: 32px;"> -->
 
@@ -177,13 +181,6 @@
                                             @endforeach
                                         </datalist>
                                         @endisset
-
-                                        {{-- <select name="nama" id="tipe-barang" class="form-control pt-1" style="height: 32px;">
-                                            <!-- add data tipe dari db ke sini -->
-                                            @foreach ($buah as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
-                                            @endforeach
-                                        </select> --}}
                                         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Nama Barang</p>
                                         <p class="small text-danger error-msg"></p>
                                     </div>
