@@ -78,17 +78,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr id="tr-template" style="display: none">
-                    <td class="text-center data-kode"></td>
-                    <td class="data-nama"></td>
-                    <td class="text-center data-jumlah"></td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator data-parkir"></p>
-                        </div>
-                    </td>
-                </tr>
+                @if ($role > 2)
+                    <tr id="tr-template" style="display: none">
+                        <td class="text-center data-kode"></td>
+                        <td class="data-nama"></td>
+                        <td class="text-center data-jumlah"></td>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <p>Rp</p>
+                                <p class="thousand-separator data-parkir"></p>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
 
                 @isset($data->details)
                 @foreach ($data->details as $item)
@@ -117,25 +119,27 @@
                     </tr>
                 @endforeach
                 @endisset
-
-                @if ($role == 2)
-                    <tfoot>
-                        <tr>
-                            <td class="text-end" colspan="6">Total</td>
-                            <td class="text-center">
-                                <div class="d-flex justify-content-between">
-                                    <p>Rp</p>
-                                    <p class="thousand-separator">{{$data->total_harga}}</p> <!-- data total transaksi -->
-                                </div>
-                            </td>
-                        </tr>
-                    </tfoot>
-                @endif
             </tbody>
+            @if ($role == 2)
+                <tfoot>
+                    <tr>
+                        <td class="text-end" colspan="6">Total</td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-between">
+                                <p>Rp</p>
+                                <p class="thousand-separator">{{$data->total_harga}}</p> <!-- data total transaksi -->
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            @endif
         </table>
     </div>
     @if ($data['id'] == null)
         <button class="btn btn-primary position-fixed m-2" id="save-detail" type="button" style="bottom: 0px;right: 0px;background: #38A34A;color: white;">Simpan Transaksi</button>
+    @endif
+    @if ($role <= 2)
+        <button class="btn btn-primary position-fixed m-2" id="update-detail" type="button" style="bottom: 0px;right: 0px;background: #38A34A;color: white;">Rubah Transaksi</button>
     @endif
     <div class="modal fade" role="dialog" tabindex="-1" id="modal-barang">
         <div class="modal-dialog modal-xl modal-fullscreen-lg-down" role="document">
@@ -152,7 +156,7 @@
                                     <button type="button" class="btn-close btn-remove-form position-absolute" style="top: -2px; right: -2px; box-shadow: none;" aria-label="Close"></button>
                                     <div class="d-flex align-items-center mb-3">
                                         <p class="me-2">Kode</p>
-                                        <select name="kode" class="form-select form-select-sm">
+                                        <select name="kode" class="form-select form-select-sm select-kode">
                                             <option value="k">Kecil</option>
                                             <option value="b">Besar</option>
                                             <option value="td">Tiga per Dua</option>
@@ -162,18 +166,18 @@
                                             <option value="t">Tonase</option>
                                         </select>
                                     </div>
-                                    <div class="position-relative mb-3">
+                                    <div class="position-relative mb-3" style="height: 32px;">
                                         <!-- <input class="form-control" name="nama" type="text" style="height: 32px;"> -->
 
-                                        @isset($buah)
-                                        <input name = "nama" id="nama-buah" list="list-buah" class="form-select-sm w-100">
+                                        @isset($buah) <!-- belum ambil data buah -->
+                                        <input name="nama" id="nama-buah" list="list-buah" class="form-select-sm w-100 nama-buah">
                                         <datalist id="list-buah">
                                             @foreach ($buah as $item)
-                                            <option id="{{$item->id}}" value = "{{$item->name}}"> {{$item->name}} - {{$item->id}}</option>
+                                            <option id="{{$item->id}}" value="{{$item->name}}"> {{$item->name}} - {{$item->id}}</option>
                                             @endforeach
                                         </datalist>
-
                                         @endisset
+
                                         {{-- <select name="nama" id="tipe-barang" class="form-control pt-1" style="height: 32px;">
                                             <!-- add data tipe dari db ke sini -->
                                             @foreach ($buah as $item)
@@ -184,13 +188,13 @@
                                         <p class="small text-danger error-msg"></p>
                                     </div>
                                     <div class="position-relative mb-3">
-                                        <input class="form-control" name="jumlah" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
+                                        <input class="form-control jumlah-buah" name="jumlah" type="text" style="height: 32px;" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);">
                                         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Jumlah</p>
                                         <p class="small text-danger error-msg-jumlah"></p>
                                     </div>
                                     <div class="d-flex align-items-center">
                                         <p class="me-2">Parkir</p>
-                                        <select name="parkir" class="form-select-sm form-select">
+                                        <select name="parkir" class="form-select-sm form-select select-parkir">
                                             <option value="0" selected>0</option>
                                             <option value="3000">3.000</option>
                                             <option value="5000">5.000</option>
