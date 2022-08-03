@@ -38,6 +38,7 @@ class InvoiceController extends Controller
     {
         $delete = invoice::where('id','INV0103082022128')->first();
         $delete->listrik = 25000;
+        $delete->dibayarkan = 148000;
         $delete->save();
         $date = Carbon::createFromFormat('d-m-Y',$request->date)->format('dmY');
         $carbon = Carbon::createFromFormat('d-m-Y',$request->date)->format('Y-m-d');
