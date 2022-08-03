@@ -20,8 +20,6 @@ $(document).ready(function() {
     });
     $('#table-invoice_filter').parent().siblings().append($('#container-tanggal').detach());
 
-    $('.table-tambahan').parent().hide();
-
     let sumTotal = 0;
     function calculateTotal() {
         sumTotal = 0;
@@ -179,28 +177,6 @@ $(document).ready(function() {
         */
     });
 
-    $('.list-option-pelapak').on('input', function() {
-        var nama = $(this).val();
-
-        $("#list-pelapak").find("option").each(function() {
-            if ($(this).val() == nama) {
-
-                // ajax disini
-
-
-                /*
-                    ketika sudah nemu datanya
-                    masukan code
-                        $('.modal-table').removeClass('d-none');
-                        $('.modal-loading').addClass('d-none');
-
-                    dan code dari item update
-                */
-
-            }
-        })
-    });
-
     $('.btn-save').on('click', function() {
         // code ajax untuk update selected invoice
         $.ajax({
@@ -266,59 +242,4 @@ $(document).ready(function() {
         window.location.href = "/"+role[1]+"/invoice?date="+start;
     });
 
-    $('#clone-tambahan').addClass('d-none');
-
-    var tambahanId = 0;
-    var tambahanCount = 0;
-    cloneTambahan();
-
-    $('#icon-add').on('click', function() {
-        cloneTambahan();
-    });
-
-    function cloneTambahan() {
-        tambahanId++;
-        tambahanCount++;
-        let temp = $('#clone-tambahan').clone().prop('id', 'tambahan-' + tambahanId).appendTo("#list-tambahan");
-        temp.removeClass('d-none');
-        temp.addClass('d-flex');
-
-        let selectorDelete = temp.children('.delete-tambahan');
-        selectorDelete.on('click', function() {
-            $(this).parent().detach();
-            tambahanCount--;
-        });
-    }
-
-    $('#icon-save').on('click', function() {
-        let totalTambahan = 0;
-        for (let i = 1; i < $('#list-tambahan').children().length; i++) {
-            $('.table-tambahan tbody').append("<tr><td>" + $('#list-tambahan').children().eq(i).children('.tambahan-nama').val() + "</td><td><div class='d-flex justify-content-between'>Rp <span class='thousand-separator'>" + $('#list-tambahan').children().eq(i).children('.tambahan-nominal').val() + "</span></div></td></tr>");
-            totalTambahan += parseInt($('#list-tambahan').children().eq(i).children('.tambahan-nominal').val());
-        }
-        $('#biaya-total-tambahan').text(totalTambahan);
-
-        separatorInterval = setInterval(setThousandSeparator, 10);
-        $('.card-tambahan').hide();
-        $('.table-tambahan').parent().show();
-    });
-
-    $('.hide-invoice-detail, .show-invoice-detail, .hide-invoice-tambahan, .show-invoice-tambahan').on('click', function(){
-        $(this).hide();
-        $(this).siblings().show();
-
-        if ($(this).hasClass('hide-invoice-detail')) {
-            $('.table-invoice-detail thead').hide();
-            $('.table-invoice-detail tbody').hide();
-        } else if ($(this).hasClass('show-invoice-detail')) {
-            $('.table-invoice-detail thead').show();
-            $('.table-invoice-detail tbody').show();
-        } else if ($(this).hasClass('hide-invoice-tambahan')) {
-            $('.table-tambahan thead').hide();
-            $('.table-tambahan tbody').hide();
-        } else if ($(this).hasClass('show-invoice-tambahan')) {
-            $('.table-tambahan thead').show();
-            $('.table-tambahan tbody').show();
-        }
-    });
 });
