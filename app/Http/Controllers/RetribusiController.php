@@ -30,7 +30,8 @@ class RetribusiController extends Controller
             }
         }
         $all = retribusi::get();
-        dd($all);
+        $delete = retribusi::where('id',3)->delete();
+        
         return view('pages.retribusi',[
             'date' => $request->date,
             'data' => $retribusi,
