@@ -82,13 +82,18 @@ class DashboardController extends Controller
     public function createUser(Request $request)
     {
         try {
-            User::create([
+            $user = User::create([
                 'name'=> $request->nama,
                 'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
                 'email' => $request->username,
                 'password' => Hash::make($request->password),
                 'role_id' => $request->role,
                 'shif' => $request->shif,
+            ]);
+            log::create([
+                'user_id' =>Auth::guard('checkLogin')->user()->id,
+                'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+                'keterangan' => "tambah user ".$user->name
             ]);
             return "success";
         } catch (\Throwable $th) {
