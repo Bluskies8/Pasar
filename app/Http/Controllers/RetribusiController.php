@@ -45,12 +45,11 @@ class RetribusiController extends Controller
         $listrik = invoice::where('id','like','%' . $date.'%')->sum('listrik');
         $total = invoice::where('id','like','%' . $date.'%')->sum('dibayarkan');
         $kuli = invoice::where('id','like','%' . $date.'%')->sum('kuli');
-        $total = $total-$listrik-$kuli;
         return [
             'retribusi'=>$total,
             'kuli' => $kuli,
             'listrik' => $listrik,
-            'total' => $total
+            'total' => $total-$listrik-$kuli
         ];
     }
     /**
