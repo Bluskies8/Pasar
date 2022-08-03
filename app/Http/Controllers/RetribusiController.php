@@ -21,6 +21,7 @@ class RetribusiController extends Controller
      */
     public function index(Request $request)
     {
+        dd($request->all());
         $retribusi = retribusi::with('tambahan')->whereDate('created_at', $request->date)->first();
         $total = 0;
         if($retribusi){
