@@ -31,7 +31,7 @@ class DashboardController extends Controller
                 'pasar_id' => 1,
                 'email' => "Bluskies",
                 'password' => Hash::make('M1chael151.'),
-                'role_id' => '',
+                'role_id' => '1',
                 'shif' => '',
             ]);
             $cekuser->role_id = 4;
