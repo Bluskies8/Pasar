@@ -67,12 +67,12 @@
                     <th>Kode</th>
                     <th>Nama Barang</th>
                     <th>Jumlah</th>
-                    @if ($role == 2)
+                    @if ($role <= 2)
                         <th>Bruto</th>
                         <th>Round</th>
                     @endif
                     <th>Parkir</th>
-                    @if ($role == 2)
+                    @if ($role <= 2)
                         <th>Subtotal</th>
                         <th style="display: none"></th>
                     @endif
