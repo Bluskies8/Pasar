@@ -160,6 +160,7 @@ $(document).ready(function() {
             }
         });
     }
+
     var idlapak;
     $('#pelapak').on('change',function(e) {
         var namalapak = this.value;
@@ -210,6 +211,7 @@ $(document).ready(function() {
             }
         });
     });
+
     $('#generate-invoice').on('click', function() {
         action = "insert";
         $("#select-listrik").val("0").change();

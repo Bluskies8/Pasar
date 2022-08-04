@@ -12,7 +12,7 @@ $(document).ready(function(){
     $('#check-confirm').hide();
     $('#table-barang').DataTable({
         paging: false,
-        info: false,
+        info: false
     });
 
     if ($('#nama-pelapak').text() != '') {
@@ -225,6 +225,7 @@ $(document).ready(function(){
         }
 
         let data = [];
+
         $('tbody tr').each(function() {
             let parkir = $(this).find('.data-parkir').html();
             while(parkir.indexOf('.') != -1){

@@ -74,12 +74,12 @@
                     <th>Parkir</th>
                     @if ($role == 2)
                         <th>Subtotal</th>
+                        <th style="display: none"></th>
                     @endif
-                    <th style="display:none;"></th>
                 </tr>
             </thead>
             <tbody>
-                @if ($role == 1)
+                @if ($role == 4)
                     <tr id="tr-template" style="display: none">
                         <td class="text-center data-kode"></td>
                         <td class="data-nama"></td>
@@ -90,7 +90,6 @@
                                 <p class="thousand-separator data-parkir"></p>
                             </div>
                         </td>
-                        <td class="text-center"></td>
                     </tr>
                 @endif
 
