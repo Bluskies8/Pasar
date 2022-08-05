@@ -126,7 +126,7 @@ class InvoiceController extends Controller
                     'kuli' => $jumlah*1000,
                     'parkir' => $parkir,
                     'total' => $total,
-                    'dibayarkan' => $total+($jumlah*1000)+$parkir+$request->listrik,
+                    'dibayarkan' => $total+$parkir+$request->listrik,
                 ]);
             // }
         // }
@@ -173,7 +173,7 @@ class InvoiceController extends Controller
             'total' =>$total,
             'parkir' => $parkir,
             'kuli' => $kuli,
-            'dibayarkan' => $total+$parkir+$kuli,
+            'dibayarkan' => $total+$parkir,
             'listrik' => $listrik,
         ]);
     }
@@ -266,7 +266,7 @@ class InvoiceController extends Controller
         if($check){
             $invoice = invoice::where('id',$request->id)->first();
             $invoice->listrik = $request->listrik;
-            $invoice->dibayarkan = $invoice->total+$request->listrik+$invoice->kuli+$invoice->parkir;
+            $invoice->dibayarkan = $invoice->total+$request->listrik+$invoice->parkir;
             $invoice->save();
             log::create([
                 'user_id' =>Auth::guard('checkLogin')->user()->id,

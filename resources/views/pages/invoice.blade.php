@@ -131,10 +131,10 @@
                                     <td class="text-end w-75" colspan="7">Parkir</td>
                                     <td><div class="d-flex justify-content-between">Rp <span id="biaya-parkir" class="biaya thousand-separator">{{$parkir}}</span></div></td>
                                 </tr>
-                                <tr>
+                                {{-- <tr>
                                     <td class="text-end w-75" colspan="7">Kuli</td>
                                     <td><div class="d-flex justify-content-between">Rp <span id="biaya-kuli" class="biaya thousand-separator">{{$kuli}}</span></div></td>
-                                </tr>
+                                </tr> --}}
                                 <tr>
                                     <td class="text-end w-75" colspan="7">Listrik</td>
                                     <td><div class="d-flex justify-content-between">Rp <span id="biaya-listrik" class="biaya thousand-separator">0</span></div></td>
@@ -142,7 +142,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-end w-75" colspan="7">Dibayarkan</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">{{$total+$parkir+$kuli}}</span></div></td>
+                                    <td><div class="d-flex justify-content-between">Rp <span id="biaya-dibayarkan" class="thousand-separator">{{$total+$parkir}}</span></div></td>
                                 </tr>
                             </tfoot>
                         </table>
