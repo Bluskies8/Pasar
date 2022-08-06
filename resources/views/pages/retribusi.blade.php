@@ -315,7 +315,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">{{$item->retribusi-$item->kuli-$item->sampah-$item->listrik}}</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->retribusi-$item->kuli-$item->sampah+$item->listrik}}</span>
                                     </div>
                                 </td>
                             </tr>
