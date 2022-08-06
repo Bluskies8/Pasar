@@ -82,10 +82,6 @@
                                     <td class="text-end" colspan="7">Parkir</td>
                                     <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$parkir}}</span></div></td>
                                 </tr>
-                                <tr>
-                                    <td class="text-end" colspan="7">Kuli</td>
-                                    <td><div class="d-flex justify-content-between">Rp <span class="thousand-separator">{{$kuli}}</span></div></td>
-                                </tr>
 
                                 <!-- loop tambahan -->
                                 <tr>
