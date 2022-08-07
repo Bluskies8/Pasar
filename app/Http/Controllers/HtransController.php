@@ -41,7 +41,7 @@ class HtransController extends Controller
         //     }
         //     $value->save();
         // }
-        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 04:00:00',7);
         if($now>$start){
             foreach ($cekshif as $key) {
                 $start = date("H:i:s",strtotime($key->start));

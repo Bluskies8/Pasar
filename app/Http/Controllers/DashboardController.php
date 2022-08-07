@@ -57,7 +57,6 @@ class DashboardController extends Controller
     }
     public function userPages()
     {
-        dd(shif::get());
         if(Auth::guard('checkLogin')->user()->role_id<3){
             $data = User::with('role')->where('role_id','>',1)->get();
 
@@ -158,7 +157,7 @@ class DashboardController extends Controller
         // $now = Carbon::createFromFormat('Y-m-d H:i:s','2022-07-24 09:00:00',7);
         $date = $now->format('Y-m-d');
         $cekshif = shif::all();
-        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 04:00:00',7);
         if($now>$start){
             foreach ($cekshif as $key) {
                 $start = date("H:i:s",strtotime($key->start));
