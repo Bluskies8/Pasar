@@ -57,6 +57,7 @@ class DashboardController extends Controller
     }
     public function userPages()
     {
+        dd(shif::get());
         if(Auth::guard('checkLogin')->user()->role_id<3){
             $data = User::with('role')->where('role_id','>',1)->get();
 
