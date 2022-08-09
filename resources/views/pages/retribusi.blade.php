@@ -40,7 +40,7 @@
                                 <td>Retribusi</td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">{{$data->retribusi}}</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$data->retribusi-$data->listrik}}</span>
                                     </div>
                                 </td>
                                 <td>
