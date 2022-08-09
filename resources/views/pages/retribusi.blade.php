@@ -295,7 +295,7 @@
                                 <td class="text-center">{{$item->created_at->format('d M Y')}}</td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">{{$item->retribusi}}</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$item->retribusi-$item->listrik}}</span>
                                     </div>
                                 </td>
                                 <td>
