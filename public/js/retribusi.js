@@ -76,7 +76,7 @@ $(document).ready(function() {
             },
             success: function(data) {
                 console.log(data);
-                $('#retribusi').val(data.retribusi);
+                $('#retribusi').val(data.retribusi-data.listrik);
                 $('#kuli').val(data.kuli);
                 $('#listrik').val(data.listrik);
                 $('#total_retribusi').val(data.total);
