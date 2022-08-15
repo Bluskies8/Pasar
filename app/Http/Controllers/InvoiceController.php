@@ -66,29 +66,7 @@ class InvoiceController extends Controller
             }
         }
         $listrik = listrik::orderBy('value')->get();
-        return response()->json([
-            'date'=> $carbon,
-            'invoice'=> $data,
-            'stand' => $stand,
-            'total' =>$total,
-            'parkir' =>$parkir,
-            'kuli' => $kuli,
-            'listrik' => $listrik,
-        ]);
-        // return view('pages/stock',[
-        //     'data'=>$data,
-        //     'role'=> Auth::guard('checkLogin')->user()->role_id,
-        //     'check' => true
-        // ]);
-        return View::make('pages.invoice',[
-            'date'=> $carbon,
-            'invoice'=> $data,
-            'stand' => $stand,
-            'total' =>$total,
-            'parkir' =>$parkir,
-            'kuli' => $kuli,
-            'listrik' => $listrik,
-        ]);
+        
         return view('pages.invoice',[
             'date'=> $carbon,
             'invoice'=> $data,
