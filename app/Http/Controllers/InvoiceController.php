@@ -66,7 +66,7 @@ class InvoiceController extends Controller
             }
         }
         $listrik = listrik::orderBy('value')->get();
-        dd($parkir);
+        dd($kuli);
         return view('pages.invoice',[
             'date'=> $carbon,
             'invoice'=> $data,
