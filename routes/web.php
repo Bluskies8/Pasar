@@ -89,6 +89,8 @@ Route::middleware(['checkLogin'])->group(function () {
             Route::get('/',[DashboardController::class,'vendor']);
             Route::post('/update',[DashboardController::class,'vendorUpdate']);
         });
+
+        Route::get('/invo',[invoicecontroller::class,'index']);
         Route::get('/logs',[DashboardController::class,'logs']);
     });
     Route::group(['middleware'=>'admin','prefix'=>'admin'],function () {
