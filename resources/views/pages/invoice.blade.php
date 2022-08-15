@@ -12,7 +12,6 @@
         }
     </style>
     <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
-        {{-- <div class="dropdown h-100" disabled><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button"></button> --}}
         <div class="dropdown h-100" disabled>
             <div class="dropdown-menu" >
                 <a class="dropdown-item" href="#">First Item</a>
