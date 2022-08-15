@@ -74,11 +74,11 @@ class InvoiceController extends Controller
         //     'kuli' => $kuli,
         //     'listrik' => $listrik,
         // ];
-        return view('pages/stock',[
-            'data'=>$data,
-            'role'=> Auth::guard('checkLogin')->user()->role_id,
-            'check' => true
-        ]);
+        // return view('pages/stock',[
+        //     'data'=>$data,
+        //     'role'=> Auth::guard('checkLogin')->user()->role_id,
+        //     'check' => true
+        // ]);
         return view('pages.invoice',[
             'date'=> $carbon,
             'invoice'=> $data,
