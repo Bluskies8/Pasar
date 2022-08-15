@@ -174,7 +174,7 @@ class InvoiceController extends Controller
     }
     public function invoicedetails($id)
     {
-
+        dd($id);
         // $data = invoice::with('stand')->whereBetween('created_at',[$request->start,$request->end])->get();
         $date = substr($id,5,8);
         $day = substr($date,0,2);
