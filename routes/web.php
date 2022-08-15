@@ -70,7 +70,7 @@ Route::middleware(['checkLogin'])->group(function () {
             Route::post('/create', [RetribusiController::class,'store']);
         });
         Route::prefix('invoice')->group(function () {
-            Route::get('/',[invoicecontroller::class,'index']);
+            Route::get('/',[invoicecontroller::class,'invoice']);
             Route::get('/generate/{idlapak}', [InvoiceController::class,'generate']);
             Route::post('/update', [InvoiceController::class,'update']);
             Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
