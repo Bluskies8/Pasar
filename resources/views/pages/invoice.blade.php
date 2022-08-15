@@ -89,6 +89,7 @@
                                 @endif
                             @endforeach
                         </datalist>
+                        <p class="small text-danger error-msg-stand"></p>
                     </div>
                     <div class="d-flex align-items-center mb-3">
                         <p class="text-end py-1" style="white-space: nowrap; width: 100px;">Biaya Listrik :&nbsp;</p>

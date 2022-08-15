@@ -246,6 +246,7 @@ $(document).ready(function() {
         // code ajax untuk update selected invoice
         if(action == "insert"){
             if($('#pelapak').val()!=""){
+                $('.error-msg-stand').text("");
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -272,6 +273,8 @@ $(document).ready(function() {
                         // console.log(ajaxOptions);
                     }
                 });
+            }else{
+                $('.error-msg-stand').text("stand harus di isi");
             }
         }else if(action == 'update'){
             $.ajax({
