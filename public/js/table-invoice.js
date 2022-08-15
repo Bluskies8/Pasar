@@ -245,32 +245,34 @@ $(document).ready(function() {
     $('.btn-save').on('click', function() {
         // code ajax untuk update selected invoice
         if(action == "insert"){
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    // 'contentType' : "application/json",
-                },
-                type: "get",
-                url: "/"+role[1]+"/invoice/generate/"+idlapak,
-                data: {
-                    listrik: $("#select-listrik option:selected").val()
-                },
-                beforeSend: function(){
-                    // console.log(listrik);
-                },
-                success: function(data) {
-                    console.log(data);
-                    if(data == 'success'){
-                        location.reload();
+            if($('#pelapak').val()!=""){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        // 'contentType' : "application/json",
+                    },
+                    type: "get",
+                    url: "/"+role[1]+"/invoice/generate/"+idlapak,
+                    data: {
+                        listrik: $("#select-listrik option:selected").val()
+                    },
+                    beforeSend: function(){
+                        // console.log(listrik);
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        if(data == 'success'){
+                            location.reload();
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // JSON.parse(undefined);
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                        // console.log(ajaxOptions);
                     }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    // JSON.parse(undefined);
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                    // console.log(ajaxOptions);
-                }
-            });
+                });
+            }
         }else if(action == 'update'){
             $.ajax({
                 headers: {
