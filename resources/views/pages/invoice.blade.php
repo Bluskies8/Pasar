@@ -64,7 +64,6 @@
             </tfoot>
         </table>
     </div>
-
     <ul class="list-unstyled py-2 px-1" id="list-aksi">
         <li id="item-detail" class="px-1">Tampilkan Nota</li>
         <li id="item-update" class="px-1">Ubah Nota</li>
