@@ -65,7 +65,7 @@ class InvoiceController extends Controller
             }
         }
         $listrik = listrik::orderBy('value')->get();
-        return view('pages/invoice',[
+        return view('pages.invoice',[
             'date'=> $carbon,
             'invoice'=> $data,
             'htrans' => $htrans,
@@ -74,9 +74,6 @@ class InvoiceController extends Controller
             'parkir' =>$parkir,
             'kuli' => $kuli,
             'listrik' => $listrik,
-            'data' => [
-                'value' => 1
-            ]
         ]);
     }
     public function generate($idlapak, Request $request)
