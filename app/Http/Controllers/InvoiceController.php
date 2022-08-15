@@ -49,7 +49,7 @@ class InvoiceController extends Controller
             $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 07:00:00',7);
         // }
         // $data = invoice::with('stand')->whereBetween('created_at',[$start,$end])->get();
-
+        dd($date);
         $data = invoice::with('stand')->where('id','like','%' . $date.'%')->get();
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
         foreach ($temp as $key => $value) {
