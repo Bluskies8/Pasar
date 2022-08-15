@@ -13,6 +13,7 @@ use App\Models\stand;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class InvoiceController extends Controller
 {
@@ -79,6 +80,15 @@ class InvoiceController extends Controller
         //     'role'=> Auth::guard('checkLogin')->user()->role_id,
         //     'check' => true
         // ]);
+        return View::make('pages.invoice',[
+            'date'=> $carbon,
+            'invoice'=> $data,
+            'stand' => $stand,
+            'total' =>$total,
+            'parkir' =>$parkir,
+            'kuli' => $kuli,
+            'listrik' => $listrik,
+        ]);
         return view('pages.invoice',[
             'date'=> $carbon,
             'invoice'=> $data,
