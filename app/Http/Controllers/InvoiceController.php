@@ -38,6 +38,7 @@ class InvoiceController extends Controller
     }
     public function invoice(Request $request)
     {
+        invoice::where('id','INV0115082022339')->delete();
         $date = Carbon::createFromFormat('d-m-Y',$request->date)->format('dmY');
         $carbon = Carbon::createFromFormat('d-m-Y',$request->date)->format('Y-m-d');
         // $date = $carbon->toDateString();
