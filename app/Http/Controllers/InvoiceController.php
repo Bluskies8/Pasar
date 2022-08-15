@@ -68,17 +68,20 @@ class InvoiceController extends Controller
         return [
             'date'=> $carbon,
             'invoice'=> $data,
-            'htrans' => $htrans,
             'stand' => $stand,
             'total' =>$total,
             'parkir' =>$parkir,
             'kuli' => $kuli,
             'listrik' => $listrik,
         ];
+        return view('pages/stock',[
+            'data'=>$data,
+            'role'=> Auth::guard('checkLogin')->user()->role_id,
+            'check' => true
+        ]);
         return view('pages.invoice',[
             'date'=> $carbon,
             'invoice'=> $data,
-            'htrans' => $htrans,
             'stand' => $stand,
             'total' =>$total,
             'parkir' =>$parkir,
