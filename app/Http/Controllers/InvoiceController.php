@@ -45,12 +45,10 @@ class InvoiceController extends Controller
             // $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
             // $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->addDays(1);
         // }else{
-            $start = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 07:00:00',7)->subDays(1);
-            $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 07:00:00',7);
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 06:00:00',7)->subDays(1);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 06:00:00',7);
         // }
-        // $data = invoice::with('stand')->whereBetween('created_at',[$start,$end])->get();
         $data = invoice::with('stand')->where('id','like','%' . $date.'%')->get();
-        dd($data);
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
         foreach ($temp as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
