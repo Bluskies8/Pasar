@@ -49,7 +49,7 @@ class RetribusiController extends Controller
             'retribusi'=>$total,
             'kuli' => $kuli,
             'listrik' => $listrik,
-            'total' => $total+$listrik-$kuli
+            'total' => $total-$kuli
         ];
     }
     /**
