@@ -59,12 +59,12 @@
                                 <td>Listrik</td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$data->listrik}}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">{{$data->listrik}}</span>
+                                        <p>Rp</p><span class="thousand-separator">0</span>
                                     </div>
                                 </td>
                                 <td>
