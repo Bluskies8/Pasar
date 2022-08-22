@@ -26,7 +26,7 @@ class RetribusiController extends Controller
         if($retribusi){
             $total = $retribusi->retribusi-$retribusi->kuli-$retribusi->sampah+$retribusi->ponten_siang+$retribusi->ponten_malam+$retribusi->parkir_siang+$retribusi->parkir_malam+$retribusi->motor_siang+$retribusi->motor_malam;
             foreach ($retribusi->tambahan as $key) {
-                $total = $total-$key->value;
+                $total -= $key->value;
             }
         }
         $all = retribusi::get();
