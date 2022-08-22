@@ -29,7 +29,7 @@ class RetribusiController extends Controller
                 $total -= $key->value;
             }
         }
-        return $retribusi;
+        return $total;
         $all = retribusi::get();
         return view('pages.retribusi',[
             'date' => $request->date,
