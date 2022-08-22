@@ -97,12 +97,12 @@
                                 <td>Sampah</td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">{{$data->sampah}}</span>
+                                        <p>Rp</p><span class="thousand-separator">0</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <p>Rp</p><span class="thousand-separator">0</span>
+                                        <p>Rp</p><span class="thousand-separator">{{$data->sampah}}</span>
                                     </div>
                                 </td>
                                 <td>
