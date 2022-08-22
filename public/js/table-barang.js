@@ -216,6 +216,7 @@ $(document).ready(function(){
 
     $('#save-detail').on('click', function(e) {
         // insert data table ke db
+        $(this).prop('disabled', true);
         let save = $('#tr-template').detach();
 
         let lapak = $('#list-pelapak').find('option[value="' + $('#pelapak').val() + '"]').attr('id');
@@ -244,7 +245,6 @@ $(document).ready(function(){
             alert("silahkan tambah barang terlebih dahulu !");
             return;
         }
-
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),

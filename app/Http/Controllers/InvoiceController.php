@@ -46,8 +46,8 @@ class InvoiceController extends Controller
             // $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7);
             // $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 07:00:00',7)->addDays(1);
         // }else{
-            $start = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 06:00:00',7)->subDays(1);
-            $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 06:00:00',7);
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 08:00:00',7)->subDays(1);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 08:00:00',7);
         // }
         $data = invoice::with('stand')->where('id','like','%' . $date.'%')->get();
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
@@ -81,8 +81,8 @@ class InvoiceController extends Controller
         $carbon = Carbon::now();
         $dateid = $carbon->format('dmY');
         $date = $carbon->toDateString();
-        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDays(1);
-        $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7)->subDays(1);
+        $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
         $checkinvoice = invoice::where('id','like', '%'.$dateid.'%')->where('stand_id',$idlapak)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->count();
         if($checkinvoice > 0){
             return redirect()->back()->with(['pesan'=>'invoice sudah terbuat']);
@@ -143,8 +143,8 @@ class InvoiceController extends Controller
         }
         $carbon = Carbon::now();
         $date = $carbon->toDateString();
-        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDay(1);
-        $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7)->subDay(1);
+        $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
         // return $date;
         $lapak = $request->stand_id;
         $htrans = htrans::with('details')->where('stand_id',$lapak)->whereBetween('created_at',[$start,$end])->get();
@@ -180,8 +180,8 @@ class InvoiceController extends Controller
         $month = substr($date,2,2);
         $year = substr($date,4,4);
         $date = $year .'-' . $month .'-' . $day;
-        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7)->subDay(1);
-        $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 06:00:00',7);
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7)->subDay(1);
+        $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
         $invoice = invoice::with(['stand'])->where('id',$id)->first();
         $trans = htrans::with('details')->where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->get();
         // $total = htrans::where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_harga');
