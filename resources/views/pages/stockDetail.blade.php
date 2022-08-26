@@ -67,12 +67,12 @@
                     <th>Kode</th>
                     <th>Nama Barang</th>
                     <th>Jumlah</th>
-                    @if ($role <= 2)
+                    @if ($role <= 3)
                         <th>Bruto</th>
                         <th>Round</th>
                     @endif
                     <th>Parkir</th>
-                    @if ($role <= 2)
+                    @if ($role <= 3)
                         <th>Subtotal</th>
                         <th style="display: none"></th>
                     @endif
@@ -99,7 +99,7 @@
                         <td class="text-center">{{$item->kode}}</td>
                         <td>{{$item->nama_barang}}</td>
                         <td class="text-center">{{$item->jumlah}}</td>
-                        @if ($role <= 2)
+                        @if ($role <= 3)
                             <td class="text-center">{{$item->bruto}}</td>
                             <td class="text-center">{{$item->round}}</td>
                         @endif
@@ -109,7 +109,7 @@
                                 <p class="thousand-separator">{{$item->parkir}}</p>
                             </div>
                         </td>
-                        @if ($role <= 2)
+                        @if ($role <= 3)
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <p>Rp</p>
@@ -122,7 +122,7 @@
                 @endforeach
                 @endisset
             </tbody>
-            @if ($role <= 2)
+            @if ($role <= 3)
                 <tfoot>
                     <tr>
                         <td class="text-end" colspan="6">Total</td>
