@@ -76,22 +76,22 @@ class HtransController extends Controller
         $carbon = Carbon::now();
         $date = $carbon->toDateString();
         $time = $carbon->toTimeString();
-        if($time > '08:00:00'){
-            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
-            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7)->addDays(1);
+        if($time > '09:00:00'){
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->addDays(1);
         }else{
-            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7)->subDays(1);
-            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
+            $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->subDays(1);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
         }
         if(Auth::guard('checkLogin')->user()->role_id <3){
             $temp = htrans::withTrashed()->get();
         }else if(Auth::guard('checkLogin')->user()->role_id == 3){
-            if($time > '08:00:00'){
-                $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7)->subDays(1);
-                $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7)->addDays(1);
+            if($time > '09:00:00'){
+                $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->subDays(1);
+                $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->addDays(1);
             }else{
-                $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7)->subDays(2);
-                $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 08:00:00',7);
+                $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->subDays(2);
+                $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
             }
             $temp = htrans::whereBetween('created_at',[$start,$end])->get();
         }else{
