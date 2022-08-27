@@ -10,6 +10,8 @@ $(document).ready(function() {
     });
 
     $('#table-invoice').DataTable({
+        scrollY: '77.1vh',
+        scrollCollapse: true,
         paging: false,
         columns: [
             null,
@@ -118,7 +120,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', function() {
-        setTimeout(function (){
+        setTimeout(function() {
             if (flag) {
                 flag = !flag;
             } else {
