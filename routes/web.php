@@ -78,7 +78,7 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::prefix('details')->group(function () {
             Route::get('/', [HtransController::class,'detailspage']);
-            Route::get('/update', [HtransController::class,'detailspage']);
+            Route::get('/update/{htrans:id}', [HtransController::class,'update']);
             Route::get('/{htrans}', [HtransController::class,'details']);
         });
         Route::prefix('transaction')->group(function () {
@@ -169,6 +169,7 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::prefix('details')->group(function () {
             Route::get('/', [HtransController::class,'detailspage']);
+            Route::get('/update/{htrans:id}', [HtransController::class,'update']);
             Route::get('/{htrans}', [HtransController::class,'details']);
         });
         Route::prefix('transaction')->group(function () {
