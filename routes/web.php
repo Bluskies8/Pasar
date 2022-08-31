@@ -150,6 +150,7 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('stock', [HtransController::class,'index']);
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
+            Route::get('/cari',[BuahController::class,'cari']);
             Route::post('/create',[BuahController::class,'store']);
             Route::post('/update/{buah:id}',[BuahController::class,'update']);
             Route::post('/delete/{buah:id}',[BuahController::class,'destroy']);
