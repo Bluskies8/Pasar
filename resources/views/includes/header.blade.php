@@ -40,6 +40,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/changePassword"class="dropdown-item" style="cursor: default;">Change Password</a>
+                    <a href="/switchPasar"class="dropdown-item" style="cursor: default;">Ganti Pasar</a>
                     <a href="/logout" class="dropdown-item" style="cursor: default;">Logout</a>
                 </div>
             </div>
