@@ -195,13 +195,14 @@ class InvoiceController extends Controller
             }
         }
         $kuli = htrans::where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
-        // return [
-        //     'id' =>$invoice->stand_id,
-        //     'total' =>$total,
-        //     'parkir' =>$parkir,
-        //     'jumlah' =>$invoice->kuli,
-        //     'total' => $total+$invoice->kuli+$parkir
-        // ];
+        $cek = [
+            'id' =>$invoice->stand_id,
+            'total' =>$total,
+            'parkir' =>$parkir,
+            'jumlah' =>$invoice->kuli,
+            'total' => $total+$invoice->kuli+$parkir
+        ];
+        dd($cek);
         $pasar = pasar::where('id',Auth::guard('checkLogin')->user()->pasar_id)->first();
         $stand = stand::where('id', $invoice->stand_id)->first();
         return view('pages.invoiceDetail',[
