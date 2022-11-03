@@ -55,7 +55,7 @@ class InvoiceController extends Controller
             'listrik' => $listrik,
             'trans' => $htrans
         ];
-        dd($all);
+        dd($htrans);
         return view('pages.invoice');
     }
 
