@@ -24,7 +24,7 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
-        
+        return view('pages.masterBarang');
         return view('pages.invoice');
     }
 
