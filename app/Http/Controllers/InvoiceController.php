@@ -68,7 +68,7 @@ class InvoiceController extends Controller
         //     'total' =>$total,
         //     'listrik' => $listrik,
         // ];
-        // dd($all);
+        dd($data);
         return view('pages.invoice',[
             'date'=> $carbon,
             'invoice'=> $data,
