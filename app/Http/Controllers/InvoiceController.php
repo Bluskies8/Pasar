@@ -37,7 +37,7 @@ class InvoiceController extends Controller
             $stand[$key]['id'] = $no_stand->id;
             $total = invoice::with('stand')->where('id','like','%' . $date.'%')->sum('dibayarkan');
             $kuli = htrans::where('stand_id',$no_stand->id)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
-            $htrans = htrans::where('stand_id',$no_stand->id)->whereBetween('created_at',[$start,$end])->get();
+            $htrans = htrans::where('stand_id',$no_stand->id)->get();
             $parkir = 0;
             foreach ($htrans as $key2 ) {
                 $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
