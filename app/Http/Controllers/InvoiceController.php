@@ -24,38 +24,7 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
-        $date = Carbon::createFromFormat('d-m-Y',$request->date)->format('dmY');
-        $carbon = Carbon::createFromFormat('d-m-Y',$request->date)->format('Y-m-d');
-        $start = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7)->subDays(1);
-        $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7);
-        $data = invoice::with('stand')->where('id','like','%' . $date.'%')->get();
-        $temp = stand::select('seller_name')->groupBy('seller_name')->get();
-        foreach ($temp as $key => $value) {
-            $no_stand = stand::where('seller_name',$value->seller_name)->first();
-            $stand[$key]['seller_name'] = $no_stand->seller_name;
-            $stand[$key]['no_stand'] = $no_stand->no_stand;
-            $stand[$key]['id'] = $no_stand->id;
-            $total = invoice::with('stand')->where('id','like','%' . $date.'%')->sum('dibayarkan');
-            $kuli = htrans::where('stand_id',$no_stand->id)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
-            $htrans = htrans::where('stand_id',$no_stand->id)->get();
-            $parkir = 0;
-            foreach ($htrans as $key2 ) {
-                $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
-                $parkir+=$dtrans;
-            }
-        }
-        $listrik = listrik::orderBy('value')->get();
-        $all = [
-            'date'=> $carbon,
-            'invoice'=> $data,
-            'stand' => $stand,
-            'total' =>$total,
-            'parkir' =>$parkir,
-            'kuli' => $kuli,
-            'listrik' => $listrik,
-            'trans' => $htrans
-        ];
-        dd($htrans);
+        
         return view('pages.invoice');
     }
 
