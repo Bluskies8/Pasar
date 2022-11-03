@@ -72,8 +72,8 @@ class InvoiceController extends Controller
     {
         $date = Carbon::createFromFormat('d-m-Y',$request->date)->format('dmY');
         $carbon = Carbon::createFromFormat('d-m-Y',$request->date)->format('Y-m-d');
-        $start = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7)->subDays(1);
-        $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7);
+        // $start = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7)->subDays(1);
+        // $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7);
 
         $data = invoice::with('stand')->where('id','like','%' . $date.'%')->get();
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
@@ -99,7 +99,6 @@ class InvoiceController extends Controller
             'total' =>$total,
             'listrik' => $listrik,
         ];
-        dd($all);
         return view('pages.invoice',[
             'date'=> $carbon,
             'invoice'=> $data,
