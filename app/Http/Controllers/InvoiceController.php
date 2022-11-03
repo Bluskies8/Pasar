@@ -53,6 +53,7 @@ class InvoiceController extends Controller
             'parkir' =>$parkir,
             'kuli' => $kuli,
             'listrik' => $listrik,
+            'trans' => $htrans
         ];
         dd($all);
         return view('pages.invoice');
