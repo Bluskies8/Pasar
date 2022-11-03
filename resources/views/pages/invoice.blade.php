@@ -38,7 +38,7 @@
             </thead>
             <tbody>
                 @foreach ($invoice as $item)
-                    @if ({{$item->stand}} != null)
+                    @if ($item->stand != null)
                     <tr id = "{{$item->stand->id}}">
                         <td class='cell-id text-center'>{{$item->id}} </td>
                         <td class='text-center'>{{$item->stand->seller_name}}</td>
