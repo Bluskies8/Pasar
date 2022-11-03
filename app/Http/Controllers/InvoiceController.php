@@ -22,8 +22,29 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $date = Carbon::createFromFormat('d-m-Y',$request->date)->format('dmY');
+        $carbon = Carbon::createFromFormat('d-m-Y',$request->date)->format('Y-m-d');
+        $start = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7)->subDays(1);
+        $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7);
+        $data = invoice::with('stand')->where('id','like','%' . $date.'%')->get();
+        $temp = stand::select('seller_name')->groupBy('seller_name')->get();
+        foreach ($temp as $key => $value) {
+            $no_stand = stand::where('seller_name',$value->seller_name)->first();
+            $stand[$key]['seller_name'] = $no_stand->seller_name;
+            $stand[$key]['no_stand'] = $no_stand->no_stand;
+            $stand[$key]['id'] = $no_stand->id;
+            $total = invoice::with('stand')->where('id','like','%' . $date.'%')->sum('dibayarkan');
+            $kuli = htrans::where('stand_id',$no_stand->id)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
+            $htrans = htrans::where('stand_id',$no_stand->id)->get();
+            $parkir = 0;
+            foreach ($htrans as $key2 ) {
+                $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
+                $parkir+=$dtrans;
+            }
+        }
+        $listrik = listrik::orderBy('value')->get();
         return view('pages.invoice');
     }
 
@@ -128,7 +149,7 @@ class InvoiceController extends Controller
         log::create([
             'user_id' =>Auth::guard('checkLogin')->user()->id,
             'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
-            'keterangan' => "Generate invoice ".$invo
+            'keterangan' => "Generate invoice ".$invo->id
         ]);
         return "success";
     }
@@ -195,14 +216,7 @@ class InvoiceController extends Controller
             }
         }
         $kuli = htrans::where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
-        $cek = [
-            'id' =>$invoice->stand_id,
-            'total' =>$total,
-            'parkir' =>$parkir,
-            'jumlah' =>$invoice->kuli,
-            'total' => $total+$invoice->kuli+$parkir
-        ];
-        dd($cek);
+
         $pasar = pasar::where('id',Auth::guard('checkLogin')->user()->pasar_id)->first();
         $stand = stand::where('id', $invoice->stand_id)->first();
         return view('pages.invoiceDetail',[

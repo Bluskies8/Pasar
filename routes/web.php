@@ -71,6 +71,7 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::prefix('invoice')->group(function () {
             Route::get('/',[invoicecontroller::class,'invoice']);
+            Route::get('/cek',[invoicecontroller::class,'index']);
             Route::get('/generate/{idlapak}', [InvoiceController::class,'generate']);
             Route::post('/update', [InvoiceController::class,'update']);
             Route::post('/transdetail', [InvoiceController::class,'transactionDetails']);
