@@ -27,6 +27,10 @@
     @endif
 
     <hr class="my-0">
+    <div class="position-relative" style="max-width: 250px; display: none;" id="container-tanggal">
+        <input class="form-control d-flex justify-content-between" id="selected-date" name="month" type="month" data-date="{{ date('M-Y'); }}" style="height: 32px; width: 200px;" value="{{ date('M-Y'); }}">
+        <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
+    </div>
     <div class="table-responsive p-3" style="max-height: 81.8vh;overflow-y: auto;">
         <table class="table table-hover" id="table-transaksi">
             <thead>

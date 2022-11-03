@@ -19,7 +19,11 @@ $(document).ready(function(){
             null,
             { orderable: false }
         ],
-        paging: false
+        paging: false,
+        initComplete: function(settings, json) {
+            $('#table-transaksi_filter').parent().prev().append($('#container-tanggal').detach());
+            $('#container-tanggal').show();
+        },
     });
 
     var flag = false;
