@@ -38,7 +38,7 @@
             </thead>
             <tbody>
                 @foreach ($invoice as $item)
-                    @isset ({{$item->stand->seller_name}})
+                    @if ({{$item->stand}} != null)
                     <tr id = "{{$item->stand->id}}">
                         <td class='cell-id text-center'>{{$item->id}} </td>
                         <td class='text-center'>{{$item->stand->seller_name}}</td>
@@ -51,7 +51,7 @@
                             <button class='btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto' type='button' style='background: #38A34A;color: white;left: 0;right: 0;max-width: 35.5px;'><i class='fas fa-bars fa-lg'></i></button>
                         </td>
                     </tr>
-                    @endisset
+                    @endif
                 @endforeach
             </tbody>
             <tfoot>
