@@ -40,7 +40,9 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/changePassword"class="dropdown-item" style="cursor: default;">Change Password</a>
-                    <a href="/switchPasar"class="dropdown-item" style="cursor: default;">Ganti Pasar</a>
+                    @if (auth()->guard('checkLogin')->user()->role->id <2)
+                    <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/switchPasar"class="dropdown-item" style="cursor: default;">Ganti Pasar</a>
+                    @endif
                     <a href="/logout" class="dropdown-item" style="cursor: default;">Logout</a>
                 </div>
             </div>

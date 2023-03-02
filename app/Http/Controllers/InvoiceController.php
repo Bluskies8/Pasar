@@ -44,7 +44,7 @@ class InvoiceController extends Controller
         // $start = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7)->subDays(1);
         // $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7);
 
-        $data = invoice::with('stand')->where('id','like','%' . $date.'%')->get();
+        $data = invoice::with('stand')->where('id','like','%' . $date.'%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
         $temp = stand::select('seller_name')->groupBy('seller_name')->get();
         foreach ($temp as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
@@ -85,6 +85,7 @@ class InvoiceController extends Controller
         $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->subDays(1);
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
         $checkinvoice = invoice::where('id','like', '%'.$dateid.'%')->where('stand_id',$idlapak)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->count();
+
         if($checkinvoice > 0){
             return redirect()->back()->with(['pesan'=>'invoice sudah terbuat']);
         }

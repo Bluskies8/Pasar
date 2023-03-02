@@ -8,6 +8,7 @@ use App\Models\invoice;
 use App\Models\listrik;
 use App\Models\log;
 use App\Models\netto;
+use App\Models\pasar;
 use App\Models\User;
 use App\Models\shif;
 use App\Models\stand;
@@ -40,34 +41,56 @@ class DashboardController extends Controller
                 if($cekuser->role_id>2){
                     return redirect(strtolower(Auth::guard('checkLogin')->user()->role->name).'/stock');
                 }else{
-                    return redirect('/'.strtolower(Auth::guard('checkLogin')->user()->role->name));
+
+                    // return view('pages.selectPasar');
+                    return redirect('/'.strtolower(Auth::guard('checkLogin')->user()->role->name).'/switchPasar');
                 }
             }else{
                 return redirect()->back()->with('pesan','email/password salah');
             }
-        // }
-        // if($time < $cekshif->end && $time > $cekshif->start) {
-        //     if(Auth::guard('checkLogin')->attempt($data)){
-        //         return redirect('/');
-        //     }else{
-        //         return redirect()->back()->with('pesan','email/password salah');
-        //     }
-        // }else{
-        //     return redirect()->back()->with('pesan','bukan shif anda');
-        // }
     }
     public function userPages()
     {
         if(Auth::guard('checkLogin')->user()->role_id<3){
-            $data = User::with('role')->where('role_id','>',1)->get();
+            $data = User::with('role')->where('role_id','>',1)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
 
         }else{
-            $data = User::with('role')->where('role_id',4)->get();
+            $data = User::with('role')->where('role_id',4)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
         }
         return view('pages.masterUser',[
             'data' => $data
         ]);
     }
+
+    public function tambahPasar(Request $request)
+    {
+        try {
+            $data = pasar::create([
+                'nama' => $request->nama,
+                'alamat' => $request->alamat
+            ]);
+            return redirect(strtolower(Auth::guard('checkLogin')->user()->role->name));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function switchPages()
+    {
+        $data = pasar::all();
+        return view('pages.selectPasar',[
+            'data' => $data
+        ]);
+    }
+
+    public function switchPasar($id)
+    {
+        $data = user::find(Auth::guard('checkLogin')->user()->id);
+        $data->pasar_id = $id;
+        $data->save();
+        return redirect(strtolower(Auth::guard('checkLogin')->user()->role->name));
+    }
+
     public function createUser(Request $request)
     {
         try {
@@ -186,9 +209,9 @@ class DashboardController extends Controller
     }
     public function vendor()
     {
-        $standa = stand::where('no_stand','like', 'a%')->orderBy('no_stand','desc')->get();
-        $standb = stand::where('no_stand','like', 'b%')->orderBy('no_stand','desc')->get();
-        $tempc = stand::where('no_stand','like', 'c%')->get();
+        $standa = stand::where('no_stand','like', 'a%')->orderBy('no_stand','desc')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
+        $standb = stand::where('no_stand','like', 'b%')->orderBy('no_stand','desc')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
+        $tempc = stand::where('no_stand','like', 'c%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
         foreach ($tempc as $key => $value) {
             $standc[$key]['seller_name'] = $value->seller_name;
             $standc[$key]['no_stand'] = $value->no_stand;
@@ -278,5 +301,5 @@ class DashboardController extends Controller
             'data' => $data
         ]);
     }
-    
+
 }

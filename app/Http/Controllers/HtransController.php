@@ -84,7 +84,7 @@ class HtransController extends Controller
             $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
         }
         if(Auth::guard('checkLogin')->user()->role_id <3){
-            $temp = htrans::withTrashed()->get();
+            $temp = htrans::withTrashed()->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
         }else if(Auth::guard('checkLogin')->user()->role_id == 3){
             if($time > '09:00:00'){
                 $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->subDays(1);
@@ -93,9 +93,9 @@ class HtransController extends Controller
                 $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->subDays(2);
                 $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
             }
-            $temp = htrans::whereBetween('created_at',[$start,$end])->get();
+            $temp = htrans::whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
         }else{
-            $temp = htrans::whereBetween('created_at',[$start,$end])->get();
+            $temp = htrans::whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
         }
         $data = [];
         foreach ($temp as $id => $value) {

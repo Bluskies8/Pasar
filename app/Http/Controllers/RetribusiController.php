@@ -21,7 +21,7 @@ class RetribusiController extends Controller
      */
     public function index(Request $request)
     {
-        $retribusi = retribusi::with('tambahan')->whereDate('created_at', $request->date)->first();
+        $retribusi = retribusi::with('tambahan')->whereDate('created_at', $request->date)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->first();
         $total = 0;
         if($retribusi){
             $total = $retribusi->retribusi+$retribusi->listrik-$retribusi->kuli-$retribusi->sampah+$retribusi->ponten_siang+$retribusi->ponten_malam+$retribusi->parkir_siang+$retribusi->parkir_malam+$retribusi->motor_siang+$retribusi->motor_malam;
@@ -42,9 +42,9 @@ class RetribusiController extends Controller
         // $carbon = Carbon::now();
         // $date = $carbon->toDateString();
         $date = Carbon::createFromFormat('Y-m-d',$request->date)->format('dmY');
-        $listrik = invoice::where('id','like','%' . $date.'%')->sum('listrik');
-        $total = invoice::where('id','like','%' . $date.'%')->sum('dibayarkan');
-        $kuli = invoice::where('id','like','%' . $date.'%')->sum('kuli');
+        $listrik = invoice::where('id','like','%' . $date.'%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('listrik');
+        $total = invoice::where('id','like','%' . $date.'%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('dibayarkan');
+        $kuli = invoice::where('id','like','%' . $date.'%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('kuli');
         return [
             'retribusi'=>$total,
             'kuli' => $kuli,

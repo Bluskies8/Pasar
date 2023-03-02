@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\URL;
 |
 */
 
-if(env('APP_ENV') === "production") {
-    URL::forceScheme('https');
-}
+// if(env('APP_ENV') === "production") {
+//     URL::forceScheme('https');
+// }
 
 Route::get('/', function () {
     return redirect('login');
@@ -43,6 +43,10 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('changePassword', function () {
             return view('pages/changePassword');
         });
+
+        Route::get('switchPasar', [DashboardController::class,'switchpages']);
+        Route::get('/switch/{id}',[DashboardController::class,'switchPasar']);
+        Route::post('tambahPasar',[DashboardController::class,'tambahPasar']);
         Route::get('stock', [HtransController::class,'index']);
         // Route::get('/reset',[DashboardController::class,'reset']);
         Route::prefix('buah')->group(function () {
