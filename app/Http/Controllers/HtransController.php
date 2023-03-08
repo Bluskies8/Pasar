@@ -118,9 +118,11 @@ class HtransController extends Controller
 
     public function detailspage()
     {
-
-        $tmep = stand::select('seller_name')->groupBy('seller_name')->get();
+        // dd(Auth::guard('checkLogin')->user()->pasar_id);
+        $tmep = stand::select('seller_name')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->groupBy('seller_name')->get();
         $buah = buah::get();
+        // dd($tmep);
+        $stand = [];
         foreach ($tmep as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
             $stand[$key]['seller_name'] = $no_stand->seller_name;
@@ -128,7 +130,7 @@ class HtransController extends Controller
             $stand[$key]['id'] = $no_stand->id;
         }
         return view('pages/stockDetail',[
-            'stand'=>$stand,
+            'stand'=> $stand,
             'data'=>['id'=>'','value'=>'1'],
             'role' => Auth::guard('checkLogin')->user()->role_id,
             'buah' => $buah,
