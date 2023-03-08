@@ -116,6 +116,15 @@ class HtransController extends Controller
         ]);
     }
 
+    public function indexTable($year, $month)
+    {
+        $temp = htrans::withTrashed()->with(['checker', 'stand'])->where('pasar_id', Auth::guard('checkLogin')->user()->pasar_id)->whereYear('created_at', date($year))->whereMonth('created_at', date($month))->paginate(100);
+        return view('components/tableStock', [
+            'data' => $temp,
+            'role' => Auth::guard('checkLogin')->user()->role_id,
+        ]);
+    }
+
     public function detailspage()
     {
         // dd(Auth::guard('checkLogin')->user()->pasar_id);

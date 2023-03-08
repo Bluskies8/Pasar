@@ -10,7 +10,7 @@ $(document).ready(function(){
     var flag = false;
     var selectedID = '';
     $('.show-aksi').on('click', function() {
-        $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 30.25 /* lebar button */);
+        $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 150 /* lebar list */ + 30.25 /* lebar button */);
         $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 24 /* tinggi button */);
         $('#list-aksi').show();
         selectedID = $(this).closest('tr').attr('id');

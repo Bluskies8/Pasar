@@ -31,7 +31,7 @@ $(document).ready(function(){
     var role = window.location.pathname.split('/');
     $('.show-aksi').on('click', function() {
         $('#list-aksi').show();
-        $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 130 /* lebar list */ + 35.5 /* lebar button */);
+        $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 150 /* lebar list */ + 35.5 /* lebar button */);
         $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
         currentID = $(this).parent().parent().children('.cell-id').text();
         flag = true;

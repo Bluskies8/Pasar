@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -27,61 +27,20 @@
     @endif
 
     <hr class="my-0">
-    <div class="position-relative" style="max-width: 250px; display: none;" id="container-tanggal">
+    <div class="position-relative m-3" style="max-width: 250px;" id="container-tanggal">
         <input class="form-control d-flex justify-content-between" id="selected-date" name="month" type="month" data-date="{{ date('M-Y'); }}" style="height: 32px; width: 200px;" value="{{ date('M-Y'); }}">
         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
     </div>
-    <div class="table-responsive p-3" style="max-height: 81.8vh;overflow-y: auto;">
-        <table class="table table-hover" id="table-transaksi">
-            <thead>
-                <tr>
-                    <th>ID Transaksi</th>
-                    <th>Lapak</th>
-                    <th>Checker</th>
-                    <th>Tanggal</th>
-                    <th>Total Transaksi</th>
-                    <th>Deleted_at</th>
-                    <th style="min-width: 45px;"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @isset($data)
-                @foreach ($data as $item)
-                @if ($item['deleted']!=null)
-                    <tr class = "disabled">
-                @else
-                    <tr>
-                @endif
-                    <td class="cell-id text-center">{{$item['id_trans']}}</td>
-                    <td class="text-center">{{$item['nama']}}</td>
-                    <td class="text-center">{{$item['checker']}}</td>
-                    <td class="text-center">{{$item['tanggal']}}</td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <p>Rp</p>
-                            <p class="thousand-separator">{{$item['total']}}</p>
-                        </div>
-                    </td>
-                    <td class="text-center">{{$item['deleted']}}</td>
-                    <td class="position-relative" style="padding: 5px 4px;">
-                        <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: #38A34A;color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
-                    </td>
-                </tr>
-                @endforeach
-                @endisset
-            </tbody>
-        </table>
-    </div>
-    <ul class="list-unstyled py-2 px-1" id="list-aksi">
-        <li id="item-detail" class="px-1">Lihat Detail</li>
+    <div id="table-stock"></div>
+    <ul class="list-unstyled py-2" id="list-aksi">
+        <li id="item-detail" class="px-2">Lihat Detail</li>
         @if ($role <= 3)
-            <li id="item-delete" class="px-1">Hapus Transaksi</li>
+            <li id="item-delete" class="px-2">Hapus Transaksi</li>
         @endif
     </ul>
 
-    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
-    <script src="{{asset('js/table-transaksi.js')}}"></script>
-    <script src="{{asset('js/table-barang.js')}}"></script>
+    {{-- <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script> --}}
+    {{-- <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script> --}}
+    <script src="{{ asset('js/stock.js') }}"></script>
 @endsection
 

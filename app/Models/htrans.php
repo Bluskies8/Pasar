@@ -27,4 +27,8 @@ class htrans extends Model
     {
         return $this->belongsTo(stand::class,'stand_id','id');
     }
+    public function checker()
+    {
+        return $this->belongsTo(user::class,'user_id','id');
+    }
 }

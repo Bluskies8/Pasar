@@ -48,6 +48,7 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('/switch/{id}',[DashboardController::class,'switchPasar']);
         Route::post('tambahPasar',[DashboardController::class,'tambahPasar']);
         Route::get('stock', [HtransController::class,'index']);
+        Route::get('stockTable/{year}/{month}', [HtransController::class,'indexTable']);
         // Route::get('/reset',[DashboardController::class,'reset']);
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
