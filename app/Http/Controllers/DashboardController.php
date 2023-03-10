@@ -209,46 +209,80 @@ class DashboardController extends Controller
     }
     public function vendor()
     {
-        $standa = stand::where('no_stand','like', 'a%')->orderBy('no_stand','desc')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
-        $standb = stand::where('no_stand','like', 'b%')->orderBy('no_stand','desc')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
-        $tempc = stand::where('no_stand','like', 'c%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
-        foreach ($tempc as $key => $value) {
-            $standc[$key]['seller_name'] = $value->seller_name;
-            $standc[$key]['no_stand'] = $value->no_stand;
-            $standc[$key]['badan_usaha'] = $value->badan_usaha;
-        }
-        // dd($standc);
+        // $standa = stand::where('no_stand','like', 'a%')->orderBy('no_stand','desc')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
+        // $standb = stand::where('no_stand','like', 'b%')->orderBy('no_stand','desc')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
+        // $tempc = stand::where('no_stand','like', 'c%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
+        // foreach ($tempc as $key => $value) {
+        //     $standc[$key]['seller_name'] = $value->seller_name;
+        //     $standc[$key]['no_stand'] = $value->no_stand;
+        //     $standc[$key]['badan_usaha'] = $value->badan_usaha;
+        // }
+        // // dd($standc);
         return view('pages.vendor',[
-            'standa' => $standa,
-            'standb' => $standb,
-            'standc' => $standc
+            'role' => Auth::guard('checkLogin')->user()->role_id,
         ]);
     }
-    public function vendorUpdate(Request $request)
-    {
-        $badan = $request->badan_usaha;
-        $nama = $request->seller_name;
-        if($badan == null){
-            $badan = "";
-        }
-        if($nama == null){
-            $nama = "";
-        }
 
+    public function vendorTable()
+    {
+        $temp = stand::where('pasar_id', Auth::guard('checkLogin')->user()->pasar_id)->paginate(100);
+        return view('components/tableDenah', [
+            'data' => $temp,
+        ]);
+    }
+
+    public function vendorCreate(Request $request)
+    {
+        // return Auth::guard('checkLogin')->user()->pasar_id;
         try {
-            $stand = stand::where('no_stand',$request->id)->first();
-            $stand->badan_usaha = $badan;
-            $stand->seller_name = $nama;
-            $stand->save();
+            $stand = stand::create([
+                'badan_usaha' => ($request->badan_usaha)?$request->badan_usaha:"-",
+                'seller_name' => $request->seller_name,
+                'no_stand' => $request->no_stand,
+                'Phone' => ($request->Phone)?$request->Phone:"-",
+                'jenis_jualan' => ($request->Jenis_jualan)?$request->Jenis_jualan:"-",
+                'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
+            ]);
+            return $stand;
             log::create([
                 'user_id' =>Auth::guard('checkLogin')->user()->id,
                 'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
-                'keterangan' => "Update Vendor ".$stand->id
+                'keterangan' => "Create Vendor ".$stand->id
             ]);
             return "success";
         } catch (\Throwable $th) {
             return $th;
         }
+    }
+
+    public function vendorUpdate(Request $request)
+    {
+        try {
+            $stand = stand::where('id',$request->id)->first();
+            $stand->badan_usaha = ($request->badan_usaha)?$request->badan_usaha:"-";
+            $stand->seller_name = $request->seller_name;
+            $stand->save();
+            log::create([
+                'user_id' =>Auth::guard('checkLogin')->user()->id,
+                'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+                'keterangan' => "Update Vendor ".$stand->no_stand
+            ]);
+            return "success";
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    public function vendorDelete(Request $request)
+    {
+        $stand = stand::find($request->id);
+        log::create([
+            'user_id' =>Auth::guard('checkLogin')->user()->id,
+            'pasar_id' =>Auth::guard('checkLogin')->user()->pasar_id,
+            'keterangan' => "Menghapus Stand dengan NO.Stand ".$stand->no_stand
+        ]);
+        $stand->delete();
+        return 'success';
     }
     public function dashboard()
     {

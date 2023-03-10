@@ -1,10 +1,17 @@
 @extends('layouts.default')
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <header id="content-header" class="d-flex align-items-center justify-content-between" style="height: 50px;">
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<div class="d-flex align-items-center h-100 px-5">
-    <div class="table-responsive" id="denah-pasar">
-        <table class="table">
+        <div class="dropdown h-100"><button class="btn dropdown-toggle h-100" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="visibility: hidden;">All Item</button>
+            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+        </div>
+
+        <button class="btn btn-sm me-2" id="tambah-transaksi" type="button" style="">Tambah Stand Baru</button>
+    </header>
+    <div id="denah-pasar">
+        {{-- <table class="table">
             <tbody>
                 <tr>
                     <td class="td-2">D1<br><span>Warung</span></td>
@@ -42,33 +49,39 @@
                     <td class="td-2" id = "{{$standc[5]['no_stand']}}">{{$standc[5]['no_stand']}}<br><span class="nama-pt">{{$standc[5]['badan_usaha']}}</span><br><span class="nama-lapak">{{$standc[5]['seller_name']}}</span></td>
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
     </div>
-</div>
-
-<div id="modal-vendor" role="dialog" tabindex="-1" class="modal fade">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Stand <span id="nama-stand"></span></h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="position-relative mb-3">
-                    <input id="input-namaPT" type="text" class="w-100 ps-2" style="height: 32px;" />
-                    <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Lapak</p>
+    <ul class="list-unstyled py-2" id="list-aksi">
+        <li id="item-detail" class="px-2">Lihat Detail</li>
+        <li id="item-delete" class="px-2">Hapus Stand</li>
+    </ul>
+    <div id="modal-vendor" role="dialog" tabindex="-1" class="modal fade">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Stand <span id="nama-stand"></span></h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="position-relative mb-3">
-                    <input id="input-pemilik" type="text" class="w-100 ps-2" style="height: 32px;" />
-                    <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Pemilik</p>
+                <div class="modal-body">
+                    <div class="position-relative mb-3">
+                        <input id="input-noStand" name = "no_stand" type="text" class="w-100 ps-2" style="height: 32px;" disabled/>
+                        <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nomer Stand</p>
+                    </div>
+                    <div class="position-relative mb-3">
+                        <input id="input-namaPT" name = "badan_usaha" type="text" class="w-100 ps-2" style="height: 32px;" />
+                        <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Lapak</p>
+                    </div>
+                    <div class="position-relative mb-3">
+                        <input id="input-pemilik"  name = "seller_name" type="text" class="w-100 ps-2" style="height: 32px;" />
+                        <p class="position-absolute" style="font-size: 10px;top: -8px;left: 8px;background-color: white;">Nama Pemilik</p>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" id = "btn-save" type="button" data-bs-dismiss="modal" style="background: #38A34A;color: white;">Save</button>
+                <div class="modal-footer">
+                    <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" id = "btn-save" type="button" data-bs-dismiss="modal" style="background: #38A34A;color: white;">Save</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <script src="{{asset('js/vendor.js')}}"></script>
 @endsection

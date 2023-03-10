@@ -49,6 +49,7 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::post('tambahPasar',[DashboardController::class,'tambahPasar']);
         Route::get('stock', [HtransController::class,'index']);
         Route::get('stockTable/{year}/{month}', [HtransController::class,'indexTable']);
+        Route::get('vendorTable', [DashboardController::class,'vendorTable']);
         // Route::get('/reset',[DashboardController::class,'reset']);
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
@@ -92,7 +93,9 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::prefix('vendor')->group(function () {
             Route::get('/',[DashboardController::class,'vendor']);
+            Route::post('/create',[DashboardController::class,'vendorCreate']);
             Route::post('/update',[DashboardController::class,'vendorUpdate']);
+            Route::delete('/delete',[DashboardController::class,'vendorDelete']);
         });
 
         Route::get('/invo',[invoicecontroller::class,'index']);
@@ -145,6 +148,7 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::prefix('vendor')->group(function () {
             Route::get('/',[DashboardController::class,'vendor']);
+            Route::post('/create',[DashboardController::class,'vendorCreate']);
             Route::post('/update',[DashboardController::class,'vendorUpdate']);
         });
     });

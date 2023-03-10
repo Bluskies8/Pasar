@@ -124,6 +124,7 @@ class HtransController extends Controller
             'role' => Auth::guard('checkLogin')->user()->role_id,
         ]);
     }
+    
 
     public function detailspage()
     {
