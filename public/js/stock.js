@@ -29,6 +29,27 @@ $(document).ready(function() {
         selectedID = $(this).attr('id').substr(4);
         flag = true;
     });
+    function toShortFormat(mon,year) {
+
+        const monthNames = ["Jan", "Feb", "Mar", "Apr",
+                            "May", "Jun", "Jul", "Aug",
+                            "Sep", "Oct", "Nov", "Dec"];
+
+        // const monthIndex = this.getMonth();
+        const monthName = monthNames[mon];
+        // const year = this.getFullYear();
+
+        return `${monthName}-${year}`;
+    }
+    $('#selected-date').on('change', function(){
+        var tempmonth = new Date($(this).val()).getMonth();
+        var tempyear = new Date($(this).val()).getFullYear();
+        $(this).attr('data-date', toShortFormat(tempmonth, tempyear));
+        $('#table-stock').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable/' + tempyear + '/' + ("0" + (tempmonth + 1)).slice(-2), function() {
+            setThousandSeparator();
+        });
+
+    });
 
     $(document).on('click', function() {
         setTimeout(function (){
