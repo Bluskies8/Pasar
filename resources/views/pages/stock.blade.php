@@ -27,9 +27,17 @@
     @endif
 
     <hr class="my-0">
-    <div class="position-relative m-3" style="max-width: 250px;" id="container-tanggal">
-        <input class="form-control d-flex justify-content-between" id="selected-date" name="month" type="month" data-date="{{ date('M-Y'); }}" style="height: 32px; width: 200px;" value="{{ date('M-Y'); }}">
-        <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
+    <div class="d-flex justify-content-between">
+        <div class="position-relative mt-3 ms-3" style="max-width: 250px;" id="container-tanggal">
+            <input class="form-control d-flex justify-content-between" id="selected-date" name="month" type="month" data-date="{{ date('M-Y'); }}" style="height: 32px; width: 200px;" value="{{ date('Y-m'); }}">
+            <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
+        </div>
+        <div class="d-flex mt-3 me-3">
+            <input class="form-control" type="search" name="search" id="input-search" style="height: 32px;" placeholder="Search">
+            <button id="btn-search" type="button" class="btn btn-primary btn-sm ms-2">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
     </div>
     <div id="table-stock"></div>
     <ul class="list-unstyled py-2" id="list-aksi">

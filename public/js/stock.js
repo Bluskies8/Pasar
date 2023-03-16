@@ -1,7 +1,6 @@
 $(document).ready(function() {
-    $('#table-stock').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable/' + new Date().getFullYear() + '/' + ("0" + (new Date().getMonth() + 1)).slice(-2), function() {
-        setThousandSeparator();
-    });
+
+    reloadTable();
 
     function setThousandSeparator () {
         let length = $('.thousand-separator').length;
@@ -29,6 +28,7 @@ $(document).ready(function() {
         selectedID = $(this).attr('id').substr(4);
         flag = true;
     });
+
     function toShortFormat(mon,year) {
 
         const monthNames = ["Jan", "Feb", "Mar", "Apr",
@@ -41,14 +41,13 @@ $(document).ready(function() {
 
         return `${monthName}-${year}`;
     }
+
     $('#selected-date').on('change', function(){
+        // console.log($(this).val());
         var tempmonth = new Date($(this).val()).getMonth();
         var tempyear = new Date($(this).val()).getFullYear();
         $(this).attr('data-date', toShortFormat(tempmonth, tempyear));
-        $('#table-stock').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable/' + tempyear + '/' + ("0" + (tempmonth + 1)).slice(-2), function() {
-            setThousandSeparator();
-        });
-
+        reloadTable();
     });
 
     $(document).on('click', function() {
@@ -91,4 +90,17 @@ $(document).ready(function() {
             });
         }
     });
+
+    $('#btn-search').on('click', function() {
+        reloadTable();
+    });
+
+    function reloadTable() {
+        $('#table-stock').load(
+            window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + $('#input-search').val() + '&year=' + $('#selected-date').val().split('-')[0] + '&month=' + $('#selected-date').val().split('-')[1],
+            function() {
+                setThousandSeparator();
+            }
+        );
+    }
 });

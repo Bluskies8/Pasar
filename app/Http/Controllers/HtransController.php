@@ -13,6 +13,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HtransController extends Controller
 {
@@ -116,15 +117,27 @@ class HtransController extends Controller
         ]);
     }
 
-    public function indexTable($year, $month)
+    public function indexTable(Request $request)
     {
-        $temp = htrans::withTrashed()->with(['checker', 'stand'])->where('pasar_id', Auth::guard('checkLogin')->user()->pasar_id)->whereYear('created_at', date($year))->whereMonth('created_at', date($month))->paginate(100);
+        DB::enableQueryLog();
+        $temp = htrans::withTrashed()
+                ->with(['checker', 'stand'])
+                ->where('pasar_id', Auth::guard('checkLogin')->user()->pasar_id)
+                ->where('created_at', "like", date($request->year) . '-' . date($request->month) . "%")
+                ->when($request->search != null, function ($query) use ($request) {
+                    return $query->where("id", "like", "%" . $request->search . "%")
+                            ->orWhereHas('checker', function ($q) use ($request) {
+                                return $q->where('name', 'like', "%" . $request->search . "%");
+                            })
+                            ->orWhere("created_at", "like", "%" . $request->search . "%");
+                })
+                ->paginate(100);
+        dd(DB::getQueryLog());
         return view('components/tableStock', [
             'data' => $temp,
             'role' => Auth::guard('checkLogin')->user()->role_id,
         ]);
     }
-    
 
     public function detailspage()
     {
