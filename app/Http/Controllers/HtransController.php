@@ -128,7 +128,10 @@ class HtransController extends Controller
                                   ->orWhereDay("created_at", $request->search)
                                   ->orWhereHas('checker', function ($q) use ($request) {
                                       return $q->where('name', 'like', "%" . $request->search . "%");
-                                  });
+                                  })
+                                  ->orWhereHas('stand', function ($q) use ($request) {
+                                      return $q->where('seller_name', 'like', "%" . $request->search . "%");
+                                  });;
                         });
                     })
                     ->where('created_at', "like", "{$request->year}-{$request->month}%")
