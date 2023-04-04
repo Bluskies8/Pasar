@@ -31,7 +31,7 @@
                 </td>
             </tr>
             @endforeach
-            {{ $data->links() }}
+            {{-- {{ $data->links() }} --}}
             @endisset
         </tbody>
     </table>
