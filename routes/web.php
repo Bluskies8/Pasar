@@ -107,6 +107,7 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::get('stock', [HtransController::class,'index']);
         Route::get('stockTable', [HtransController::class,'indexTable']);
+        Route::get('vendorTable', [DashboardController::class,'vendorTable']);
         Route::get('/', [DashboardController::class,'dashboard']);
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
