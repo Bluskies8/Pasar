@@ -157,6 +157,7 @@ Route::middleware(['checkLogin'])->group(function () {
             return view('pages/changePassword');
         });
         Route::get('stock', [HtransController::class,'index']);
+        Route::get('stockTable', [HtransController::class,'indexTable']);
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
             Route::get('/cari',[BuahController::class,'cari']);
