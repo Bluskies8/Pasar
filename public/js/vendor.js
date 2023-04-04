@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
 
     $('#denah-pasar').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
-
+    console.log(window.location.origin);
     // $('td').on('dblclick', function(){
     //     $('#input-namaPT').val("");
     //     $('#nama-stand').text($(this).attr('id'));
