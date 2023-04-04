@@ -225,7 +225,7 @@ class DashboardController extends Controller
 
     public function vendorTable()
     {
-        $temp = stand::where('pasar_id', Auth::guard('checkLogin')->user()->pasar_id)->paginate(100);
+        $temp = stand::where('pasar_id', Auth::guard('checkLogin')->user()->pasar_id)->get();
         return view('components/tableDenah', [
             'data' => $temp,
         ]);
