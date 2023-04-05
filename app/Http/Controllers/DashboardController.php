@@ -78,6 +78,7 @@ class DashboardController extends Controller
     public function switchPages()
     {
         $data = pasar::all();
+        dd($data);
         return view('pages.selectPasar',[
             'data' => $data
         ]);
