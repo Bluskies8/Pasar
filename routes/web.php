@@ -194,6 +194,7 @@ Route::middleware(['checkLogin'])->group(function () {
             return view('pages/changePassword');
         });
         Route::get('stock', [HtransController::class,'index']);
+        Route::get('vendorTable', [DashboardController::class,'vendorTable']);
         Route::prefix('transaction')->group(function () {
             Route::post('create',[HtransController::class,'store']);
         });
