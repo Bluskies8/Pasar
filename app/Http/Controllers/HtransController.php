@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Termwind\Components\Dd;
 
 class HtransController extends Controller
 {
@@ -119,24 +120,54 @@ class HtransController extends Controller
 
     public function indexTable(Request $request)
     {
-        $temp = htrans::withTrashed()
-                    ->with(['checker', 'stand'])
-                    ->where('pasar_id', Auth::guard('checkLogin')->user()->pasar_id)
-                    ->when($request->search != null, function($query) use ($request) {
-                        return $query->where(function($query) use ($request) {
-                            $query->where("id", "like", "%{$request->search}%")
-                                  ->orWhereDay("created_at", $request->search)
-                                  ->orWhereHas('checker', function ($q) use ($request) {
-                                      return $q->where('name', 'like', "%" . $request->search . "%");
-                                  })
-                                  ->orWhereHas('stand', function ($q) use ($request) {
-                                      return $q->where('seller_name', 'like', "%" . $request->search . "%");
-                                  });;
-                        });
-                    })
-                    ->where('created_at', "like", "{$request->year}-{$request->month}%")
-                    // ->paginate(100);
-                    ->get();
+        // dd(Auth::guard('checkLogin')->user()->role_id);
+        if(Auth::guard('checkLogin')->user()->role_id > 2){
+            $carbon = Carbon::now();
+            $date = $carbon->toDateString();
+            $time = $carbon->toTimeString();
+            if($time > '09:00:00'){
+                $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
+                $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->addDays(1);
+            }else{
+                $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->subDays(1);
+                $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
+            }
+            if(Auth::guard('checkLogin')->user()->role_id <3){
+                $temp = htrans::withTrashed()->where('pasar_id', Auth::guard('checkLogin')->user()->pasar_id)->whereYear('created_at', date('Y'))->whereMonth('created_at', date('m'))->get();
+            }else if(Auth::guard('checkLogin')->user()->role_id == 3){
+                if($time > '09:00:00'){
+                    $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->subDays(1);
+                    $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->addDays(1);
+                }else{
+                    $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->subDays(2);
+                    $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
+                }
+                $temp = htrans::whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
+            }else{
+                $temp = htrans::whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
+            }
+            $temp = htrans::with(['checker', 'stand'])->whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
+            
+        }else{
+            $temp = htrans::withTrashed()
+                        ->with(['checker', 'stand'])
+                        ->where('pasar_id', Auth::guard('checkLogin')->user()->pasar_id)
+                        ->when($request->search != null, function($query) use ($request) {
+                            return $query->where(function($query) use ($request) {
+                                $query->where("id", "like", "%{$request->search}%")
+                                      ->orWhereDay("created_at", $request->search)
+                                      ->orWhereHas('checker', function ($q) use ($request) {
+                                          return $q->where('name', 'like', "%" . $request->search . "%");
+                                      })
+                                      ->orWhereHas('stand', function ($q) use ($request) {
+                                          return $q->where('seller_name', 'like', "%" . $request->search . "%");
+                                      });;
+                            });
+                        })
+                        ->where('created_at', "like", "{$request->year}-{$request->month}%")
+                        // ->paginate(100);
+                        ->get();
+        }
         return view('components/tableStock', [
             'data' => $temp,
             'role' => Auth::guard('checkLogin')->user()->role_id,

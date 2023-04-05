@@ -77,9 +77,7 @@ class DashboardController extends Controller
 
     public function switchPages()
     {
-        // $data = pasar::all();
-        $data = user::find(Auth::guard('checkLogin')->user()->id);
-        dd($data);
+        $data = pasar::all();
         return view('pages.selectPasar',[
             'data' => $data
         ]);
