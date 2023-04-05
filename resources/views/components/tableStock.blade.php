@@ -31,8 +31,19 @@
                 </td>
             </tr>
             @endforeach
-            {{-- {{ $data->links() }} --}}
             @endisset
         </tbody>
     </table>
+    @isset($data)
+    <div class="d-flex justify-content-between align-items-center px-2">
+        Menampilkan {{ $data->firstItem() }} hingga {{ $data->lastItem() }} dari {{ $data->total() }}
+        {{ $data->links() }}
+    </div>
+    @endisset
 </div>
+
+<style>
+    .pagination {
+        margin-bottom: 0;
+    }
+</style>
