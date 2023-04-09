@@ -21,7 +21,11 @@
                 "shasum": ""
             },
             "require": {
+<<<<<<< Updated upstream
                 "php": "^7.1 ||^8.0"
+=======
+                "php": "^8.0"
+>>>>>>> Stashed changes
             },
             "require-dev": {
                 "php-coveralls/php-coveralls": "^2.2",
