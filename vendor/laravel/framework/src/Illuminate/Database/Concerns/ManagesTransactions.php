@@ -43,7 +43,6 @@ trait ManagesTransactions
 
             try {
                 if ($this->transactions == 1) {
-                    $this->fireConnectionEvent('committing');
                     $this->getPdo()->commit();
                 }
 
@@ -89,7 +88,7 @@ trait ManagesTransactions
                 $this->getName(), $this->transactions
             );
 
-            throw new DeadlockException($e->getMessage(), is_int($e->getCode()) ? $e->getCode() : 0, $e);
+            throw new DeadlockException($e->getMessage(), (int) $e->getCode(), $e);
         }
 
         // If there was an exception we will rollback this transaction and then we
@@ -189,8 +188,7 @@ trait ManagesTransactions
      */
     public function commit()
     {
-        if ($this->transactionLevel() == 1) {
-            $this->fireConnectionEvent('committing');
+        if ($this->transactions == 1) {
             $this->getPdo()->commit();
         }
 
@@ -290,11 +288,7 @@ trait ManagesTransactions
     protected function performRollBack($toLevel)
     {
         if ($toLevel == 0) {
-            $pdo = $this->getPdo();
-
-            if ($pdo->inTransaction()) {
-                $pdo->rollBack();
-            }
+            $this->getPdo()->rollBack();
         } elseif ($this->queryGrammar->supportsSavepoints()) {
             $this->getPdo()->exec(
                 $this->queryGrammar->compileSavepointRollBack('trans'.($toLevel + 1))

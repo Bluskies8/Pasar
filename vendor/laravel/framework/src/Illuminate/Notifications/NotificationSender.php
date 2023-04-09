@@ -191,18 +191,10 @@ class NotificationSender
             foreach ((array) $original->via($notifiable) as $channel) {
                 $notification = clone $original;
 
-                if (! $notification->id) {
-                    $notification->id = $notificationId;
-                }
+                $notification->id = $notificationId;
 
                 if (! is_null($this->locale)) {
                     $notification->locale = $this->locale;
-                }
-
-                $connection = $notification->connection;
-
-                if (method_exists($notification, 'viaConnections')) {
-                    $connection = $notification->viaConnections()[$channel] ?? null;
                 }
 
                 $queue = $notification->queue;
@@ -217,21 +209,17 @@ class NotificationSender
                     $delay = $notification->withDelay($notifiable, $channel) ?? null;
                 }
 
-                $middleware = $notification->middleware ?? [];
-
-                if (method_exists($notification, 'middleware')) {
-                    $middleware = array_merge(
-                        $notification->middleware($notifiable, $channel),
-                        $middleware
-                    );
-                }
-
                 $this->bus->dispatch(
                     (new SendQueuedNotifications($notifiable, $notification, [$channel]))
-                            ->onConnection($connection)
+                            ->onConnection($notification->connection)
                             ->onQueue($queue)
                             ->delay(is_array($delay) ? ($delay[$channel] ?? null) : $delay)
-                            ->through($middleware)
+                            ->through(
+                                array_merge(
+                                    method_exists($notification, 'middleware') ? $notification->middleware() : [],
+                                    $notification->middleware ?? []
+                                )
+                            )
                 );
             }
         }

@@ -127,7 +127,7 @@ trait InteractsWithExceptionHandling
 
                 if ($e instanceof NotFoundHttpException) {
                     throw new NotFoundHttpException(
-                        "{$request->method()} {$request->url()}", $e, is_int($e->getCode()) ? $e->getCode() : 0
+                        "{$request->method()} {$request->url()}", $e, $e->getCode()
                     );
                 }
 
@@ -170,16 +170,20 @@ trait InteractsWithExceptionHandling
             $actualMessage = $exception->getMessage();
         }
 
-        Assert::assertTrue(
-            $thrown,
-            sprintf('Failed asserting that exception of type "%s" was thrown.', $expectedClass)
-        );
+        if (! $thrown) {
+            Assert::fail(
+                sprintf(
+                    'Failed asserting that exception of type "%s" is thrown.',
+                    $expectedClass
+                )
+            );
+        }
 
         if (isset($expectedMessage)) {
             if (! isset($actualMessage)) {
                 Assert::fail(
                     sprintf(
-                        'Failed asserting that exception of type "%s" with message "%s" was thrown.',
+                        'Failed asserting that exception of type "%s" with message "%s" is thrown.',
                         $expectedClass,
                         $expectedMessage
                     )

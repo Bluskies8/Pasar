@@ -2,7 +2,6 @@
 
 namespace Illuminate\Database\Schema\Grammars;
 
-use Illuminate\Database\Connection;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Fluent;
 
@@ -131,25 +130,6 @@ class PostgresGrammar extends Grammar
     }
 
     /**
-     * Compile a rename column command.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  \Illuminate\Support\Fluent  $command
-     * @param  \Illuminate\Database\Connection  $connection
-     * @return array|string
-     */
-    public function compileRenameColumn(Blueprint $blueprint, Fluent $command, Connection $connection)
-    {
-        return $connection->usingNativeSchemaOperations()
-            ? sprintf('alter table %s rename column %s to %s',
-                $this->wrapTable($blueprint),
-                $this->wrap($command->from),
-                $this->wrap($command->to)
-            )
-            : parent::compileRenameColumn($blueprint, $command, $connection);
-    }
-
-    /**
      * Compile a primary key command.
      *
      * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
@@ -172,21 +152,11 @@ class PostgresGrammar extends Grammar
      */
     public function compileUnique(Blueprint $blueprint, Fluent $command)
     {
-        $sql = sprintf('alter table %s add constraint %s unique (%s)',
+        return sprintf('alter table %s add constraint %s unique (%s)',
             $this->wrapTable($blueprint),
             $this->wrap($command->index),
             $this->columnize($command->columns)
         );
-
-        if (! is_null($command->deferrable)) {
-            $sql .= $command->deferrable ? ' deferrable' : ' not deferrable';
-        }
-
-        if ($command->deferrable && ! is_null($command->initiallyImmediate)) {
-            $sql .= $command->initiallyImmediate ? ' initially immediate' : ' initially deferred';
-        }
-
-        return $sql;
     }
 
     /**
@@ -513,21 +483,6 @@ class PostgresGrammar extends Grammar
             $this->wrapTable($blueprint),
             $this->wrap($command->column->name),
             "'".str_replace("'", "''", $command->value)."'"
-        );
-    }
-
-    /**
-     * Compile a table comment command.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  \Illuminate\Support\Fluent  $command
-     * @return string
-     */
-    public function compileTableComment(Blueprint $blueprint, Fluent $command)
-    {
-        return sprintf('comment on table %s is %s',
-            $this->wrapTable($blueprint),
-            "'".str_replace("'", "''", $command->comment)."'"
         );
     }
 

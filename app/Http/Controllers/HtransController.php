@@ -147,7 +147,7 @@ class HtransController extends Controller
                 $temp = htrans::whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
             }
             $temp = htrans::with(['checker', 'stand'])->whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
-
+            
         }else{
             $temp = htrans::withTrashed()
                         ->with(['checker', 'stand'])
@@ -165,7 +165,8 @@ class HtransController extends Controller
                             });
                         })
                         ->where('created_at', "like", "{$request->year}-{$request->month}%")
-                        ->paginate(100);
+                        // ->paginate(100);
+                        ->get();
         }
         return view('components/tableStock', [
             'data' => $temp,

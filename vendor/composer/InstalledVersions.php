@@ -12,6 +12,7 @@
 
 namespace Composer;
 
+use Composer\Autoload\ClassLoader;
 use Composer\Semver\VersionParser;
 
 
@@ -24,24 +25,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'dev-main',
-    'version' => 'dev-main',
+    'pretty_version' => 'v9.1.8',
+    'version' => '9.1.8.0',
     'aliases' => 
     array (
     ),
-    'reference' => '666c0b1b37f4883ac48095e9829ac88eb5bc54de',
+    'reference' => NULL,
     'name' => 'laravel/laravel',
   ),
   'versions' => 
   array (
     'brick/math' => 
     array (
-      'pretty_version' => '0.11.0',
-      'version' => '0.11.0.0',
+      'pretty_version' => '0.9.3',
+      'version' => '0.9.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0ad82ce168c82ba30d1c01ec86116ab52f589478',
+      'reference' => 'ca57d18f028f84f777b2168cd1911b0dee2343ae',
     ),
     'cordoval/hamcrest-php' => 
     array (
@@ -59,75 +60,84 @@ private static $installed = array (
     ),
     'dflydev/dot-access-data' => 
     array (
-      'pretty_version' => 'v3.0.2',
-      'version' => '3.0.2.0',
+      'pretty_version' => 'v3.0.1',
+      'version' => '3.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f41715465d65213d644d3141a6a93081be5d3549',
+      'reference' => '0992cc19268b259a39e86f296da5f0677841f42c',
     ),
     'doctrine/inflector' => 
     array (
-      'pretty_version' => '2.0.6',
-      'version' => '2.0.6.0',
+      'pretty_version' => '2.0.4',
+      'version' => '2.0.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd9d313a36c872fd6ee06d9a6cbcf713eaa40f024',
+      'reference' => '8b7ff3e4b7de6b2c84da85637b59fd2880ecaa89',
     ),
     'doctrine/instantiator' => 
     array (
-      'pretty_version' => '2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => '1.4.1',
+      'version' => '1.4.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c6222283fa3f4ac679f8b9ced9a4e23f163e80d0',
+      'reference' => '10dcfce151b967d20fde1b34ae6640712c3891bc',
     ),
     'doctrine/lexer' => 
     array (
-      'pretty_version' => '3.0.0',
-      'version' => '3.0.0.0',
+      'pretty_version' => '1.2.3',
+      'version' => '1.2.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '84a527db05647743d50373e0ec53a152f2cde568',
+      'reference' => 'c268e882d4dbdd85e36e4ad69e02dc284f89d229',
     ),
     'dragonmantank/cron-expression' => 
     array (
-      'pretty_version' => 'v3.3.2',
-      'version' => '3.3.2.0',
+      'pretty_version' => 'v3.3.1',
+      'version' => '3.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '782ca5968ab8b954773518e9e49a6f892a34b2a8',
+      'reference' => 'be85b3f05b46c39bbc0d95f6c071ddff669510fa',
     ),
     'egulias/email-validator' => 
     array (
-      'pretty_version' => '4.0.1',
-      'version' => '4.0.1.0',
+      'pretty_version' => '3.1.2',
+      'version' => '3.1.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3a85486b709bc384dae8eb78fb2eec649bdb64ff',
+      'reference' => 'ee0db30118f661fb166bcffbf5d82032df484697',
+    ),
+    'facade/ignition-contracts' => 
+    array (
+      'pretty_version' => '1.0.2',
+      'version' => '1.0.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3c921a1cdba35b68a7f0ccffc6dffc1995b18267',
     ),
     'fakerphp/faker' => 
     array (
-      'pretty_version' => 'v1.21.0',
-      'version' => '1.21.0.0',
+      'pretty_version' => 'v1.19.0',
+      'version' => '1.19.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '92efad6a967f0b79c499705c69b662f738cc9e4d',
+      'reference' => 'd7f08a622b3346766325488aa32ddc93ccdecc75',
     ),
     'filp/whoops' => 
     array (
-      'pretty_version' => '2.15.1',
-      'version' => '2.15.1.0',
+      'pretty_version' => '2.14.5',
+      'version' => '2.14.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e864ac957acd66e1565f25efda61e37791a5db0b',
+      'reference' => 'a63e5e8f26ebbebf8ed3c5c691637325512eb0dc',
     ),
     'fruitcake/php-cors' => 
     array (
@@ -140,48 +150,39 @@ private static $installed = array (
     ),
     'graham-campbell/result-type' => 
     array (
-      'pretty_version' => 'v1.1.1',
-      'version' => '1.1.1.0',
+      'pretty_version' => 'v1.0.4',
+      'version' => '1.0.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '672eff8cf1d6fe1ef09ca0f89c4b287d6a3eb831',
+      'reference' => '0690bde05318336c7221785f2a932467f98b64ca',
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '7.5.0',
-      'version' => '7.5.0.0',
+      'pretty_version' => '7.4.2',
+      'version' => '7.4.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b50a2a1251152e43f6a37f0fa053e730a67d25ba',
+      'reference' => 'ac1ec1cd9b5624694c3a40be801d94137afb12b4',
     ),
     'guzzlehttp/promises' => 
     array (
-      'pretty_version' => '1.5.2',
-      'version' => '1.5.2.0',
+      'pretty_version' => '1.5.1',
+      'version' => '1.5.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b94b2807d85443f9719887892882d0329d1e2598',
+      'reference' => 'fe752aedc9fd8fcca3fe7ad05d419d32998a06da',
     ),
     'guzzlehttp/psr7' => 
     array (
-      'pretty_version' => '2.4.4',
-      'version' => '2.4.4.0',
+      'pretty_version' => '2.2.1',
+      'version' => '2.2.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf',
-    ),
-    'guzzlehttp/uri-template' => 
-    array (
-      'pretty_version' => 'v1.0.1',
-      'version' => '1.0.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'b945d74a55a25a949158444f09ec0d3c120d69e2',
+      'reference' => 'c94a94f120803a18554c1805ef2e539f8285f9a2',
     ),
     'hamcrest/hamcrest-php' => 
     array (
@@ -196,224 +197,224 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/broadcasting' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/bus' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/cache' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/collections' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/conditionable' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/config' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/console' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/container' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/contracts' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/cookie' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/database' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/encryption' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/events' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/filesystem' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/hashing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/http' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/log' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/macroable' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/mail' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/notifications' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/pagination' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/pipeline' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/queue' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/redis' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/routing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/session' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/support' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/testing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/translation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/validation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'illuminate/view' => 
     array (
       'replaced' => 
       array (
-        0 => 'v9.52.5',
+        0 => 'v9.12.2',
       ),
     ),
     'kodova/hamcrest-php' => 
@@ -425,30 +426,30 @@ private static $installed = array (
     ),
     'laravel/framework' => 
     array (
-      'pretty_version' => 'v9.52.5',
-      'version' => '9.52.5.0',
+      'pretty_version' => 'v9.12.2',
+      'version' => '9.12.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e14d28c0f9403630d13f308bb43f3d3cb73d6d67',
+      'reference' => 'b5b5c635f1a93f277b5248725a1f7ffc97e20810',
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => 'v9.1.8',
+      'version' => '9.1.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '666c0b1b37f4883ac48095e9829ac88eb5bc54de',
+      'reference' => NULL,
     ),
     'laravel/sail' => 
     array (
-      'pretty_version' => 'v1.21.4',
-      'version' => '1.21.4.0',
+      'pretty_version' => 'v1.14.4',
+      'version' => '1.14.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5e59b4a57181020477e2b18943b27493638e3f89',
+      'reference' => '0e0e51f19c758c79acbda11e3870641fbad5b7d9',
     ),
     'laravel/sanctum' => 
     array (
@@ -461,48 +462,48 @@ private static $installed = array (
     ),
     'laravel/serializable-closure' => 
     array (
-      'pretty_version' => 'v1.3.0',
-      'version' => '1.3.0.0',
+      'pretty_version' => 'v1.1.1',
+      'version' => '1.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f23fe9d4e95255dacee1bf3525e0810d1a1b0f37',
+      'reference' => '9e4b005daa20b0c161f3845040046dc9ddc1d74e',
     ),
     'laravel/tinker' => 
     array (
-      'pretty_version' => 'v2.8.1',
-      'version' => '2.8.1.0',
+      'pretty_version' => 'v2.7.2',
+      'version' => '2.7.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '04a2d3bd0d650c0764f70bf49d1ee39393e4eb10',
+      'reference' => 'dff39b661e827dae6e092412f976658df82dbac5',
     ),
     'league/commonmark' => 
     array (
-      'pretty_version' => '2.4.0',
-      'version' => '2.4.0.0',
+      'pretty_version' => '2.3.0',
+      'version' => '2.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd44a24690f16b8c1808bf13b1bd54ae4c63ea048',
+      'reference' => '32a49eb2b38fe5e5c417ab748a45d0beaab97955',
     ),
     'league/config' => 
     array (
-      'pretty_version' => 'v1.2.0',
-      'version' => '1.2.0.0',
+      'pretty_version' => 'v1.1.1',
+      'version' => '1.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '754b3604fb2984c71f4af4a9cbe7b57f346ec1f3',
+      'reference' => 'a9d39eeeb6cc49d10a6e6c36f22c4c1f4a767f3e',
     ),
     'league/flysystem' => 
     array (
-      'pretty_version' => '3.12.3',
-      'version' => '3.12.3.0',
+      'pretty_version' => '3.0.19',
+      'version' => '3.0.19.0',
       'aliases' => 
       array (
       ),
-      'reference' => '81e87e74dd5213795c7846d65089712d2dda90ce',
+      'reference' => '670df21225d68d165a8df38587ac3f41caf608f8',
     ),
     'league/mime-type-detection' => 
     array (
@@ -515,21 +516,21 @@ private static $installed = array (
     ),
     'mockery/mockery' => 
     array (
-      'pretty_version' => '1.5.1',
-      'version' => '1.5.1.0',
+      'pretty_version' => '1.5.0',
+      'version' => '1.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e92dcc83d5a51851baf5f5591d32cb2b16e3684e',
+      'reference' => 'c10a5f6e06fc2470ab1822fa13fa2a7380f8fbac',
     ),
     'monolog/monolog' => 
     array (
-      'pretty_version' => '2.9.1',
-      'version' => '2.9.1.0',
+      'pretty_version' => '2.6.0',
+      'version' => '2.6.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f259e2b15fb95494c83f52d3caad003bbf5ffaa1',
+      'reference' => '247918972acd74356b0a91dfaa5adcaec069b6c0',
     ),
     'mtdowling/cron-expression' => 
     array (
@@ -540,66 +541,57 @@ private static $installed = array (
     ),
     'myclabs/deep-copy' => 
     array (
-      'pretty_version' => '1.11.1',
-      'version' => '1.11.1.0',
+      'pretty_version' => '1.11.0',
+      'version' => '1.11.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7284c22080590fb39f2ffa3e9057f10a4ddd0e0c',
+      'reference' => '14daed4296fae74d9e3201d2c4925d1acb7aa614',
     ),
     'nesbot/carbon' => 
     array (
-      'pretty_version' => '2.66.0',
-      'version' => '2.66.0.0',
+      'pretty_version' => '2.58.0',
+      'version' => '2.58.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '496712849902241f04902033b0441b269effe001',
+      'reference' => '97a34af22bde8d0ac20ab34b29d7bfe360902055',
     ),
     'nette/schema' => 
     array (
-      'pretty_version' => 'v1.2.3',
-      'version' => '1.2.3.0',
+      'pretty_version' => 'v1.2.2',
+      'version' => '1.2.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'abbdbb70e0245d5f3bf77874cea1dfb0c930d06f',
+      'reference' => '9a39cef03a5b34c7de64f551538cbba05c2be5df',
     ),
     'nette/utils' => 
     array (
-      'pretty_version' => 'v4.0.0',
-      'version' => '4.0.0.0',
+      'pretty_version' => 'v3.2.7',
+      'version' => '3.2.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'cacdbf5a91a657ede665c541eda28941d4b09c1e',
+      'reference' => '0af4e3de4df9f1543534beab255ccf459e7a2c99',
     ),
     'nikic/php-parser' => 
     array (
-      'pretty_version' => 'v4.15.4',
-      'version' => '4.15.4.0',
+      'pretty_version' => 'v4.13.2',
+      'version' => '4.13.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6bb5176bc4af8bcb7d926f88718db9b96a2d4290',
+      'reference' => '210577fe3cf7badcc5814d99455df46564f3c077',
     ),
     'nunomaduro/collision' => 
     array (
-      'pretty_version' => 'v6.4.0',
-      'version' => '6.4.0.0',
+      'pretty_version' => 'v6.2.0',
+      'version' => '6.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f05978827b9343cba381ca05b8c7deee346b6015',
-    ),
-    'nunomaduro/termwind' => 
-    array (
-      'pretty_version' => 'v1.15.1',
-      'version' => '1.15.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '8ab0b32c8caa4a2e09700ea32925441385e4a5dc',
+      'reference' => 'c379636dc50e829edb3a8bcb944a01aa1aed8f25',
     ),
     'phar-io/manifest' => 
     array (
@@ -619,23 +611,59 @@ private static $installed = array (
       ),
       'reference' => '4f7fd7836c6f332bb2933569e566a0d6c4cbed74',
     ),
-    'phpoption/phpoption' => 
+    'phpdocumentor/reflection-common' => 
     array (
-      'pretty_version' => '1.9.1',
-      'version' => '1.9.1.0',
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'dd3a383e599f49777d8b628dadbb90cae435b87e',
+      'reference' => '1d01c49d4ed62f25aa84a747ad35d5a16924662b',
+    ),
+    'phpdocumentor/reflection-docblock' => 
+    array (
+      'pretty_version' => '5.3.0',
+      'version' => '5.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '622548b623e81ca6d78b721c5e029f4ce664f170',
+    ),
+    'phpdocumentor/type-resolver' => 
+    array (
+      'pretty_version' => '1.6.1',
+      'version' => '1.6.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '77a32518733312af16a44300404e945338981de3',
+    ),
+    'phpoption/phpoption' => 
+    array (
+      'pretty_version' => '1.8.1',
+      'version' => '1.8.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'eab7a0df01fe2344d172bff4cd6dbd3f8b84ad15',
+    ),
+    'phpspec/prophecy' => 
+    array (
+      'pretty_version' => 'v1.15.0',
+      'version' => '1.15.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'bbcd7380b0ebf3961ee21409db7b38bc31d69a13',
     ),
     'phpunit/php-code-coverage' => 
     array (
-      'pretty_version' => '9.2.26',
-      'version' => '9.2.26.0',
+      'pretty_version' => '9.2.15',
+      'version' => '9.2.15.0',
       'aliases' => 
       array (
       ),
-      'reference' => '443bc6912c9bd5b409254a40f4b0f4ced7c80ea1',
+      'reference' => '2e9da11878c4202f97915c1cb4bb1ca318a63f5f',
     ),
     'phpunit/php-file-iterator' => 
     array (
@@ -675,12 +703,12 @@ private static $installed = array (
     ),
     'phpunit/phpunit' => 
     array (
-      'pretty_version' => '9.6.6',
-      'version' => '9.6.6.0',
+      'pretty_version' => '9.5.20',
+      'version' => '9.5.20.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b65d59a059d3004a040c16a82e07bbdf6cfdd115',
+      'reference' => '12bc8879fb65aef2138b26fc633cb1e3620cffba',
     ),
     'psr/container' => 
     array (
@@ -748,12 +776,12 @@ private static $installed = array (
     ),
     'psr/http-message' => 
     array (
-      'pretty_version' => '1.1',
-      'version' => '1.1.0.0',
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'cb6ce4845ce34a8ad9e68117c10ee90a29919eba',
+      'reference' => 'f6561bf28d520154e4b0ec72be95418abe6d9363',
     ),
     'psr/http-message-implementation' => 
     array (
@@ -797,12 +825,12 @@ private static $installed = array (
     ),
     'psy/psysh' => 
     array (
-      'pretty_version' => 'v0.11.14',
-      'version' => '0.11.14.0',
+      'pretty_version' => 'v0.11.4',
+      'version' => '0.11.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8c2e264def7a8263a68ef6f0b55ce90b77d41e17',
+      'reference' => '05c544b339b112226ad14803e1e5b09a61957454',
     ),
     'ralouphie/getallheaders' => 
     array (
@@ -815,29 +843,27 @@ private static $installed = array (
     ),
     'ramsey/collection' => 
     array (
-      'pretty_version' => '2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => '1.2.2',
+      'version' => '1.2.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a4b48764bfbb8f3a6a4d1aeb1a35bb5e9ecac4a5',
+      'reference' => 'cccc74ee5e328031b15640b51056ee8d3bb66c0a',
     ),
     'ramsey/uuid' => 
     array (
-      'pretty_version' => '4.x-dev',
-      'version' => '4.9999999.9999999.9999999-dev',
+      'pretty_version' => '4.3.1',
+      'version' => '4.3.1.0',
       'aliases' => 
       array (
-        0 => '9999999-dev',
       ),
-      'reference' => '8e955307d32dc9b6992440ff81321d3cb09db75a',
+      'reference' => '8505afd4fea63b81a85d3b7b53ac3cb8dc347c28',
     ),
     'rhumsaa/uuid' => 
     array (
       'replaced' => 
       array (
-        0 => '4.x-dev',
-        1 => '9999999-dev',
+        0 => '4.3.1',
       ),
     ),
     'sebastian/cli-parser' => 
@@ -869,12 +895,12 @@ private static $installed = array (
     ),
     'sebastian/comparator' => 
     array (
-      'pretty_version' => '4.0.8',
-      'version' => '4.0.8.0',
+      'pretty_version' => '4.0.6',
+      'version' => '4.0.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'fa0f136dd2334583309d32b62544682ee972b51a',
+      'reference' => '55f4261989e546dc112258c7a75935a81a7ce382',
     ),
     'sebastian/complexity' => 
     array (
@@ -896,21 +922,21 @@ private static $installed = array (
     ),
     'sebastian/environment' => 
     array (
-      'pretty_version' => '5.1.5',
-      'version' => '5.1.5.0',
+      'pretty_version' => '5.1.4',
+      'version' => '5.1.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '830c43a844f1f8d5b7a1f6d6076b784454d8b7ed',
+      'reference' => '1b5dff7bb151a4db11d49d90e5408e4e938270f7',
     ),
     'sebastian/exporter' => 
     array (
-      'pretty_version' => '4.0.5',
-      'version' => '4.0.5.0',
+      'pretty_version' => '4.0.4',
+      'version' => '4.0.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ac230ed27f0f98f597c8a2b6eb7ac563af5e5b9d',
+      'reference' => '65e8b7db476c5dd267e65eea9cab77584d3cfff9',
     ),
     'sebastian/global-state' => 
     array (
@@ -950,12 +976,12 @@ private static $installed = array (
     ),
     'sebastian/recursion-context' => 
     array (
-      'pretty_version' => '4.0.5',
-      'version' => '4.0.5.0',
+      'pretty_version' => '4.0.4',
+      'version' => '4.0.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e75bd0f07204fec2a0af9b0f3cfe97d05f92efc1',
+      'reference' => 'cd9d8cf3c5804de4341c283ed787f099f5506172',
     ),
     'sebastian/resource-operations' => 
     array (
@@ -968,12 +994,12 @@ private static $installed = array (
     ),
     'sebastian/type' => 
     array (
-      'pretty_version' => '3.2.1',
-      'version' => '3.2.1.0',
+      'pretty_version' => '3.0.0',
+      'version' => '3.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '75e2c2a32f5e0b3aef905b9ed0b179b953b3d7c7',
+      'reference' => 'b233b84bc4465aff7b57cf1c4bc75c86d00d6dad',
     ),
     'sebastian/version' => 
     array (
@@ -986,93 +1012,93 @@ private static $installed = array (
     ),
     'spatie/backtrace' => 
     array (
-      'pretty_version' => '1.4.0',
-      'version' => '1.4.0.0',
+      'pretty_version' => '1.2.1',
+      'version' => '1.2.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ec4dd16476b802dbdc6b4467f84032837e316b8c',
+      'reference' => '4ee7d41aa5268107906ea8a4d9ceccde136dbd5b',
     ),
     'spatie/flare-client-php' => 
     array (
-      'pretty_version' => '1.3.5',
-      'version' => '1.3.5.0',
+      'pretty_version' => '1.1.1',
+      'version' => '1.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3e5dd5ac4928f3d2d036bd02de5eb83fd0ef1f42',
+      'reference' => '1059fd8f229fa016b11063c6be9d1922d036adb7',
     ),
     'spatie/ignition' => 
     array (
-      'pretty_version' => '1.4.5',
-      'version' => '1.4.5.0',
+      'pretty_version' => '1.3.0',
+      'version' => '1.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'cc09114b7057bd217b676f047544b33f5b6247e6',
+      'reference' => '6aa8f1c8c46aff30c9bd4c354dc865eeee2ed59f',
     ),
     'spatie/laravel-ignition' => 
     array (
-      'pretty_version' => '1.6.4',
-      'version' => '1.6.4.0',
+      'pretty_version' => '1.2.3',
+      'version' => '1.2.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1a2b4bd3d48c72526c0ba417687e5c56b5cf49bc',
+      'reference' => '51e5daaa7e43c154fe57f1ddfbba862f9fe57646',
     ),
     'symfony/console' => 
     array (
-      'pretty_version' => 'v6.2.8',
-      'version' => '6.2.8.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3582d68a64a86ec25240aaa521ec8bc2342b369b',
+      'reference' => '0d00aa289215353aa8746a31d101f8e60826285c',
     ),
     'symfony/css-selector' => 
     array (
-      'pretty_version' => 'v6.2.7',
-      'version' => '6.2.7.0',
+      'pretty_version' => 'v6.0.3',
+      'version' => '6.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'aedf3cb0f5b929ec255d96bbb4909e9932c769e0',
+      'reference' => '1955d595c12c111629cc814d3f2a2ff13580508a',
     ),
     'symfony/deprecation-contracts' => 
     array (
-      'pretty_version' => 'v3.2.1',
-      'version' => '3.2.1.0',
+      'pretty_version' => 'v3.0.1',
+      'version' => '3.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e2d1534420bd723d0ef5aec58a22c5fe60ce6f5e',
+      'reference' => '26954b3d62a6c5fd0ea8a2a00c0353a14978d05c',
     ),
     'symfony/error-handler' => 
     array (
-      'pretty_version' => 'v6.2.7',
-      'version' => '6.2.7.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '61e90f94eb014054000bc902257d2763fac09166',
+      'reference' => '5e2795163acbd13b3cd46835c9f8f6c5d0a3a280',
     ),
     'symfony/event-dispatcher' => 
     array (
-      'pretty_version' => 'v6.2.8',
-      'version' => '6.2.8.0',
+      'pretty_version' => 'v6.0.3',
+      'version' => '6.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '04046f35fd7d72f9646e721fc2ecb8f9c67d3339',
+      'reference' => '6472ea2dd415e925b90ca82be64b8bc6157f3934',
     ),
     'symfony/event-dispatcher-contracts' => 
     array (
-      'pretty_version' => 'v3.2.1',
-      'version' => '3.2.1.0',
+      'pretty_version' => 'v3.0.1',
+      'version' => '3.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0ad3b6f1e4e2da5690fefe075cd53a238646d8dd',
+      'reference' => '7bc61cc2db649b4637d331240c5346dcc7708051',
     ),
     'symfony/event-dispatcher-implementation' => 
     array (
@@ -1083,174 +1109,174 @@ private static $installed = array (
     ),
     'symfony/finder' => 
     array (
-      'pretty_version' => 'v6.2.7',
-      'version' => '6.2.7.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '20808dc6631aecafbe67c186af5dcb370be3a0eb',
+      'reference' => 'af7edab28d17caecd1f40a9219fc646ae751c21f',
     ),
     'symfony/http-foundation' => 
     array (
-      'pretty_version' => 'v6.2.8',
-      'version' => '6.2.8.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '511a524affeefc191939348823ac75e9921c2112',
+      'reference' => 'c9c86b02d7ef6f44f3154acc7de42831518afe7c',
     ),
     'symfony/http-kernel' => 
     array (
-      'pretty_version' => 'v6.2.8',
-      'version' => '6.2.8.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9563229e56076070d92ca30c089e801e8a4629a3',
+      'reference' => '7aaf1cdc9cc2ad47e926f624efcb679883a39ca7',
     ),
     'symfony/mailer' => 
     array (
-      'pretty_version' => 'v6.2.8',
-      'version' => '6.2.8.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'bfcfa015c67e19c6fdb7ca6fe70700af1e740a17',
+      'reference' => '706af6b3e99ebcbc639c9c664f5579aaa869409b',
     ),
     'symfony/mime' => 
     array (
-      'pretty_version' => 'v6.2.7',
-      'version' => '6.2.7.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '62e341f80699badb0ad70b31149c8df89a2d778e',
+      'reference' => 'c1701e88ad0ca49fc6ad6cdf360bc0e1209fb5e1',
     ),
     'symfony/polyfill-ctype' => 
     array (
-      'pretty_version' => 'v1.27.0',
-      'version' => '1.27.0.0',
+      'pretty_version' => 'v1.25.0',
+      'version' => '1.25.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5bbc823adecdae860bb64756d639ecfec17b050a',
+      'reference' => '30885182c981ab175d4d034db0f6f469898070ab',
     ),
     'symfony/polyfill-intl-grapheme' => 
     array (
-      'pretty_version' => 'v1.27.0',
-      'version' => '1.27.0.0',
+      'pretty_version' => 'v1.25.0',
+      'version' => '1.25.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '511a08c03c1960e08a883f4cffcacd219b758354',
+      'reference' => '81b86b50cf841a64252b439e738e97f4a34e2783',
     ),
     'symfony/polyfill-intl-idn' => 
     array (
-      'pretty_version' => 'v1.27.0',
-      'version' => '1.27.0.0',
+      'pretty_version' => 'v1.25.0',
+      'version' => '1.25.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '639084e360537a19f9ee352433b84ce831f3d2da',
+      'reference' => '749045c69efb97c70d25d7463abba812e91f3a44',
     ),
     'symfony/polyfill-intl-normalizer' => 
     array (
-      'pretty_version' => 'v1.27.0',
-      'version' => '1.27.0.0',
+      'pretty_version' => 'v1.25.0',
+      'version' => '1.25.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '19bd1e4fcd5b91116f14d8533c57831ed00571b6',
+      'reference' => '8590a5f561694770bdcd3f9b5c69dde6945028e8',
     ),
     'symfony/polyfill-mbstring' => 
     array (
-      'pretty_version' => 'v1.27.0',
-      'version' => '1.27.0.0',
+      'pretty_version' => 'v1.25.0',
+      'version' => '1.25.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8ad114f6b39e2c98a8b0e3bd907732c207c2b534',
+      'reference' => '0abb51d2f102e00a4eefcf46ba7fec406d245825',
     ),
     'symfony/polyfill-php72' => 
     array (
-      'pretty_version' => 'v1.27.0',
-      'version' => '1.27.0.0',
+      'pretty_version' => 'v1.25.0',
+      'version' => '1.25.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '869329b1e9894268a8a61dabb69153029b7a8c97',
+      'reference' => '9a142215a36a3888e30d0a9eeea9766764e96976',
     ),
     'symfony/polyfill-php80' => 
     array (
-      'pretty_version' => 'v1.27.0',
-      'version' => '1.27.0.0',
+      'pretty_version' => 'v1.25.0',
+      'version' => '1.25.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7a6ff3f1959bb01aefccb463a0f2cd3d3d2fd936',
+      'reference' => '4407588e0d3f1f52efb65fbe92babe41f37fe50c',
     ),
-    'symfony/polyfill-uuid' => 
+    'symfony/polyfill-php81' => 
     array (
-      'pretty_version' => 'v1.27.0',
-      'version' => '1.27.0.0',
+      'pretty_version' => 'v1.25.0',
+      'version' => '1.25.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f3cf1a645c2734236ed1e2e671e273eeb3586166',
+      'reference' => '5de4ba2d41b15f9bd0e19b2ab9674135813ec98f',
     ),
     'symfony/process' => 
     array (
-      'pretty_version' => 'v6.2.8',
-      'version' => '6.2.8.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '75ed64103df4f6615e15a7fe38b8111099f47416',
+      'reference' => 'd074154ea8b1443a96391f6e39f9e547b2dd01b9',
     ),
     'symfony/routing' => 
     array (
-      'pretty_version' => 'v6.2.8',
-      'version' => '6.2.8.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '69062e2823f03b82265d73a966999660f0e1e404',
+      'reference' => '74c40c9fc334acc601a32fcf4274e74fb3bac11e',
     ),
     'symfony/service-contracts' => 
     array (
-      'pretty_version' => 'v3.2.1',
-      'version' => '3.2.1.0',
+      'pretty_version' => 'v3.0.1',
+      'version' => '3.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a8c9cedf55f314f3a186041d19537303766df09a',
+      'reference' => 'e517458f278c2131ca9f262f8fbaf01410f2c65c',
     ),
     'symfony/string' => 
     array (
-      'pretty_version' => 'v6.2.8',
-      'version' => '6.2.8.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '193e83bbd6617d6b2151c37fff10fa7168ebddef',
+      'reference' => 'ac0aa5c2282e0de624c175b68d13f2c8f2e2649d',
     ),
     'symfony/translation' => 
     array (
-      'pretty_version' => 'v6.2.8',
-      'version' => '6.2.8.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '817535dbb1721df8b3a8f2489dc7e50bcd6209b5',
+      'reference' => '3d38cf8f8834148c4457681d539bc204de701501',
     ),
     'symfony/translation-contracts' => 
     array (
-      'pretty_version' => 'v3.2.1',
-      'version' => '3.2.1.0',
+      'pretty_version' => 'v3.0.1',
+      'version' => '3.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'dfec258b9dd17a6b24420d464c43bffe347441c8',
+      'reference' => 'c4183fc3ef0f0510893cbeedc7718fb5cafc9ac9',
     ),
     'symfony/translation-implementation' => 
     array (
@@ -1259,32 +1285,14 @@ private static $installed = array (
         0 => '2.3|3.0',
       ),
     ),
-    'symfony/uid' => 
-    array (
-      'pretty_version' => 'v6.2.7',
-      'version' => '6.2.7.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd30c72a63897cfa043e1de4d4dd2ffa9ecefcdc0',
-    ),
     'symfony/var-dumper' => 
     array (
-      'pretty_version' => 'v6.2.8',
-      'version' => '6.2.8.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd37ab6787be2db993747b6218fcc96e8e3bb4bd0',
-    ),
-    'symfony/yaml' => 
-    array (
-      'pretty_version' => 'v6.2.7',
-      'version' => '6.2.7.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'e8e6a1d59e050525f27a1f530aa9703423cb7f57',
+      'reference' => 'fa61dfb4bd3068df2492013dc65f3190e9f550c0',
     ),
     'theseer/tokenizer' => 
     array (
@@ -1297,21 +1305,21 @@ private static $installed = array (
     ),
     'tijsverkoyen/css-to-inline-styles' => 
     array (
-      'pretty_version' => '2.2.6',
-      'version' => '2.2.6.0',
+      'pretty_version' => '2.2.4',
+      'version' => '2.2.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c42125b83a4fa63b187fdf29f9c93cb7733da30c',
+      'reference' => 'da444caae6aca7a19c0c140f68c6182e337d5b1c',
     ),
     'vlucas/phpdotenv' => 
     array (
-      'pretty_version' => 'v5.5.0',
-      'version' => '5.5.0.0',
+      'pretty_version' => 'v5.4.1',
+      'version' => '5.4.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1a7ea2afc49c3ee6d87061f5a233e3a035d0eae7',
+      'reference' => '264dce589e7ce37a7ba99cb901eed8249fbec92f',
     ),
     'voku/portable-ascii' => 
     array (
@@ -1324,15 +1332,17 @@ private static $installed = array (
     ),
     'webmozart/assert' => 
     array (
-      'pretty_version' => '1.11.0',
-      'version' => '1.11.0.0',
+      'pretty_version' => '1.10.0',
+      'version' => '1.10.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '11cb2199493b2f8a3b53e7f19068fc6aac760991',
+      'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
     ),
   ),
 );
+private static $canGetVendors;
+private static $installedByVendor = array();
 
 
 
@@ -1342,7 +1352,17 @@ private static $installed = array (
 
 public static function getInstalledPackages()
 {
-return array_keys(self::$installed['versions']);
+$packages = array();
+foreach (self::getInstalled() as $installed) {
+$packages[] = array_keys($installed['versions']);
+}
+
+
+if (1 === \count($packages)) {
+return $packages[0];
+}
+
+return array_keys(array_flip(\call_user_func_array('array_merge', $packages)));
 }
 
 
@@ -1355,7 +1375,13 @@ return array_keys(self::$installed['versions']);
 
 public static function isInstalled($packageName)
 {
-return isset(self::$installed['versions'][$packageName]);
+foreach (self::getInstalled() as $installed) {
+if (isset($installed['versions'][$packageName])) {
+return true;
+}
+}
+
+return false;
 }
 
 
@@ -1390,25 +1416,29 @@ return $provided->matches($constraint);
 
 public static function getVersionRanges($packageName)
 {
-if (!isset(self::$installed['versions'][$packageName])) {
-throw new \OutOfBoundsException('Package "' . $packageName . '" is not installed');
+foreach (self::getInstalled() as $installed) {
+if (!isset($installed['versions'][$packageName])) {
+continue;
 }
 
 $ranges = array();
-if (isset(self::$installed['versions'][$packageName]['pretty_version'])) {
-$ranges[] = self::$installed['versions'][$packageName]['pretty_version'];
+if (isset($installed['versions'][$packageName]['pretty_version'])) {
+$ranges[] = $installed['versions'][$packageName]['pretty_version'];
 }
-if (array_key_exists('aliases', self::$installed['versions'][$packageName])) {
-$ranges = array_merge($ranges, self::$installed['versions'][$packageName]['aliases']);
+if (array_key_exists('aliases', $installed['versions'][$packageName])) {
+$ranges = array_merge($ranges, $installed['versions'][$packageName]['aliases']);
 }
-if (array_key_exists('replaced', self::$installed['versions'][$packageName])) {
-$ranges = array_merge($ranges, self::$installed['versions'][$packageName]['replaced']);
+if (array_key_exists('replaced', $installed['versions'][$packageName])) {
+$ranges = array_merge($ranges, $installed['versions'][$packageName]['replaced']);
 }
-if (array_key_exists('provided', self::$installed['versions'][$packageName])) {
-$ranges = array_merge($ranges, self::$installed['versions'][$packageName]['provided']);
+if (array_key_exists('provided', $installed['versions'][$packageName])) {
+$ranges = array_merge($ranges, $installed['versions'][$packageName]['provided']);
 }
 
 return implode(' || ', $ranges);
+}
+
+throw new \OutOfBoundsException('Package "' . $packageName . '" is not installed');
 }
 
 
@@ -1417,15 +1447,19 @@ return implode(' || ', $ranges);
 
 public static function getVersion($packageName)
 {
-if (!isset(self::$installed['versions'][$packageName])) {
-throw new \OutOfBoundsException('Package "' . $packageName . '" is not installed');
+foreach (self::getInstalled() as $installed) {
+if (!isset($installed['versions'][$packageName])) {
+continue;
 }
 
-if (!isset(self::$installed['versions'][$packageName]['version'])) {
+if (!isset($installed['versions'][$packageName]['version'])) {
 return null;
 }
 
-return self::$installed['versions'][$packageName]['version'];
+return $installed['versions'][$packageName]['version'];
+}
+
+throw new \OutOfBoundsException('Package "' . $packageName . '" is not installed');
 }
 
 
@@ -1434,15 +1468,19 @@ return self::$installed['versions'][$packageName]['version'];
 
 public static function getPrettyVersion($packageName)
 {
-if (!isset(self::$installed['versions'][$packageName])) {
-throw new \OutOfBoundsException('Package "' . $packageName . '" is not installed');
+foreach (self::getInstalled() as $installed) {
+if (!isset($installed['versions'][$packageName])) {
+continue;
 }
 
-if (!isset(self::$installed['versions'][$packageName]['pretty_version'])) {
+if (!isset($installed['versions'][$packageName]['pretty_version'])) {
 return null;
 }
 
-return self::$installed['versions'][$packageName]['pretty_version'];
+return $installed['versions'][$packageName]['pretty_version'];
+}
+
+throw new \OutOfBoundsException('Package "' . $packageName . '" is not installed');
 }
 
 
@@ -1451,15 +1489,19 @@ return self::$installed['versions'][$packageName]['pretty_version'];
 
 public static function getReference($packageName)
 {
-if (!isset(self::$installed['versions'][$packageName])) {
-throw new \OutOfBoundsException('Package "' . $packageName . '" is not installed');
+foreach (self::getInstalled() as $installed) {
+if (!isset($installed['versions'][$packageName])) {
+continue;
 }
 
-if (!isset(self::$installed['versions'][$packageName]['reference'])) {
+if (!isset($installed['versions'][$packageName]['reference'])) {
 return null;
 }
 
-return self::$installed['versions'][$packageName]['reference'];
+return $installed['versions'][$packageName]['reference'];
+}
+
+throw new \OutOfBoundsException('Package "' . $packageName . '" is not installed');
 }
 
 
@@ -1468,7 +1510,9 @@ return self::$installed['versions'][$packageName]['reference'];
 
 public static function getRootPackage()
 {
-return self::$installed['root'];
+$installed = self::getInstalled();
+
+return $installed[0]['root'];
 }
 
 
@@ -1503,5 +1547,33 @@ return self::$installed;
 public static function reload($data)
 {
 self::$installed = $data;
+self::$installedByVendor = array();
+}
+
+
+
+
+private static function getInstalled()
+{
+if (null === self::$canGetVendors) {
+self::$canGetVendors = method_exists('Composer\Autoload\ClassLoader', 'getRegisteredLoaders');
+}
+
+$installed = array();
+
+if (self::$canGetVendors) {
+
+foreach (ClassLoader::getRegisteredLoaders() as $vendorDir => $loader) {
+if (isset(self::$installedByVendor[$vendorDir])) {
+$installed[] = self::$installedByVendor[$vendorDir];
+} elseif (is_file($vendorDir.'/composer/installed.php')) {
+$installed[] = self::$installedByVendor[$vendorDir] = require $vendorDir.'/composer/installed.php';
+}
+}
+}
+
+$installed[] = self::$installed;
+
+return $installed;
 }
 }

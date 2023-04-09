@@ -9,7 +9,6 @@ use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\UriTemplate\UriTemplate;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Client\Events\ConnectionFailed;
 use Illuminate\Http\Client\Events\RequestSending;
@@ -44,25 +43,11 @@ class PendingRequest
     protected $client;
 
     /**
-     * The Guzzle HTTP handler.
-     *
-     * @var callable
-     */
-    protected $handler;
-
-    /**
      * The base URL for the request.
      *
      * @var string
      */
     protected $baseUrl = '';
-
-    /**
-     * The parameters that can be substituted into the URL.
-     *
-     * @var array
-     */
-    protected $urlParameters = [];
 
     /**
      * The request body format.
@@ -95,7 +80,7 @@ class PendingRequest
     /**
      * The transfer stats for the request.
      *
-     * @var \GuzzleHttp\TransferStats
+     * \GuzzleHttp\TransferStats
      */
     protected $transferStats;
 
@@ -112,13 +97,6 @@ class PendingRequest
      * @var \Closure
      */
     protected $throwCallback;
-
-    /**
-     * A callback to check if an exception should be thrown when a server or client error occurs.
-     *
-     * @var \Closure
-     */
-    protected $throwIfCallback;
 
     /**
      * The number of times to try the request.
@@ -351,9 +329,7 @@ class PendingRequest
      */
     public function contentType(string $contentType)
     {
-        $this->options['headers']['Content-Type'] = $contentType;
-
-        return $this;
+        return $this->withHeaders(['Content-Type' => $contentType]);
     }
 
     /**
@@ -448,19 +424,6 @@ class PendingRequest
     }
 
     /**
-     * Specify the URL parameters that can be substituted into the request URL.
-     *
-     * @param  array  $parameters
-     * @return $this
-     */
-    public function withUrlParameters(array $parameters = [])
-    {
-        return tap($this, function () use ($parameters) {
-            $this->urlParameters = $parameters;
-        });
-    }
-
-    /**
      * Specify the cookies that should be included with the request.
      *
      * @param  array  $cookies
@@ -473,19 +436,6 @@ class PendingRequest
             $this->options = array_merge_recursive($this->options, [
                 'cookies' => CookieJar::fromArray($cookies, $domain),
             ]);
-        });
-    }
-
-    /**
-     * Specify the maximum number of redirects to allow.
-     *
-     * @param  int  $max
-     * @return $this
-     */
-    public function maxRedirects(int $max)
-    {
-        return tap($this, function () use ($max) {
-            $this->options['allow_redirects']['max'] = $max;
         });
     }
 
@@ -556,15 +506,15 @@ class PendingRequest
      * Specify the number of times the request should be attempted.
      *
      * @param  int  $times
-     * @param  int  $sleepMilliseconds
+     * @param  int  $sleep
      * @param  callable|null  $when
      * @param  bool  $throw
      * @return $this
      */
-    public function retry(int $times, int $sleepMilliseconds = 0, ?callable $when = null, bool $throw = true)
+    public function retry(int $times, int $sleep = 0, ?callable $when = null, bool $throw = true)
     {
         $this->tries = $times;
-        $this->retryDelay = $sleepMilliseconds;
+        $this->retryDelay = $sleep;
         $this->retryThrow = $throw;
         $this->retryWhenCallback = $when;
 
@@ -629,28 +579,12 @@ class PendingRequest
     /**
      * Throw an exception if a server or client error occurred and the given condition evaluates to true.
      *
-     * @param  callable|bool  $condition
-     * @param  callable|null  $throwCallback
+     * @param  bool  $condition
      * @return $this
      */
     public function throwIf($condition)
     {
-        if (is_callable($condition)) {
-            $this->throwIfCallback = $condition;
-        }
-
-        return $condition ? $this->throw(func_get_args()[1] ?? null) : $this;
-    }
-
-    /**
-     * Throw an exception if a server or client error occurred and the given condition evaluates to false.
-     *
-     * @param  bool  $condition
-     * @return $this
-     */
-    public function throwUnless($condition)
-    {
-        return $this->throwIf(! $condition);
+        return $condition ? $this->throw() : $this;
     }
 
     /**
@@ -736,7 +670,7 @@ class PendingRequest
      * @param  array  $data
      * @return \Illuminate\Http\Client\Response
      */
-    public function patch(string $url, $data = [])
+    public function patch($url, $data = [])
     {
         return $this->send('PATCH', $url, [
             $this->bodyFormat => $data,
@@ -750,7 +684,7 @@ class PendingRequest
      * @param  array  $data
      * @return \Illuminate\Http\Client\Response
      */
-    public function put(string $url, $data = [])
+    public function put($url, $data = [])
     {
         return $this->send('PUT', $url, [
             $this->bodyFormat => $data,
@@ -764,7 +698,7 @@ class PendingRequest
      * @param  array  $data
      * @return \Illuminate\Http\Client\Response
      */
-    public function delete(string $url, $data = [])
+    public function delete($url, $data = [])
     {
         return $this->send('DELETE', $url, empty($data) ? [] : [
             $this->bodyFormat => $data,
@@ -806,8 +740,6 @@ class PendingRequest
             $url = ltrim(rtrim($this->baseUrl, '/').'/'.ltrim($url, '/'), '/');
         }
 
-        $url = $this->expandUrlParameters($url);
-
         $options = $this->parseHttpOptions($options);
 
         [$this->pendingBody, $this->pendingFiles] = [null, []];
@@ -834,9 +766,7 @@ class PendingRequest
                             throw $exception;
                         }
 
-                        if ($this->throwCallback &&
-                            ($this->throwIfCallback === null ||
-                             call_user_func($this->throwIfCallback, $response))) {
+                        if ($this->throwCallback) {
                             $response->throw($this->throwCallback);
                         }
 
@@ -861,17 +791,6 @@ class PendingRequest
 
             return $result;
         });
-    }
-
-    /**
-     * Substitute the URL parameters in the given URL.
-     *
-     * @param  string  $url
-     * @return string
-     */
-    protected function expandUrlParameters(string $url)
-    {
-        return UriTemplate::expand($url, $this->urlParameters);
     }
 
     /**
@@ -976,10 +895,6 @@ class PendingRequest
      */
     protected function parseRequestData($method, $url, array $options)
     {
-        if ($this->bodyFormat === 'body') {
-            return [];
-        }
-
         $laravelData = $options[$this->bodyFormat] ?? $options['query'] ?? [];
 
         $urlString = Str::of($url);
@@ -1023,7 +938,9 @@ class PendingRequest
      */
     public function buildClient()
     {
-        return $this->client ?? $this->createClient($this->buildHandlerStack());
+        return $this->requestsReusableClient()
+               ? $this->getReusableClient()
+               : $this->createClient($this->buildHandlerStack());
     }
 
     /**
@@ -1067,7 +984,7 @@ class PendingRequest
      */
     public function buildHandlerStack()
     {
-        return $this->pushHandlers(HandlerStack::create($this->handler));
+        return $this->pushHandlers(HandlerStack::create());
     }
 
     /**
@@ -1212,7 +1129,7 @@ class PendingRequest
     /**
      * Replace the given options with the current request options.
      *
-     * @param  array  ...$options
+     * @param  array  $options
      * @return array
      */
     public function mergeOptions(...$options)
@@ -1333,7 +1250,9 @@ class PendingRequest
      */
     public function setHandler($handler)
     {
-        $this->handler = $handler;
+        $this->client = $this->createClient(
+            $this->pushHandlers(HandlerStack::create($handler))
+        );
 
         return $this;
     }

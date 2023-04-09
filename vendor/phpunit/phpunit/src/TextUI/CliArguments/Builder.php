@@ -121,6 +121,7 @@ final class Builder
         'whitelist=',
         'dump-xdebug-filter=',
     ];
+
     private const SHORT_OPTIONS = 'd:c:hv';
 
     public function fromParameters(array $parameters, array $additionalLongOptions): Configuration
@@ -134,7 +135,7 @@ final class Builder
         } catch (CliParserException $e) {
             throw new Exception(
                 $e->getMessage(),
-                $e->getCode(),
+                (int) $e->getCode(),
                 $e
             );
         }

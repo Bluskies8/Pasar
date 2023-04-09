@@ -95,26 +95,12 @@ $(document).ready(function() {
         reloadTable();
     });
 
-    function reloadTable(page) {
-        if (typeof page === 'undefined') {
-            $('#table-stock').load(
-                window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + $('#input-search').val() + '&year=' + $('#selected-date').val().split('-')[0] + '&month=' + $('#selected-date').val().split('-')[1],
-                function() {
-                    setThousandSeparator();
-                }
-            );
-        } else {
-            $('#table-stock').load(
-                window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + $('#input-search').val() + '&year=' + $('#selected-date').val().split('-')[0] + '&month=' + $('#selected-date').val().split('-')[1] + '&page=' + page,
-                function() {
-                    setThousandSeparator();
-                }
-            );
-        }
+    function reloadTable() {
+        $('#table-stock').load(
+            window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + $('#input-search').val() + '&year=' + $('#selected-date').val().split('-')[0] + '&month=' + $('#selected-date').val().split('-')[1],
+            function() {
+                setThousandSeparator();
+            }
+        );
     }
-
-    $('#table-stock').on('click', '.page-link', function(e) {
-        e.preventDefault();
-        reloadTable($(this).text());
-    });
 });

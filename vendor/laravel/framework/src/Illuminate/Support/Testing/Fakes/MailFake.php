@@ -318,17 +318,6 @@ class MailFake implements Factory, Mailer, MailQueue
      * @param  mixed  $users
      * @return \Illuminate\Mail\PendingMail
      */
-    public function cc($users)
-    {
-        return (new PendingMailFake($this))->cc($users);
-    }
-
-    /**
-     * Begin the process of mailing a mailable class instance.
-     *
-     * @param  mixed  $users
-     * @return \Illuminate\Mail\PendingMail
-     */
     public function bcc($users)
     {
         return (new PendingMailFake($this))->bcc($users);
@@ -362,11 +351,11 @@ class MailFake implements Factory, Mailer, MailQueue
 
         $view->mailer($this->currentMailer);
 
+        $this->currentMailer = null;
+
         if ($view instanceof ShouldQueue) {
             return $this->queue($view, $data);
         }
-
-        $this->currentMailer = null;
 
         $this->mailables[] = $view;
     }
