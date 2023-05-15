@@ -331,6 +331,7 @@ class DashboardController extends Controller
     public function logs()
     {
         $data = log::with('user.role')->get();
+        return $data;
         return view('pages.Logs',[
             'data' => $data
         ]);
