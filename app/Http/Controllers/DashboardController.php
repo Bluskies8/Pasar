@@ -88,6 +88,7 @@ class DashboardController extends Controller
         $data = user::find(Auth::guard('checkLogin')->user()->id);
         $data->pasar_id = $id;
         $data->save();
+        return $data;
         return redirect(strtolower(Auth::guard('checkLogin')->user()->role->name));
     }
 
