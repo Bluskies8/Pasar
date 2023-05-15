@@ -331,8 +331,8 @@ class DashboardController extends Controller
     public function logs()
     {
         $data = log::with('user.role')->get();
-        // log::whereYear('created_at', '=', '2022')->delete();
-        // return $data;
+        log::whereYear('created_at', '=', '2022')->delete();
+        return $data;
         return view('pages.Logs',[
             'data' => $data
         ]);
