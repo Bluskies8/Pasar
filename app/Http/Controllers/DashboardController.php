@@ -295,7 +295,7 @@ class DashboardController extends Controller
         for ($i=3; $i >= 0; $i--) {
             $start = Carbon::createFromFormat('Y-m-d H:i:s',$now->startOfMonth()->toDateString().' 00:00:00',7)->subMonth($i);
             $end = Carbon::createFromFormat('Y-m-d H:i:s',$now->endOfMonth()->toDateString().' 23:59:59',7)->subMonth($i);
-            $countKuli = htrans::whereBetween('created_at',[$start,$end])->sum('total_jumlah');
+            $countKuli = htrans::whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('total_jumlah');
             $dataKuli[$i] = [
                 'bulan'=>$start->format('F'),
                 'jumlah'=>$countKuli*$netto->value,
@@ -307,7 +307,7 @@ class DashboardController extends Controller
             $date = new carbon($now->format('Y').'-'.str_pad($i,2,"0",STR_PAD_LEFT).'-'.'01');
             $start = Carbon::createFromFormat('Y-m-d H:i:s',$date->startOfMonth()->toDateString().' 00:00:00',7);
             $end = Carbon::createFromFormat('Y-m-d H:i:s',$date->endOfMonth()->toDateString().' 23:59:59',7);
-            $temp = htrans::whereBetween('created_at',[$start,$end])->sum('total_jumlah');
+            $temp = htrans::whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('total_jumlah');
 
             $barang[$i-1] = $temp;
         }
@@ -318,7 +318,7 @@ class DashboardController extends Controller
             $date = new carbon($now->format('Y').'-'.str_pad($i,2,"0",STR_PAD_LEFT).'-'.'01');
             $start = Carbon::createFromFormat('Y-m-d H:i:s',$date->startOfMonth()->toDateString().' 00:00:00',7);
             $end = Carbon::createFromFormat('Y-m-d H:i:s',$date->endOfMonth()->toDateString().' 23:59:59',7);
-            $temp = invoice::whereBetween('created_at',[$start,$end])->sum('dibayarkan');
+            $temp = invoice::whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('dibayarkan');
 
             $pendapatan[$i-1] = $temp;
         }
