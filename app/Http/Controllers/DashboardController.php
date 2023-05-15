@@ -88,7 +88,7 @@ class DashboardController extends Controller
         $data = user::find(Auth::guard('checkLogin')->user()->id);
         $data->pasar_id = $id;
         $data->save();
-        return $data;
+        // return $data;
         return redirect(strtolower(Auth::guard('checkLogin')->user()->role->name));
     }
 
@@ -332,6 +332,7 @@ class DashboardController extends Controller
     public function logs()
     {
         $data = log::with('user.role')->get();
+        return Auth::guard('checkLogin')->user();
         return view('pages.Logs',[
             'data' => $data
         ]);
