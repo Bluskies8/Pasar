@@ -29,7 +29,7 @@ class RetribusiController extends Controller
                 $total -= $key->value;
             }
         }
-        $all = retribusi::get();
+        $all = retribusi::where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
         return view('pages.retribusi',[
             'date' => $request->date,
             'data' => $retribusi,
@@ -39,8 +39,6 @@ class RetribusiController extends Controller
     }
     public function getRetri(Request $request)
     {
-        // $carbon = Carbon::now();
-        // $date = $carbon->toDateString();
         $date = Carbon::createFromFormat('Y-m-d',$request->date)->format('dmY');
         $listrik = invoice::where('id','like','%' . $date.'%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('listrik');
         $total = invoice::where('id','like','%' . $date.'%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('dibayarkan');
