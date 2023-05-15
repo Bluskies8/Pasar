@@ -104,11 +104,11 @@ $(document).ready(function() {
             }else{
                 check = true;
             }
-        }else{
-            $('#error-msg-shif').text("");
+        }
+        if(radioValue && nama && username && password){
             check = true;
         }
-        console.log(check)
+        console.log(check + " " +action)
         if(action == 'insert'){
             if(check == true){
                 $.ajax({
@@ -139,37 +139,37 @@ $(document).ready(function() {
                     }
                 });
             }
-            }else if(action == 'update'){
-                if(check == true){
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        type: "post",
-                        url: "/"+role[1]+"/user/update/"+selectedID,
-                        data:{
-                            role:radioValue,
-                            nama:nama,
-                            username:username,
-                            password:password,
-                            tambahan_start:shif_start,
-                            tambahan_end:shif_end,
-                            shif:shif
-                        },
-                        beforeSend: function(){
+        }else if(action == 'update'){
+            if(check == true){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    type: "post",
+                    url: "/"+role[1]+"/user/update/"+selectedID,
+                    data:{
+                        role:radioValue,
+                        nama:nama,
+                        username:username,
+                        password:password,
+                        tambahan_start:shif_start,
+                        tambahan_end:shif_end,
+                        shif:shif
+                    },
+                    beforeSend: function(){
 
-                        },
-                        success: function(res) {
-                            // console.log(res);
-                            window.location.reload();
-                        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            console.log(xhr.status);
-                            console.log(thrownError);
-                        }
-                    });
-                }
+                    },
+                    success: function(res) {
+                        // console.log(res);
+                        window.location.reload();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                });
             }
+        }
     });
 
     $('#item-delete').on('click', function() {
