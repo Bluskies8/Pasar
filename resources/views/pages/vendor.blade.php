@@ -90,34 +90,6 @@
     $(document).ready(function() {
         console.log(window.location.pathname.split('/')[1] + '/vendor/Table/');
         $('#denah-pasar').load(window.location.origin  + "/" + window.location.pathname.split('/')[1] + '/vendor/Table');
-        // $('#denah-pasar').load(
-        //     window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + '' + '&year=' + 2023 + '&month=' + "05",
-        // );
-        try {
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                type: "get",
-                url: '/' + window.location.pathname.split('/')[1] + '/vendor/Table',
-                before: function(){
-
-                },
-                success: function(data) {
-                    console.log(data);
-                    // $('#denah-pasar').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
-                    // $('#denah-pasar').replaceWith(data);
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(xhr.responseText);
-                    console.log(thrownError);
-                }
-            });
-        } catch (error) {
-            console.log(error)
-        }
-        
     });
 </script>
 @endsection
