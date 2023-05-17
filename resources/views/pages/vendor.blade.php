@@ -89,13 +89,13 @@
 <script>
     $(document).ready(function() {
         console.log(window.location.pathname.split('/')[1] + '/vendor/Table/');
-        $('#denah-pasar').load(window.location.origin  + "/" + window.location.pathname.split('/')[1] + '/vendor/Table/');
+        $('#denah-pasar').load(window.location.origin  + "/" + window.location.pathname.split('/')[1] + '/stockTable/');
         // $.ajax({
         //     headers: {
         //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         //     },
         //     type: "get",
-        //     url: '/' + window.location.pathname.split('/')[1] + '/vendorTable/',
+        //     url: '/' + window.location.pathname.split('/')[1] + '/vendor/Table/',
         //     before: function(){
 
         //     },

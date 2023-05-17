@@ -93,7 +93,7 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::prefix('vendor')->group(function () {
             Route::get('/',[DashboardController::class,'vendor']);
-            Route::get('Table', [DashboardController::class,'vendorTable']);
+            Route::get('/Table', [DashboardController::class,'vendorTable']);
             Route::post('/create',[DashboardController::class,'vendorCreate']);
             Route::post('/update',[DashboardController::class,'vendorUpdate']);
             Route::delete('/delete',[DashboardController::class,'vendorDelete']);
@@ -150,7 +150,7 @@ Route::middleware(['checkLogin'])->group(function () {
         });
         Route::prefix('vendor')->group(function () {
             Route::get('/',[DashboardController::class,'vendor']);
-            Route::get('Table', [DashboardController::class,'vendorTable']);
+            Route::get('/Table', [DashboardController::class,'vendorTable']);
             Route::post('/create',[DashboardController::class,'vendorCreate']);
             Route::post('/update',[DashboardController::class,'vendorUpdate']);
         });
