@@ -59,8 +59,7 @@ $(document).ready(function() {
                 id: selectedID,
             },
             success: function(data) {
-                $('#denah-pasar').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
-
+                $('#denah-pasar').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/vendor/Table');
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);
@@ -109,7 +108,7 @@ $(document).ready(function() {
             },
             success: function(data) {
                 // console.log(data);
-                $('#denah-pasar').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
+                $('#denah-pasar').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/vendor/Table');
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);
