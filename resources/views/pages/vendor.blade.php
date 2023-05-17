@@ -87,7 +87,7 @@
 <script>
     $(document).ready(function() {
         console.log(window.location.protocol.substr(0,4));
-        $('#denah-pasar').load(window.location.protocol.substr(0,4) + "//" + window.location.host  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
+        $('#denah-pasar').load(window.location.origin  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
     });
 </script>
 @endsection
