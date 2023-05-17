@@ -91,7 +91,7 @@
         console.log(window.location.pathname.split('/')[1] + '/vendor/Table/');
         // $('#denah-pasar').load(window.location.origin  + "/" + window.location.pathname.split('/')[1] + '/stockTable/');
         $('#denah-pasar').load(
-            window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + '' + '&year=' + 2023 + '&month=' + 05,
+            window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + '' + '&year=' + 2023 + '&month=' + "05",
             // function() {
             //     setThousandSeparator();
             // }
