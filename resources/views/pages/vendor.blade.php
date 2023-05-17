@@ -86,8 +86,8 @@
 <script src="{{asset('js/vendor.js')}}"></script>
 <script>
     $(document).ready(function() {
-        console.log(window.location.protocol + "//" + window.location.host  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
-        $('#denah-pasar').load(window.location.protocol + "//" + window.location.host  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
+        console.log(window.location.protocol.substr(0,4));
+        $('#denah-pasar').load(window.location.protocol.substr(0,4) + "//" + window.location.host  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
     });
 </script>
 @endsection
