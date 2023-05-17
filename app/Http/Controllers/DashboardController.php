@@ -219,7 +219,7 @@ class DashboardController extends Controller
         //     $standc[$key]['badan_usaha'] = $value->badan_usaha;
         // }
         // // dd($standc);
-        return view('pages.vendor',[
+        return view('pages/vendor',[
             'role' => Auth::guard('checkLogin')->user()->role_id,
         ]);
     }
