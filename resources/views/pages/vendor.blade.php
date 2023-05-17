@@ -84,4 +84,10 @@
     </div>
 
 <script src="{{asset('js/vendor.js')}}"></script>
+<script>
+    $(document).ready(function() {
+        console.log(window.location.protocol + "//" + window.location.host  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
+        $('#denah-pasar').load(window.location.protocol + "//" + window.location.host  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
+    });
+</script>
 @endsection
