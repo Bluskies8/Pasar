@@ -87,7 +87,26 @@
 <script>
     $(document).ready(function() {
         console.log(window.location.protocol.substr(0,4));
-        $('#denah-pasar').load(window.location.origin  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
+        // $('#denah-pasar').load(window.location.origin  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            type: "get",
+            url: window.location.origin  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/',
+            before: function(){
+
+            },
+            success: function(data) {
+                console.log(data);
+                // $('#denah-pasar').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
+                $('#denah-pasar').replaceWith(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
     });
 </script>
 @endsection
