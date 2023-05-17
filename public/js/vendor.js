@@ -27,8 +27,8 @@ $(document).ready(function() {
 
     });
 
-    // $('#denah-pasar').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
-    $('#denah-pasar').load(window.location.protocol + "//" + window.location.host  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
+    // $('#denah-pasar').load(window.location.origin + "/" + window.location.pathname.split('/')[1] + '/vendor/Table/');
+    // $('#denah-pasar').load(window.location.protocol + "//" + window.location.host  + "/" + window.location.pathname.split('/')[1] + '/vendorTable/');
     // $('td').on('dblclick', function(){
     //     $('#input-namaPT').val("");
     //     $('#nama-stand').text($(this).attr('id'));
