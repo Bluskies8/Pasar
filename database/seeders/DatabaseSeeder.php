@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             StandSeeder::class,
             NettoSeeder::class,
             BuahSeeder::class,
+            //nanti dihapus
+            HtransSeeder::class
         ]);
     }
 }
