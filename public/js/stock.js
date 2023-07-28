@@ -22,11 +22,33 @@ $(document).ready(function() {
     var role = window.location.pathname.split('/');
     var selectedID = '';
     $('#table-stock').on('click', '.show-aksi', function() {
-        $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 150 /* lebar list */ + 33.5 /* lebar button */);
-        $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
+        let lebarList = 150;
+        let lebarBtn = $(this).css('width');
+        let lebarTambahan = 2;
+        lebarBtn = parseInt(lebarBtn.substr(0, lebarBtn.indexOf('px')));
+        // $('#list-aksi').css('left', $(this).offset().left - $('#side-nav').width() - 150 /* lebar list */ + 33.5 /* lebar button */);
+        $('#list-aksi').css('left', $(this).offset().left - $('#content').offset().left - lebarList + lebarBtn + lebarTambahan);
+        let tinggiBtn = $(this).css('height');
+        let tinggiHeader = 0;
+        tinggiBtn = parseInt(tinggiBtn.substr(0, tinggiBtn.indexOf('px')));
+        // $('#list-aksi').css('top', $(this).offset().top - 50 /* tinggi header */ + 30 /* tinggi button */);
+        $('#list-aksi').css('top', $(this).offset().top + $('#content').scrollTop() - $('#content').offset().top + tinggiBtn + tinggiHeader);
+
         $('#list-aksi').show();
         selectedID = $(this).attr('id').substr(4);
         flag = true;
+    });
+
+    $(document).on('click', function() {
+        setTimeout(function (){
+            if (flag) {
+                flag = !flag;
+            } else {
+                if ($('#list-aksi').css('display') == 'block') {
+                    $('#list-aksi').hide();
+                }
+            }
+        }, 10);
     });
 
     function toShortFormat(mon,year) {
@@ -48,18 +70,6 @@ $(document).ready(function() {
         var tempyear = new Date($(this).val()).getFullYear();
         $(this).attr('data-date', toShortFormat(tempmonth, tempyear));
         reloadTable();
-    });
-
-    $(document).on('click', function() {
-        setTimeout(function (){
-            if (flag) {
-                flag = !flag;
-            } else {
-                if ($('#list-aksi').css('display') == 'block') {
-                    $('#list-aksi').hide();
-                }
-            }
-        }, 10);
     });
 
     $('#item-detail').on('click', function() {

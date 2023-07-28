@@ -42,7 +42,7 @@
             </button>
         </div>
     </div>
-    <div id="table-stock"></div>
+    <div id="table-stock" class="mb-5"></div>
     <ul class="list-unstyled py-2" id="list-aksi">
         <li id="item-detail" class="px-2">Lihat Detail</li>
         @if ($role <= 3)
