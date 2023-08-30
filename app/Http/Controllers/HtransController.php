@@ -149,7 +149,7 @@ class HtransController extends Controller
                 $temp = htrans::whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
             }
             $temp = htrans::with(['checker', 'stand'])->whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
-            
+
         }else{
             $temp = htrans::withTrashed()
                         ->with(['checker', 'stand'])
@@ -166,7 +166,7 @@ class HtransController extends Controller
                                       });;
                             });
                         })
-                        ->where('created_at', "like", "{$request->year}-0{$request->month}%")
+                        ->where('created_at', "like", "{$request->year}-{$request->month}%")
                         // ->paginate(100);
                         ->get();
         }
@@ -183,7 +183,7 @@ class HtransController extends Controller
         $buah = buah::get();
         // dd($tmep);
         $stand = [];
-        $trans = transportasi::get();
+        $trans = transportasi::orderBy('value')->get();
         foreach ($tmep as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
             $stand[$key]['seller_name'] = $no_stand->seller_name;
@@ -258,7 +258,7 @@ class HtransController extends Controller
             $checkstandid = stand::where('id',$request->stand_id)->first();
             // $parkir = [0,3000,5000,10000,20000,50000];
             $parkir = transportasi::get();
-            dd($parkir);
+            // dd($parkir);
             $kode = ['k','b','td','dt','sd','p','t'];
             foreach ($request->items as $key) {
                 $checkbuah = buah::where('name',$key['nama'])->first();
@@ -268,12 +268,12 @@ class HtransController extends Controller
                     $c = false;
                     return "kode tidak sesuai";
                 }
-                if(in_array($key['parkir'], $parkir)){
-                    $c = true;
-                }else{
-                    $c = false;
-                    return "parkir tidak sesuai";
-                }
+                // if(in_array($key['parkir'], $parkir)){
+                //     $c = true;
+                // }else{
+                //     $c = false;
+                //     return "parkir tidak sesuai";
+                // }
                 if($checkstandid){
                     $c = true;
                 }else{

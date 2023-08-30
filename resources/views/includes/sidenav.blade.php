@@ -39,8 +39,14 @@
             <p>Managemen User</p>
         </a>
         @endif
+        @if (auth()->guard('checkLogin')->user()->role_id < 3)
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/transport" id="nav-item-transport" class="d-flex align-items-center ps-3 nav-item">
+            <i class="fa-solid fa-truck me-3"></i>
+            <p>Transport</p>
+        </a>
+        @endif
         @if (auth()->guard('checkLogin')->user()->role_id == 1)
-        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/logs" id="nav-item-denah" class="d-flex align-items-center ps-3 nav-item">
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/logs" id="nav-item-logs" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-book me-3"></i>
             <p>Logs</p>
         </a>

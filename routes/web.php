@@ -6,6 +6,7 @@ use App\Http\Controllers\HtransController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ListrikController;
 use App\Http\Controllers\RetribusiController;
+use App\Http\Controllers\TransportasiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -97,6 +98,12 @@ Route::middleware(['checkLogin'])->group(function () {
             Route::post('/create',[DashboardController::class,'vendorCreate']);
             Route::post('/update',[DashboardController::class,'vendorUpdate']);
             Route::delete('/delete',[DashboardController::class,'vendorDelete']);
+        });
+        Route::prefix('transport')->group(function () {
+            Route::get('/',[TransportasiController::class,'index']);
+            Route::post('/create',[TransportasiController::class,'store']);
+            Route::post('/update',[TransportasiController::class,'update']);
+            Route::delete('/delete/{transportasi:id}',[TransportasiController::class,'destroy']);
         });
 
         Route::get('/invo',[invoicecontroller::class,'index']);

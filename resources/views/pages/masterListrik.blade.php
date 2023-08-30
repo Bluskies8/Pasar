@@ -27,7 +27,7 @@
         <tbody class="text-center">
             @foreach ($data as $item)
             <tr id="{{$item->id}}">
-                <td>{{$item->value}}</td>
+                <td>{{number_format($item->value, 0, ',', '.')}}</td>
                 <td class="position-relative" style="padding: 5px 4px;">
                     <button class="btn btn-sm d-flex align-items-center show-aksi position-absolute h-75 mx-auto" type="button" style="background: #38A34A;color: white;left: 0;right: 0;max-width: 35.5px;"><i class="fas fa-bars fa-lg"></i></button>
                 </td>

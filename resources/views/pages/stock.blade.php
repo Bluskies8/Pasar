@@ -30,10 +30,10 @@
     <div class="d-flex justify-content-between">
         <div class="position-relative mt-3 ms-3" style="max-width: 250px;" id="container-tanggal">
             @if ($role <= 3)
-                <input class="form-control select-date d-flex justify-content-between" name="month" type="month" data-date="{{ date('M-Y'); }}" style="height: 32px; width: 200px;" value="{{ date('Y-m'); }}">
+                <input id="select-date" class="form-control d-flex justify-content-between" name="month" type="month" style="height: 32px; width: 200px;" value="{{ date('Y-m'); }}">
                 <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
             @endif
-                <input type="hidden" id="selected-date" name="month" data-date="{{ date('M-Y'); }}" value="{{ date('Y-m'); }}">
+            <input type="hidden" id="selected-date" name="month" data-date="{{ date('m-Y'); }}" value="{{ date('Y-m'); }}">
         </div>
         <div class="d-flex mt-3 me-3">
             <input class="form-control" type="search" name="search" id="input-search" style="height: 32px;" placeholder="Search">

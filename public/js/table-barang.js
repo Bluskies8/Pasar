@@ -222,6 +222,7 @@ $(document).ready(function(){
         let lapak = $('#list-pelapak').find('option[value="' + $('#pelapak').val() + '"]').attr('id');
         if (typeof lapak === "undefined") {
             alert("pilih nama lapak terlebih dahulu !");
+            $(this).prop('disabled', false);
             return;
         }
 
@@ -245,6 +246,7 @@ $(document).ready(function(){
             alert("silahkan tambah barang terlebih dahulu !");
             return;
         }
+
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -254,6 +256,7 @@ $(document).ready(function(){
             data: {
                 stand_id: lapak,
                 transportasi:"pick up",
+                status_borongan: $("#check-borongan").checked ? true : false,
                 items:data
             },
             beforeSend: function(){

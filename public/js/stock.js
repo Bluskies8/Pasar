@@ -64,20 +64,21 @@ $(document).ready(function() {
         return `${monthName}-${year}`;
     }
 
-    $('#selected-date').on('change', function(){
+    // $('#selected-date').on('change', function(){
+    //     // console.log($(this).val());
+    //     var tempmonth = new Date($(this).val()).getMonth();
+    //     var tempyear = new Date($(this).val()).getFullYear();
+    //     $(this).attr('data-date', toShortFormat(tempmonth, tempyear));
+    //     reloadTable();
+    // });
+
+    $('#select-date').on('change', function(){
         // console.log($(this).val());
         var tempmonth = new Date($(this).val()).getMonth();
         var tempyear = new Date($(this).val()).getFullYear();
-        $(this).attr('data-date', toShortFormat(tempmonth, tempyear));
-        reloadTable();
-    });
-
-    $('.select-date').on('change', function(){
-        console.log(this);
-        var tempmonth = new Date($(this).val()).getMonth();
-        var tempyear = new Date($(this).val()).getFullYear();
         //$(this).attr('data-date', toShortFormat(tempmonth, tempyear));
-        $("#selected-date").data('date', new Date($(this).val()).getMonth() + 1 + "-" + tempyear);
+        $('#selected-date').data('date', (new Date($(this).val()).getMonth() + 1).toString().padStart(2, '0') + "-" + tempyear);
+        // console.log($(this).data('date'));
         reloadTable();
     });
 

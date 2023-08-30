@@ -71,7 +71,7 @@ p {
 }
 
 #list-aksi {
-  width: 150px;
+  width: 125px;
   z-index: 1000;
   position: absolute;
   display: none;

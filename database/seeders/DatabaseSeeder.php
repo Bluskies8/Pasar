@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            TransportasiSeeder::class.
             PasarSeeder::class,
+            TransportasiSeeder::class,
             ListrikSeeder::class,
             RoleSeeder::class,
             StandSeeder::class,

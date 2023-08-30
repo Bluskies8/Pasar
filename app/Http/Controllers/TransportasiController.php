@@ -14,7 +14,10 @@ class TransportasiController extends Controller
      */
     public function index()
     {
-        //
+        $data = transportasi::get();
+        return view('pages.masterTransport',[
+            'data' => $data
+        ]);
     }
 
     /**
@@ -35,7 +38,10 @@ class TransportasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        transportasi::create([
+            'value' => $request->value
+        ]);
+        return "success";
     }
 
     /**
@@ -69,7 +75,10 @@ class TransportasiController extends Controller
      */
     public function update(Request $request, transportasi $transportasi)
     {
-        //
+        $data = transportasi::find($request->id);
+        $data->value = $request->value;
+        $data->save();
+        return "success";
     }
 
     /**
@@ -80,6 +89,7 @@ class TransportasiController extends Controller
      */
     public function destroy(transportasi $transportasi)
     {
-        //
+        $transportasi->delete();
+        return "success";
     }
 }
