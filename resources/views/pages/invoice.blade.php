@@ -22,7 +22,7 @@
         <button class="btn btn-sm me-2" id="generate-invoice" type="button" style="background: #38A34A;color: white;">Buat Nota</button>
     </header>
     <hr class="my-0">
-    <div class="position-relative" style="max-width: 250px;" id="container-tanggal">
+    <div class="position-relative" style="width: 250px;" id="container-tanggal">
         <input class="form-control d-flex justify-content-between" id="selected-date" name="date" type="date" style="height: 32px;" data-date="{{$date}}" data-date-format="DD/MM/YYYY" value="{{$date}}">
         <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
     </div>

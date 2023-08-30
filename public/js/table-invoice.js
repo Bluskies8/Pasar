@@ -21,6 +21,8 @@ $(document).ready(function() {
         ]
     });
     $('#table-invoice_filter').parent().siblings().append($('#container-tanggal').detach());
+    $('#table-invoice_filter').parent().siblings().addClass('d-flex justify-content-center justify-content-md-start');
+    $('#table-invoice_filter').closest('.row').addClass('g-0');
 
     let sumTotal = 0;
     function calculateTotal() {
