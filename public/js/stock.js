@@ -72,6 +72,15 @@ $(document).ready(function() {
         reloadTable();
     });
 
+    $('.select-date').on('change', function(){
+        console.log(this);
+        var tempmonth = new Date($(this).val()).getMonth();
+        var tempyear = new Date($(this).val()).getFullYear();
+        //$(this).attr('data-date', toShortFormat(tempmonth, tempyear));
+        $("#selected-date").data('date', new Date($(this).val()).getMonth() + 1 + "-" + tempyear);
+        reloadTable();
+    });
+
     $('#item-detail').on('click', function() {
         location.href = '/'+role[1]+'/details/' + selectedID;
         selectedID = '';
@@ -107,7 +116,7 @@ $(document).ready(function() {
 
     function reloadTable() {
         $('#table-stock').load(
-            window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + $('#input-search').val() + '&year=' + $('#selected-date').val().split('-')[0] + '&month=' + $('#selected-date').val().split('-')[1],
+            window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + $('#input-search').val() + '&year=' + $('#selected-date').data('date').split('-')[1] + '&month=' + $('#selected-date').data('date').split('-')[0],
             function() {
                 setThousandSeparator();
             }

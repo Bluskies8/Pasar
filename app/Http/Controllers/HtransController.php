@@ -9,6 +9,7 @@ use App\Models\log;
 use App\Models\netto;
 use App\Models\shif;
 use App\Models\stand;
+use App\Models\transportasi;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -165,7 +166,7 @@ class HtransController extends Controller
                                       });;
                             });
                         })
-                        ->where('created_at', "like", "{$request->year}-{$request->month}%")
+                        ->where('created_at', "like", "{$request->year}-0{$request->month}%")
                         // ->paginate(100);
                         ->get();
         }
@@ -182,6 +183,7 @@ class HtransController extends Controller
         $buah = buah::get();
         // dd($tmep);
         $stand = [];
+        $trans = transportasi::get();
         foreach ($tmep as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
             $stand[$key]['seller_name'] = $no_stand->seller_name;
@@ -193,6 +195,7 @@ class HtransController extends Controller
             'data'=>['id'=>'','value'=>'1'],
             'role' => Auth::guard('checkLogin')->user()->role_id,
             'buah' => $buah,
+            'trans' => $trans
         ]);
     }
 
@@ -253,7 +256,9 @@ class HtransController extends Controller
             // return $count;
             $id = "HT".str_pad(Auth::guard('checkLogin')->user()->pasar_id,2,"0",STR_PAD_LEFT).$date.str_pad($count,3,"0",STR_PAD_LEFT);
             $checkstandid = stand::where('id',$request->stand_id)->first();
-            $parkir = [0,3000,5000,10000,20000,50000];
+            // $parkir = [0,3000,5000,10000,20000,50000];
+            $parkir = transportasi::get();
+            dd($parkir);
             $kode = ['k','b','td','dt','sd','p','t'];
             foreach ($request->items as $key) {
                 $checkbuah = buah::where('name',$key['nama'])->first();

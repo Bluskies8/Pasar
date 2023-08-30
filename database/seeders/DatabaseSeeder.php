@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\transportasi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
+            TransportasiSeeder::class.
             PasarSeeder::class,
             ListrikSeeder::class,
             RoleSeeder::class,
@@ -28,7 +30,7 @@ class DatabaseSeeder extends Seeder
             NettoSeeder::class,
             BuahSeeder::class,
             //nanti dihapus
-            HtransSeeder::class
+            // HtransSeeder::class
         ]);
     }
 }

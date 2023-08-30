@@ -191,12 +191,15 @@
                                     <div class="d-flex align-items-center">
                                         <p class="me-2">Parkir</p>
                                         <select name="parkir" class="form-select-sm form-select select-parkir">
-                                            <option value="0" selected>0</option>
-                                            <option value="3000">3.000</option>
+                                            @foreach ($trans as $item)
+                                            <option class = "thousand-separator" value="{{$item->value}}">{{$item->value}}</option>
+                                                
+                                            @endforeach
+                                            {{-- <option value="3000">3.000</option>
                                             <option value="5000">5.000</option>
                                             <option value="10000">10.000</option>
                                             <option value="20000">20.000</option>
-                                            <option value="50000">50.000</option>
+                                            <option value="50000">50.000</option> --}}
                                         </select>
                                     </div>
                                 </div>
