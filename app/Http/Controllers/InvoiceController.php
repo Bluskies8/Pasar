@@ -98,7 +98,7 @@ class InvoiceController extends Controller
                         $total += $key2->subtotal;
                     }
                 }
-                $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('stand_id',$idlapak)->sum('total_jumlah');
+                $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('status_borongan',0)->where('stand_id',$idlapak)->sum('total_jumlah');
                 $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$idlapak)->get();
                 $parkir = 0;
                 foreach ($htrans as $key2 ) {
@@ -162,7 +162,8 @@ class InvoiceController extends Controller
                 $parkir+=$key2->parkir;
             }
         }
-        $kuli = htrans::where('stand_id',$request->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
+        $kuli = htrans::where('stand_id',$request->stand_id)->where('status_borongan',0)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
+        // dd($kuli);
         return response()->json([
             'trans' => $htrans,
             'pasar' => $pasar,

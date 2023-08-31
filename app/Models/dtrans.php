@@ -20,6 +20,7 @@ class dtrans extends Model
         'round',
         'parkir',
         'subtotal',
+        'transportasi',
     ];
     public function htrans()
     {

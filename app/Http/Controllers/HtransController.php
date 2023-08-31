@@ -206,12 +206,14 @@ class HtransController extends Controller
         $stand['id'] = $data->stand->id;
         $stand['seller_name'] = $data->stand->seller_name;
         $buah = buah::get();
+        $trans = transportasi::orderBy('value')->get();
         // dd($stand);
         return view('pages/stockDetail',[
             'stand' => $stand,
             'data'=>$data,
             'buah' => $buah,
-            'role' => Auth::guard('checkLogin')->user()->role_id
+            'role' => Auth::guard('checkLogin')->user()->role_id,
+            'trans' => $trans
         ]);
     }
     /**
@@ -232,6 +234,7 @@ class HtransController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $time = Carbon::now();
         $user = Auth::guard('checkLogin')->user();
         $cekshif = shif::where('number',$user->shif)->first();
@@ -293,7 +296,7 @@ class HtransController extends Controller
                     'pasar_id' => Auth::guard('checkLogin')->user()->pasar_id,
                     'user_id' => Auth::guard('checkLogin')->user()->id,
                     'stand_id' => $request->stand_id,
-                    'transportasi' => $request->transportasi,
+                    'status_borongan' => $request->status_borongan,
                     'Total_jumlah' => 0,
                     'Total_harga' => 0
                 ]);
@@ -338,6 +341,7 @@ class HtransController extends Controller
                         'round' => $round,
                         'netto' => $netto->value,
                         'parkir' => $key['parkir'],
+                        'transportasi' => $key['transportasi'],
                         'subtotal' => $subtotal
                     ]);
                 }

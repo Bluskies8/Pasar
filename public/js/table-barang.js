@@ -128,7 +128,8 @@ $(document).ready(function(){
                                 temp.find('.data-kode').html(kode[i].value);
                                 temp.find('.data-nama').html(nama[i].value);
                                 temp.find('.data-jumlah').html(jumlah[i].value);
-                                temp.find('.data-parkir').text(parkir[i].value);
+                                temp.find('.data-transportasi').text(parkir[i].value.split('-')[0]);
+                                temp.find('.data-parkir').text(parkir[i].value.split('-')[1]);
                                 temp.show();
                             }
                         }
@@ -216,7 +217,7 @@ $(document).ready(function(){
 
     $('#save-detail').on('click', function(e) {
         // insert data table ke db
-        $(this).prop('disabled', true);
+        // $(this).prop('disabled', true);
         let save = $('#tr-template').detach();
 
         let lapak = $('#list-pelapak').find('option[value="' + $('#pelapak').val() + '"]').attr('id');
@@ -238,10 +239,10 @@ $(document).ready(function(){
                 kode: $(this).find('.data-kode').html(),
                 nama: $(this).find('.data-nama').html(),
                 jumlah: $(this).find('.data-jumlah').html(),
-                parkir: parkir
+                parkir: parkir,
+                transportasi: $(this).find('.data-transportasi').html(),
             });
         });
-
         if (data.length == 0) {
             alert("silahkan tambah barang terlebih dahulu !");
             return;
@@ -255,8 +256,7 @@ $(document).ready(function(){
             url: "/"+role[1]+"/transaction/create",
             data: {
                 stand_id: lapak,
-                transportasi:"pick up",
-                status_borongan: $("#check-borongan").prop( "checked" ) ? true : false,
+                status_borongan: $("#check-borongan").prop( "checked" ) ? 1 : 0,
                 items:data
             },
             beforeSend: function(){

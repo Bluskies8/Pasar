@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transportasis', function (Blueprint $table) {
-            $table->id();
-            $table->text('nama');
-            $table->integer('value');
-            $table->timestamps();
+        Schema::table('htrans', function (Blueprint $table) {
+            $table->dropColumn('transportasi');
         });
     }
 
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transportasis');
+        
     }
 };

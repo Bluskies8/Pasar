@@ -40,10 +40,21 @@
         </p>
         @endif
 
+        @if ($data['value'])
         <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center justify-content-md-start justify-content-lg-center justify-content-center order-lg-1 order-md-2 my-md-2">
             <p>Status Borongan&nbsp;</p>
             <input type="checkbox" name="status_borongan" id="check-borongan">
         </div>
+        @else
+        <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center justify-content-md-start justify-content-lg-center justify-content-center order-lg-1 order-md-2 my-md-2">
+            <p>Status Borongan&nbsp;</p>
+            @if ($data->status_borongan == 1)
+                <input class = "disabled" type="checkbox" name="status_borongan" id="check-borongan" checked>
+            @else
+                <input class = "disabled" type="checkbox" name="status_borongan" id="check-borongan">
+            @endif
+        </div>
+        @endif
 
         @if ($data['id'])
         <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center justify-content-md-end justify-content-lg-start justify-content-center order-lg-2 order-md-3 my-md-2">
@@ -76,6 +87,7 @@
                         <th>Bruto</th>
                         <th>Round</th>
                     @endif
+                    <th>Transportasi</th>
                     <th>Parkir</th>
                     @if ($role <= 3)
                         <th>Subtotal</th>
@@ -89,6 +101,7 @@
                         <td class="text-center data-kode"></td>
                         <td class="data-nama"></td>
                         <td class="text-center data-jumlah"></td>
+                        <td class="text-center data-transportasi"></td>
                         <td>
                             <div class="d-flex justify-content-between">
                                 <p>Rp</p>
@@ -108,6 +121,11 @@
                             <td class="text-center">{{$item->bruto}}</td>
                             <td class="text-center">{{$item->round}}</td>
                         @endif
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <p class="">{{$item->transportasi}}</p>
+                            </div>
+                        </td>
                         <td>
                             <div class="d-flex justify-content-between">
                                 <p>Rp</p>
@@ -177,7 +195,7 @@
                                     <div class="position-relative mb-3" style="height: 32px;">
                                         <!-- <input class="form-control" name="nama" type="text" style="height: 32px;"> -->
 
-                                        @isset($buah) <!-- belum ambil data buah -->
+                                        @isset($buah)
                                         <input name="nama" id="nama-buah" list="list-buah" class="form-select-sm w-100 nama-buah">
                                         <datalist id="list-buah">
                                             @foreach ($buah as $item)
@@ -197,8 +215,7 @@
                                         <p class="me-2">Parkir</p>
                                         <select name="parkir" class="form-select-sm form-select select-parkir">
                                             @foreach ($trans as $item)
-                                            <option class = "thousand-separator" value="{{$item->value}}">{{$item->value}}</option>
-
+                                                <option value="{{$item->nama}}-{{$item->value}}">{{$item->nama}} - {{number_format($item->value, 0, ',', '.')}}</option>
                                             @endforeach
                                             {{-- <option value="3000">3.000</option>
                                             <option value="5000">5.000</option>

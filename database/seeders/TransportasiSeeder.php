@@ -16,21 +16,27 @@ class TransportasiSeeder extends Seeder
     public function run()
     {
         transportasi::create([
+            "nama" => "gratis",
             'value' =>'0',
         ]);
         transportasi::create([
+            "nama" => "motor",
             'value' =>'3000',
         ]);
         transportasi::create([
+            "nama" => "mobil",
             'value' =>'5000',
         ]);
         transportasi::create([
+            "nama" => "pick up",
             'value' =>'10000',
         ]);
         transportasi::create([
+            "nama" => "truck engkel",
             'value' =>'20000',
         ]);
         transportasi::create([
+            "nama" => "truck container",
             'value' =>'50000'
         ]);
     }

@@ -17,7 +17,7 @@ class htrans extends Model
         'stand_id',
         'Total_jumlah',
         'Total_harga',
-        'transportasi'
+        'status_borongan'
     ];
     public function details()
     {
