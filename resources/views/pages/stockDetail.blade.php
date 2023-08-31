@@ -13,8 +13,10 @@
             </div>
         </div>
         @if ($data['id'])
-        <div class="col-12 col-lg-3 d-flex align-items-center">
-            <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/stock"><button class="btn" style="background-color: rgb(24, 144, 255);color: var(--bs-white); text-decoration: none;">Back</button></a>
+        <div class="col-12 col-md-6 col-lg-5 d-flex align-items-center">
+            <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/stock">
+                <button class="btn" style="background-color: rgb(24, 144, 255);color: var(--bs-white); text-decoration: none;">Back</button>
+            </a>
             <div class="d-flex flex-xl-row flex-lg-column flex-row align-items-center align-items-lg-start align-items-xl-center ms-3">
                 <p style="white-space: nowrap">ID Transaksi :&nbsp;</p>
                 <span id="id-transaksi">{{$data->id}}</span>
@@ -23,7 +25,7 @@
         @endif
 
         @if ($data['value'])
-        <p class="col-12 col-md-6 col-lg-4 d-flex align-items-center justify-content-start order-0" style="white-space: nowrap;">Nama Lapak :&nbsp;
+        <p class="col-12 col-md-6 col-lg-5 d-flex align-items-center justify-content-start order-0" style="white-space: nowrap;">Nama Lapak :&nbsp;
             <span id="nama-pelapak"></span>
             <input id="pelapak" list="list-pelapak" class="form-select-sm">
             <datalist id="list-pelapak">
@@ -35,7 +37,7 @@
             </datalist>
         </p>
         @else
-        <p class="col-md-6 col-lg-3 d-flex align-items-center justify-content-start order-0" style="white-space: nowrap;">Nama Lapak :&nbsp;
+        <p class="col-md-6 col-lg-3 d-flex align-items-center justify-content-center order-0" style="white-space: nowrap;">Nama Lapak :&nbsp;
             <span id="nama-pelapak">{{$stand['seller_name']}}</span>
         </p>
         @endif
@@ -46,30 +48,30 @@
             <input type="checkbox" name="status_borongan" id="check-borongan">
         </div>
         @else
-        <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center justify-content-md-start justify-content-lg-center justify-content-center order-lg-1 order-md-2 my-md-2">
+        <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center justify-content-center">
             <p>Status Borongan&nbsp;</p>
             @if ($data->status_borongan == 1)
-                <input class = "disabled" type="checkbox" name="status_borongan" id="check-borongan" checked>
+                <input class="disabled" type="checkbox" name="status_borongan" id="check-borongan" checked>
             @else
-                <input class = "disabled" type="checkbox" name="status_borongan" id="check-borongan">
+                <input class="disabled" type="checkbox" name="status_borongan" id="check-borongan">
             @endif
         </div>
         @endif
 
         @if ($data['id'])
-        <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center justify-content-md-end justify-content-lg-start justify-content-center order-lg-2 order-md-3 my-md-2">
+        <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center justify-content-center order-lg-2 order-md-3 my-md-2">
             <p>Netto : Rp&nbsp;</p>
             <p class="thousand-separator data-netto">3000</p>
         </div>
         @else
-        <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center justify-content-md-end justify-content-lg-start justify-content-center order-lg-2 order-md-3 my-md-2">
+        <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center justify-content-md-end justify-content-lg-center justify-content-center order-lg-2 order-md-3 my-md-2">
             <p>Netto : Rp&nbsp;</p>
             <p class="thousand-separator data-netto">3000</p>
         </div>
         @endif
 
         @if ($role == 4 && $data['id'] == null)
-        <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-md-end justify-content-center order-lg-3 order-md-1">
+        <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-md-end justify-content-center order-lg-3 order-md-1">
             <button class="btn btn-sm" id="tambah-barang" type="button" style="background-color: rgb(24, 144, 255);color: var(--bs-white);">Tambah Barang</button>
         </div>
         @endif
