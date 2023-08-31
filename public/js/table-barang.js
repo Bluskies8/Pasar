@@ -256,7 +256,7 @@ $(document).ready(function(){
             data: {
                 stand_id: lapak,
                 transportasi:"pick up",
-                status_borongan: $("#check-borongan").checked ? true : false,
+                status_borongan: $("#check-borongan").prop( "checked" ) ? true : false,
                 items:data
             },
             beforeSend: function(){
