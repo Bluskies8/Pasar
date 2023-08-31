@@ -102,7 +102,7 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::prefix('transport')->group(function () {
             Route::get('/',[TransportasiController::class,'index']);
             Route::post('/create',[TransportasiController::class,'store']);
-            Route::post('/update',[TransportasiController::class,'update']);
+            Route::post('/update/{transportasi:id}',[TransportasiController::class,'update']);
             Route::delete('/delete/{transportasi:id}',[TransportasiController::class,'destroy']);
         });
 

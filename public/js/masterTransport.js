@@ -2,6 +2,7 @@ $(document).ready(function(){
     $('#table-transport').DataTable({
         columns: [
             null,
+            null,
             { orderable: false }
         ],
         paging: false
@@ -51,8 +52,8 @@ $(document).ready(function(){
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
-            type: "post",
-            url: "/"+role[1]+"/listrik/delete/"+selectedID,
+            type: "delete",
+            url: "/"+role[1]+"/transport/delete/"+selectedID,
             beforeSend: function(){
 
             },
@@ -70,12 +71,14 @@ $(document).ready(function(){
     $('#item-update').on('click', function() {
         action = "update";
         $('.modal-title').text("Rubah listrik");
-        $('#input-harga').val($('#' + selectedID).children().eq(0).html());
+        $('#input-harga').val($('#' + selectedID).children().eq(1).html());
+        $('#input-nama').val($('#' + selectedID).children().eq(0).html());
         $('#modal-update').modal('show');
     });
 
     $('#btn-save').on('click', function() {
         var harga = $('#input-harga').val();
+        var nama = $('#input-nama').val();
 
         (!harga) ? $('#error-harga').text("Harga transport wajib di isi") : $('#error-harga').text("");
 
@@ -88,9 +91,10 @@ $(document).ready(function(){
                 url: "/" + role[1] + "/transport/create",
                 data:{
                     value: harga,
+                    nama: nama
                 },
                 beforeSend: function(){
-
+                    console.log(nama)
                 },
                 success: function(res) {
                     alert('Insert sukses');
@@ -110,6 +114,7 @@ $(document).ready(function(){
                 url: "/" + role[1] + "/transport/update/" + selectedID,
                 data:{
                     value: harga,
+                    nama: nama
                 },
                 beforeSend: function(){
 

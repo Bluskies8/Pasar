@@ -9,6 +9,6 @@ class transportasi extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id','value'
+        'nama','value'
     ];
 }

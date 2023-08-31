@@ -17,7 +17,7 @@
                 <table class="table" id="table-transport">
                     <thead>
                         <tr>
-                            {{-- <th>Nama</th> --}}
+                            <th>Nama</th>
                             <th>Biaya</th>
                             <th></th>
                         </tr>
@@ -25,7 +25,7 @@
                     <tbody class="text-center">
                         @foreach ($data as $item)
                         <tr id="{{$item->id}}">
-                            {{-- <td>{{$item->name}}</td> --}}
+                            <td>{{$item->nama}}</td>
                             <td>{{number_format($item->value, 0, ',', '.')}}</td>
                             <td class="text-end" style="padding: 5px 4px;">
                                 <button class="btn btn-sm show-aksi" type="button" style="background: #38A34A;color: white;"><i class="fas fa-bars fa-lg"></i></button>
@@ -48,11 +48,11 @@
                             <h4 class="modal-title"></h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            {{-- <div class="position-relative mb-3">
-                                <input type="text" class="form-control" id="input-nama" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);"/>
+                            <div class="position-relative mb-3">
+                                <input type="text" class="form-control" id="input-nama" />
                                 <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Nama Transport</p>
                                 <p class="small text-danger error-msg" id="error-nama"></p>
-                            </div> --}}
+                            </div>
                             <div class="position-relative mb-3">
                                 <input type="text" class="form-control" id="input-harga" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);"/>
                                 <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Harga Transport</p>
