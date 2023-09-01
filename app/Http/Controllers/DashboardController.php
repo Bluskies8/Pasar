@@ -77,19 +77,25 @@ class DashboardController extends Controller
 
     public function updatePasar(Request $request)
     {
-
+        $pasar = pasar::find($request->id_pasar);
+        $pasar->nama = $request->nama;
+        $pasar->alamat = $request->alamat;
+        $pasar->save();
+        return redirect('superadmin/switchPasar');
     }
 
-    public function deletePasar(Request $request)
+    public function deletePasar(pasar $pasar)
     {
-
+        $pasar->delete();
+        return redirect('superadmin/switchPasar');
     }
 
     public function switchPages()
     {
         $data = pasar::all();
         return view('pages.selectPasar',[
-            'data' => $data
+            'data' => $data,
+            'user' => Auth::guard('checkLogin')->user()->role->name
         ]);
     }
 

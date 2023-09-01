@@ -40,7 +40,7 @@
                     <h4 class="modal-title"></h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="form-pasar" method="post">
+                <form id="form-pasar" method="post" action = "/{{$user}}/updatePasar">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-2">
@@ -51,6 +51,7 @@
                             <h5>Alamat pasar</h5>
                             <input id="input-alamat-pasar" type="text" name="alamat" class="form-control" />
                         </div>
+                        <input type="hidden" id="input-id-pasar" name="id_pasar">
                     </div>
                     <div class="modal-footer">
                         <button id="btn-delete-pasar" class="btn btn-danger" type="button">Hapus</button>

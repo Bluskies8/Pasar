@@ -29,7 +29,7 @@
     <hr class="my-0">
     <div class="d-flex justify-content-between">
         <div class="position-relative mt-3 ms-3" style="max-width: 250px;" id="container-tanggal">
-            @if ($role <= 3)
+            @if ($role < 3)
                 <input id="select-date" class="form-control d-flex justify-content-between" name="month" type="month" style="height: 32px; width: 200px;" value="{{ date('Y-m'); }}">
                 <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
             @endif

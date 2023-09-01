@@ -11,7 +11,7 @@ $(document).ready(function() {
     });
 
     var selectedPasarId = 0;
-    var namaPasar = '', alamatPasar = '';
+    var namaPasar = '', alamatPasar = '', idPasar = '';
     $('.btn-update-pasar').on('click', function() {
         selectedPasarId = $(this).closest('.card').attr('id');
         $('#form-pasar').attr('action', '/superadmin/updatePasar');
@@ -19,16 +19,19 @@ $(document).ready(function() {
 
         namaPasar = $(this).closest('div.w-100').siblings().eq(1).text();
         alamatPasar = $(this).closest('div.w-100').siblings().eq(2).text();
+        console.log(selectedPasarId);
+
         $('#modal-pasar .modal-title').text('Pengaturan ' + namaPasar);
         $('#input-nama-pasar').val(namaPasar);
         $('#input-alamat-pasar').val(alamatPasar);
+        $('#input-id-pasar').val(selectedPasarId);
 
         $('#modal-pasar').modal('show');
     });
 
     $('#btn-delete-pasar').on('click', function() {
         if (confirm("Konfirmasi penghapusan " + namaPasar + " ?")) {
-            window.location.href = "/superadmin/deletePasar";
+            window.location.href = "/superadmin/deletePasar/" + selectedPasarId;
         }
     });
 

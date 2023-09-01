@@ -49,7 +49,7 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('/switch/{id}',[DashboardController::class,'switchPasar']);
         Route::post('tambahPasar',[DashboardController::class,'tambahPasar']);
         Route::post('updatePasar',[DashboardController::class,'updatePasar']);
-        Route::post('deletePasar',[DashboardController::class,'deletePasar']);
+        Route::get('deletePasar/{pasar:id}',[DashboardController::class,'deletePasar']);
 
         Route::get('stock', [HtransController::class,'index']);
         Route::get('stockTable', [HtransController::class,'indexTable']);
@@ -163,6 +163,12 @@ Route::middleware(['checkLogin'])->group(function () {
             Route::get('/Table', [DashboardController::class,'vendorTable']);
             Route::post('/create',[DashboardController::class,'vendorCreate']);
             Route::post('/update',[DashboardController::class,'vendorUpdate']);
+        });
+        Route::prefix('transport')->group(function () {
+            Route::get('/',[TransportasiController::class,'index']);
+            Route::post('/create',[TransportasiController::class,'store']);
+            Route::post('/update/{transportasi:id}',[TransportasiController::class,'update']);
+            Route::delete('/delete/{transportasi:id}',[TransportasiController::class,'destroy']);
         });
     });
     Route::group(['middleware'=>'kapten','prefix'=>'kapten'],function () {
