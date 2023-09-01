@@ -48,6 +48,9 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('switchPasar', [DashboardController::class,'switchpages']);
         Route::get('/switch/{id}',[DashboardController::class,'switchPasar']);
         Route::post('tambahPasar',[DashboardController::class,'tambahPasar']);
+        Route::post('updatePasar',[DashboardController::class,'updatePasar']);
+        Route::post('deletePasar',[DashboardController::class,'deletePasar']);
+
         Route::get('stock', [HtransController::class,'index']);
         Route::get('stockTable', [HtransController::class,'indexTable']);
         // Route::get('vendorTable', [DashboardController::class,'vendorTable']);

@@ -75,6 +75,16 @@ class DashboardController extends Controller
         }
     }
 
+    public function updatePasar(Request $request)
+    {
+
+    }
+
+    public function deletePasar(Request $request)
+    {
+
+    }
+
     public function switchPages()
     {
         $data = pasar::all();
