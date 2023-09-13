@@ -19,7 +19,9 @@
                                 <hr class="w-100">
                                 <div class="w-100 row">
                                     <div class="col-6">
-                                        <button class="w-100 btn btn-secondary btn-update-pasar" type="button"><i class="fa-solid fa-gear"></i></button>
+                                        <button class="w-100 btn btn-secondary btn-update-pasar" type="button">
+                                            <i class="fa-solid fa-gear"></i>
+                                        </button>
                                     </div>
                                     <div class="col-6">
                                         <button class="w-100 btn btn-success btn-select-pasar" type="button">Pilih</button>

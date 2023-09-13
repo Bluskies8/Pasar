@@ -9,16 +9,17 @@
     <div class="card mt-5">
         <div class="card-body">
             <div id="content-header" class="d-flex align-items-center justify-content-between">
-                <h2>Tranportasi</h2>
-                <button class="btn btn-sm me-2" id="add-transport" type="button" style="background-color: #38A34A; color: white;">Transport Baru</button>
+                <h2>Shift</h2>
+                <button class="btn btn-sm me-2" id="add-shift" type="button" style="background-color: #38A34A; color: white;">Shift Baru</button>
             </div>
             <hr>
             <div class="table-responsive p-3">
-                <table class="table" id="table-transport">
+                <table class="table" id="table-shift">
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            <th>Biaya</th>
+                            <th>Waktu Masuk</th>
+                            <th>Waktu Keluar</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -26,11 +27,10 @@
                         @foreach ($data as $item)
                         <tr id="{{$item->id}}">
                             <td>{{$item->nama}}</td>
-                            <td>{{number_format($item->value, 0, ',', '.')}}</td>
+                            <td>{{$item->waktu_masuk}}</td>
+                            <td>{{$item->waktu_keluar}}</td>
                             <td class="text-end" style="padding: 5px 4px;">
-                                <button class="btn btn-sm show-aksi" type="button" style="background: #38A34A;color: white;">
-                                    <i class="fas fa-bars fa-lg"></i>
-                                </button>
+                                <button class="btn btn-sm show-aksi" type="button" style="background: #38A34A;color: white;"><i class="fas fa-bars fa-lg"></i></button>
                             </td>
                         </tr>
                         @endforeach
@@ -52,13 +52,18 @@
                         <div class="modal-body">
                             <div class="position-relative mb-3">
                                 <input type="text" class="form-control" id="input-nama" />
-                                <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Nama Transport</p>
+                                <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Nama Shift</p>
                                 <p class="small text-danger error-msg" id="error-nama"></p>
                             </div>
                             <div class="position-relative mb-3">
-                                <input type="text" class="form-control" id="input-harga" oninput="this.value = this.value.replace(/[^0-9.]/g, &#39;&#39;).replace(/(\..*?)\..*/g, &#39;$1&#39;).replace(/^0[^.]/, &#39;0&#39;);"/>
-                                <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Harga Transport</p>
-                                <p class="small text-danger error-msg" id="error-harga"></p>
+                                <input type="time" class="form-control" id="input-waktu-masuk"/>
+                                <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Waktu Masuk</p>
+                                <p class="small text-danger error-msg" id="error-waktu-masuk"></p>
+                            </div>
+                            <div class="position-relative mb-3">
+                                <input type="time" class="form-control" id="input-waktu-keluar"/>
+                                <p class="position-absolute px-1" style="top: -12px;left: 10px;font-size: 14px;background-color: white;">Waktu keluar</p>
+                                <p class="small text-danger error-msg" id="error-waktu-keluar"></p>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -74,5 +79,5 @@
 
 <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
-<script src="{{asset('js/masterTransport.js')}}"></script>
+<script src="{{asset('js/masterShift.js')}}"></script>
 @endsection

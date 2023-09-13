@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('#table-barang').DataTable({
+    $('#table-shift').DataTable({
         columns: [
             null,
             { orderable: false }
@@ -40,9 +40,9 @@ $(document).ready(function(){
 
     var action;
     var role = window.location.pathname.split('/');
-    $('#add-listrik').on('click', function() {
+    $('#add-shift').on('click', function() {
         action = "insert";
-        $('.modal-title').text("Tambah Listrik");
+        $('.modal-title').text("Tambah Shift Baru");
         $('#modal-update').modal('show');
     });
 
@@ -52,7 +52,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             type: "post",
-            url: "/"+role[1]+"/listrik/delete/"+selectedID,
+            url: "/"+role[1]+"/shift/delete/"+selectedID,
             beforeSend: function(){
 
             },
@@ -69,15 +69,19 @@ $(document).ready(function(){
 
     $('#item-update').on('click', function() {
         action = "update"
-        $('.modal-title').text("Rubah listrik");
+        $('.modal-title').text("Rubah Shift");
         $('#input-nama').val($('#' + selectedID).children().eq(0).html());
         $('#modal-update').modal('show');
     });
 
     $('#btn-save').on('click', function() {
         var nama = $('#input-nama').val();
+        var waktuMasuk = $('#input-waktu-masuk').val();
+        var waktuKeluar = $('#input-waktu-keluar').val();
 
-        (!nama)? $('#error-nama').text("Nama listrik wajib di isi"):$('#error-nama').text("");
+        (!nama)? $('#error-nama').text("Nama shift wajib di isi"):$('#error-nama').text("");
+        (!waktuMasuk)? $('#error-waktu-masuk').text("Waktu shift wajib di isi"):$('#error-waktu-masuk').text("");
+        (!waktuKeluar)? $('#error-waktu-keluar').text("Waktu shift wajib di isi"):$('#error-waktu-keluar').text("");
 
         if(action == 'insert'){
             $.ajax({
@@ -85,9 +89,12 @@ $(document).ready(function(){
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 type: "post",
-                url: "/"+role[1]+"/listrik/create",
+                url: "/"+role[1]+"/shift/create",
                 data:{
                     value:nama,
+                    waktu_masuk: waktuMasuk,
+                    waktu_keluar: waktuKeluar
+
                 },
                 beforeSend: function(){
 
@@ -107,9 +114,11 @@ $(document).ready(function(){
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 type: "post",
-                url: "/"+role[1]+"/listrik/update/"+selectedID,
+                url: "/"+role[1]+"/shift/update/"+selectedID,
                 data:{
                     value:nama,
+                    waktu_masuk: waktuMasuk,
+                    waktu_keluar: waktuKeluar
                 },
                 beforeSend: function(){
 

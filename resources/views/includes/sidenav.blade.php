@@ -1,6 +1,8 @@
 <div id="side-nav" class="position-relative" style="width: 200px;height: calc(100vh - 50px);background: rgb(45,55,60);color: white;">
+    <div id="nav-group-title-1" class="nav-group-title">
+        <h5 class="mb-0 px-3 pt-2 fw-bolder">Pasar</h5>
+    </div>
     <div id="nav-group-1" class="nav-group py-2">
-
         @if (auth()->guard('checkLogin')->user()->role_id <= 2)
         <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}" id="nav-item-dashboard" class="d-flex align-items-center ps-3 nav-item">
             <i class="fas fa-tachometer-alt me-3"></i>
@@ -72,6 +74,17 @@
             <p>Return</p>
         </div>
     </div> --}}
+    <div id="nav-group-title-2" class="nav-group-title">
+        <h5 class="mb-0 px-3 pt-2 fw-bolder">Universal</h5>
+    </div>
+    <div id="nav-group-2" class="nav-group py-2">
+        @if (auth()->guard('checkLogin')->user()->role_id == 1)
+        <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/shift" id="nav-item-shift" class="d-flex align-items-center ps-3 nav-item">
+            <i class="fa-solid fa-clock-rotate-left me-3"></i>
+            <p>Master Shift</p>
+        </a>
+        @endif
+    </div>
     <button class="btn position-absolute d-flex align-items-center justify-content-center p-1" id="minimize-nav" type="button" style="bottom: 0px;color: white;background-color: rgb(34,43,47);border-radius: 0px;box-shadow: none;width: 200px;">
         <i class="fas fa-chevron-left" id="minimize-icon"></i>
     </button>
