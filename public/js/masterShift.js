@@ -2,6 +2,9 @@ $(document).ready(function(){
     $('#table-shift').DataTable({
         columns: [
             null,
+            null,
+            null,
+            null,
             { orderable: false }
         ],
         paging: false
@@ -70,10 +73,19 @@ $(document).ready(function(){
     $('#item-update').on('click', function() {
         action = "update"
         $('.modal-title').text("Rubah Shift");
+        var masuk = new Date($('#' + selectedID).children().eq(1).html());
+        var keluar = new Date($('#' + selectedID).children().eq(2).html());
         $('#input-nama').val($('#' + selectedID).children().eq(0).html());
+        $('#input-waktu-masuk').val(pad(masuk.getHours()) + ":" + pad(masuk.getMinutes()));
+        $('#input-waktu-keluar').val(pad(keluar.getHours()) + ":" + pad(keluar.getMinutes()));
+        
         $('#modal-update').modal('show');
     });
-
+    function pad (str) {
+        str = str.toString();
+        return str.length < 2 ? pad("0" + str, 2) : str;
+    }
+      
     $('#btn-save').on('click', function() {
         var nama = $('#input-nama').val();
         var waktuMasuk = $('#input-waktu-masuk').val();
@@ -100,8 +112,11 @@ $(document).ready(function(){
 
                 },
                 success: function(res) {
-                    // console.log(res);
-                    window.location.reload();
+                    if(res == "success"){
+                        window.location.reload();
+                    }else{
+                        console.log(res);
+                    }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);
@@ -124,8 +139,11 @@ $(document).ready(function(){
 
                 },
                 success: function(res) {
-                    // console.log(res);
-                    window.location.reload();
+                    if(res == "success"){
+                        window.location.reload();
+                    }else{
+                        console.log(res);
+                    }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);

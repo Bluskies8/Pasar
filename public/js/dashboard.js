@@ -75,7 +75,7 @@ $(document).ready(function() {
                     $(element).text(number.toLocaleString(['ban', 'id']));
                 }
             });
-            tidyBruto();
+            // tidyBruto();
             clearInterval(separatorInterval);
         }
     };

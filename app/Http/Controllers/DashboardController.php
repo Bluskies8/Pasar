@@ -204,7 +204,7 @@ class DashboardController extends Controller
                 $start = date("H:i:s",strtotime($key->start));
                 $end = date("H:i:s",strtotime($key->end));
                 $key->start = $date.' '.$start;
-                if($key->number == 3){
+                if($key->number == 2){
                     $date = Carbon::now()->addDays(1)->format('Y-m-d');
                     $key->end = $date.' '.$end;
                 }else{

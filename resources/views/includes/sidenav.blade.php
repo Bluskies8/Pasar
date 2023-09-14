@@ -74,17 +74,17 @@
             <p>Return</p>
         </div>
     </div> --}}
+    @if (auth()->guard('checkLogin')->user()->role_id == 1)
     <div id="nav-group-title-2" class="nav-group-title">
         <h5 class="mb-0 px-3 pt-2 fw-bolder">Universal</h5>
     </div>
     <div id="nav-group-2" class="nav-group py-2">
-        @if (auth()->guard('checkLogin')->user()->role_id == 1)
         <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/shift" id="nav-item-shift" class="d-flex align-items-center ps-3 nav-item">
             <i class="fa-solid fa-clock-rotate-left me-3"></i>
             <p>Master Shift</p>
         </a>
-        @endif
     </div>
+    @endif
     <button class="btn position-absolute d-flex align-items-center justify-content-center p-1" id="minimize-nav" type="button" style="bottom: 0px;color: white;background-color: rgb(34,43,47);border-radius: 0px;box-shadow: none;width: 200px;">
         <i class="fas fa-chevron-left" id="minimize-icon"></i>
     </button>

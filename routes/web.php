@@ -6,6 +6,7 @@ use App\Http\Controllers\HtransController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ListrikController;
 use App\Http\Controllers\RetribusiController;
+use App\Http\Controllers\ShifController;
 use App\Http\Controllers\TransportasiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,13 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('stockTable', [HtransController::class,'indexTable']);
         // Route::get('vendorTable', [DashboardController::class,'vendorTable']);
         // Route::get('/reset',[DashboardController::class,'reset']);
+        Route::prefix('shift')->group(function () {
+            Route::get('/',[ShifController::class,'index']);
+            Route::get('/cari',[ShifController::class,'cari']);
+            Route::post('/create',[ShifController::class,'store']);
+            Route::post('/update/{shif:id}',[ShifController::class,'update']);
+            Route::post('/delete/{shif:id}',[ShifController::class,'destroy']);
+        });
         Route::prefix('buah')->group(function () {
             Route::get('/',[BuahController::class,'index']);
             Route::get('/cari',[BuahController::class,'cari']);

@@ -17,18 +17,20 @@
                 <table class="table" id="table-shift">
                     <thead>
                         <tr>
-                            <th>Nama</th>
+                            <th>shif</th>
                             <th>Waktu Masuk</th>
                             <th>Waktu Keluar</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
                         @foreach ($data as $item)
                         <tr id="{{$item->id}}">
-                            <td>{{$item->nama}}</td>
-                            <td>{{$item->waktu_masuk}}</td>
-                            <td>{{$item->waktu_keluar}}</td>
+                            <td>{{$item->number}}</td>
+                            <td>{{$item->start}}</td>
+                            <td>{{$item->end}}</td>
+                            <td>{{$item->status}}</td>
                             <td class="text-end" style="padding: 5px 4px;">
                                 <button class="btn btn-sm show-aksi" type="button" style="background: #38A34A;color: white;"><i class="fas fa-bars fa-lg"></i></button>
                             </td>
