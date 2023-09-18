@@ -15,7 +15,7 @@
             @isset($data)
             @foreach ($data as $item)
             @if ($item['deleted']!=null)
-                <tr class = "disabled">
+                <tr class="disabled">
             @else
                 <tr>
             @endif
