@@ -169,7 +169,6 @@ class HtransController extends Controller
                         ->where('created_at', "like", "{$request->year}-{$request->month}%")
                         // ->paginate(100);
                         ->get();
-                        dd(Auth::guard('checkLogin')->user()->role_id);
         }
         return view('components/tableStock', [
             'data' => $temp,
