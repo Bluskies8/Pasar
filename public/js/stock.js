@@ -111,6 +111,7 @@ $(document).ready(function() {
         }
     });
 
+    var page = 1;
     $('#btn-search').on('click', function() {
         reloadTable();
     });
@@ -124,7 +125,6 @@ $(document).ready(function() {
         );
     }
 
-    var page = 1;
     $('#table-stock').on('click', '.page-link', function(e) {
         e.preventDefault();
         page = $(this).attr('href').substr($(this).attr('href').indexOf('page=') + 5);
