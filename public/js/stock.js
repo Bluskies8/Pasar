@@ -117,10 +117,17 @@ $(document).ready(function() {
 
     function reloadTable() {
         $('#table-stock').load(
-            window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + $('#input-search').val() + '&year=' + $('#selected-date').data('date').split('-')[1] + '&month=' + $('#selected-date').data('date').split('-')[0],
+            window.location.origin + "/" + window.location.pathname.split('/')[1] + '/stockTable?search=' + $('#input-search').val() + '&year=' + $('#selected-date').data('date').split('-')[1] + '&month=' + $('#selected-date').data('date').split('-')[0] + '&page=' + page,
             function() {
                 setThousandSeparator();
             }
         );
     }
+
+    var page = 1;
+    $('#table-stock').on('click', '.page-link', function(e) {
+        e.preventDefault();
+        page = $(this).attr('href').substr($(this).attr('href').indexOf('page=') + 5);
+        reloadTable();
+    });
 });
