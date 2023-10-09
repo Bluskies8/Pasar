@@ -85,6 +85,9 @@ $(document).ready(function() {
         (!radioValue)?$('#error-msg-role').text("Role harus dipilih"):$('#error-msg-role').text("");
         (!nama)?$('#error-msg-nama').text("Nama harus di isi"):$('#error-msg-nama').text("");
         (!username)?$('#error-msg-username').text("Username harus di isi"):$('#error-msg-username').text("");
+        if(radioValue && nama && username && password){
+            check = true;
+        }
         if(radioValue == 4){
             (!shif)?$('#error-msg-shif').text("Shif harus dipilih"):$('#error-msg-shif').text("");
             if(shif_start && shif_end){
@@ -104,9 +107,6 @@ $(document).ready(function() {
             }else{
                 check = true;
             }
-        }
-        if(radioValue && nama && username && password){
-            check = true;
         }
         console.log(check + " " +action)
         if(action == 'insert'){
