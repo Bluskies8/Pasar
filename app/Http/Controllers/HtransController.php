@@ -168,6 +168,7 @@ class HtransController extends Controller
                         ->where('created_at', "like", "{$request->year}-{$request->month}%")
                         // ->paginate(100);
                         ->get();
+                        dd($temp);
         }
         return view('components/tableStock', [
             'data' => $temp,
