@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('stand', function (Blueprint $table) {
+        Schema::table('stands', function (Blueprint $table) {
             $table->softDeletes();
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('stand', function (Blueprint $table) {
+        Schema::table('stands', function (Blueprint $table) {
             //
         });
     }
