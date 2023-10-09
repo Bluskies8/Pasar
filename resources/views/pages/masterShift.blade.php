@@ -13,7 +13,7 @@
                 <button class="btn btn-sm me-2" id="add-shift" type="button" style="background-color: #38A34A; color: white;">Shift Baru</button>
             </div>
             <hr>
-            <div class="table-responsive p-3">
+            <div class="table-responsive mt-4">
                 <table class="table" id="table-shift">
                     <thead>
                         <tr>
@@ -41,8 +41,8 @@
             </div>
 
             <ul class="list-unstyled py-2" id="list-aksi">
-                <li id="item-update" class="px-1">Ubah Data</li>
-                <li id="item-delete" class="px-1">Hapus Data</li>
+                <li id="item-update" class="px-2">Ubah Data</li>
+                <li id="item-delete" class="px-2">Hapus Data</li>
             </ul>
 
             <div role="dialog" tabindex="-1" class="modal fade" id="modal-update">

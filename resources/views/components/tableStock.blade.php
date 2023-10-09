@@ -31,8 +31,8 @@
                 </td>
             </tr>
             @endforeach
-            {{-- {{ $data->links() }} --}}
             @endisset
         </tbody>
     </table>
 </div>
+{{ $data->links() }}

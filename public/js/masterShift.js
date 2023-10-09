@@ -15,12 +15,12 @@ $(document).ready(function(){
     $('.show-aksi').on('click', function() {
         let lebarList = 125;
         let lebarBtn = $(this).css('width');
-        let lebarTambahan = 2;
+        let lebarTambahan = 0;
         lebarBtn = parseInt(lebarBtn.substr(0, lebarBtn.indexOf('px')));
         $('#list-aksi').css('left', $(this).offset().left - $(this).closest('.card').offset().left - lebarList + lebarBtn + lebarTambahan);
 
         let tinggiBtn = $(this).css('height');
-        let tinggiHeader = 0;
+        let tinggiHeader = -2;
         tinggiBtn = parseInt(tinggiBtn.substr(0, tinggiBtn.indexOf('px')));
         $('#list-aksi').css('top', $(this).offset().top - $(this).closest('.card').offset().top + tinggiBtn + tinggiHeader);
 
@@ -78,14 +78,14 @@ $(document).ready(function(){
         $('#input-nama').val($('#' + selectedID).children().eq(0).html());
         $('#input-waktu-masuk').val(pad(masuk.getHours()) + ":" + pad(masuk.getMinutes()));
         $('#input-waktu-keluar').val(pad(keluar.getHours()) + ":" + pad(keluar.getMinutes()));
-        
+
         $('#modal-update').modal('show');
     });
     function pad (str) {
         str = str.toString();
         return str.length < 2 ? pad("0" + str, 2) : str;
     }
-      
+
     $('#btn-save').on('click', function() {
         var nama = $('#input-nama').val();
         var waktuMasuk = $('#input-waktu-masuk').val();

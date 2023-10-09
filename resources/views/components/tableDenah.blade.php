@@ -24,7 +24,6 @@
                 </td>
             </tr>
             @endforeach
-            {{-- {{ $data->links() }} --}}
             @endisset
         </tbody>
     </table>

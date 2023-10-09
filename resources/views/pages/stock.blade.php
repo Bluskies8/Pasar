@@ -27,28 +27,30 @@
     @endif
 
     <hr class="my-0">
-    <div class="d-flex justify-content-between">
-        <div class="position-relative mt-3 ms-3" style="max-width: 250px;" id="container-tanggal">
-            @if ($role < 3)
-                <input id="select-date" class="form-control d-flex justify-content-between" name="month" type="month" style="height: 32px; width: 200px;" value="{{ date('Y-m'); }}">
-                <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between">
+            <div class="position-relative mt-3 ms-3" style="max-width: 250px;" id="container-tanggal">
+                @if ($role < 3)
+                    <input id="select-date" class="form-control d-flex justify-content-between" name="month" type="month" style="height: 32px; width: 200px;" value="{{ date('Y-m'); }}">
+                    <p class="position-absolute" style="font-size: 11px;top: -9px;left: 8px;background-color: white;">Tanggal</p>
+                @endif
+                <input type="hidden" id="selected-date" name="month" data-date="{{ date('m-Y'); }}" value="{{ date('Y-m'); }}">
+            </div>
+            <div class="d-flex mt-3 me-3">
+                <input class="form-control" type="search" name="search" id="input-search" style="height: 32px;" placeholder="Search">
+                <button id="btn-search" type="button" class="btn btn-primary btn-sm ms-2">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+        <div id="table-stock" class="mb-5 mt-3"></div>
+        <ul class="list-unstyled py-2" id="list-aksi">
+            <li id="item-detail" class="px-2">Lihat Detail</li>
+            @if ($role <= 3)
+                <li id="item-delete" class="px-2">Hapus Transaksi</li>
             @endif
-            <input type="hidden" id="selected-date" name="month" data-date="{{ date('m-Y'); }}" value="{{ date('Y-m'); }}">
-        </div>
-        <div class="d-flex mt-3 me-3">
-            <input class="form-control" type="search" name="search" id="input-search" style="height: 32px;" placeholder="Search">
-            <button id="btn-search" type="button" class="btn btn-primary btn-sm ms-2">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div>
+        </ul>
     </div>
-    <div id="table-stock" class="mb-5"></div>
-    <ul class="list-unstyled py-2" id="list-aksi">
-        <li id="item-detail" class="px-2">Lihat Detail</li>
-        @if ($role <= 3)
-            <li id="item-delete" class="px-2">Hapus Transaksi</li>
-        @endif
-    </ul>
 
     {{-- <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script> --}}
     {{-- <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script> --}}
