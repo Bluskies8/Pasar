@@ -152,6 +152,8 @@ class HtransController extends Controller
             $temp = htrans::with(['checker', 'stand'])->whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
 
         }else{
+            $temp = htrans::with(['checker', 'stand'])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->where('user_id','8')->get();
+            return $temp;
             $temp = htrans::withTrashed()
                 ->with(['checker', 'stand'])
                 ->where('pasar_id', Auth::guard('checkLogin')->user()->pasar_id)
