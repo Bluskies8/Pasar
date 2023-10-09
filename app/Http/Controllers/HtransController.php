@@ -121,6 +121,7 @@ class HtransController extends Controller
     public function indexTable(Request $request)
     {
         // dd(Auth::guard('checkLogin')->user()->role_id);
+        $temp = [];
         if(Auth::guard('checkLogin')->user()->role_id > 2){
             $carbon = Carbon::now();
             $date = $carbon->toDateString();
