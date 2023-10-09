@@ -168,7 +168,7 @@ class HtransController extends Controller
                     });
                 })
                 ->where('created_at', "like", "{$request->year}-{$request->month}%")
-                ->paginate(25);
+                ->paginate(1);
                 // ->get();
         }
         return view('components/tableStock', [
