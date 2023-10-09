@@ -29,6 +29,6 @@ class htrans extends Model
     }
     public function checker()
     {
-        return $this->belongsTo(user::class,'user_id','id');
+        return $this->belongsTo(user::class,'user_id','id')->withTrashed();
     }
 }
