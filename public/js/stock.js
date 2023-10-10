@@ -21,6 +21,7 @@ $(document).ready(function() {
     var flag = false;
     var role = window.location.pathname.split('/');
     var selectedID = '';
+    var page = 1;
     $('#table-stock').on('click', '.show-aksi', function() {
         let lebarList = 150;
         let lebarBtn = $(this).css('width');
@@ -111,7 +112,6 @@ $(document).ready(function() {
         }
     });
 
-    var page = 1;
     $('#btn-search').on('click', function() {
         reloadTable();
     });
