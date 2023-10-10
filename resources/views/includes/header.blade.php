@@ -35,10 +35,10 @@
                 <i class="fas fa-question-circle fa-xl me-3"></i>
             -->
             <div class="dropdown me-4">
-                <button class="btn p-0" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="outline: none;box-shadow: none;">
+                <button class="btn p-0" type="button" style="outline: none;box-shadow: none;">
                     <img class="rounded-circle" style="width: 40px;height: 40px;" src="{{asset('img/logo.svg')}}">
                 </button>
-                <div class="dropdown-menu dropdown-menu-end">
+                <div class="dropdown-menu dropdown-menu-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(0px, 45px, 0px);">
                     <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/changePassword"class="dropdown-item" style="cursor: default;">Change Password</a>
                     @if (auth()->guard('checkLogin')->user()->role->id <2)
                     <a href="/{{strtolower(auth()->guard('checkLogin')->user()->role->name)}}/switchPasar"class="dropdown-item" style="cursor: default;">Ganti Pasar</a>
@@ -48,5 +48,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" name="input-role" value=""> <!-- disini -->
+    <input type="hidden" name="input-role" value="">
+    <script src="{{asset('js/header.js')}}"></script>
 </header>
+
