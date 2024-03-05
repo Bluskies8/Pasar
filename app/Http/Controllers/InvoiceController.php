@@ -45,7 +45,7 @@ class InvoiceController extends Controller
         // $end = Carbon::createFromFormat('Y-m-d H:i:s',$carbon.' 09:00:00',7);
 
         $data = invoice::with('stand')->where('id','like','%' . $date.'%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
-        $temp = stand::select('seller_name')->groupBy('seller_name')->get();
+        $temp = stand::select('seller_name')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->groupBy('seller_name')->get();
         foreach ($temp as $key => $value) {
             $no_stand = stand::where('seller_name',$value->seller_name)->first();
             $stand[$key]['seller_name'] = $no_stand->seller_name;
