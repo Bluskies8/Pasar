@@ -149,7 +149,7 @@ class InvoiceController extends Controller
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
         // return $date;
         $lapak = $request->stand_id;
-        $htrans = htrans::with('details')->where('stand_id',$lapak)->whereBetween('created_at',[$start,$end])->get();
+        $htrans = htrans::with('details')->where('stand_id',$lapak)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->whereBetween('created_at',[$start,$end])->get();
         // $htrans = htrans::with('details')->where('stand_id',$lapak)->get();
         $pasar = pasar::where('id',Auth::guard('checkLogin')->user()->pasar_id)->first();
         $stand = stand::where('id', $lapak)->first();
