@@ -155,7 +155,7 @@ class InvoiceController extends Controller
         $stand = stand::where('id', $lapak)->first();
         $total = 0;
         $parkir = 0;
-        $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$request->stand_id)->get();
+        $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$request->stand_id)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
         foreach ($temp as $detail) {
             foreach ($detail->details as $key2 ) {
                 $total += $key2->subtotal;
