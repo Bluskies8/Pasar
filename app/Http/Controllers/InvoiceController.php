@@ -92,14 +92,14 @@ class InvoiceController extends Controller
         // foreach ($stand as $key) {
             // if($key['seller_name']!=""){
                 $total = 0;
-                $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$idlapak)->get();
+                $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->where('stand_id',$idlapak)->get();
                 foreach ($temp as $detail) {
                     foreach ($detail->details as $key2 ) {
                         $total += $key2->subtotal;
                     }
                 }
-                $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('status_borongan',0)->where('stand_id',$idlapak)->sum('total_jumlah');
-                $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$idlapak)->get();
+                $jumlah = htrans::whereBetween('created_at',[$start,$end])->where('status_borongan',0)->where('stand_id',$idlapak)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('total_jumlah');
+                $htrans = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$idlapak)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
                 $parkir = 0;
                 foreach ($htrans as $key2 ) {
                     $dtrans = dtrans::where('htrans_id',$key2->id)->sum('parkir');
@@ -186,18 +186,18 @@ class InvoiceController extends Controller
         $start = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7)->subDay(1);
         $end = Carbon::createFromFormat('Y-m-d H:i:s',$date.' 09:00:00',7);
         $invoice = invoice::with(['stand'])->where('id',$id)->first();
-        $trans = htrans::with('details')->where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->get();
+        $trans = htrans::with('details')->where('stand_id',$invoice->stand_id)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->whereBetween('created_at',[$start,$end])->get();
         // $total = htrans::where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_harga');
         $total = 0;
         $parkir = 0;
-        $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$invoice->stand_id)->get();
+        $temp = htrans::with('details')->whereBetween('created_at',[$start,$end])->where('stand_id',$invoice->stand_id)->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->get();
         foreach ($temp as $detail) {
             foreach ($detail->details as $key2 ) {
                 $total += $key2->subtotal+$key2->parkir;
                 $parkir+=$key2->parkir;
             }
         }
-        $kuli = htrans::where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
+        $kuli = htrans::where('stand_id',$invoice->stand_id)->whereBetween('created_at',[$start,$end])->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('total_jumlah') * 1000;
 
         $pasar = pasar::where('id',Auth::guard('checkLogin')->user()->pasar_id)->first();
         $stand = stand::where('id', $invoice->stand_id)->first();
