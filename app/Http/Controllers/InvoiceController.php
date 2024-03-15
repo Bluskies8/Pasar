@@ -51,7 +51,7 @@ class InvoiceController extends Controller
             $stand[$key]['seller_name'] = $no_stand->seller_name;
             $stand[$key]['no_stand'] = $no_stand->no_stand;
             $stand[$key]['id'] = $no_stand->id;
-            $total = invoice::with('stand')->where('id','like','%' . $date.'%')->sum('dibayarkan');
+            $total = invoice::with('stand')->where('id','like','%' . $date.'%')->where('pasar_id',Auth::guard('checkLogin')->user()->pasar_id)->sum('dibayarkan');
             // $kuli = htrans::where('stand_id',$no_stand->id)->whereBetween('created_at',[$start,$end])->sum('total_jumlah') * 1000;
             // $htrans = htrans::where('stand_id',$no_stand->id)->get();
             // $parkir = 0;
